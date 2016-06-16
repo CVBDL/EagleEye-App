@@ -2,4 +2,9 @@
   <h2>Charts list</h2>
 
   <a ui-sref="createChart">New chart</a>
+
+  <p ng-repeat="chart in charts.chartList">
+    No. {{$index}}
+    {{chart}}
+  </p>
 </div>
