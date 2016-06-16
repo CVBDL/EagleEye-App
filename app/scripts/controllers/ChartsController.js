@@ -2,9 +2,9 @@
 
 /**
  * @ngdoc function
- * @name eagleeye.controller:ChartscontrollerCtrl
+ * @name eagleeye.controller:ChartsController
  * @description
- * # ChartscontrollerCtrl
+ * # ChartsController
  * Controller of the eagleeye
  */
 angular.module('eagleeye')
@@ -15,7 +15,7 @@ angular.module('eagleeye')
 
       $http({
         method: 'GET',
-        url: 'http://10.108.182.226:3000/api/v1/charts'
+        url: 'http://localhost:3000/api/v1/charts'
       }).then(function(response) {
         controller.chartList = response.data;
       })

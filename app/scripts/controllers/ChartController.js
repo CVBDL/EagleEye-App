@@ -2,9 +2,9 @@
 
 /**
  * @ngdoc function
- * @name eagleeye.controller:ChartcontrollerCtrl
+ * @name eagleeye.controller:ChartController
  * @description
- * # ChartcontrollerCtrl
+ * # ChartController
  * Controller of the eagleeye
  */
 angular.module('eagleeye')
