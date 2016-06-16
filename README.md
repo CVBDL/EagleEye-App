@@ -5,6 +5,7 @@ version 0.15.1.
 
 ## Installation
 
+* Install Git (https://git-scm.com/download/win)
 * Install Node.js (https://nodejs.org/dist/v4.4.5/node-v4.4.5-x64.msi)
 * Install Ruby (http://dl.bintray.com/oneclick/rubyinstaller/rubyinstaller-2.2.4-x64.exe)
 * Install the compass gem:
