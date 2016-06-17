@@ -11,14 +11,16 @@ angular.module('eagleeye')
   .controller('ChartCreationController', [
     '$scope',
     '$http',
+    '$state',
     'GoogleChartsService',
-    function ($scope, $http, GoogleChartsService) {
-      var chartDataTableSamples = GoogleChartsService.getChartDataTableSamples();
+    'EagleEyeWebService',
+    function ($scope, $http, $state, GoogleChartsService, EagleEyeWebService) {
+      var chartDataTableSamples = GoogleChartsService.getChartDataTableSamples(),
+        controller = this;
 
       this.chartTypeOptions = GoogleChartsService.getChartTypeOptions();
-
       this.selectedChartTypeOption = this.chartTypeOptions[0];
-
+      this.isChartCreationSuccessful = false;
       this.settings = {
         title: '',
         hAxisTitle: '',
@@ -30,30 +32,31 @@ angular.module('eagleeye')
         google.charts.setOnLoadCallback(draw.bind(this));
       };
 
-      this.isChartCreationSuccessful = false;
-
       this.createChart = function() {
-        $http({
-          method: 'POST',
-          url: '/api/v1/charts',
-          data: JSON.stringify({
-            chartType: this.selectedChartTypeOption.value,
-            domainDataType: this.settings.majorAxisDataType,
-            options: {
-              title: this.settings.title,
-              hAxis: {
-                title: this.settings.hAxisTitle
-              },
-              vAxis: {
-                title: this.settings.vAxisTitle
-              }
+        var data = JSON.stringify({
+          chartType: this.selectedChartTypeOption.value,
+          domainDataType: this.settings.majorAxisDataType,
+          options: {
+            title: this.settings.title,
+            hAxis: {
+              title: this.settings.hAxisTitle
+            },
+            vAxis: {
+              title: this.settings.vAxisTitle
             }
-          })
-        }).then(function(response) {
-          console.log(response);
-          this.isChartCreationSuccessful = true;
+          },
+          datatables: chartDataTableSamples[this.settings.majorAxisDataType]
+        });
+
+        EagleEyeWebService.createChart(data).then(function(newCharId) {
+          console.log(newCharId);
+
+          $state.go('chartSettings', {
+            id: newCharId
+          });
+
         }, function(error) {
-          console.log(errpr);
+          console.log(error);
         });
       };
 

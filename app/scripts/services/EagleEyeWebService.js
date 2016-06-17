@@ -47,9 +47,22 @@ angular.module('eagleeye')
           });
         }
 
+        function createChart(data) {
+          // https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#create-a-new-chart
+          // POST /api/v1/charts
+          var url = webServiceBaseUrl + 'charts';
+
+          return fetchServer({
+            method: 'POST',
+            url: url,
+            data: data
+          });
+        }
+
         return {
           fetchCharts: fetchCharts,
-          fetchChartById: fetchChartById
+          fetchChartById: fetchChartById,
+          createChart: createChart
         };
       }
     ];

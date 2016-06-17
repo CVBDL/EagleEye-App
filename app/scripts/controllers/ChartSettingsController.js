@@ -8,6 +8,9 @@
  * Controller of the eagleeye
  */
 angular.module('eagleeye')
-  .controller('ChartSettingsController', function () {
-
-  });
+  .controller('ChartSettingsController', [
+    '$stateParams',
+    function ($stateParams) {
+      this.id = $stateParams.id;
+    }
+  ]);
