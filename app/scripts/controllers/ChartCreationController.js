@@ -68,7 +68,15 @@ angular.module('eagleeye')
             title: this.settings.vAxisTitle
           },
           width: 800,
-          height: 250
+          height: 250,
+          animation: {
+            duration: 500,
+            easing: 'out',
+            startup: true
+          },
+          tooltip: {
+            showColorCode: true
+          }
         });
       }
   }]);

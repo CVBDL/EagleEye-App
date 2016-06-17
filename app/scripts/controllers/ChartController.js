@@ -10,8 +10,13 @@
 angular.module('eagleeye')
   .controller('ChartController', [
     '$stateParams',
-    function ($stateParams) {
-      console.log($stateParams.id);
-      this.id = $stateParams.id;
+    'EagleEyeWebService',
+    function ($stateParams, EagleEyeWebService) {
+      var id = $stateParams.id,
+        that = this;
+
+      EagleEyeWebService.fetchChartById(id).then(function(chart) {
+        that.chartInfo = chart;
+      });
   }
 ]);

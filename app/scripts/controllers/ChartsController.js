@@ -10,14 +10,12 @@
 angular.module('eagleeye')
   .controller('ChartsController', [
     '$http',
-    function ($http) {
+    'EagleEyeWebService',
+    function ($http, EagleEyeWebService) {
       var controller = this;
 
-      $http({
-        method: 'GET',
-        url: 'http://localhost:3000/api/v1/charts'
-      }).then(function(response) {
-        controller.chartList = response.data;
-      })
+      EagleEyeWebService.fetchCharts().then(function(chartList) {
+        controller.chartList = chartList;
+      });
     }
   ]);

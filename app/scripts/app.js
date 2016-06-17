@@ -12,7 +12,7 @@ angular
   .module('eagleeye', [
     'ui.router'
   ])
-  .config(function ($stateProvider, $urlRouterProvider) {
+  .config(function ($stateProvider, $urlRouterProvider, EagleEyeWebServiceProvider) {
     $stateProvider
       .state('dashboard', {
         url: '/dashboard',
@@ -70,4 +70,6 @@ angular
       });
 
     $urlRouterProvider.otherwise('/dashboard');
+
+    EagleEyeWebServiceProvider.setWebServiceBaseUrl('http://localhost:3000/api/v1/');
   });
