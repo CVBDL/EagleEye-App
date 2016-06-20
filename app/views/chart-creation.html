@@ -4,39 +4,39 @@
   <section>
     <h3>Chart type</h3>
 
-    <p ng-repeat="chartTypeOption in chart.chartTypeOptions">
-      <input type="radio" name="chartTypeOption" ng-value="chartTypeOption" ng-model="chart.selectedChartTypeOption" ng-change="chart.drawChart()"> {{chartTypeOption.label}}
+    <p ng-repeat="chartTypeOption in newChart.chartTypeOptions">
+      <input type="radio" name="chartTypeOption" ng-value="chartTypeOption" ng-model="newChart.selectedChartTypeOption"> {{chartTypeOption.label}}
     </p>
   </section>
 
   <section>
     <h3>Chart options</h3>
-    Chart title: <input type="text" ng-model="chart.settings.title"> <br>
-    h-axis title: <input type="text" ng-model="chart.settings.hAxisTitle"> <br>
-    v-axis title: <input type="text" ng-model="chart.settings.vAxisTitle"> <br>
+    Chart title: <input type="text" ng-model="newChart.settings.title"> <br>
+    h-axis title: <input type="text" ng-model="newChart.settings.hAxisTitle"> <br>
+    v-axis title: <input type="text" ng-model="newChart.settings.vAxisTitle"> <br>
   </section>
 
   <section>
     <h3>Major axis data type</h3>
     <a href="https://developers.google.com/chart/interactive/docs/customizing_axes#terminology" target="_blank">What's major axis?</a><br>
 
-    <input type="radio" name="majorAxisDataType" value="string" ng-model="chart.settings.majorAxisDataType" ng-change="chart.drawChart()"> string<br>
-    <input type="radio" name="majorAxisDataType" value="number" ng-model="chart.settings.majorAxisDataType" ng-change="chart.drawChart()"> number<br>
-    <input type="radio" name="majorAxisDataType" value="date" ng-model="chart.settings.majorAxisDataType" ng-change="chart.drawChart()"> date<br>
-    <input type="radio" name="majorAxisDataType" value="datetime" ng-model="chart.settings.majorAxisDataType" ng-change="chart.drawChart()"> datetime<br>
+    <input type="radio" name="majorAxisDataType" value="string" ng-model="newChart.settings.majorAxisDataType"> string<br>
+    <input type="radio" name="majorAxisDataType" value="number" ng-model="newChart.settings.majorAxisDataType"> number<br>
+    <input type="radio" name="majorAxisDataType" value="date" ng-model="newChart.settings.majorAxisDataType"> date<br>
+    <input type="radio" name="majorAxisDataType" value="datetime" ng-model="newChart.settings.majorAxisDataType"> datetime<br>
   </section>
 
   <section>
-    <h3>Live preview</h3>
-    <div id="preview"></div>
+    <ee-google-chart-sample
+      chart-type="newChart.selectedChartTypeOption.construcorName"
+      chart-options="newChart.chartOptions"
+      chart-major-axis-data-type="newChart.settings.majorAxisDataType"
+    ></ee-google-chart-sample>
   </section>
 
   <section>
-    <button ng-click="chart.createChart()">Create Chart</button>
+    <button ng-click="newChart.createChart()">Create Chart</button>
   </section>
 
-  <section>
-    <h3>Current Selection</h3>
-    Chart type: {{chart.settings}} <br>
-  </section>
+  <section>{{newChart.settings}}</section>
 </div>

@@ -30,7 +30,7 @@ angular
         url: '/charts/new',
         templateUrl: 'views/chart-creation.html',
         controller: 'ChartCreationController',
-        controllerAs: 'chart'
+        controllerAs: 'newChart'
       })
       .state('chart', {
         url: '/charts/:id',

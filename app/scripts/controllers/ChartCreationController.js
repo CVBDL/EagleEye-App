@@ -15,21 +15,16 @@ angular.module('eagleeye')
     'GoogleChartsService',
     'EagleEyeWebService',
     function ($scope, $http, $state, GoogleChartsService, EagleEyeWebService) {
-      var chartDataTableSamples = GoogleChartsService.getChartDataTableSamples(),
-        controller = this;
+      var controller = this;
 
+      this.chartDataTableSamples = GoogleChartsService.getChartDataTableSamples();
       this.chartTypeOptions = GoogleChartsService.getChartTypeOptions();
       this.selectedChartTypeOption = this.chartTypeOptions[0];
-      this.isChartCreationSuccessful = false;
       this.settings = {
         title: '',
         hAxisTitle: '',
         vAxisTitle: '',
         majorAxisDataType: 'string'
-      };
-
-      this.drawChart = function() {
-        google.charts.setOnLoadCallback(draw.bind(this));
       };
 
       this.createChart = function() {
@@ -60,26 +55,24 @@ angular.module('eagleeye')
         });
       };
 
-      function draw() {
-        var chart = new google.visualization[this.selectedChartTypeOption.construcorName](document.getElementById('preview'));
-        chart.draw(new google.visualization.DataTable(chartDataTableSamples[this.settings.majorAxisDataType]), {
-          title: this.settings.title,
-          hAxis: {
-            title: this.settings.hAxisTitle
-          },
-          vAxis: {
-            title: this.settings.vAxisTitle
-          },
-          width: 800,
-          height: 250,
-          animation: {
-            duration: 500,
-            easing: 'out',
-            startup: true
-          },
-          tooltip: {
-            showColorCode: true
-          }
-        });
-      }
-  }]);
+      this.chartOptions = {
+        title: this.settings.title,
+        hAxis: {
+          title: this.settings.hAxisTitle
+        },
+        vAxis: {
+          title: this.settings.vAxisTitle
+        },
+        width: 800,
+        height: 250,
+        animation: {
+          duration: 500,
+          easing: 'out',
+          startup: true
+        },
+        tooltip: {
+          showColorCode: true
+        }
+      };
+    }
+  ]);
