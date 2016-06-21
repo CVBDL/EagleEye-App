@@ -40,7 +40,7 @@ angular.module('eagleeye')
               title: this.settings.vAxisTitle
             }
           },
-          datatables: chartDataTableSamples[this.settings.majorAxisDataType]
+          datatables: this.chartDataTableSamples[this.settings.majorAxisDataType]
         });
 
         EagleEyeWebService.createChart(data).then(function(newCharId) {
