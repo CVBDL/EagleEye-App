@@ -33,6 +33,7 @@ angular.module('eagleeye')
 
           function drawChart() {
             google.charts.setOnLoadCallback(function drawOnLoad() {
+              if (!scope.chartType || !scope.chartDataTable) return;
               var chart = new google.visualization[scope.chartType](chartNode);
               var chartDataTable = new google.visualization.DataTable(scope.chartDataTable);
               var chartOptions = scope.chartOptions;

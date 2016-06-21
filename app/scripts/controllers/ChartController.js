@@ -12,20 +12,13 @@ angular.module('eagleeye')
     '$stateParams',
     'EagleEyeWebService',
     function ($stateParams, EagleEyeWebService) {
-      var id = $stateParams.id,
-        chartData;
+      var controller = this,
+        id = $stateParams.id;
+
+      this.chartData = {};
 
       EagleEyeWebService.fetchChartById(id).then(function(data) {
-        chartData = data;
-        google.charts.setOnLoadCallback(draw.bind(this));
+        controller.chartData = data;
       });
-
-      function draw() {
-        var chart = new google.visualization[chartData.chartType](document.getElementById('preview'));
-        var datatables = new google.visualization.DataTable(chartData.datatables);
-        var options = chartData.options;
-
-        chart.draw(datatables, options);
-      }
     }
   ]);
