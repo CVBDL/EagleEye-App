@@ -13,7 +13,7 @@ angular.module('eagleeye')
 
     this.setWebServiceBaseUrl = function(url) {
       webServiceBaseUrl = url;
-    }
+    };
 
     this.$get = [
       '$http',
@@ -34,7 +34,7 @@ angular.module('eagleeye')
             method: 'GET',
             url: url
           });
-        };
+        }
 
         function fetchChartById(id) {
           // https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#get-one-chart

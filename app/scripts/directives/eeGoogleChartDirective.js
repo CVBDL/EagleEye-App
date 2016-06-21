@@ -18,8 +18,22 @@ angular.module('eagleeye')
           chartType: '='
         },
         restrict: 'E',
-        link: function postLink(scope, element, attrs) {
+        link: function postLink(scope, element) {
           var chartNode = element[0];
+
+          function drawChart() {
+            google.charts.setOnLoadCallback(function drawOnLoad() {
+              if (!scope.chartType || !scope.chartDataTable) {
+                return;
+              }
+
+              var chart = new google.visualization[scope.chartType](chartNode);
+              var chartDataTable = new google.visualization.DataTable(scope.chartDataTable);
+              var chartOptions = scope.chartOptions;
+
+              $timeout(chart.draw(chartDataTable, chartOptions), 0);
+            });
+          }
 
           var unwatchChartType = scope.$watch('chartType', drawChart);
           var unwatchChartOptions = scope.$watch('chartOptions', drawChart);
@@ -30,17 +44,6 @@ angular.module('eagleeye')
             unwatchChartOptions();
             unwatchChartDataTable();
           });
-
-          function drawChart() {
-            google.charts.setOnLoadCallback(function drawOnLoad() {
-              if (!scope.chartType || !scope.chartDataTable) return;
-              var chart = new google.visualization[scope.chartType](chartNode);
-              var chartDataTable = new google.visualization.DataTable(scope.chartDataTable);
-              var chartOptions = scope.chartOptions;
-
-              $timeout(chart.draw(chartDataTable, chartOptions), 0);
-            });
-          }
         }
       };
     }

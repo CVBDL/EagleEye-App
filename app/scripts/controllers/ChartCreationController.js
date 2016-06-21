@@ -15,8 +15,6 @@ angular.module('eagleeye')
     'GoogleChartsService',
     'EagleEyeWebService',
     function ($scope, $http, $state, GoogleChartsService, EagleEyeWebService) {
-      var controller = this;
-
       this.chartDataTableSamples = GoogleChartsService.getChartDataTableSamples();
       this.chartTypeOptions = GoogleChartsService.getChartTypeOptions();
       this.selectedChartTypeOption = this.chartTypeOptions[0];

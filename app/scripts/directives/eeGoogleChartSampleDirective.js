@@ -20,7 +20,7 @@ angular.module('eagleeye')
           chartMajorAxisDataType: '='
         },
         restrict: 'E',
-        link: function postLink(scope, element, attrs) {
+        link: function postLink(scope) {
           var unwatchChartMajorAxisDataType = scope.$watch('chartMajorAxisDataType', function setChartDataTable() {
             scope.chartDataTable = chartDataTableSamples[scope.chartMajorAxisDataType];
           });
