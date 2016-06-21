@@ -15,6 +15,8 @@ angular.module('eagleeye')
     'GoogleChartsService',
     'EagleEyeWebService',
     function ($scope, $http, $state, GoogleChartsService, EagleEyeWebService) {
+      var friendlyUrlPrefix = 's-';
+
       this.chartDataTableSamples = GoogleChartsService.getChartDataTableSamples();
       this.chartTypeOptions = GoogleChartsService.getChartTypeOptions();
       this.selectedChartTypeOption = this.chartTypeOptions[0];
@@ -22,6 +24,7 @@ angular.module('eagleeye')
         title: '',
         hAxisTitle: '',
         vAxisTitle: '',
+        friendlyUrl: '',
         majorAxisDataType: 'string'
       };
 
@@ -29,6 +32,7 @@ angular.module('eagleeye')
         var data = JSON.stringify({
           chartType: this.selectedChartTypeOption.value,
           domainDataType: this.settings.majorAxisDataType,
+          friendlyUrl: friendlyUrlPrefix + this.settings.friendlyUrl,
           options: {
             title: this.settings.title,
             hAxis: {
