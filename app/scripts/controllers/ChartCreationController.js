@@ -15,7 +15,7 @@ angular.module('eagleeye')
     'GoogleChartsService',
     'EagleEyeWebService',
     function ($scope, $http, $state, GoogleChartsService, EagleEyeWebService) {
-      var friendlyUrlPrefix = 's-';
+      var friendlyUrlPrefix = 'c-';
 
       this.chartDataTableSamples = GoogleChartsService.getChartDataTableSamples();
       this.chartTypeOptions = GoogleChartsService.getChartTypeOptions();
