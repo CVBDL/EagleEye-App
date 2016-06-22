@@ -3,4 +3,7 @@
     <a ui-sref="createChartSet">Create chart set +</a>
   </p>
   <p>All chart sets:</p>
+  <p ng-repeat="chartset in chartsets.chartSetList">
+    {{chartset.title}}
+  </p>
 </div>

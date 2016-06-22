@@ -69,7 +69,7 @@ angular.module('eagleeye')
           });
         }
 
-        function getChartSets(id) {
+        function getChartSetById(id) {
           // GET /api/v1/chart-sets/:_id
           var url = webServiceBaseUrl + 'chart-sets/' + id;
 
@@ -95,6 +95,7 @@ angular.module('eagleeye')
           getChartById: getChartById,
           createChart: createChart,
           getChartSets: getChartSets,
+          getChartSetById: getChartSetById,
           createChartSet: createChartSet
         };
       }

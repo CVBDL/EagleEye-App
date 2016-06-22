@@ -8,6 +8,13 @@
  * Controller of the eagleeye
  */
 angular.module('eagleeye')
-  .controller('ChartSetsController', function () {
+  .controller('ChartSetsController', [
+    'EagleEyeWebService',
+      function (EagleEyeWebService) {
+        var controller = this;
 
-  });
+        EagleEyeWebService.getChartSets().then(function(chartSetList) {
+        controller.chartSetList = chartSetList;
+      });
+    }
+  ]);
