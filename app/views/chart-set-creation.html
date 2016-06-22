@@ -1,1 +1,19 @@
-<div></div>
+<div>
+  <section>
+    Title: <input type="text" ng-model="chartset.settings.title">
+    <br>
+    Description: <input type="text" ng-model="chartset.settings.description">
+    <br>
+    Friendly URL: <input type="text" ng-model="chartset.settings.friendlyUrl">
+  </section>
+  <section>
+    Charts:
+    <div>
+      <p ng-repeat="chart in chartset.settings.charts">{{chart.options.title}}</p>
+    </div>
+    <br>
+    <p ng-repeat="chart in chartset.chartList">
+      {{chart.options.title}} <button ng-click="chartset.addToChartSet(chart)">Add to set</button>
+    </p>
+  </section>
+</div>

@@ -17,7 +17,7 @@ angular.module('eagleeye')
 
       this.chartData = {};
 
-      EagleEyeWebService.fetchChartById(id).then(function(data) {
+      EagleEyeWebService.getChartById(id).then(function(data) {
         controller.chartData = data;
       });
     }

@@ -25,7 +25,7 @@ angular.module('eagleeye')
           });
         }
 
-        function fetchCharts() {
+        function getCharts() {
           // https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#list-all-charts
           // GET /api/v1/charts
           var url = webServiceBaseUrl + 'charts';
@@ -36,9 +36,9 @@ angular.module('eagleeye')
           });
         }
 
-        function fetchChartById(id) {
+        function getChartById(id) {
           // https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#get-one-chart
-          // GET /api/v1/charts/:id
+          // GET /api/v1/charts/:_id
           var url = webServiceBaseUrl + 'charts/' + id;
 
           return fetchServer({
@@ -59,10 +59,43 @@ angular.module('eagleeye')
           });
         }
 
+        function getChartSets() {
+          // GET /api/v1/chart-sets
+          var url = webServiceBaseUrl + 'chart-sets';
+
+          return fetchServer({
+            method: 'GET',
+            url: url
+          });
+        }
+
+        function getChartSets(id) {
+          // GET /api/v1/chart-sets/:_id
+          var url = webServiceBaseUrl + 'chart-sets/' + id;
+
+          return fetchServer({
+            method: 'GET',
+            url: url
+          });
+        }
+
+        function createChartSet() {
+          // POST /api/v1/chart-sets
+          var url = webServiceBaseUrl + 'chart-sets';
+
+          return fetchServer({
+            method: 'POST',
+            url: url,
+            data: data
+          });
+        }
+
         return {
-          fetchCharts: fetchCharts,
-          fetchChartById: fetchChartById,
-          createChart: createChart
+          getCharts: getCharts,
+          getChartById: getChartById,
+          createChart: createChart,
+          getChartSets: getChartSets,
+          createChartSet: createChartSet
         };
       }
     ];

@@ -14,7 +14,7 @@ angular.module('eagleeye')
     function ($http, EagleEyeWebService) {
       var controller = this;
 
-      EagleEyeWebService.fetchCharts().then(function(chartList) {
+      EagleEyeWebService.getCharts().then(function(chartList) {
         controller.chartList = chartList;
       });
     }
