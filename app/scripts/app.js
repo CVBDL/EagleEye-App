@@ -10,7 +10,8 @@
  */
 angular
   .module('eagleeye', [
-    'ui.router'
+    'ui.router',
+    'ngFileUpload'
   ])
   .config(function ($stateProvider, $urlRouterProvider, EagleEyeWebServiceProvider) {
     $stateProvider
