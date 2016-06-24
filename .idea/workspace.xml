@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2b904a0e-897a-44b9-a124-881cf6105bd4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/EagleEye_App_node_modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/app.js" afterPath="$PROJECT_DIR$/app/scripts/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/controllers/ChartSettingsController.js" afterPath="$PROJECT_DIR$/app/scripts/controllers/ChartSettingsController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/chart-settings.html" afterPath="$PROJECT_DIR$/app/views/chart-settings.html" />
-    </list>
+    <list default="true" id="2b904a0e-897a-44b9-a124-881cf6105bd4" name="Default" comment="" />
     <ignored path="EagleEye-App.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -262,15 +255,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1466662145950</updated>
-      <workItem from="1466662147655" duration="6395000" />
+      <workItem from="1466662147655" duration="6718000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6395000" />
+    <option name="totallyTimeSpent" value="6718000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1624" height="1068" extended-state="6" />
+    <frame x="-9" y="-9" width="1624" height="1068" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24968867" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
