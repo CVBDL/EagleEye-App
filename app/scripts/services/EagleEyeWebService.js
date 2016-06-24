@@ -79,7 +79,7 @@ angular.module('eagleeye')
           });
         }
 
-        function createChartSet() {
+        function createChartSet(data) {
           // POST /api/v1/chart-sets
           var url = webServiceBaseUrl + 'chart-sets';
 

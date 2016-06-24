@@ -10,10 +10,10 @@
 angular.module('eagleeye')
   .controller('ChartSetsController', [
     'EagleEyeWebService',
-      function (EagleEyeWebService) {
-        var controller = this;
+    function (EagleEyeWebService) {
+      var controller = this;
 
-        EagleEyeWebService.getChartSets().then(function(chartSetList) {
+      EagleEyeWebService.getChartSets().then(function(chartSetList) {
         controller.chartSetList = chartSetList;
       });
     }

@@ -9,8 +9,9 @@
  */
 angular.module('eagleeye')
   .controller('ChartSetCreationController', [
+    '$state',
     'EagleEyeWebService',
-    function (EagleEyeWebService) {
+    function ($state, EagleEyeWebService) {
       var friendlyUrlPrefix = 's-',
         controller = this;
 
@@ -26,10 +27,19 @@ angular.module('eagleeye')
       };
 
       this.addToChartSet = function(chart) {
-        console.log(chart);
-        if (this.settings.charts.indexOf(chart) < 0) {
-          this.settings.charts.push(chart);
+        if (this.settings.charts.indexOf(chart._id) < 0) {
+          this.settings.charts.push(chart._id);
         }
-      }
+      };
+
+      this.save = function() {
+        var data = JSON.stringify(this.settings);
+
+        EagleEyeWebService.createChartSet(data).then(function(newChartSetId) {
+          $state.go('chartSet', {
+            id: newChartSetId
+          });
+        });
+      };
     }
   ]);

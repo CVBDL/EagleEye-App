@@ -1,9 +1,10 @@
 <div>
   <h2>Charts list</h2>
-
-  <p ng-repeat="chart in charts.chartList">
-    View chart: <a ui-sref="chart({ id: chart._id })">{{chart.options.title}}</a> | <a ui-sref="chart({ id: chart.friendlyUrl })">{{chart.friendlyUrl}}</a>
-  </p>
+  <ul>
+    <li ng-repeat="chart in charts.chartList">
+      View chart: <a ui-sref="chart({ id: chart._id })">{{chart.options.title}}</a> | <a ui-sref="chart({ id: chart.friendlyUrl })">{{chart.friendlyUrl}}</a>
+    </li>
+  </ul>
   <p>
     <a ui-sref="createChart">Create chart +</a>
   </p>

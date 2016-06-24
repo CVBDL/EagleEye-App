@@ -51,16 +51,16 @@ angular
         controller: 'ChartSetsController',
         controllerAs: 'chartsets'
       })
-      .state('chartSet', {
-        url: '/chart-set',
-        templateUrl: 'views/chart-set.html',
-        controller: 'ChartSetController',
-        controllerAs: 'chartset'
-      })
       .state('createChartSet', {
         url: '/chart-sets/new',
         templateUrl: 'views/chart-set-creation.html',
         controller: 'ChartSetCreationController',
+        controllerAs: 'chartset'
+      })
+      .state('chartSet', {
+        url: '/chart-sets/:id',
+        templateUrl: 'views/chart-set.html',
+        controller: 'ChartSetController',
         controllerAs: 'chartset'
       })
       .state('chartSetSettings', {

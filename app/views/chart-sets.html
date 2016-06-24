@@ -3,7 +3,9 @@
     <a ui-sref="createChartSet">Create chart set +</a>
   </p>
   <p>All chart sets:</p>
-  <p ng-repeat="chartset in chartsets.chartSetList">
-    {{chartset.title}}
-  </p>
+  <ul>
+    <li ng-repeat="chartset in chartsets.chartSetList">
+      {{chartset.title}} <a ui-sref="chartSetSettings({ id: chartset._id })">Edit</a>
+    </li>
+  </ul>
 </div>

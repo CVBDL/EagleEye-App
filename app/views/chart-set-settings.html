@@ -5,19 +5,15 @@
     Description: <input type="text" ng-model="chartset.settings.description">
     <br>
     Friendly URL: <input type="text" ng-model="chartset.settings.friendlyUrl">
-    <br>
-    Charts:
-    <ul>
-      <li ng-repeat="chartid in chartset.settings.charts">
-        {{chartid}}
-      </li>
-    </ul>
   </section>
   <section>
     Charts:
     <div>
-      <p ng-repeat="chart in chartset.settings.charts">{{chart.options.title}}</p>
+      <p ng-repeat="chartId in chartset.settings.charts">
+        {{chartId}} <button ng-click="chartset.deleteChart(chartId)">Delete</button>
+      </p>
     </div>
+    <h3>Chart list</h3>
     <ul>
       <li ng-repeat="chart in chartset.chartList">
         {{chart.options.title}} <button ng-click="chartset.addToChartSet(chart)">Add to set</button>
@@ -25,6 +21,6 @@
     </ul>
   </section>
   <section>
-    <button ng-click="chartset.save()">Save</button>
+    <button>Save</button>
   </section>
 </div>
