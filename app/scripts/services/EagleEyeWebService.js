@@ -58,6 +58,16 @@ angular.module('eagleeye')
             data: data
           });
         }
+        function deleteChartById(id) {
+          // https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#delete-one-chart
+          // DELETE /api/v1/charts
+          var url = webServiceBaseUrl + 'charts/' + id;
+
+          return fetchServer({
+            method: 'DELETE',
+            url: url
+          });
+        }
 
         function getChartSets() {
           // GET /api/v1/chart-sets
@@ -96,7 +106,8 @@ angular.module('eagleeye')
           createChart: createChart,
           getChartSets: getChartSets,
           getChartSetById: getChartSetById,
-          createChartSet: createChartSet
+          createChartSet: createChartSet,
+          deleteChartById:deleteChartById
         };
       }
     ];

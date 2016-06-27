@@ -20,5 +20,12 @@ angular.module('eagleeye')
       EagleEyeWebService.getChartById(id).then(function(data) {
         controller.chartData = data;
       });
+      this.deleteChartById = function() {
+        console.log("deleteChartById()");
+        var id = this.chartData._id;
+        EagleEyeWebService.deleteChartById(id).then(function() {
+          alert("Please goto--> Dashboard");
+      });
+      }
     }
   ]);
