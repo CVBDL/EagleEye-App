@@ -21,11 +21,11 @@ angular.module('eagleeye')
         controller.chartData = data;
       });
       this.deleteChartById = function() {
-        console.log("deleteChartById()");
-        var id = this.chartData._id;
-        EagleEyeWebService.deleteChartById(id).then(function() {
-          alert("Please goto--> Dashboard");
-      });
+          console.log("deleteChartById()");
+          var id = this.chartData._id;
+          EagleEyeWebService.deleteChartById(id).then(function() {
+            alert("Please goto--> Dashboard");
+        });
       }
     }
   ]);

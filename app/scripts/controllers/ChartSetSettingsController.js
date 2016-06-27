@@ -30,6 +30,13 @@ angular.module('eagleeye')
           this.settings.charts.push(chart);
         }
       };
+      this.deleteChartSetById = function() {
+          console.log("deleteChartSetById()");
+          var id = this.settings._id;
+          EagleEyeWebService.deleteChartSetById(id).then(function() {
+            alert("Success");
+        });
+      }
 
       EagleEyeWebService.getChartSetById(id).then(function(chartSet) {
         angular.extend(controller.settings, chartSet);
