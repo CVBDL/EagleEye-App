@@ -110,6 +110,17 @@ angular.module('eagleeye')
           });
         }
 
+        function updateChartSetById(id,data) {
+          // DELETE /api/v1/chart-sets/:_id
+          var url = webServiceBaseUrl + 'chart-sets/' + id;
+
+          return fetchServer({
+            method: 'PUT',
+            url: url,
+            data: data
+          });
+        }
+
         return {
           getCharts: getCharts,
           getChartById: getChartById,
@@ -118,7 +129,8 @@ angular.module('eagleeye')
           getChartSetById: getChartSetById,
           createChartSet: createChartSet,
           deleteChartById:deleteChartById,
-          deleteChartSetById:deleteChartSetById
+          deleteChartSetById:deleteChartSetById,
+          updateChartSetById:updateChartSetById
         };
       }
     ];

@@ -26,10 +26,16 @@ angular.module('eagleeye')
       };
 
       this.addToChartSet = function(chart) {
-        if (this.settings.charts.indexOf(chart) < 0) {
-          this.settings.charts.push(chart);
+        if (this.settings.charts.indexOf(chart._id) < 0) {
+          this.settings.charts.push(chart._id);
         }
       };
+      this.updateChartSetById = function() {
+          console.log("updateChartSetById()");
+          var id = this.settings._id;
+          var updateData = this.settings;
+          EagleEyeWebService.updateChartSetById(id,updateData);
+      }      
       this.deleteChartSetById = function() {
           console.log("deleteChartSetById()");
           var id = this.settings._id;
