@@ -10,13 +10,20 @@
  */
 angular
   .module('eagleeye', [
+    'ngMaterial',
+    'ngMessages',
     'ui.router',
     'ngFileUpload'
   ])
   .config(function ($stateProvider, $urlRouterProvider, EagleEyeWebServiceProvider) {
     $stateProvider
+      .state('app', {
+        url: '',
+        abstract: true,
+        controller: 'AppController'
+      })
       .state('dashboard', {
-        url: '/dashboard',
+        url: '/home',
         templateUrl: 'views/dashboard.html',
         controller: 'DashboardController',
         controllerAs: 'dashboard'
@@ -70,7 +77,7 @@ angular
         controllerAs: 'chartset'
       });
 
-    $urlRouterProvider.otherwise('/dashboard');
+    $urlRouterProvider.otherwise('/home');
 
     EagleEyeWebServiceProvider.setWebServiceBaseUrl('http://localhost:3000/api/v1/');
   });
