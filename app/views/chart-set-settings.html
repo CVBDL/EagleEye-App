@@ -22,6 +22,23 @@
   </section>
   <section>
     <button ng-click="chartset.updateChartSetById()">Save</button>
-    <button ng-click="chartset.deleteChartSetById()">Delete It</button>
+    <md-button class="md-primary md-raised" ng-click="chartset.showConfirm($event)" >
+      DELETE IT
+    </md-button>
   </section>
 </div>
+  <div style="visibility: hidden">
+    <div class="md-dialog-container" id="myDialog">
+      <md-dialog layout-padding>
+        <h2>Pre-Rendered Dialog</h2>
+        <p>
+          This is a pre-rendered dialog, which means that <code>$mdDialog</code> doesn't compile its
+          template on each opening.
+          <br/><br/>
+          The Dialog Element is a static element in the DOM, which is just visually hidden.<br/>
+          Once the dialog opens, we just fetch the element from the DOM into our dialog and upon close
+          we restore the element back into its old DOM position.
+        </p>
+      </md-dialog>
+    </div>
+  </div>
