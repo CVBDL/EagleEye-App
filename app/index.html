@@ -5,11 +5,12 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.18.1/build/cssreset/cssreset-min.css">
+    <link rel="stylesheet" href="styles/iconfont/material-icons.css" />
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
-    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.18.1/build/cssreset/cssreset-min.css">
     <link rel="stylesheet" href="bower_components/normalize-css/normalize.css" />
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
     <!-- endbower -->
@@ -46,36 +47,42 @@
       </div>
     </header>
 
-    <div class="container">
+    <div class="container md-body-1">
       <div ui-view></div>
     </div>
 
     <footer>
-      <div class="footer-row-wrapper" layout="row">
-        <div class="footer-company-bio" flex="50">
-          <h3>Company Bio</h3>
-          <p>Rockwell Automation, the world's largest company dedicated to industrial automation and information, makes its customers more productive and the world more sustainable. Throughout the world, our flagship Allen-Bradley® and Rockwell Software® product brands are recognized for innovation and excellence.</p>
-        </div>
-        <div class="footer-useful-links" flex="25">
-          <h3>Useful links</h3>
-          <ul>
-            <li><a href="http://www.rockwellautomation.com/" target="_blank">Rockwell Automation</a></li>
-            <li><a href="http://www.rockwellautomation.com/" target="_blank">Rockwell Automation</a></li>
-            <li><a href="http://www.rockwellautomation.com/" target="_blank">Rockwell Automation</a></li>
-          </ul>
-        </div>
-        <div class="footer-contact-us" flex="25">
-          <h3>Contact Us</h3>
-          <ul>
-            <li>Feedback</li>
-            <li>contact-us@ra.rockwell.com</li>
-            <li>(+81) xxx xxxx xxxx</li>
-          </ul>
+      <div class="footer-row-wrapper">
+        <div class="footer-row" layout="row">
+          <div class="footer-company-bio" flex="50">
+            <h3>Company Bio</h3>
+            <p>Rockwell Automation, the world's largest company dedicated to industrial automation and information, makes its customers more productive and the world more sustainable. Throughout the world, our flagship Allen-Bradley® and Rockwell Software® product brands are recognized for innovation and excellence.</p>
+          </div>
+          <div class="footer-useful-links" flex="25">
+            <h3>Useful links</h3>
+            <ul>
+              <li><a href="http://www.rockwellautomation.com/" target="_blank">Rockwell Automation Website</a></li>
+              <li><a href="http://www.rockwellautomation.com/" target="_blank">Rockwell Automation Website</a></li>
+              <li><a href="http://www.rockwellautomation.com/" target="_blank">Rockwell Automation Website</a></li>
+            </ul>
+          </div>
+          <div class="footer-contact-us" flex="25">
+            <h3>Contact Us</h3>
+            <!-- https://design.google.com/icons/ -->
+            <ul>
+              <li><md-icon md-font-set="material-icons" class="ee-icon"> message </md-icon><span>Feedback</span></li>
+              <li><md-icon md-font-set="material-icons" class="ee-icon"> mail outline </md-icon><span>contact-us@ra.rockwell.com</span></li>
+              <li><md-icon md-font-set="material-icons" class="ee-icon"> phone </md-icon><span>(+81) xxx xxxx xxxx</span></li>
+            </ul>
+          </div>
         </div>
       </div>
       <div class="footer-copyright-wrapper">
-        <p>Made by @CVBDL_EagleEye_Team</p>
+        <div class="footer-copyright" layout="row">
+          <p>Made by @CVBDL_EagleEye_Team</p>
+        </div>
       </div>
+
     </footer>
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
