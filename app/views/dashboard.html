@@ -1,6 +1,100 @@
-<div>
-  <h2>Dashboard</h2>
+<div class="home-view view">
+  <div class="hero-wrapper">
+    <div class="hero">
+      <h1 class="headline md-headline">
+        <p class="gray">Define Chart &amp; Chart Sets</p>
+        <p class="red">Better Data Visualization</p>
+      </h1>
+      <ul class="list">
+        <li><md-icon md-font-set="material-icons" class="ee-icon red"> done </md-icon><span class="dark-gray">Make your own charts: Line Chart, Bar Chart or Column Chart</span></li>
+        <li><md-icon md-font-set="material-icons" class="ee-icon red"> done </md-icon><span class="dark-gray">Collect your charts into a chart set</span></li>
+        <li><md-icon md-font-set="material-icons" class="ee-icon red"> done </md-icon><span class="dark-gray">Shart charts and chart sets with others</span></li>
+      </ul>
+      <md-button class="md-raised md-primary ee-button"><md-icon md-font-set="material-icons" class="ee-icon white"> assessment </md-icon> <span>Get Started</span></md-button>
+    </div>
+  </div>
+  <div class="sub-nav-wrapper">
+    <div class="sub-nav" layout="row">
+      <div class="sub-nav-item">
+        <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+          <md-card-title>
+            <md-card-title-media>
+              <div class="md-media-sm card-media">
+                <img src="images/Chart.png" alt="">
+              </div>
+            </md-card-title-media>
+            <md-card-title-text>
+              <span class="md-headline">Charts</span>
+              <span class="md-subhead">View all the charts you've created.</span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-actions layout="row" layout-align="end center">
+          <md-button ui-sref="charts"><span class="red">GO</span></md-button>
+          </md-card-actions>
+        </md-card>
+      </div>
+
+      <div class="sub-nav-item">
+        <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+          <md-card-title>
+            <md-card-title-media>
+              <div class="md-media-sm card-media">
+                <img src="images/CreateNewChart.png" alt="">
+              </div>
+            </md-card-title-media>
+            <md-card-title-text>
+              <span class="md-headline">New Chart</span>
+              <span class="md-subhead">Create a new chart.</span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-actions layout="row" layout-align="end center">
+            <md-button ui-sref="createChart"><span class="red">GO</span></md-button>
+          </md-card-actions>
+        </md-card>
+      </div>
+
+      <div class="sub-nav-item">
+        <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+          <md-card-title>
+            <md-card-title-media>
+              <div class="md-media-sm card-media">
+                <img src="images/ChartCategory.png" alt="">
+              </div>
+            </md-card-title-media>
+            <md-card-title-text>
+              <span class="md-headline">Chart Sets</span>
+              <span class="md-subhead">View all the chart sets you've created.</span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-actions layout="row" layout-align="end center">
+            <md-button ui-sref="chartSets"><span class="red">GO</span></md-button>
+          </md-card-actions>
+        </md-card>
+      </div>
+
+      <div class="sub-nav-item">
+        <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+          <md-card-title>
+            <md-card-title-media>
+              <div class="md-media-sm card-media">
+                <img src="images/CreateNewChartCategory.png" alt="">
+              </div>
+            </md-card-title-media>
+            <md-card-title-text>
+              <span class="md-headline">New Chart Set</span>
+              <span class="md-subhead">Create a new chart set.</span>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-actions layout="row" layout-align="end center">
+            <md-button ui-sref="createChartSet"><span class="red">GO</span></md-button>
+          </md-card-actions>
+        </md-card>
+      </div>
+    </div>
+
+  </div>
+  <!-- <h2>Dashboard</h2>
   <a ui-sref="charts">View all charts</a>
   <br>
-  <a ui-sref="chartSets">View all chart sets</a>
+  <a ui-sref="chartSets">View all chart sets</a> -->
 </div>
