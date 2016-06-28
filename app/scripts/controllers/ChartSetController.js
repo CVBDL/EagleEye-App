@@ -13,10 +13,18 @@ angular.module('eagleeye')
     'EagleEyeWebService',
     function ($stateParams, EagleEyeWebService) {
       var controller = this,
-        id = $stateParams.id;
-
+      id = $stateParams.id;
+      controller.charDataArray = new Array();
       EagleEyeWebService.getChartSetById(id).then(function(settings) {
         controller.settings = settings;
+        var chartsArray = controller.settings.charts;
+        var chartCount = chartsArray.length == undefined ? 0 : chartsArray.length;
+        for(var i = 0 ; i < chartCount ; i++){
+          EagleEyeWebService.getChartById(chartsArray[i]).then(function(data) {
+            controller.charDataArray.push(data);
+          });
+        }
+
       });
     }
   ]);

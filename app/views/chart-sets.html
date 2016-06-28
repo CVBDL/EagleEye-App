@@ -5,7 +5,9 @@
   <p>All chart sets:</p>
   <ul>
     <li ng-repeat="chartset in chartsets.chartSetList">
-      {{chartset.title}} <a ui-sref="chartSetSettings({ id: chartset._id })">Edit</a>
+      <a ui-sref="chartSet({ id: chartset._id })">{{chartset.title}}</a> 
+      <a ui-sref="chartSetSettings({ id: chartset._id })">Edit</a>
+      
     </li>
   </ul>
 </div>
