@@ -1,8 +1,13 @@
 html, body {
-  font-size: 10px !important;
+  font-size: 10px !important;  /* 1rem == 10px */
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 a {
   text-decoration: none;
+}
+
+.ee-icon {
+  color: #fff;
+  padding-right: 6px;
 }
