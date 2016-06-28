@@ -11,7 +11,8 @@ angular.module('eagleeye')
   .controller('ChartSetSettingsController', [
     '$stateParams',
     'EagleEyeWebService',
-    function ($stateParams, EagleEyeWebService) {
+    '$mdDialog',
+    function ($stateParams, EagleEyeWebService,$mdDialog) {
       var controller = this,
         id = $stateParams.id;
 
@@ -43,6 +44,23 @@ angular.module('eagleeye')
             alert("Success");
         });
       }
+
+      var that = this ;
+      this.showConfirm = function(ev) {
+        // Appending dialog to document.body to cover sidenav in docs app
+        var confirm = $mdDialog.confirm()
+              .title('Would you like to delete this chart?')
+              .textContent('If you click Delete button, this chart will be delete and cannot restored!')
+              .ariaLabel('Lucky day')
+              .targetEvent(ev)
+              .ok('Delete')
+              .cancel('Cancel');
+          $mdDialog.show(confirm).then(function() {
+             that.deleteChartSetById();
+        }, function() {
+             console.log("Cancel!");
+        });
+      };
 
       EagleEyeWebService.getChartSetById(id).then(function(chartSet) {
         angular.extend(controller.settings, chartSet);
