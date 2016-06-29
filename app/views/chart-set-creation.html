@@ -1,30 +1,47 @@
 <div>
-  <section>
-    Title: <input type="text" ng-model="chartset.settings.title">
+  <md-content layout-padding="" style="width:20%">
+      <form name="ChartSetCreationForm">
+
+        <md-input-container class="md-block">
+          <label>Title</label>
+          <input required="" name="clientName" ng-model="chartset.settings.title">
+          <div ng-messages="ChartSetCreationForm.clientName.$error">
+            <div ng-message="required">This is required.</div>
+          </div>
+        </md-input-container>
+
+        <md-input-container class="md-block">
+          <label>Description</label>
+          <input required="" name="clientName" ng-model="chartset.settings.description">
+          <div ng-messages="ChartSetCreationForm.clientName.$error">
+            <div ng-message="required">This is required.</div>
+          </div>
+        </md-input-container>
+
+        <md-input-container class="md-block">
+          <label>Friendly URL</label>
+          <input required="" name="clientName" ng-model="chartset.settings.friendlyUrl">
+          <div ng-messages="ChartSetCreationForm.clientName.$error">
+            <div ng-message="required">This is required.</div>
+          </div>
+        </md-input-container>
+
+      </form>
+  </md-content>
+
+  <md-chips ng-model="chartset.settings.charts" placeholder="Search to add"></md-chips>
+
+    <md-list class="fixedRows">
+      <md-subheader>Charts</md-subheader>
+      <md-list-item class="md-2-line" style="box-sizing: border-box;float: left;
+      width: 15%; "ng-repeat="chart in chartset.chartList">
+        <div class="md-list-item-text">
+          <h3>{{chart.options.title}} <button ng-click="chartset.addToChartSet(chart)">Add to set</button> </h3>   
+        </div>
+      </md-list-item>
+    </md-list>
     <br>
-    Description: <input type="text" ng-model="chartset.settings.description">
-    <br>
-    Friendly URL: <input type="text" ng-model="chartset.settings.friendlyUrl">
-    <br>
-    Charts:
-    <ul>
-      <li ng-repeat="chartid in chartset.settings.charts">
-        {{chartid}}
-      </li>
-    </ul>
-  </section>
-  <section>
-    Charts:
-    <div>
-      <p ng-repeat="chart in chartset.settings.charts">{{chart.options.title}}</p>
-    </div>
-    <ul>
-      <li ng-repeat="chart in chartset.chartList">
-        {{chart.options.title}} <button ng-click="chartset.addToChartSet(chart)">Add to set</button>
-      </li>
-    </ul>
-  </section>
-  <section>
-    <button ng-click="chartset.save()">Save</button>
-  </section>
+  <div style="float: fixed;">
+    <md-button class="md-primary"ng-click="chartset.save()">Save</md-button>
+  </div>
 </div>
