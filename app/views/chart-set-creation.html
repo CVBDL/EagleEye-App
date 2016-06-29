@@ -29,13 +29,12 @@
       </form>
   </md-content>
 
-  <md-chips ng-model="chartset.settings.charts" placeholder="Search to add"></md-chips>
-
-    <md-list class="fixedRows">
+  <md-chips ng-model="chartset.settings.charts" md-contact-image="image" placeholder="Search to add"></md-chips>
+  <div>
+    <md-list class="fixedRows" style="margin-bottom:10px">
       <md-subheader>Charts</md-subheader>
-      <md-list-item class="md-2-line" style="box-sizing: border-box;float: left;
-      width: 20%; "ng-repeat="chart in chartset.chartList">
-        <div class="md-list-item-text">
+      <md-list-item class="md-2-line" style="box-sizing: border-box;float:left;" ng-repeat="chart in chartset.chartList">
+        <div class="md-list-item-text" style="margin:20px">
           <img ng-src="images/Chart.png" class="md-avatar" alt="">
           <div class="md-list-item-text compact">
             <h3>{{chart.options.title}} <button ng-click="chartset.addToChartSet(chart)">+</button> </h3>  
@@ -44,8 +43,8 @@
         </div>
       </md-list-item>
     </md-list>
-    <br>
-  <div style="float: fixed;">
+  </div>
+  <div style="clear:both">
     <md-button class="md-primary"ng-click="chartset.save()">Save</md-button>
   </div>
 </div>
