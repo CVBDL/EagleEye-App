@@ -11,8 +11,8 @@
       
     <md-divider></md-divider>
 
-  <md-list-item  ng-click="" ng-repeat="chartset in chartsets.chartSetList">
-      <p ui-sref="chartSet({ id: chartset._id })" > {{chartset.title}} </p>
+  <md-list-item  ui-sref="chartSet({ id: chartset._id })"  ng-click="null" ng-repeat="chartset in chartsets.chartSetList">
+      <p> {{chartset.title}} </p>
       <md-button ><a ui-sref="chartSetSettings({ id: chartset._id })">Edit</a></md-button>
       <md-divider></md-divider>
   </md-list-item>
