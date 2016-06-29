@@ -1,11 +1,21 @@
 <div>
-  <h2>Charts list</h2>
-  <ul>
-    <li ng-repeat="chart in charts.chartList">
-      View chart: <a ui-sref="chart({ id: chart._id })">{{chart.options.title}}</a> | <a ui-sref="chart({ id: chart.friendlyUrl })">{{chart.friendlyUrl}}</a>
-    </li>
-  </ul>
-  <p>
-    <a ui-sref="createChart">Create chart +</a>
-  </p>
+    <md-toolbar style="color:write;background-color:rgba(0, 0, 0, 0.18)">
+    <div class="md-toolbar-tools">
+        <h3>Charts List </h3>
+    </div>
+    </md-toolbar>
+
+    <md-button class="md-primary">
+    <p ui-sref="createChart" > Create chart + </p>
+    </md-button>
+      
+    <md-divider></md-divider>
+
+	<md-list-item  ng-click="" ng-repeat="chart in charts.chartList">
+	    <p ui-sref="chart({ id: chart._id })" > {{ chart.options.title }} </p>
+	    <md-button ><a ui-sref="chart({ id: chart.friendlyUrl })">{{chart.friendlyUrl}}</a></md-button>
+	    <md-divider></md-divider>
+	</md-list-item>
+
+    <md-divider></md-divider>
 </div>
