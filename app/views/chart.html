@@ -1,9 +1,43 @@
 <div>
-  <h2>View chart</h2>
-  <button ng-click="chart.deleteChartById()">Delete It</button>
-  <ee-google-chart
+<br>
+<br>
+<md-card>
+	<md-toolbar class="md-medium-tall">
+		<md-card-title>
+			<md-card-title-text>
+			<span class="md-title">View Chart Page</span>
+			<span flex=""></span>
+			<md-card-actions layout="row" layout-align="end center">
+			<md-button class="md-icon-button" aria-label="Settings">
+				<md-tooltip md-direction="botton">Settings</md-tooltip>
+            	<md-icon md-font-set="material-icons" class="ee-icon white"> settings </md-icon>
+			</md-button>
+			<md-button class="md-icon-button" aria-label="Refresh">
+            	<md-tooltip md-direction="botton">Refresh</md-tooltip>
+            	<md-icon md-font-set="material-icons" class="ee-icon white"> refresh </md-icon>
+			</md-button>
+			<md-button class="md-icon-button" aria-label="Delete" ng-click="chart.deleteChartById()">
+				<md-tooltip md-direction="botton">Delete</md-tooltip>
+            	<md-icon md-font-set="material-icons" class="ee-icon white"> delete </md-icon>
+			</md-button>
+		</md-card-actions>
+			</span>
+			</md-card-title-text>
+		</md-card-title>
+	</md-toolbar>
+<ee-google-chart
     chart-type="chart.chartData.chartType"
     chart-options="chart.chartData.options"
     chart-data-table="chart.chartData.datatable">
-  </ee-google-chart>
+ </ee-google-chart>
+ <md-content flex="" layout-padding="">
+ </md-content>
+  <md-content flex="" layout-padding="">
+  <p>Author: ########</p>
+  <p>Created Time: ########</p>
+  <p>Descriptions: ########</p> 
+ </md-content>
+  </md-card>
+  <br>
+  <br>
 </div>
