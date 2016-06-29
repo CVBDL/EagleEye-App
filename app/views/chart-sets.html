@@ -1,13 +1,22 @@
 <div>
-  <p>
-    <a ui-sref="createChartSet">Create chart set +</a>
-  </p>
-  <p>All chart sets:</p>
-  <ul>
-    <li ng-repeat="chartset in chartsets.chartSetList">
-      <a ui-sref="chartSet({ id: chartset._id })">{{chartset.title}}</a> 
-      <a ui-sref="chartSetSettings({ id: chartset._id })">Edit</a>
+  <md-toolbar style="color:write;background-color:rgba(0, 0, 0, 0.18)">
+    <div class="md-toolbar-tools">
+        <h3>All chart sets:</h3>
+    </div>
+    </md-toolbar>
+
+    <md-button class="md-primary">
+    <p ui-sref="createChartSet" > Create chart set + </p>
+    </md-button>
       
-    </li>
-  </ul>
+    <md-divider></md-divider>
+
+  <md-list-item  ng-click="" ng-repeat="chartset in chartsets.chartSetList">
+      <p ui-sref="chartSet({ id: chartset._id })" > {{chartset.title}} </p>
+      <md-button ><a ui-sref="chartSetSettings({ id: chartset._id })">Edit</a></md-button>
+      <md-divider></md-divider>
+  </md-list-item>
+
+    <md-divider></md-divider>
+
 </div>
