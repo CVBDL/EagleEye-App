@@ -9,9 +9,10 @@
  */
 angular.module('eagleeye')
   .controller('ChartController', [
+    '$state',
     '$stateParams',
     'EagleEyeWebService',
-    function ($stateParams, EagleEyeWebService) {
+    function ($state, $stateParams, EagleEyeWebService) {
       var controller = this,
         id = $stateParams.id;
 
@@ -20,6 +21,11 @@ angular.module('eagleeye')
       EagleEyeWebService.getChartById(id).then(function(data) {
         controller.chartData = data;
       });
+
+      this.goSettings = function(){
+        $state.go('chartSettings', {id : id});
+      }
+
       this.deleteChartById = function() {
           console.log("deleteChartById()");
           var id = this.chartData._id;

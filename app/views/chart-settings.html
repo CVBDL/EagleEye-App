@@ -1,18 +1,65 @@
 <div>
-  Chart id: {{chart.id}}<br /><br />
-
+<br>
+<br>
+<md-card>
+  <md-toolbar class="md-medium-tall">
+    <md-card-title>
+      <md-card-title-text>
+      <span class="md-title">Chart Settings Page</span>
+      <span class="md-subhead">Chart id: {{chart.id}}</span>
+      </md-card-title-text>
+    </md-card-title>
+  </md-toolbar>
+  <md-content class="nd-padding" layout-x="column" layout="row">
+  <div flex-xs="" flex-gt-xs="50" flex-gt-ys="50" layout="column" >
+ <md-card>
+    <md-card-title>
+      <md-card-title-text>
+      <span class="md-title">Download</span>
+      <span class="md-subhead">Get data points from this chart</span>
+      </md-card-title-text>
+    </md-card-title>
+    <br>
+    <br>
+    <md-card-actions layout="row" layout-align="end center">
+      <md-button aria-label="file download"><a href="http://localhost:3000/chartFile/downloadExcel/{{chart.id}}">Go to Download</a>
+        <md-tooltip md-direction="botton">File download</md-tooltip>
+      </md-button>
+      </md-card-actions>
+    </md-card>
+    </div>
+    <div flex-xs="" flex-gt-xs="50" layout="column">
   <form name="myForm">
     <fieldset>
-      <a href="http://localhost:3000/chartFile/downloadExcel/{{chart.id}}">Download</a>
-      <input type="file" ngf-select ng-model="chart.excelFile" name="file" />
-      <button ng-click="chart.upload(chart.excelFile)">Submit</button>
-      <span class="progress" ng-show="excelFile.progress >= 0">
+ <md-card>
+    <md-card-title>
+      <md-card-title-text>
+      <span class="md-title">Upload</span>
+      <span class="md-subhead">Provide data points for this chart</span>
+      </md-card-title-text>
+    </md-card-title>
+    <br>
+     <md-card-actions layout="row" layout-align="end center">
+      <md-button ngf-select ng-model="chart.excelFile" name="file"> STEP 1. Choose File
+        <md-tooltip md-direction="botton">Choose File</md-tooltip>
+      </md-button>
+      <md-button aria-label="Submit" ng-click="chart.upload(chart.excelFile)">STEP 2. Submit
+              <md-tooltip md-direction="botton">Submit</md-tooltip>
+      </md-button>
+      </md-card-actions>  
+        <span class="progress" ng-show="excelFile.progress >= 0">
         <div style="width:{{chart.excelFile.progress}}%"
              ng-bind="chart.excelFile.progress + '%'"></div>
       </span>
       <span ng-show="chart.excelFile.result">Upload Successful</span>
       <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+      <br>
+    </md-card>
     </fieldset>
-    <br>
   </form>
+    </div>
+ </md-content>
+  </md-card>
+  <br>
+  <br>
 </div>
