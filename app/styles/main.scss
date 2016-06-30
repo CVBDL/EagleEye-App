@@ -1,2 +1,18 @@
-@import 'base';
-@import 'home';
+// Helpers
+// ------------------------------
+@import 'helpers/functions';
+@import 'helpers/variables';
+
+
+// Bases
+// ------------------------------
+@import 'base/normalize';
+@import 'base/reset';
+@import 'base/base';
+@import 'base/colors';
+@import 'base/typography';
+
+
+// Pages
+// ------------------------------
+@import 'pages/home';
