@@ -16,5 +16,13 @@ angular.module('eagleeye')
       EagleEyeWebService.getChartSets().then(function(chartSetList) {
         controller.chartSetList = chartSetList;
       });
+
+      this.deleteChartSetById = function(id) {
+          console.log("deleteChartSetById()");
+          EagleEyeWebService.deleteChartSetById(id).then(function() {
+            alert("Success");
+        });
+      }
+
     }
   ]);
