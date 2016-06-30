@@ -55,13 +55,14 @@ header {
 
 .navbar {
   margin-left: 48px;
+  height: 100%;
 }
 
 .navbar-nav {
   list-style: none;
-  height: 100%;
 
   li {
+    height: 100%;
 
     &.active a {
       opacity: 1;
