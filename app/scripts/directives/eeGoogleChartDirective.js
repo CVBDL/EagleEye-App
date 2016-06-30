@@ -28,7 +28,7 @@ angular.module('eagleeye')
               }
 
               var chart = new google.visualization[scope.chartType](chartNode);
-              var chartDataTable = new google.visualization.DataTable(scope.chartDataTable);
+              var chartDataTable = new google.visualization.DataTable(angular.copy(scope.chartDataTable, {}));
               var chartOptions = scope.chartOptions;
 
               $timeout(chart.draw(chartDataTable, chartOptions), 0);
