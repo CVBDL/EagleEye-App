@@ -1,0 +1,80 @@
+// Logo area
+// ------------------------------
+.header {
+  background-color: $color-primary;
+}
+
+.header-row-wrapper {
+  margin: 0 auto;
+  height: $eagleeye-header-height;
+  max-width: $eagleeye-max-width;
+  padding: $eagleeye-header-top-bottom-content-padding $eagleeye-header-left-right-content-padding;
+}
+
+.logo-wrapper {
+  a {
+    transition: opacity $eagleeye-transition-duration $eagleeye-transition-timing-function;
+
+    &:hover {
+      opacity: $text-opacity-light-secondary;
+    }
+  }
+}
+
+.logo-icon {
+  background-color: #fff;
+  border-radius: 50%;
+  width: $eagleeye-header-content-height;
+  height: $eagleeye-header-content-height;
+  margin-right: $eagleeye-header-letft-content-padding -
+                $eagleeye-header-left-right-content-padding -
+                $eagleeye-header-content-height;
+
+  img {
+    width: 70%;
+    margin: $eagleeye-header-content-height * (1 - 0.7) / 2;
+  }
+}
+
+.logo-title {
+  color: #ffffff;
+
+  div {
+    height: $eagleeye-header-content-height;
+  }
+}
+
+
+// Nav area
+// -----------------------------
+.navbar {
+  margin-left: $eagleeye-header-height;
+}
+
+.navbar-nav {
+  list-style: none;
+  height: 100%;
+
+  li {
+    height: 100%;
+
+    &.active a {
+      opacity: 1;
+    }
+
+    a {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      font-size: 1.4rem;
+      color: #fff;
+      opacity: .7;
+      transition: opacity .2s;
+      padding: 0 24px;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}

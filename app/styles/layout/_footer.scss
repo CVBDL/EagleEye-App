@@ -1,0 +1,37 @@
+footer {
+  color: #fff;
+  display: block;
+  font-size: 1.4rem;
+  line-height: 1.4;
+
+  h3 {
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+  }
+}
+
+.footer-row,
+.footer-copyright {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-company-bio,
+.footer-useful-links,
+.footer-contact-us {
+  margin-right: 24px;
+  padding: 12px 0;
+}
+
+.footer-row-wrapper {
+  background: #808285;
+}
+
+.footer-copyright-wrapper {
+  background-color: #6d6e70;
+  p {
+    padding: 12px 0;
+    opacity: .7;
+  }
+}

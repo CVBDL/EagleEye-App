@@ -2,3 +2,8 @@ html, body {
   font-family: $font-family;
   font-size: $font-size;
 }
+
+.ee-product-name {
+  font-size: rem(2);
+  line-height: $eagleeye-header-content-height;
+}

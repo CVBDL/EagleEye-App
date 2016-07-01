@@ -8,7 +8,36 @@ $font-size: 10px !default;
 
 // Colors
 // ------------------------------
-$color-red-ra          : #bb2322;
-$color-light-gray-ra   : #c8c8c8;
-$color-gray-ra         : #808285;
-$color-dark-gray-ra    : #555555;
+$color-primary:                  #bb2322;
+$color-secondary:                #ef5350;
+$color-gray:                     #808285;
+$color-gray-light:               #c8c8c8;
+$color-gray-dark:                #555555;
+
+
+// Text Opacity
+// ------------------------------
+$text-opacity-dark-primary:      0.87;
+$text-opacity-dark-secondary:    0.54;
+$text-opacity-dark-disabled:     0.38;
+$text-opacity-light-primary:     1   ;
+$text-opacity-light-secondary:   0.7 ;
+$text-opacity-light-disabled:    0.5 ;
+
+
+// CSS3 Transitions
+// ------------------------------
+$eagleeye-transition-duration:        0.2s;
+$eagleeye-transition-timing-function: ease;
+
+
+$eagleeye-max-width: 1400px;
+
+
+// https://material.google.com/layout/structure.html#structure-app-bar
+$eagleeye-header-height: 48px;
+$eagleeye-header-content-height: 40px;
+$eagleeye-header-left-right-content-padding: 24px;
+$eagleeye-header-letft-content-padding: 80px;
+
+$eagleeye-header-top-bottom-content-padding: ($eagleeye-header-height - $eagleeye-header-content-height) / 2;

@@ -17,23 +17,25 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="eagleeye" ng-cloak ng-controller="AppController">
+  <body ng-app="eagleeye" ng-cloak ng-controller="AppController" class="md-body-1">
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <header>
+    <header class="header">
       <div class="header-row-wrapper" layout="row">
         <div class="logo-wrapper" layout="row">
-          <div class="logo-icon">
-            <a ui-sref="dashboard">
-              <img src="images/logo.png" alt="EagleEye Logo" width="24" height="24">
-            </a>
-          </div>
-          <div class="logo-text">
-            <h1><a ui-sref="dashboard">EagleEye</a></h1>
-          </div>
+          <a ui-sref="dashboard">
+            <div class="logo-icon">
+              <img src="images/logo.png" alt="EagleEye Logo">
+            </div>
+          </a>
+          <a ui-sref="dashboard" class="logo-title">
+            <div>
+              <h1 class="ee-product-name">EagleEye</h1>
+            </div>
+          </a>
         </div>
         <div class="navbar" role="navigation">
           <ul class="navbar-nav" layout="row">
@@ -45,7 +47,7 @@
       </div>
     </header>
 
-    <div class="ui-view-container md-body-1">
+    <div class="ui-view-container">
       <div ui-view></div>
     </div>
 
