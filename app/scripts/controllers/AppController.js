@@ -2,12 +2,11 @@
 
 /**
  * @ngdoc function
- * @name eagleeye.controller:AppcontrollerCtrl
+ * @name eagleeye.controller:AppController
  * @description
- * # AppcontrollerCtrl
+ * # AppController
  * Controller of the eagleeye
  */
 angular.module('eagleeye')
   .controller('AppController', function ($scope) {
-    $scope.currentNavItem = 'page1';
   });
