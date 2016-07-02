@@ -8,13 +8,13 @@
 // ------------------------------
 @import 'base/normalize';
 @import 'base/reset';
-@import 'base/base';
 @import 'base/colors';
 @import 'base/typography';
 
 
 // Layout
 // ------------------------------
+@import 'layout/common';
 @import 'layout/header';
 @import 'layout/footer';
 

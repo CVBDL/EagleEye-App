@@ -1,22 +1,22 @@
-<div class="home-view view">
-  <div class="hero-wrapper">
-    <div class="hero">
-      <h1 class="headline md-headline">
-        <p class="gray">Define Charts &amp; Chart Sets</p>
-        <p class="red">Better Data Visualization</p>
+<div class="ee-home-view">
+  <div class="ee-hero-wrapper">
+    <div class="ee-hero">
+      <h1 class="ee-headline">
+        <p class="title">Create Charts &amp; Chart Sets</p>
+        <p class="sub-title">Better Data Visualization</p>
       </h1>
       <ul class="list">
-        <li><md-icon md-font-set="material-icons" class="ee-icon red"> done </md-icon><span class="dark-gray">Make your own charts: Line Chart, Bar Chart or Column Chart</span></li>
-        <li><md-icon md-font-set="material-icons" class="ee-icon red"> done </md-icon><span class="dark-gray">Collect your charts into a chart set</span></li>
-        <li><md-icon md-font-set="material-icons" class="ee-icon red"> done </md-icon><span class="dark-gray">Shart charts and chart sets with others</span></li>
+        <li><md-icon md-font-set="material-icons" class="ee-icon"> done </md-icon><span>Make your own charts: Line Chart, Bar Chart or Column Chart</span></li>
+        <li><md-icon md-font-set="material-icons" class="ee-icon"> done </md-icon><span>Collect your charts into a chart set</span></li>
+        <li><md-icon md-font-set="material-icons" class="ee-icon"> done </md-icon><span>Shart charts and chart sets with others</span></li>
       </ul>
-      <md-button class="md-raised md-primary ee-button"><md-icon md-font-set="material-icons" class="ee-icon white"> assessment </md-icon> <span>Get Started</span></md-button>
+      <md-button class="md-raised ee-button"><md-icon md-font-set="material-icons" class="ee-icon"> assessment </md-icon> <span>Get Started</span></md-button>
     </div>
   </div>
   <div class="sub-nav-wrapper">
     <div class="sub-nav" layout="row">
-      <div class="sub-nav-item">
-        <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+      <div class="sub-nav-item" flex="25">
+        <md-card>
           <md-card-title>
             <md-card-title-media>
               <div class="md-media-sm card-media">
@@ -29,13 +29,13 @@
             </md-card-title-text>
           </md-card-title>
           <md-card-actions layout="row" layout-align="end center">
-          <md-button ui-sref="charts"><span class="red">View Charts</span></md-button>
+          <md-button ui-sref="charts"><span>View Charts</span></md-button>
           </md-card-actions>
         </md-card>
       </div>
 
-      <div class="sub-nav-item">
-        <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+      <div class="sub-nav-item" flex="25">
+        <md-card>
           <md-card-title>
             <md-card-title-media>
               <div class="md-media-sm card-media">
@@ -48,13 +48,13 @@
             </md-card-title-text>
           </md-card-title>
           <md-card-actions layout="row" layout-align="end center">
-            <md-button ui-sref="createChart"><span class="red">Create Chart</span></md-button>
+            <md-button ui-sref="createChart"><span>Create Chart</span></md-button>
           </md-card-actions>
         </md-card>
       </div>
 
-      <div class="sub-nav-item">
-        <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+      <div class="sub-nav-item" flex="25">
+        <md-card>
           <md-card-title>
             <md-card-title-media>
               <div class="md-media-sm card-media">
@@ -67,13 +67,13 @@
             </md-card-title-text>
           </md-card-title>
           <md-card-actions layout="row" layout-align="end center">
-            <md-button ui-sref="chartSets"><span class="red">View Chart Sets</span></md-button>
+            <md-button ui-sref="chartSets"><span>View Chart Sets</span></md-button>
           </md-card-actions>
         </md-card>
       </div>
 
-      <div class="sub-nav-item">
-        <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch>
+      <div class="sub-nav-item" flex="25">
+        <md-card>
           <md-card-title>
             <md-card-title-media>
               <div class="md-media-sm card-media">
@@ -86,27 +86,26 @@
             </md-card-title-text>
           </md-card-title>
           <md-card-actions layout="row" layout-align="end center">
-            <md-button ui-sref="createChartSet"><span class="red">Create Chart Set</span></md-button>
+            <md-button ui-sref="createChartSet"><span>Create Chart Set</span></md-button>
           </md-card-actions>
         </md-card>
       </div>
     </div>
   </div>
-  <div class="dev-wrapper">
-    <div class="dev" layout="row">
-      <div flex="50" class="dev-image">
-        <img src="images/develop.jpeg" alt="Develop">
-      </div>
-      <div class="dev-text" flex="50">
-        <h2>Want to Develop?</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, rerum, nesciunt! Praesentium dicta ipsum commodi reiciendis placeat non quia tenetur unde, minus. Ut necessitatibus maiores fugit consequuntur veritatis amet, quibusdam.</p>
-        <ul class="list">
-          <li><md-icon md-font-set="material-icons" class="ee-icon blue"> done </md-icon><span class="dark-gray">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span></li>
-          <li><md-icon md-font-set="material-icons" class="ee-icon blue"> done </md-icon><span class="dark-gray">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, officia.</span></li>
-          <li><md-icon md-font-set="material-icons" class="ee-icon blue"> done </md-icon><span class="dark-gray">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span></li>
-        </ul>
-        <md-button class="md-raised md-primary ee-button"><span>Learn More</span></md-button>
-      </div>
+
+  <div class="dev" layout="row">
+    <div class="dev-image" flex="50">
+      <img src="images/develop.jpeg" alt="Develop">
+    </div>
+    <div class="dev-text" flex="50">
+      <h2 class="md-headline">Want to Develop?</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, rerum, nesciunt! Praesentium dicta ipsum commodi reiciendis placeat non quia tenetur unde, minus. Ut necessitatibus maiores fugit consequuntur veritatis amet, quibusdam.</p>
+      <ul class="list">
+        <li><md-icon md-font-set="material-icons" class="ee-icon"> done </md-icon><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span></li>
+        <li><md-icon md-font-set="material-icons" class="ee-icon"> done </md-icon><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, officia.</span></li>
+        <li><md-icon md-font-set="material-icons" class="ee-icon"> done </md-icon><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span></li>
+      </ul>
+      <md-button class="md-raised ee-button"><md-icon md-font-set="material-icons" class="ee-icon"> code </md-icon><span>Learn More</span></md-button>
     </div>
   </div>
 </div>

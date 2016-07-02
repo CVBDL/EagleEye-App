@@ -1,54 +1,60 @@
-.headline {
-  font-size: 4.5rem;
-  font-weight: 300;
-  line-height: 1.2;
-  padding: 36px 0;
-}
+.ee-home-view {
 
-.hero-wrapper {
-  background: url('../images/bg.jpg') no-repeat left top;
-  /*background-image: url('../images/bg.jpg');*/
-}
-
-.hero {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 24px;
-  padding-bottom: 24px;
-
-  .list {
-    padding-bottom: 36px;
+  // hero section
+  .ee-hero-wrapper {
+    background: url('../images/bg.jpg') no-repeat left top;
   }
 
-  .ee-button {
-    background-color: #bb2322 !important;
-  }
-}
-
-.home-view {
-
-  .sub-nav-wrapper {
-    background-color: #eceff1;
-  }
-
-  .sub-nav {
-    max-width: 1280px;
-    align-items: stretch;
-    height: 174px;
+  .ee-hero {
+    color: $color-gray-dark;
     margin: 0 auto;
+    padding: $eagleeye-home-hero-top-bottom-content-padding $eagleeye-home-hero-left-right-content-padding;
+    max-width: $eagleeye-max-width;
+
+    .list {
+      padding-bottom: $eagleeye-home-content-padding;
+    }
+
+    .ee-button {
+      color: $color-secondary;
+    }
+
+    .ee-icon {
+      color: $color-secondary !important;
+    }
+  }
+
+  .ee-headline {
+    padding-bottom: $eagleeye-home-content-padding;
+
+    .title {
+      color: $color-secondary;
+    }
+
+    .sub-title {
+      color: $color-gray;
+    }
+  }
+
+  // nav part
+  .sub-nav-wrapper {
+    background-color: $color-gray-light-light;
+  }
+
+  .sub-nav,
+  .dev {
+    margin: 0 auto;
+    max-width: $eagleeye-max-width;
+    padding: ($eagleeye-home-content-padding / 2) $eagleeye-home-content-padding;
   }
 
   .sub-nav-item {
     box-sizing: border-box;
-    flex: 1;
-    width: 25%;
-    height: 100%;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    padding-right: 12px;
+    height: $eagleeye-home-nav-card-height;
+    margin-right: $eagleeye-home-content-padding / 2;
 
     &:last-child {
-      padding-right: 0;
+      margin-right: 0;
     }
 
     md-card {
@@ -56,26 +62,21 @@
       height: 100%;
 
       .md-headline {
-        color: #bb2322;
+        color: $color-gray-dark;
       }
 
       .md-subhead {
-        color: #6d6e70 !important;
+        color: $color-gray !important;
+      }
+
+      .md-button {
+        color: $color-secondary;
       }
     }
   }
 
-  .dev-wrapper {
-    padding: 12px 0;
-  }
-
-  .dev {
-    max-width: 1280px;
-    margin: 0 auto;
-  }
-
   .dev-image {
-    margin-right: 32px;
+    margin-right: $eagleeye-home-content-padding / 2;
 
     img {
       width: 100%;
@@ -84,14 +85,27 @@
   }
 
   .dev-text {
+    box-sizing: border-box;
+    padding: $eagleeye-home-content-padding / 2;
+
     h2 {
-      font-size: 2.4rem;
-      padding-top: 12px;
+      color: $color-gray-dark;
       padding-bottom: 24px;
     }
 
     ul {
+      color: $color-gray;
       padding: 24px 0;
+    }
+
+    .md-button,
+    .ee-icon {
+      color: $color-secondary !important;
+    }
+
+    .md-button {
+      margin-top: 0;
+      margin-bottom: 0;
     }
   }
 }
