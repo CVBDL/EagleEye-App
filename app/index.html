@@ -25,19 +25,19 @@
     <header class="ee-header">
       <div class="ee-header-row-wrapper" layout="row">
         <div class="ee-logo-wrapper" layout="row">
-          <a ui-sref="dashboard">
+          <a ui-sref="home">
             <div class="ee-logo-icon">
               <img src="images/logo.png" alt="EagleEye Logo">
             </div>
           </a>
-          <a ui-sref="dashboard" class="ee-logo-title">
+          <a ui-sref="home" class="ee-logo-title">
             <div>
               <h1 class="ee-product-name">EagleEye</h1>
             </div>
           </a>
         </div>
         <ul class="ee-navbar" layout="row" role="navigation">
-          <li class="active"><a class="ee-nav-item" ui-sref="dashboard">Home</a></li>
+          <li class="active"><a class="ee-nav-item" ui-sref="home">Home</a></li>
           <li><a class="ee-nav-item" ui-sref="charts">Charts</a></li>
           <li><a class="ee-nav-item" ui-sref="chartSets">Chart Sets</a></li>
         </ul>
@@ -105,7 +105,7 @@
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
-    <script src="scripts/controllers/DashboardController.js"></script>
+    <script src="scripts/controllers/HomeController.js"></script>
     <script src="scripts/controllers/ChartsController.js"></script>
     <script src="scripts/controllers/ChartCreationController.js"></script>
     <script src="scripts/controllers/ChartController.js"></script>

@@ -22,11 +22,11 @@ angular
         abstract: true,
         controller: 'AppController'
       })
-      .state('dashboard', {
+      .state('home', {
         url: '/home',
-        templateUrl: 'views/dashboard.html',
-        controller: 'DashboardController',
-        controllerAs: 'dashboard'
+        templateUrl: 'views/home.html',
+        controller: 'HomeController',
+        controllerAs: 'home'
       })
       .state('charts', {
         url: '/charts',
