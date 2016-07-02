@@ -31,13 +31,14 @@ $eagleeye-transition-duration:        0.2s;
 $eagleeye-transition-timing-function: ease;
 
 
+// Layout
+// ------------------------------
 $eagleeye-max-width: 1400px;
 
-
+// Layout: Header
 // https://material.google.com/layout/structure.html#structure-app-bar
-$eagleeye-header-height: 48px;
-$eagleeye-header-content-height: 40px;
+$eagleeye-header-height:                     48px;
+$eagleeye-header-content-height:             40px;
 $eagleeye-header-left-right-content-padding: 24px;
-$eagleeye-header-letft-content-padding: 80px;
-
+$eagleeye-header-letft-content-padding:      80px;
 $eagleeye-header-top-bottom-content-padding: ($eagleeye-header-height - $eagleeye-header-content-height) / 2;

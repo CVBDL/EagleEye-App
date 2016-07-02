@@ -22,7 +22,6 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <!-- Add your site or application content here -->
     <header class="header">
       <div class="header-row-wrapper" layout="row">
         <div class="logo-wrapper" layout="row">
@@ -37,13 +36,11 @@
             </div>
           </a>
         </div>
-        <div class="navbar" role="navigation">
-          <ul class="navbar-nav" layout="row">
-            <li class="active"><a ui-sref="dashboard">Home</a></li>
-            <li><a ui-sref="charts">Charts</a></li>
-            <li><a ui-sref="chartSets">Chart Sets</a></li>
-          </ul>
-        </div>
+        <ul class="ee-navbar" layout="row" role="navigation">
+          <li class="active"><a class="ee-nav-item" ui-sref="dashboard">Home</a></li>
+          <li><a class="ee-nav-item" ui-sref="charts">Charts</a></li>
+          <li><a class="ee-nav-item" ui-sref="chartSets">Chart Sets</a></li>
+        </ul>
       </div>
     </header>
 

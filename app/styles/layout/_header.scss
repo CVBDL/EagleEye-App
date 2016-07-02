@@ -51,30 +51,31 @@
   margin-left: $eagleeye-header-height;
 }
 
-.navbar-nav {
+.ee-navbar {
   list-style: none;
-  height: 100%;
+  height: $eagleeye-header-content-height;
+  margin-left: $eagleeye-header-height;
 
   li {
     height: 100%;
 
     &.active a {
-      opacity: 1;
+      opacity: $text-opacity-light-primary;
     }
 
     a {
-      display: flex;
-      align-items: center;
-      height: 100%;
-      font-size: 1.4rem;
       color: #fff;
-      opacity: .7;
-      transition: opacity .2s;
-      padding: 0 24px;
+      opacity: $text-opacity-light-secondary;
+      transition: opacity $eagleeye-transition-duration $eagleeye-transition-timing-function;
+      padding: 0 $eagleeye-header-left-right-content-padding;
 
       &:hover {
-        opacity: 1;
+        opacity: $text-opacity-light-primary;
       }
     }
   }
+}
+
+.ee-nav-item {
+  display: inline-block;
 }
