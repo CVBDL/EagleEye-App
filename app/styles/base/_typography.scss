@@ -1,8 +1,13 @@
+// Main
+// ------------------------------
 html, body {
   font-family: $font-family;
   font-size: $font-size;
 }
 
+
+// Header
+// ------------------------------
 .ee-product-name {
   font-size: rem(2);
   line-height: $eagleeye-header-content-height;
@@ -10,4 +15,11 @@ html, body {
 
 .ee-nav-item {
   line-height: $eagleeye-header-content-height;
+}
+
+
+// Footer
+// ------------------------------
+.ee-footer-title {
+  font-size: rem(1.6);
 }

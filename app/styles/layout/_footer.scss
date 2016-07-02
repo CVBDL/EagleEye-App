@@ -1,37 +1,58 @@
-footer {
+.ee-footer {
   color: #fff;
-  display: block;
-  font-size: 1.4rem;
-  line-height: 1.4;
 
   h3 {
-    font-size: 1.6rem;
-    margin-bottom: 12px;
+    margin-bottom: $font-size-body;
+    opacity: $text-opacity-light-secondary;
+  }
+
+  p {
+    opacity: $text-opacity-light-secondary;
   }
 }
 
-.footer-row,
-.footer-copyright {
-  max-width: 1440px;
+.ee-footer-primary,
+.ee-footer-secondary {
   margin: 0 auto;
-  padding: 0 20px;
+  background-color: $color-gray;
+  max-width: $eagleeye-max-width;
+  padding: 0 $eagleeye-header-left-right-content-padding;
 }
 
-.footer-company-bio,
-.footer-useful-links,
-.footer-contact-us {
-  margin-right: 24px;
-  padding: 12px 0;
+.ee-footer-company-bio,
+.ee-footer-useful-links,
+.ee-footer-contact-us {
+  margin-right: $eagleeye-header-left-right-content-padding;
+  padding: $eagleeye-header-left-right-content-padding 0;
 }
 
-.footer-row-wrapper {
-  background: #808285;
+.ee-footer-useful-links a {
+  color: #ffffff;
+  opacity: $text-opacity-light-secondary;
+  transition: opacity $eagleeye-transition-duration $eagleeye-transition-timing-function;
+
+  &:hover {
+    opacity: $text-opacity-light-primary;
+  }
 }
 
-.footer-copyright-wrapper {
-  background-color: #6d6e70;
+.ee-footer-contact-us {
+  margin-right: 0;
+
+  li {
+    opacity: $text-opacity-light-secondary;
+
+    &:hover {
+      opacity: $text-opacity-light-primary;
+    }
+  }
+}
+
+.ee-footer-secondary {
+  background-color: $color-gray-dark;
+
   p {
-    padding: 12px 0;
-    opacity: .7;
+    opacity: $text-opacity-light-primary;
+    padding: ($eagleeye-header-left-right-content-padding / 2) 0;
   }
 }

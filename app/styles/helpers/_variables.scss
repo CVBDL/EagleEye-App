@@ -2,9 +2,9 @@
 // ------------------------------
 
 // 'Roboto' is default font family of angular material
-$font-family: Roboto, 'Helvetica Neue', sans-serif !default;
-$font-size: 10px !default;
-
+$font-family:       Roboto, 'Helvetica Neue', sans-serif !default;
+$font-size:         10px !default;
+$font-size-body:    14px;
 
 // Colors
 // ------------------------------
@@ -33,7 +33,7 @@ $eagleeye-transition-timing-function: ease;
 
 // Layout
 // ------------------------------
-$eagleeye-max-width: 1400px;
+$eagleeye-max-width:                         1400px;
 
 // Layout: Header
 // https://material.google.com/layout/structure.html#structure-app-bar
