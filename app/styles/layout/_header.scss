@@ -1,17 +1,17 @@
 // Logo area
 // ------------------------------
-.header {
+.ee-header {
   background-color: $color-primary;
 }
 
-.header-row-wrapper {
+.ee-header-row-wrapper {
   margin: 0 auto;
   height: $eagleeye-header-height;
   max-width: $eagleeye-max-width;
   padding: $eagleeye-header-top-bottom-content-padding $eagleeye-header-left-right-content-padding;
 }
 
-.logo-wrapper {
+.ee-logo-wrapper {
   a {
     transition: opacity $eagleeye-transition-duration $eagleeye-transition-timing-function;
 
@@ -21,7 +21,7 @@
   }
 }
 
-.logo-icon {
+.ee-logo-icon {
   background-color: #fff;
   border-radius: 50%;
   width: $eagleeye-header-content-height;
@@ -36,7 +36,7 @@
   }
 }
 
-.logo-title {
+.ee-logo-title {
   color: #ffffff;
 
   div {
@@ -47,10 +47,6 @@
 
 // Nav area
 // -----------------------------
-.navbar {
-  margin-left: $eagleeye-header-height;
-}
-
 .ee-navbar {
   list-style: none;
   height: $eagleeye-header-content-height;
