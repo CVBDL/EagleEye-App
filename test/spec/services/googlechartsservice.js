@@ -3,7 +3,7 @@
 describe('Service: GoogleChartsService', function () {
 
   // load the service's module
-  beforeEach(module('eagleEyeApp'));
+  beforeEach(module('eagleeye'));
 
   // instantiate service
   var GoogleChartsService;

@@ -1,23 +1,23 @@
 'use strict';
 
-describe('Controller: ChartsetcontrollerCtrl', function () {
+describe('Controller: ChartSetController', function () {
 
   // load the controller's module
-  beforeEach(module('eagleEyeApp'));
+  beforeEach(module('eagleeye'));
 
-  var ChartsetcontrollerCtrl,
+  var ChartSetController,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    ChartsetcontrollerCtrl = $controller('ChartsetcontrollerCtrl', {
+    ChartSetController = $controller('ChartSetController', {
       $scope: scope
       // place here mocked dependencies
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(ChartsetcontrollerCtrl.awesomeThings.length).toBe(3);
-  });
+  // it('should attach a list of awesomeThings to the scope', function () {
+  //   expect(ChartSetController.awesomeThings.length).toBe(3);
+  // });
 });
