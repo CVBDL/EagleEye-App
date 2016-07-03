@@ -65,8 +65,6 @@ angular.module('eagleeye')
         vAxis: {
           title: this.settings.vAxisTitle
         },
-        width: 800,
-        height: 250,
         animation: {
           duration: 500,
           easing: 'out',

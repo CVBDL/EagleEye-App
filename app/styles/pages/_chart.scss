@@ -3,7 +3,7 @@
 
   .ee-chart-wrapper {
     max-width: $eagleeye-max-width;
-    padding: $eagleeye-chart-content-padding $eagleeye-chart-content-padding * 2;
+    padding: $eagleeye-chart-top-bottom-content-padding $eagleeye-chart-left-right-content-padding;
   }
 
   md-card {

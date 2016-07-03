@@ -11,7 +11,7 @@ angular.module('eagleeye')
     '$timeout',
     function ($timeout) {
       return {
-        template: '<div></div>',
+        template: '<div layout="row" layout-sm="column" layout-align="center center"><md-progress-circular class="ee-progress-circular" md-diameter="40"></md-progress-circular></div>',
         scope: {
           chartDataTable: '=',
           chartOptions: '=',

@@ -45,6 +45,12 @@ $eagleeye-header-left-content-padding:       80px;
 $eagleeye-header-top-bottom-content-padding: ($eagleeye-header-height - $eagleeye-header-content-height) / 2;
 
 
+// Layout: google chart
+// ------------------------------
+$eagleeye-google-chart-height:                     350px;
+$eagleeye-google-chart-left-right-content-padding: 16px;
+
+
 // Page: home
 // ------------------------------
 $eagleeye-home-hero-left-right-content-padding: 120px;
@@ -55,4 +61,6 @@ $eagleeye-home-nav-card-height: 170px;
 
 // Page: chart
 // ------------------------------
-$eagleeye-chart-content-padding: $eagleeye-header-left-right-content-padding * 2;
+$eagleeye-chart-top-bottom-content-padding: $eagleeye-home-hero-top-bottom-content-padding;
+$eagleeye-chart-left-right-content-padding: $eagleeye-header-left-content-padding;
+// $eagleeye-chart-left-right-content-padding

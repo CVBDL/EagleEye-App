@@ -27,8 +27,8 @@ angular.module('eagleeye')
       };
 
       this.deleteChartById = function() {
-        console.log("deleteChartById()");
         var id = this.chartData._id;
+
         EagleEyeWebService.deleteChartById(id).then(function() {
           $state.go('charts');
         });

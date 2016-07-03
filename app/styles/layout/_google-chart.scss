@@ -1,0 +1,11 @@
+ee-google-chart,
+ee-google-chart-sample {
+  display: block;
+  margin: 0;
+  padding: 0 $eagleeye-google-chart-left-right-content-padding;
+  height: $eagleeye-google-chart-height;
+
+  & > div {
+    height: 100%;
+  }
+}
