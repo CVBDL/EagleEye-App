@@ -47,11 +47,9 @@ angular.module('eagleeye')
           datatable: this.chartDataTableSamples[this.settings.majorAxisDataType]
         });
 
-        EagleEyeWebService.createChart(data).then(function(newChartSetId) {
-          console.log(newChartSetId);
-
+        EagleEyeWebService.createChart(data).then(function(newChart) {
           $state.go('chartSettings', {
-            id: newChartSetId
+            id: newChart._id
           });
 
         }, function(error) {
