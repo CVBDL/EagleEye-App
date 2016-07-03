@@ -1,26 +1,27 @@
 <div class="ee-chart-view">
   <div class="ee-chart-wrapper">
-    <md-toolbar class="ee-card-box-shadow">
-      <div class="md-toolbar-tools">
-        <h2>
-          <span>{{chart.chartData.options.title}}</span>
-        </h2>
-        <span flex></span>
-        <md-button class="md-icon-button" aria-label="Settings" ng-click="chart.goSettings()">
-          <md-tooltip md-direction="botton">Settings</md-tooltip>
-          <md-icon md-font-set="material-icons" class="ee-icon"> settings </md-icon>
-        </md-button>
-        <md-button class="md-icon-button" aria-label="Refresh">
-          <md-tooltip md-direction="botton">Refresh</md-tooltip>
-          <md-icon md-font-set="material-icons" class="ee-icon"> refresh </md-icon>
-        </md-button>
-        <md-button class="md-icon-button" aria-label="Delete" ng-click="chart.deleteChartById()">
-          <md-tooltip md-direction="botton">Delete</md-tooltip>
-          <md-icon md-font-set="material-icons" class="ee-icon"> delete </md-icon>
-        </md-button>
-      </div>
-    </md-toolbar>
     <md-card>
+      <md-toolbar >
+        <div class="md-toolbar-tools">
+          <h2>
+            <span>{{chart.chartData.options.title}}</span>
+          </h2>
+          <span flex></span>
+          <md-button class="md-icon-button" aria-label="Settings" ng-click="chart.goSettings()">
+            <md-tooltip md-direction="botton">Settings</md-tooltip>
+            <md-icon md-font-set="material-icons" class="ee-icon"> settings </md-icon>
+          </md-button>
+          <md-button class="md-icon-button" aria-label="Refresh">
+            <md-tooltip md-direction="botton">Refresh</md-tooltip>
+            <md-icon md-font-set="material-icons" class="ee-icon"> refresh </md-icon>
+          </md-button>
+          <md-button class="md-icon-button" aria-label="Delete" ng-click="chart.deleteChartById()">
+            <md-tooltip md-direction="botton">Delete</md-tooltip>
+            <md-icon md-font-set="material-icons" class="ee-icon"> delete </md-icon>
+          </md-button>
+        </div>
+      </md-toolbar>
+      <md-divider></md-divider>
       <ee-google-chart chart-type="chart.chartData.chartType" chart-options="chart.chartData.options" chart-data-table="chart.chartData.datatable">
       </ee-google-chart>
       <md-divider></md-divider>

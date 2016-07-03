@@ -15,10 +15,13 @@
     height: $eagleeye-header-height;
     min-height: $eagleeye-header-height;
     max-height: $eagleeye-header-height;
-    margin-bottom: $eagleeye-chart-content-padding / 4;
 
     h2 {
       color: $color-gray-dark;
+    }
+
+    .md-button {
+      color: $color-secondary;  // set `md-ink-ripple` color
     }
 
     .ee-icon {
