@@ -49,5 +49,10 @@ $eagleeye-header-top-bottom-content-padding: ($eagleeye-header-height - $eagleey
 // ------------------------------
 $eagleeye-home-hero-left-right-content-padding: 120px;
 $eagleeye-home-hero-top-bottom-content-padding: 36px;
-$eagleeye-home-content-padding: 24px;
+$eagleeye-home-content-padding: $eagleeye-header-left-right-content-padding;
 $eagleeye-home-nav-card-height: 170px;
+
+
+// Page: chart
+// ------------------------------
+$eagleeye-chart-content-padding: $eagleeye-header-left-right-content-padding * 2;

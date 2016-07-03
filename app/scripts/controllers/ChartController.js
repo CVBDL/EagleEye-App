@@ -12,7 +12,7 @@ angular.module('eagleeye')
     '$state',
     '$stateParams',
     'EagleEyeWebService',
-    function ($state, $stateParams, EagleEyeWebService) {
+    function($state, $stateParams, EagleEyeWebService) {
       var controller = this,
         id = $stateParams.id;
 
@@ -22,16 +22,17 @@ angular.module('eagleeye')
         controller.chartData = data;
       });
 
-      this.goSettings = function(){
-        $state.go('chartSettings', {id : id});
-      }
+      this.goSettings = function() {
+        $state.go('chartSettings', { id: id });
+      };
 
       this.deleteChartById = function() {
-          console.log("deleteChartById()");
-          var id = this.chartData._id;
-          EagleEyeWebService.deleteChartById(id).then(function() {
-            $state.go('charts');
+        console.log("deleteChartById()");
+        var id = this.chartData._id;
+        EagleEyeWebService.deleteChartById(id).then(function() {
+          $state.go('charts');
         });
-      }
+      };
+
     }
   ]);

@@ -1,0 +1,32 @@
+.ee-chart-view {
+  background-color: $color-gray-light-light;
+
+  .ee-chart-wrapper {
+    max-width: $eagleeye-max-width;
+    padding: $eagleeye-chart-content-padding $eagleeye-chart-content-padding * 2;
+  }
+
+  md-card {
+    margin: 0;
+  }
+
+  md-toolbar {
+    background-color: #fff;
+    height: $eagleeye-header-height;
+    min-height: $eagleeye-header-height;
+    max-height: $eagleeye-header-height;
+    margin-bottom: $eagleeye-chart-content-padding / 4;
+
+    h2 {
+      color: $color-gray-dark;
+    }
+
+    .ee-icon {
+      color: $color-gray;
+    }
+  }
+
+  md-content {
+    background-color: #fff;
+  }
+}
