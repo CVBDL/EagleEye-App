@@ -35,9 +35,9 @@ angular.module('eagleeye')
       this.save = function() {
         var data = JSON.stringify(this.settings);
 
-        EagleEyeWebService.createChartSet(data).then(function(newChartSetId) {
+        EagleEyeWebService.createChartSet(data).then(function(newChartSet) {
           $state.go('chartSet', {
-            id: newChartSetId
+            id: newChartSet._id
           });
         });
       };
