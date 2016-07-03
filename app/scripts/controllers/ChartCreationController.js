@@ -22,6 +22,7 @@ angular.module('eagleeye')
       this.selectedChartTypeOption = this.chartTypeOptions[0];
       this.settings = {
         title: '',
+        description: '',
         hAxisTitle: '',
         vAxisTitle: '',
         friendlyUrl: '',
@@ -30,6 +31,7 @@ angular.module('eagleeye')
 
       this.createChart = function() {
         var data = JSON.stringify({
+          description: this.settings.description,
           chartType: this.selectedChartTypeOption.value,
           domainDataType: this.settings.majorAxisDataType,
           friendlyUrl: friendlyUrlPrefix + this.settings.friendlyUrl,
