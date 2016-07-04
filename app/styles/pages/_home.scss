@@ -5,11 +5,11 @@
     box-sizing: border-box;
     color: $color-gray-dark;
     margin: 0 auto;
-    padding: $eagleeye-home-hero-top-bottom-content-padding $eagleeye-home-left-right-content-padding;
+    padding: $eagleeye-content-padding-secondary $eagleeye-content-padding-primary;
     max-width: $eagleeye-max-width;
 
     .list {
-      padding-bottom: $eagleeye-home-content-padding;
+      padding-bottom: $eagleeye-content-padding-secondary;
     }
 
     .ee-button {
@@ -22,7 +22,7 @@
   }
 
   .ee-headline {
-    padding-bottom: $eagleeye-home-content-padding;
+    padding-bottom: $eagleeye-content-padding-secondary;
 
     .sub-title {
       color:  $color-secondary;
@@ -38,13 +38,13 @@
   .dev {
     margin: 0 auto;
     max-width: $eagleeye-max-width;
-    padding: ($eagleeye-home-content-padding / 2) $eagleeye-home-left-right-content-padding;
+    padding: ($eagleeye-content-padding-secondary / 2) $eagleeye-content-padding-primary;
   }
 
   .sub-nav-item {
     box-sizing: border-box;
     height: $eagleeye-home-nav-card-height;
-    margin-right: $eagleeye-home-content-padding / 2;
+    margin-right: $eagleeye-content-padding-secondary / 2;
 
     &:last-child {
       margin-right: 0;
@@ -54,14 +54,6 @@
       margin: 0;
       height: 100%;
 
-      .md-headline {
-        // color: $color-gray-dark;
-      }
-
-      .md-subhead {
-        // color: $color-gray !important;
-      }
-
       .md-button {
         color: $color-secondary;
       }
@@ -69,7 +61,7 @@
   }
 
   .dev-image {
-    margin-right: $eagleeye-home-content-padding / 2;
+    margin-right: $eagleeye-content-padding-secondary / 2;
 
     img {
       width: 100%;
@@ -79,7 +71,7 @@
 
   .dev-text {
     box-sizing: border-box;
-    padding: $eagleeye-home-content-padding / 2;
+    padding: $eagleeye-content-padding-secondary / 2;
 
     h2 {
       padding-bottom: 24px;

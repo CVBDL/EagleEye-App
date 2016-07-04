@@ -2,66 +2,62 @@
 // ------------------------------
 
 // 'Roboto' is default font family of angular material
-$font-family:       Roboto, 'Helvetica Neue', sans-serif !default;
-$font-size:         10px !default;
-$font-size-body:    14px;
+$font-family:     Roboto, 'Helvetica Neue', sans-serif !default;
+$font-size:       10px !default;
+$font-size-body:  14px;
 
 // Colors
 // ------------------------------
-$color-primary:                  #bb2322;
-$color-secondary:                #ef5350;
-$color-gray:                     #808285;
-$color-gray-light:               #c8c8c8;
-$color-gray-light-light:         #eceff1;
-$color-gray-dark:                #555555;
+$color-primary:           #bb2322;
+$color-secondary:         #ef5350;
+$color-gray:              #808285;
+$color-gray-light:        #c8c8c8;
+$color-gray-light-light:  #eceff1;
+$color-gray-dark:         #555555;
 
 
 // Text Opacity
 // ------------------------------
-$text-opacity-dark-primary:      0.87;
-$text-opacity-dark-secondary:    0.54;
-$text-opacity-dark-disabled:     0.38;
-$text-opacity-light-primary:     1   ;
-$text-opacity-light-secondary:   0.7 ;
-$text-opacity-light-disabled:    0.5 ;
+$text-opacity-dark-primary:     0.87;
+$text-opacity-dark-secondary:   0.54;
+$text-opacity-dark-disabled:    0.38;
+$text-opacity-light-primary:    1   ;
+$text-opacity-light-secondary:  0.7 ;
+$text-opacity-light-disabled:   0.5 ;
 
 
 // CSS3 Transitions
 // ------------------------------
-$eagleeye-transition-duration:        0.2s;
-$eagleeye-transition-timing-function: ease;
+$eagleeye-transition-duration:         0.2s;
+$eagleeye-transition-timing-function:  ease;
 
 
 // Layout
 // ------------------------------
-$eagleeye-max-width:                         1400px;
+$eagleeye-max-width:                 1400px;
+$eagleeye-content-padding-primary:     80px;
+$eagleeye-content-padding-secondary:   24px;
+
 
 // Layout: Header
 // https://material.google.com/layout/structure.html#structure-app-bar
-$eagleeye-header-height:                     48px;
-$eagleeye-header-content-height:             40px;
-$eagleeye-header-left-right-content-padding: 24px;
-$eagleeye-header-left-content-padding:       80px;
-$eagleeye-header-top-bottom-content-padding: ($eagleeye-header-height - $eagleeye-header-content-height) / 2;
+$eagleeye-header-height:                      48px;
+$eagleeye-header-content-height:              40px;
+$eagleeye-header-left-content-padding:        $eagleeye-content-padding-primary;
+$eagleeye-header-left-right-content-padding:  $eagleeye-content-padding-secondary;
+$eagleeye-header-top-bottom-content-padding:  ($eagleeye-header-height - $eagleeye-header-content-height) / 2;
 
 
 // Layout: google chart
 // ------------------------------
 $eagleeye-google-chart-height:                     350px;
-$eagleeye-google-chart-left-right-content-padding: 16px;
+$eagleeye-google-chart-left-right-content-padding:  16px;  // align with md-toolbar
 
 
 // Page: home
 // ------------------------------
-$eagleeye-home-left-right-content-padding: $eagleeye-header-left-content-padding;
-$eagleeye-home-hero-left-right-content-padding: $eagleeye-header-left-content-padding;
-$eagleeye-home-hero-top-bottom-content-padding: 36px;
-$eagleeye-home-content-padding: $eagleeye-header-left-right-content-padding;
-$eagleeye-home-nav-card-height: 175px;
+$eagleeye-home-nav-card-height:                    175px;
 
 
 // Page: chart
 // ------------------------------
-$eagleeye-chart-top-bottom-content-padding: $eagleeye-home-hero-top-bottom-content-padding;
-$eagleeye-chart-left-right-content-padding: $eagleeye-header-left-content-padding;
-// $eagleeye-chart-left-right-content-padding
