@@ -25,3 +25,33 @@ a {
 .ee-progress-circular path {
   stroke: $color-secondary;
 }
+
+.ee-text-black-primary {
+  color: #000000;
+  opacity: $text-opacity-dark-primary;
+}
+
+.ee-text-black-secondary {
+  color: #000000;
+  opacity: $text-opacity-dark-secondary;
+}
+
+.ee-text-black-disabled {
+  color: #000000;
+  opacity: $text-opacity-dark-disabled;
+}
+
+.ee-text-white-primary {
+  color: #ffffff;
+  opacity: $text-opacity-light-primary;
+}
+
+.ee-text-white-secondary {
+  color: #ffffff;
+  opacity: $text-opacity-light-secondary;
+}
+
+.ee-text-white-disabled {
+  color: #ffffff;
+  opacity: $text-opacity-light-disabled;
+}

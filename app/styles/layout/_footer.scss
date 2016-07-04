@@ -11,10 +11,17 @@
   }
 }
 
+.ee-footer-primary-wrapper {
+  background-color: $color-gray;
+}
+
+.ee-footer-secondary-wrapper {
+  background-color: $color-gray-dark;
+}
+
 .ee-footer-primary,
 .ee-footer-secondary {
   margin: 0 auto;
-  background-color: $color-gray;
   max-width: $eagleeye-max-width;
   padding: 0 $eagleeye-header-left-right-content-padding;
 }
@@ -49,8 +56,6 @@
 }
 
 .ee-footer-secondary {
-  background-color: $color-gray-dark;
-
   p {
     opacity: $text-opacity-light-primary;
     padding: ($eagleeye-header-left-right-content-padding / 2) 0;

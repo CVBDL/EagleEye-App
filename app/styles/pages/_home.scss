@@ -6,9 +6,10 @@
   }
 
   .ee-hero {
+    box-sizing: border-box;
     color: $color-gray-dark;
     margin: 0 auto;
-    padding: $eagleeye-home-hero-top-bottom-content-padding $eagleeye-home-hero-left-right-content-padding;
+    padding: $eagleeye-home-hero-top-bottom-content-padding $eagleeye-home-left-right-content-padding;
     max-width: $eagleeye-max-width;
 
     .list {
@@ -45,7 +46,7 @@
   .dev {
     margin: 0 auto;
     max-width: $eagleeye-max-width;
-    padding: ($eagleeye-home-content-padding / 2) $eagleeye-home-content-padding;
+    padding: ($eagleeye-home-content-padding / 2) $eagleeye-home-left-right-content-padding;
   }
 
   .sub-nav-item {

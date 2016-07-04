@@ -53,10 +53,11 @@ $eagleeye-google-chart-left-right-content-padding: 16px;
 
 // Page: home
 // ------------------------------
-$eagleeye-home-hero-left-right-content-padding: 120px;
+$eagleeye-home-left-right-content-padding: $eagleeye-header-left-content-padding;
+$eagleeye-home-hero-left-right-content-padding: $eagleeye-header-left-content-padding;
 $eagleeye-home-hero-top-bottom-content-padding: 36px;
 $eagleeye-home-content-padding: $eagleeye-header-left-right-content-padding;
-$eagleeye-home-nav-card-height: 170px;
+$eagleeye-home-nav-card-height: 175px;
 
 
 // Page: chart
