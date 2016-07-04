@@ -3,11 +3,6 @@
 
   h3 {
     margin-bottom: $font-size-body;
-    opacity: $text-opacity-light-secondary;
-  }
-
-  p {
-    opacity: $text-opacity-light-secondary;
   }
 }
 
@@ -35,11 +30,10 @@
 
 .ee-footer-useful-links a {
   color: #ffffff;
-  opacity: $text-opacity-light-secondary;
   transition: opacity $eagleeye-transition-duration $eagleeye-transition-timing-function;
 
   &:hover {
-    opacity: $text-opacity-light-primary;
+    opacity: $text-opacity-light-secondary;
   }
 }
 
@@ -47,17 +41,15 @@
   margin-right: 0;
 
   li {
-    opacity: $text-opacity-light-secondary;
 
     &:hover {
-      opacity: $text-opacity-light-primary;
+      opacity: $text-opacity-light-secondary;
     }
   }
 }
 
 .ee-footer-secondary {
   p {
-    opacity: $text-opacity-light-primary;
     padding: ($eagleeye-header-left-right-content-padding / 2) 0;
   }
 }

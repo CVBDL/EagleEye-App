@@ -1,10 +1,6 @@
 .ee-home-view {
 
   // hero section
-  .ee-hero-wrapper {
-    background: url('../images/bg.jpg') no-repeat left top;
-  }
-
   .ee-hero {
     box-sizing: border-box;
     color: $color-gray-dark;
@@ -28,12 +24,8 @@
   .ee-headline {
     padding-bottom: $eagleeye-home-content-padding;
 
-    .title {
-      color: $color-secondary;
-    }
-
     .sub-title {
-      color: $color-gray;
+      color:  $color-secondary;
     }
   }
 
@@ -63,11 +55,11 @@
       height: 100%;
 
       .md-headline {
-        color: $color-gray-dark;
+        // color: $color-gray-dark;
       }
 
       .md-subhead {
-        color: $color-gray !important;
+        // color: $color-gray !important;
       }
 
       .md-button {
@@ -90,12 +82,10 @@
     padding: $eagleeye-home-content-padding / 2;
 
     h2 {
-      color: $color-gray-dark;
       padding-bottom: 24px;
     }
 
     ul {
-      color: $color-gray;
       padding: 24px 0;
     }
 
