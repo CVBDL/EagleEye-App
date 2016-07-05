@@ -4,16 +4,13 @@
 			<div ng-controller="ChartSetController as chartSetController" ng-cloak="" ng-app="eagleeye">
 			    <md-toolbar style="color:write;background-color:rgba(0, 0, 0, 0.18)">
 			    <div class="md-toolbar-tools">
-			        <h3>{{chartset.settings.title}} </h3>
-				    <!--md-icon md-font-icon="icon-settings" ui-sref="chartSetSettings({ id: chartset._id })">
-				        <a>Edit</a>
-				    </md-icon-->
+			          <h3>{{chartset.settings.title}} </h3>
+			           <span flex></span>
+				      <md-button class="md-icon-button" aria-label="Settings" ui-sref="chartSetSettings({ id: chartset._id })">
+				        <md-tooltip md-direction="botton">Edit</md-tooltip>
+				        <md-icon md-font-set="material-icons" class="ee-icon"> mode_edit </md-icon>
+				      </md-button>
 			    </div>
-			    <!--div class="md-toolbar-tools" style="height:25px">
-			          <p class="ng-binding">Description : {{chartset.settings.description}} - - - - - </p>
-			          <p class="ng-binding">FriendlyUrl :{{chartset.settings.friendlyUrl}} - - - - - </p>
-			          <p class="ng-binding">ChartCount :{{chartset.charDataArray.length}}</p>
-			    </div-->
 			    </md-toolbar>
 			  <md-grid-list  md-cols-gt-md="2" md-row-height-gt-md="5:4" md-gutter="12px" md-gutter-gt-sm="8px"> 
 					    <md-grid-tile ng-repeat="chart in chartset.charDataArray">
