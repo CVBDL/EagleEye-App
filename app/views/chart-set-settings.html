@@ -1,31 +1,61 @@
-<div>
-  <section>
-    Title: <input type="text" ng-model="chartset.settings.title">
-    <br>
-    Description: <input type="text" ng-model="chartset.settings.description">
-    <br>
-    Friendly URL: <input type="text" ng-model="chartset.settings.friendlyUrl">
-  </section>
-  <section>
-    Charts:
-    <div>
-      <p ng-repeat="chartId in chartset.settings.charts">
-        {{chartId}} <button ng-click="chartset.deleteChart(chartId)">Delete</button>
-      </p>
-    </div>
-    <h3>Chart list</h3>
-    <ul>
-      <li ng-repeat="chart in chartset.chartList">
-        {{chart.options.title}} <button ng-click="chartset.addToChartSet(chart)">Add to set</button>
-      </li>
-    </ul>
-  </section>
-  <section>
-    <button ng-click="chartset.updateChartSetById()">Save</button>
-    <md-button class="md-primary md-raised" ng-click="chartset.showConfirm($event)" >
-      DELETE IT
-    </md-button>
-  </section>
+<div class="ee-chart-view">
+  <div class="ee-chart-wrapper">
+   <md-card>
+     <md-content layout-padding="" style="width:20%">
+        <form name="ChartSetUpdateForm">
+
+          <md-input-container class="md-block">
+            <label>Title</label>
+            <input required="" name="clientName" ng-model="chartset.settings.title">
+            <div ng-messages="ChartSetUpdateForm.clientName.$error">
+              <div ng-message="required">This is required.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container class="md-block">
+            <label>Description</label>
+            <input required="" name="clientName" ng-model="chartset.settings.description">
+            <div ng-messages="ChartSetUpdateForm.clientName.$error">
+              <div ng-message="required">This is required.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container class="md-block">
+            <label>Friendly URL</label>
+            <input required="" name="clientName" ng-model="chartset.settings.friendlyUrl">
+            <div ng-messages="ChartSetUpdateForm.clientName.$error">
+              <div ng-message="required">This is required.</div>
+            </div>
+          </md-input-container>
+
+        </form>
+    </md-content>
+
+  <md-chips ng-model="chartset.settings.charts" md-contact-image="image" placeholder="Search to add"></md-chips>
+  <div>
+    <md-list class="fixedRows" style="margin-bottom:10px">
+      <md-subheader>Charts</md-subheader>
+      <md-list-item class="md-2-line" style="box-sizing: border-box;float:left;" ng-repeat="chart in chartset.chartList">
+        <div class="md-list-item-text" style="margin:20px">
+          <img ng-src="images/Chart.png" class="md-avatar" alt="">
+          <div class="md-list-item-text compact">
+            <h3>{{chart.options.title}} <button ng-click="chartset.addToChartSet(chart)">+</button> </h3>  
+            <p>description...</p>
+         </div> 
+        </div>
+      </md-list-item>
+    </md-list>
+  </div>
+      <section>
+        <md-button class="md-primary md-raised" ng-click="chartset.updateChartSetById()">
+          Save
+        </md-button>
+        <md-button class="md-primary md-raised" ng-click="chartset.showConfirm($event)" >
+          DELETE
+        </md-button>
+      </section>
+  </md-card>
+  </div>
 </div>
   <div style="visibility: hidden">
     <div class="md-dialog-container" id="myDialog">
