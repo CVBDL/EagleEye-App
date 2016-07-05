@@ -16,12 +16,14 @@
 			    </div-->
 			    </md-toolbar>
 			  <md-grid-list  md-cols-gt-md="2" md-row-height-gt-md="5:4" md-gutter="12px" md-gutter-gt-sm="8px"> 
-					    <md-grid-tile ng-repeat="chart in chartset.charDataArray" style="min-height:300px">
-				            <ee-google-chart
-						    chart-type="chart.chartType"
-						    chart-options="chart.options"
-						    chart-data-table="chart.datatable">
-					        </ee-google-chart>	
+					    <md-grid-tile ng-repeat="chart in chartset.charDataArray">
+					        <div style="float:left; width:100%;">
+					            <ee-google-chart
+							    chart-type="chart.chartType"
+							    chart-options="chart.options"
+							    chart-data-table="chart.datatable">
+						        </ee-google-chart>	
+					        </div>
 					        <md-grid-tile-footer>
 					           <h3 style="text-align:center">{{chart.options.title}}</h3>
 					        </md-grid-tile-footer>
