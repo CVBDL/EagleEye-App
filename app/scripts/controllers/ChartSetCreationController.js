@@ -33,7 +33,18 @@ angular.module('eagleeye')
       };
 
       this.save = function() {
-        var data = JSON.stringify(this.settings);
+        var friendlyUrl = '';
+
+        if (this.settings.friendlyUrl) {
+          friendlyUrl = friendlyUrlPrefix + this.settings.friendlyUrl;
+        }
+
+        var data = JSON.stringify({
+          title: this.settings.title,
+          description: this.settings.description,
+          friendlyUrl: friendlyUrl,
+          charts: this.settings.charts
+        });
 
         EagleEyeWebService.createChartSet(data).then(function(newChartSet) {
           $state.go('chartSet', {
