@@ -20,7 +20,7 @@
                     <md-icon   md-font-set="material-icons" class="ee-icon"> email </md-icon>
       </md-button>
 
-      <md-button class="md-icon-button" aria-label="Delete" ng-click="chartsets.deleteChartSetById(chartset._id)">
+      <md-button class="md-icon-button" aria-label="Delete" ng-click="chartsets.showConfirm($event,chartset._id)">
         <md-tooltip md-direction="botton">Delete</md-tooltip>
         <md-icon md-font-set="material-icons" class="ee-icon"> delete </md-icon>
       </md-button>

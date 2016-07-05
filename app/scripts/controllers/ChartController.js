@@ -32,7 +32,7 @@ angular.module('eagleeye')
       // Appending dialog to document.body to cover sidenav in docs app
       var confirm = $mdDialog.confirm()
           .title('Would you like to delete this chart?')
-          .textContent('Please be care that if you click OK the chart will be deleted.')
+          .textContent('Please be care that if you click "Delete The Chart" the chart will be deleted.')
           .ariaLabel('Lucky day')
           .targetEvent(ev)
           .ok('Delete The Chart')
