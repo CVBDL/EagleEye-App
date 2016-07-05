@@ -33,5 +33,11 @@
 
   md-content {
     background-color: #fff;
+
+    .ee-chart-status {
+      span {
+        padding-right: $eagleeye-content-padding-secondary;
+      }
+    }
   }
 }
