@@ -33,13 +33,13 @@ angular.module('eagleeye')
 
               // default options
               chartOptions.legend = {
-                position: 'top',  // can be 'bottom', 'left', 'in', 'none', 'right' or 'top'
-                alignment: 'end',  // can be 'start', 'center' or 'end'
-                maxLines: 2,  // Maximum number of lines in the legend.
+                position: 'top',          // can be 'bottom', 'left', 'in', 'none', 'right' or 'top'
+                alignment: 'end',         // can be 'start', 'center' or 'end'
+                maxLines: 2,              // Maximum number of lines in the legend.
                 textStyle: {
-                  color: '#555555'
+                  color: '#555555',       // $color-gray-dark
                 }
-              }
+              };
               chartOptions.titlePosition = 'none';
 
               $timeout(chart.draw(chartDataTable, chartOptions), 0);

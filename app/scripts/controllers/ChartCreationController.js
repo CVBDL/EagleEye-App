@@ -30,11 +30,17 @@ angular.module('eagleeye')
       };
 
       this.createChart = function() {
+        var friendlyUrl = '';
+
+        if (this.settings.friendlyUrl) {
+          friendlyUrl = friendlyUrlPrefix + this.settings.friendlyUrl;
+        }
+
         var data = JSON.stringify({
           description: this.settings.description,
           chartType: this.selectedChartTypeOption.value,
           domainDataType: this.settings.majorAxisDataType,
-          friendlyUrl: friendlyUrlPrefix + this.settings.friendlyUrl,
+          friendlyUrl: friendlyUrl,
           options: {
             title: this.settings.title,
             hAxis: {

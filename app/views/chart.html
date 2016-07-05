@@ -3,9 +3,7 @@
     <md-card>
       <md-toolbar >
         <div class="md-toolbar-tools">
-          <h2>
-            <span>{{chart.chartData.options.title}}</span>
-          </h2>
+          <h2 class="ee-text-black-primary">{{chart.chartData.options.title}}</h2>
           <span flex></span>
           <md-button class="md-icon-button" aria-label="Settings" ng-click="chart.goSettings()">
             <md-tooltip md-direction="botton">Settings</md-tooltip>
@@ -26,9 +24,11 @@
       </ee-google-chart>
       <md-divider></md-divider>
       <md-content flex="" layout-padding="">
-        <p>{{chart.chartData.timestamp | date: 'medium'}}</p>
-        <p>Last Modified Time: {{chart.chartData.lastUpdateTimestamp | date: 'medium'}}</p>
-        <p>{{chart.chartData.description}}</p>
+        <!-- <p>{{chart.chartData.timestamp | date: 'medium'}}</p> -->
+        <p class="ee-chart-status"><md-icon md-font-set="material-icons" class="ee-icon"> person </md-icon> <span>EagleEye</span> <md-icon md-font-set="material-icons" class="ee-icon"> access_time </md-icon> <span>{{chart.chartData.lastUpdateTimestamp | date: 'medium'}}</span></p>
+        <p>
+          {{chart.chartData.description}}
+        </p>
       </md-content>
     </md-card>
   </div>
