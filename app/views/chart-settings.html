@@ -7,6 +7,12 @@
       <md-card-title-text>
       <span class="md-title">Chart Settings Page</span>
       <span class="md-subhead">Chart id: {{chart.id}}</span>
+      <md-card-actions layout="row" layout-align="end center">
+      <md-button aria-label="viewchart" ng-click="chart.goViewChart()"> View This Chart
+      </md-button>
+      <md-button aria-label="viewcharts" ng-click="chart.goViewCharts()"> View Charts
+      </md-button>
+      </md-card-actions>  
       </md-card-title-text>
     </md-card-title>
   </md-toolbar>

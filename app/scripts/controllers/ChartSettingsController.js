@@ -9,11 +9,20 @@
  */
 angular.module('eagleeye')
   .controller('ChartSettingsController', [
+    '$state',
     '$stateParams',
     'Upload',
-    function ($stateParams, Upload) {
+    function ($state, $stateParams, Upload) {
       var controller = this;
       controller.id = $stateParams.id;
+
+      this.goViewChart = function(){
+        $state.go('chart', {id : controller.id});
+      };
+
+      this.goViewCharts = function(){
+        $state.go('charts');
+      };
 
       this.upload = function (file) {
         file.upload = Upload.upload({
