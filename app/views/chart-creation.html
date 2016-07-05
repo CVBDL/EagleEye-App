@@ -1,47 +1,96 @@
-<div>
-  <h2>Create a new chart</h2>
+<div class="ee-chart-view">
+  <div class="ee-chart-wrapper">
+    <md-card> 
+    <div>
+    <div style="float:left;width:25%;margin-left:10px">
+      <md-content layout-padding="">
+        <form name="ChartCreationForm">
+
+          <md-input-container class="md-block">
+            <label>Chart Title</label>
+            <input required="" name="clientName" ng-model="newChart.settings.title">
+            <div ng-messages="ChartCreationForm.clientName.$error">
+              <div ng-message="required">This is required.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container class="md-block">
+            <label>Chart Description</label>
+            <input required="" name="clientName" ng-model="newChart.settings.description">
+            <div ng-messages="ChartCreationForm.clientName.$error">
+              <div ng-message="required">This is required.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container class="md-block">
+            <label>H-axis Title</label>
+            <input required="" name="clientName" ng-model="newChart.settings.hAxisTitle">
+            <div ng-messages="ChartCreationForm.clientName.$error">
+              <div ng-message="required">This is required.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container class="md-block">
+            <label>V-axis Title</label>
+            <input required="" name="clientName" ng-model="newChart.settings.vAxisTitle">
+            <div ng-messages="ChartCreationForm.clientName.$error">
+              <div ng-message="required">This is required.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container class="md-block">
+            <label>Friendly Url c-</label>
+            <input required="" name="clientName" ng-model="newChart.settings.friendlyUrl">
+            <div ng-messages="ChartCreationForm.clientName.$error">
+              <div ng-message="required">This is required.</div>
+            </div>
+          </md-input-container>
+
+        </form>
+      </md-content>
+      </div>
+      <div style="width:70%;float:right">
+          <ee-google-chart-sample
+          chart-type="newChart.selectedChartTypeOption.construcorName"
+          chart-options="newChart.chartOptions"
+          chart-major-axis-data-type="newChart.settings.majorAxisDataType">
+          </ee-google-chart-sample>
+      </div>
+  </div>
+
+ <div>
+    <div style="float:left;width:25%;margin-left:25px">
+         <a class="md-headline ee-text-black-primary" >Chart type</a>
+         <md-radio-group ng-model="newChart.selectedChartTypeOption" ng-repeat="chartTypeOption in newChart.chartTypeOptions">
+           <md-radio-button class="md-primary" name="chartTypeOption" ng-value="chartTypeOption">
+           {{chartTypeOption.label}}
+           </md-radio-button>
+         </md-radio-group>
+    </div>
+    <div style="float:right;width:70%;margin-left:10px">
+        <a class="md-headline ee-text-black-primary">Major axis data type <a href="https://developers.google.com/chart/interactive/docs/customizing_axes#terminology" target="_blank">What's major axis?</a> </a>
+        <md-radio-group ng-model="newChart.settings.majorAxisDataType">
+           <md-radio-button  name="majorAxisDataType" class="md-primary" value="string">
+               String
+           </md-radio-button>
+           <md-radio-button  name="majorAxisDataType" class="md-primary" value="number">
+               Number
+           </md-radio-button>
+           <md-radio-button  name="majorAxisDataType" class="md-primary" value="date">
+               Date
+           </md-radio-button>
+           <md-radio-button  name="majorAxisDataType" class="md-primary" value="datetime">
+               Datetime
+           </md-radio-button>
+        </md-radio-group>
+
+    </div>
+  </div>
 
   <section>
-    <h3>Chart type</h3>
-
-    <p ng-repeat="chartTypeOption in newChart.chartTypeOptions">
-      <input type="radio" name="chartTypeOption" ng-value="chartTypeOption" ng-model="newChart.selectedChartTypeOption"> {{chartTypeOption.label}}
-    </p>
+    <md-button class="md-primary md-raised" ng-click="newChart.createChart()">Create Chart</button>
   </section>
 
-  <section>
-    <h3>Chart options</h3>
-    Chart title: <input type="text" ng-model="newChart.settings.title"> <br>
-    Chart description: <input type="text" ng-model="newChart.settings.description"> <br>
-    h-axis title: <input type="text" ng-model="newChart.settings.hAxisTitle"> <br>
-    v-axis title: <input type="text" ng-model="newChart.settings.vAxisTitle"> <br>
-  </section>
-
-  <section>
-    <h3>Major axis data type</h3>
-    <a href="https://developers.google.com/chart/interactive/docs/customizing_axes#terminology" target="_blank">What's major axis?</a><br>
-
-    <input type="radio" name="majorAxisDataType" value="string" ng-model="newChart.settings.majorAxisDataType"> string<br>
-    <input type="radio" name="majorAxisDataType" value="number" ng-model="newChart.settings.majorAxisDataType"> number<br>
-    <input type="radio" name="majorAxisDataType" value="date" ng-model="newChart.settings.majorAxisDataType"> date<br>
-    <input type="radio" name="majorAxisDataType" value="datetime" ng-model="newChart.settings.majorAxisDataType"> datetime<br>
-  </section>
-
-  <section>
-    <span>Friendly url: c-</span><input type="text" ng-model="newChart.settings.friendlyUrl">
-  </section>
-
-  <section>
-    <ee-google-chart-sample
-      chart-type="newChart.selectedChartTypeOption.construcorName"
-      chart-options="newChart.chartOptions"
-      chart-major-axis-data-type="newChart.settings.majorAxisDataType">
-    </ee-google-chart-sample>
-  </section>
-
-  <section>
-    <button ng-click="newChart.createChart()">Create Chart</button>
-  </section>
-
-  <section>{{newChart.settings}}</section>
+  </md-card>
+  </div>
 </div>
