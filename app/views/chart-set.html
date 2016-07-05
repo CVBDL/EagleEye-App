@@ -1,4 +1,4 @@
-<div class="ee-chart-view">
+<div id="canv" class="ee-chart-view">
 	<div class="ee-chart-wrapper">
 		<md-card>
 			<div ng-controller="ChartSetController as chartSetController" ng-cloak="" ng-app="eagleeye">
@@ -6,6 +6,16 @@
 			    <div class="md-toolbar-tools">
 			          <h3>{{chartset.settings.title}} </h3>
 			           <span flex></span>
+			           <md-button class="md-icon-button">
+                          <md-tooltip md-direction="botton">Save to Image</md-tooltip>
+                          <md-icon   md-font-set="material-icons" class="ee-icon"> add_a_photo </md-icon>
+                       </md-button>
+
+			           <md-button href="mailto:sample@sample.com" class="md-icon-button">
+                          <md-tooltip md-direction="botton">Share by email</md-tooltip>
+                          <md-icon   md-font-set="material-icons" class="ee-icon"> email </md-icon>
+                       </md-button>
+
 				      <md-button class="md-icon-button" aria-label="Settings" ui-sref="chartSetSettings({ id: chartset._id })">
 				        <md-tooltip md-direction="botton">Edit</md-tooltip>
 				        <md-icon md-font-set="material-icons" class="ee-icon"> mode_edit </md-icon>
