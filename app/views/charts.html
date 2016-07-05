@@ -1,17 +1,19 @@
-<div>
+<div class="ee-chart-view">
+  <div class="ee-chart-wrapper">
+   <md-card>
     <md-toolbar style="color:write;background-color:rgba(0, 0, 0, 0.18)">
     <div class="md-toolbar-tools">
         <h3>Charts List </h3>
     </div>
     </md-toolbar>
 
-    <md-button class="md-primary">
+    <md-button class="md-primary" style="text-align:left">
     <p ui-sref="createChart" > Create chart + </p>
     </md-button>
       
     <md-divider></md-divider>
     <div>
-        <div style="width:40%;">
+        <div">
         	<md-list-item  ui-sref="chart({ id: chart._id })" ng-click="null" ng-repeat="chart in charts.chartList">
         	    <p> {{ chart.options.title }} </p>
         	    <md-button ><a ui-sref="chart({ id: chart.friendlyUrl })">{{chart.friendlyUrl}}</a></md-button>
@@ -28,4 +30,6 @@
     </div>
 
     <md-divider></md-divider>
+    </md-card>
+    </div>
 </div>
