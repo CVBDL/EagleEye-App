@@ -1,28 +1,34 @@
-<div ng-controller="ChartSetController as chartSetController" ng-cloak="" ng-app="eagleeye">
-    <md-toolbar style="color:write;background-color:rgba(0, 0, 0, 0.18)">
-    <div class="md-toolbar-tools">
-        <h3>{{chartset.settings.title}} </h3>
-	    <!--md-icon md-font-icon="icon-settings" ui-sref="chartSetSettings({ id: chartset._id })">
-	        <a>Edit</a>
-	    </md-icon-->
-    </div>
-    <!--div class="md-toolbar-tools" style="height:25px">
-          <p class="ng-binding">Description : {{chartset.settings.description}} - - - - - </p>
-          <p class="ng-binding">FriendlyUrl :{{chartset.settings.friendlyUrl}} - - - - - </p>
-          <p class="ng-binding">ChartCount :{{chartset.charDataArray.length}}</p>
-    </div-->
-    </md-toolbar>
-  <md-grid-list  md-cols-gt-md="2" md-row-height-gt-md="5:4" md-gutter="12px" md-gutter-gt-sm="8px"> 
-		    <md-grid-tile ng-repeat="chart in chartset.charDataArray" style="min-height:300px">
-	            <ee-google-chart
-			    chart-type="chart.chartType"
-			    chart-options="chart.options"
-			    chart-data-table="chart.datatable">
-		        </ee-google-chart>	
-		        <md-grid-tile-footer>
-		           <h3 style="text-align:center">{{chart.options.title}}</h3>
-		        </md-grid-tile-footer>
-		    </md-grid-tile>         
-  </md-grid-list>
-  <br>
+<div class="ee-chart-view">
+	<div class="ee-chart-wrapper">
+		<md-card>
+			<div ng-controller="ChartSetController as chartSetController" ng-cloak="" ng-app="eagleeye">
+			    <md-toolbar style="color:write;background-color:rgba(0, 0, 0, 0.18)">
+			    <div class="md-toolbar-tools">
+			        <h3>{{chartset.settings.title}} </h3>
+				    <!--md-icon md-font-icon="icon-settings" ui-sref="chartSetSettings({ id: chartset._id })">
+				        <a>Edit</a>
+				    </md-icon-->
+			    </div>
+			    <!--div class="md-toolbar-tools" style="height:25px">
+			          <p class="ng-binding">Description : {{chartset.settings.description}} - - - - - </p>
+			          <p class="ng-binding">FriendlyUrl :{{chartset.settings.friendlyUrl}} - - - - - </p>
+			          <p class="ng-binding">ChartCount :{{chartset.charDataArray.length}}</p>
+			    </div-->
+			    </md-toolbar>
+			  <md-grid-list  md-cols-gt-md="2" md-row-height-gt-md="5:4" md-gutter="12px" md-gutter-gt-sm="8px"> 
+					    <md-grid-tile ng-repeat="chart in chartset.charDataArray" style="min-height:300px">
+				            <ee-google-chart
+						    chart-type="chart.chartType"
+						    chart-options="chart.options"
+						    chart-data-table="chart.datatable">
+					        </ee-google-chart>	
+					        <md-grid-tile-footer>
+					           <h3 style="text-align:center">{{chart.options.title}}</h3>
+					        </md-grid-tile-footer>
+					    </md-grid-tile>         
+			  </md-grid-list>
+			  <br>
+			</div>
+		</md-card>
+	</div>
 </div>

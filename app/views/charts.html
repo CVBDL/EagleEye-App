@@ -13,7 +13,7 @@
       
     <md-divider></md-divider>
     <div>
-        <div">
+        <div>
         	<md-list-item  ui-sref="chart({ id: chart._id })" ng-click="null" ng-repeat="chart in charts.chartList">
         	    <p> {{ chart.options.title }} </p>
         	    <md-button ><a ui-sref="chart({ id: chart.friendlyUrl })">{{chart.friendlyUrl}}</a></md-button>
