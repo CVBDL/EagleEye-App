@@ -10,12 +10,12 @@
         </md-button>
     </div>
     </md-toolbar>
-      
+
     <md-divider></md-divider>
     <div>
         <div>
-        	<md-list-item  ng-click="charts.openCharts(chart._id, chart.friendlyUrl)" ng-repeat="chart in charts.chartList">
-        	    <p> {{ chart.options.title }} </p>
+          <md-list-item  ng-click="charts.openCharts(chart._id, chart.friendlyUrl)" ng-repeat="chart in charts.chartList">
+              <p> {{ chart.options.title }} </p>
                 <md-button class="md-icon-button">
                     <md-tooltip md-direction="botton">Edit</md-tooltip>
                     <md-icon  md-font-set="material-icons" class="ee-icon"> edit </md-icon>
@@ -24,16 +24,9 @@
                     <md-tooltip md-direction="botton">Delete</md-tooltip>
                     <md-icon md-font-set="material-icons" class="ee-icon"> delete </md-icon>
                 </md-button>
-        	    <md-divider></md-divider>
-        	</md-list-item>
+              <md-divider></md-divider>
+          </md-list-item>
         </div>
-        <!--div style="width:40%;">
-           <ee-google-chart
-            chart-type="charts.chartList[0].chartType"
-            chart-options="charts.chartList[0].options"
-            chart-data-table="charts.chartList[0].datatable">
-           </ee-google-chart>
-        </div-->
     </div>
 
     <md-divider></md-divider>

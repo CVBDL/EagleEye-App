@@ -11,10 +11,10 @@ angular.module('eagleeye')
   .controller('ChartController', [
     '$state',
     '$stateParams',
-    '$mdDialog',
-    '$mdMedia',
+    '$location',
     'EagleEyeWebService',
-    function($state, $stateParams, $mdDialog, $mdMedia, EagleEyeWebService) {
+    'eeShareService',
+    function($state, $stateParams, $location, EagleEyeWebService, eeShareService) {
       var controller = this,
         id = $stateParams.id;
 
@@ -33,8 +33,8 @@ angular.module('eagleeye')
       };
 
       this.showConfirm = function(ev) {
-      // Appending dialog to document.body to cover sidenav in docs app
-      var confirm = $mdDialog.confirm()
+        // Appending dialog to document.body to cover sidenav in docs app
+        var confirm = $mdDialog.confirm()
           .title('Would you like to delete this chart?')
           .textContent('Please be care that if you click "Delete The Chart" the chart will be deleted.')
           .ariaLabel('Lucky day')
@@ -42,9 +42,15 @@ angular.module('eagleeye')
           .ok('Delete The Chart')
           .cancel('Cancel');
 
-      $mdDialog.show(confirm).then(function() {
-        controller.deleteChartById();
-        }, function() {
+        $mdDialog.show(confirm).then(function() {
+          controller.deleteChartById();
+        }, function() {});
+      };
+
+      this.showShare = function() {
+        eeShareService.showShareDialog({
+          sharedTitle: this.chartData.options.title,
+          sharedLink: $location.absUrl()
         });
       };
 
