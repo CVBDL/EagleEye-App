@@ -5,8 +5,8 @@
     <div class="md-toolbar-tools">
         <h2>All chart sets</h3>
         <md-button  class="md-icon-button" aria-label="Add" ui-sref="createChartSet">
-            <md-tooltip md-direction="botton">Create ChartSet</md-tooltip>
-            <md-icon md-font-set="material-icons" class="ee-icon"> library_add </md-icon>
+            <md-tooltip md-direction="botton">Create New ChartSet</md-tooltip>
+            <md-icon md-font-set="material-icons" class="ee-icon"> add_circle_outline </md-icon>
         </md-button>
     </div>
     </md-toolbar>
@@ -15,9 +15,14 @@
   <md-list-item  ui-sref="chartSet({ id: chartset._id })"  ng-click="null" ng-repeat="chartset in chartsets.chartSetList">
       <p> {{chartset.title}} </p>
 
-      <md-button href="mailto:sample@sample.com" class="md-icon-button">
-                    <md-tooltip md-direction="botton">Share by email</md-tooltip>
-                    <md-icon   md-font-set="material-icons" class="ee-icon"> email </md-icon>
+      <md-button class="md-icon-button">
+          <md-tooltip md-direction="botton">Friendly URL is {{chart.friendlyUrl}}:</md-tooltip>
+          <md-icon ui-sref="chartSet({ id: chartset.friendlyUrl })" md-font-set="material-icons" class="ee-icon"> open_in_browser </md-icon>
+      </md-button>
+
+      <md-button class="md-icon-button" aria-label="Settings" ui-sref="chartSetSettings({ id: chartset._id })">
+        <md-tooltip md-direction="botton">Edit</md-tooltip>
+        <md-icon md-font-set="material-icons" class="ee-icon"> edit </md-icon>
       </md-button>
 
       <md-button class="md-icon-button" aria-label="Delete" ng-click="chartsets.showConfirm($event,chartset._id)">
@@ -25,10 +30,6 @@
         <md-icon md-font-set="material-icons" class="ee-icon"> delete </md-icon>
       </md-button>
 
-      <md-button class="md-icon-button" aria-label="Settings" ui-sref="chartSetSettings({ id: chartset._id })">
-        <md-tooltip md-direction="botton">Edit</md-tooltip>
-        <md-icon md-font-set="material-icons" class="ee-icon"> border_color </md-icon>
-      </md-button>
 
       <md-divider></md-divider>
   </md-list-item>

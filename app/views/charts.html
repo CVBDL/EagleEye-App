@@ -5,8 +5,8 @@
     <div class="md-toolbar-tools">
         <h2>Charts List </h2>
         <md-button class="md-icon-button" aria-label="Add" ui-sref="createChart">
-            <md-tooltip md-direction="botton">Create chart</md-tooltip>
-            <md-icon md-font-set="material-icons" class="ee-icon"> playlist_add </md-icon>
+            <md-tooltip md-direction="botton">Create New Chart</md-tooltip>
+            <md-icon md-font-set="material-icons" class="ee-icon"> add_circle_outline </md-icon>
         </md-button>
     </div>
     </md-toolbar>
@@ -16,24 +16,18 @@
         <div>
         	<md-list-item  ui-sref="chart({ id: chart._id })" ng-click="null" ng-repeat="chart in charts.chartList">
         	    <p> {{ chart.options.title }} </p>
-
-                <md-button href="mailto:sample@sample.com" class="md-icon-button">
-                    <md-tooltip md-direction="botton">Share by email</md-tooltip>
-                    <md-icon   md-font-set="material-icons" class="ee-icon"> email </md-icon>
+                <md-button class="md-icon-button">
+                    <md-tooltip md-direction="botton">Friendly URL is {{chart.friendlyUrl}}:</md-tooltip>
+                    <md-icon ui-sref="chart({ id: chart.friendlyUrl })" md-font-set="material-icons" class="ee-icon"> open_in_browser </md-icon>
+                </md-button>
+                <md-button class="md-icon-button">
+                    <md-tooltip md-direction="botton">Edit</md-tooltip>
+                    <md-icon  md-font-set="material-icons" class="ee-icon"> edit </md-icon>
                 </md-button>
                 <md-button class="md-icon-button" aria-label="Delete" ng-click="charts.showConfirm($event, chart._id)">
                     <md-tooltip md-direction="botton">Delete</md-tooltip>
                     <md-icon md-font-set="material-icons" class="ee-icon"> delete </md-icon>
                 </md-button>
-                <md-button class="md-icon-button">
-                    <md-tooltip md-direction="botton">Edit</md-tooltip>
-                    <md-icon  md-font-set="material-icons" class="ee-icon"> border_color </md-icon>
-                </md-button>
-                <md-button class="md-icon-button">
-                    <md-tooltip md-direction="botton">Friendly URL is {{chart.friendlyUrl}}:</md-tooltip>
-                    <md-icon ui-sref="chart({ id: chart.friendlyUrl })" md-font-set="material-icons" class="ee-icon"> call_made </md-icon>
-                </md-button>
-
         	    <md-divider></md-divider>
         	</md-list-item>
         </div>
