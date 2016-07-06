@@ -21,14 +21,14 @@ angular.module('eagleeye')
       this.chartData = {};
 
       EagleEyeWebService.getChartById(id).then(function(data) {
-        controller.chartData = data;
+          controller.chartData = data;
       });
 
       this.goSettings = function() {
         $state.go('chartSettings', { id: id });
       };
 
-       this.showConfirm = function(ev) {
+      this.showConfirm = function(ev) {
       // Appending dialog to document.body to cover sidenav in docs app
       var confirm = $mdDialog.confirm()
           .title('Would you like to delete this chart?')

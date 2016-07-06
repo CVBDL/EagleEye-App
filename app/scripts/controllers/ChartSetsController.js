@@ -16,9 +16,14 @@ angular.module('eagleeye')
     function ($state, $mdDialog, $mdMedia, EagleEyeWebService) {
       var controller = this;
 
-      EagleEyeWebService.getChartSets().then(function(chartSetList) {
-        controller.chartSetList = chartSetList;
-      });
+      this.getChartSetsList = function()
+      {
+        EagleEyeWebService.getChartSets().then(function(chartSetList) {
+          controller.chartSetList = chartSetList;
+        });
+      }
+
+      controller.getChartSetsList();
 
       this.showConfirm = function(ev, id) {
       // Appending dialog to document.body to cover sidenav in docs app
@@ -37,7 +42,7 @@ angular.module('eagleeye')
       };
       this.deleteChartSetById = function(id) {
           EagleEyeWebService.deleteChartSetById(id).then(function() {
-            $state.go('chartSets');
+            controller.getChartSetsList();
           });
       };
     }
