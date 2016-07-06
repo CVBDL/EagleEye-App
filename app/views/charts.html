@@ -21,14 +21,17 @@
                     <md-tooltip md-direction="botton">Share by email</md-tooltip>
                     <md-icon   md-font-set="material-icons" class="ee-icon"> email </md-icon>
                 </md-button>
-
-                <md-button class="md-icon-button">
-                    <md-tooltip md-direction="botton">Friendly URL is {{chart.friendlyUrl}}:</md-tooltip>
-                    <md-icon ui-sref="chart({ id: chart.friendlyUrl })" md-font-set="material-icons" class="ee-icon"> call_made </md-icon>
+                <md-button class="md-icon-button" aria-label="Delete" ng-click="charts.showConfirm($event, chart._id)">
+                    <md-tooltip md-direction="botton">Delete</md-tooltip>
+                    <md-icon md-font-set="material-icons" class="ee-icon"> delete </md-icon>
                 </md-button>
                 <md-button class="md-icon-button">
                     <md-tooltip md-direction="botton">Edit</md-tooltip>
                     <md-icon  md-font-set="material-icons" class="ee-icon"> border_color </md-icon>
+                </md-button>
+                <md-button class="md-icon-button">
+                    <md-tooltip md-direction="botton">Friendly URL is {{chart.friendlyUrl}}:</md-tooltip>
+                    <md-icon ui-sref="chart({ id: chart.friendlyUrl })" md-font-set="material-icons" class="ee-icon"> call_made </md-icon>
                 </md-button>
 
         	    <md-divider></md-divider>

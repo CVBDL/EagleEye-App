@@ -9,11 +9,10 @@
  */
 angular.module('eagleeye')
   .controller('ChartSetsController', [
-    '$state',
     '$mdDialog',
     '$mdMedia',
     'EagleEyeWebService',
-    function ($state, $mdDialog, $mdMedia, EagleEyeWebService) {
+    function ($mdDialog, $mdMedia, EagleEyeWebService) {
       var controller = this;
 
       this.getChartSetsList = function()
@@ -40,6 +39,7 @@ angular.module('eagleeye')
         }, function() {
         });
       };
+      
       this.deleteChartSetById = function(id) {
           EagleEyeWebService.deleteChartSetById(id).then(function() {
             controller.getChartSetsList();
