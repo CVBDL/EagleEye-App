@@ -9,11 +9,12 @@
  */
 angular.module('eagleeye')
   .controller('ChartsController', [
+    '$state',
     '$mdDialog',
     '$mdMedia',
     '$http',
     'EagleEyeWebService',
-    function ($mdDialog, $mdMedia,$http, EagleEyeWebService) {
+    function ($state, $mdDialog, $mdMedia,$http, EagleEyeWebService) {
       var controller = this;
 
       this.getChartsList = function()
@@ -39,6 +40,15 @@ angular.module('eagleeye')
           controller.deleteChartById(id);
         }, function() {
         });
+      };
+
+      this.openCharts = function(id, friendlyurl){
+        if(friendlyurl){
+            $state.go('chart', { id: friendlyurl });
+        }
+        else{
+            $state.go('chart', { id: id });
+        }
       };
 
        this.deleteChartById = function(id) {

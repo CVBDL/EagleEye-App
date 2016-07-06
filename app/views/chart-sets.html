@@ -12,13 +12,8 @@
     </md-toolbar>
     <md-divider></md-divider>
 
-  <md-list-item  ui-sref="chartSet({ id: chartset._id })"  ng-click="null" ng-repeat="chartset in chartsets.chartSetList">
+  <md-list-item ng-click="chartsets.openChartSets(chartset._id, chartset.friendlyUrl)" ng-repeat="chartset in chartsets.chartSetList">
       <p> {{chartset.title}} </p>
-
-      <md-button class="md-icon-button">
-          <md-tooltip md-direction="botton">Friendly URL is {{chartset.friendlyUrl}}:</md-tooltip>
-          <md-icon ui-sref="chartSet({ id: chartset._id })" md-font-set="material-icons" class="ee-icon"> open_in_browser </md-icon>
-      </md-button>
 
       <md-button class="md-icon-button" aria-label="Settings" ui-sref="chartSetSettings({ id: chartset._id })">
         <md-tooltip md-direction="botton">Edit</md-tooltip>
