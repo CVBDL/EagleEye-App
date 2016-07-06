@@ -54,7 +54,7 @@ angular.module('eagleeye')
         });
 
         EagleEyeWebService.createChart(data).then(function(newChart) {
-          $state.go('chartSettings', {
+          $state.go('chart', {
             id: newChart._id
           });
 
