@@ -79,7 +79,7 @@ angular.module('eagleeye')
 
     this.$get = [function() {
       return {
-        getChartTypeOptions: function () {
+        getChartTypeOptions: function() {
           return chartTypeOptions;
         },
         getChartDataTableSamples: function() {

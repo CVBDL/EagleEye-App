@@ -85,6 +85,7 @@ angular
       // default router
       $urlRouterProvider.otherwise('/home');
 
+      // set eagleeye restful web service root endpoint
       EagleEyeWebServiceProvider.setWebServiceBaseUrl('http://localhost:3000/api/v1/');
 
       // line chart default options
@@ -109,7 +110,7 @@ angular
           alignment: 'end',
           maxLines: 2,
           textStyle: {
-            color: '#555555',  // $color-gray-dark
+            color: '#555555', // $color-gray-dark
           }
         },
         lineWidth: 2,
@@ -119,7 +120,83 @@ angular
           ignoreBounds: false,
           isHtml: false,
           textStyle: {
-            color: '#555555',  // $color-gray-dark
+            color: '#555555', // $color-gray-dark
+            fontName: "Roboto, 'Helvetica Neue', sans-serif",
+            fontSize: 14,
+            bold: false,
+            italic: false
+          }
+        }
+      });
+
+      // column chart default options
+      // docs: https://developers.google.com/chart/interactive/docs/gallery/columnchart#configuration-options
+      GoogleChartsServiceProvider.setColumnChartDefaultOptions({
+        animation: {
+          startup: true,
+          duration: 500,
+          easing: 'linear'
+        },
+        backgroundColor: {
+          stroke: 'white',
+          strokeWidth: 0,
+          fill: 'white'
+        },
+        bar: { groupWidth: "61.8%" },
+        chartArea: null,
+        fontName: "Roboto, 'Helvetica Neue', sans-serif",
+        legend: {
+          position: 'top',
+          alignment: 'end',
+          maxLines: 2,
+          textStyle: {
+            color: '#555555', // $color-gray-dark
+          }
+        },
+        titlePosition: 'none',
+        tooltip: {
+          ignoreBounds: false,
+          isHtml: false,
+          textStyle: {
+            color: '#555555', // $color-gray-dark
+            fontName: "Roboto, 'Helvetica Neue', sans-serif",
+            fontSize: 14,
+            bold: false,
+            italic: false
+          }
+        }
+      });
+
+      // bar chart default options
+      // docs: https://developers.google.com/chart/interactive/docs/gallery/barchart#configuration-options
+      GoogleChartsServiceProvider.setBarChartDefaultOptions({
+        animation: {
+          startup: true,
+          duration: 500,
+          easing: 'linear'
+        },
+        backgroundColor: {
+          stroke: 'white',
+          strokeWidth: 0,
+          fill: 'white'
+        },
+        bar: { groupWidth: "61.8%" },
+        chartArea: null,
+        fontName: "Roboto, 'Helvetica Neue', sans-serif",
+        legend: {
+          position: 'top',
+          alignment: 'end',
+          maxLines: 2,
+          textStyle: {
+            color: '#555555', // $color-gray-dark
+          }
+        },
+        titlePosition: 'none',
+        tooltip: {
+          ignoreBounds: false,
+          isHtml: false,
+          textStyle: {
+            color: '#555555', // $color-gray-dark
             fontName: "Roboto, 'Helvetica Neue', sans-serif",
             fontSize: 14,
             bold: false,
