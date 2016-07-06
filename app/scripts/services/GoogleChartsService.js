@@ -8,7 +8,7 @@
  * Factory in the eagleeye.
  */
 angular.module('eagleeye')
-  .factory('GoogleChartsService', function () {
+  .provider('GoogleChartsService', function GoogleChartsServiceProvider() {
     var chartTypeOptions = [{
       label: 'Line Chart',
       value: 'LineChart',
@@ -55,12 +55,40 @@ angular.module('eagleeye')
       }
     };
 
-    return {
-      getChartTypeOptions: function () {
-        return chartTypeOptions;
-      },
-      getChartDataTableSamples: function() {
-        return chartDataTableSamples;
-      }
+    var defaultChartOptions = {
+      linechart: {},
+      columnchart: {},
+      barchart: {}
     };
+
+    function setDefaultChartOptions(chartType, options) {
+      angular.extend(defaultChartOptions[chartType], options);
+    }
+
+    this.setLineChartDefaultOptions = function(options) {
+      setDefaultChartOptions('linechart', options);
+    };
+
+    this.setColumnChartDefaultOptions = function(options) {
+      setDefaultChartOptions('columnchart', options);
+    };
+
+    this.setBarChartDefaultOptions = function(options) {
+      setDefaultChartOptions('barchart', options);
+    };
+
+    this.$get = [function() {
+      return {
+        getChartTypeOptions: function() {
+          return chartTypeOptions;
+        },
+        getChartDataTableSamples: function() {
+          return chartDataTableSamples;
+        },
+        getDefaultChartOptions: function() {
+          return defaultChartOptions;
+        }
+      };
+    }];
+
   });
