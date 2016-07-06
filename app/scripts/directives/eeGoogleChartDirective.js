@@ -9,7 +9,10 @@
 angular.module('eagleeye')
   .directive('eeGoogleChart', [
     '$timeout',
-    function ($timeout) {
+    'GoogleChartsService',
+    function ($timeout, GoogleChartsService) {
+      var defaultChartOptions = GoogleChartsService.getDefaultChartOptions();
+
       return {
         template: '<div layout="row" layout-sm="column" layout-align="center center"><md-progress-circular class="ee-progress-circular" md-diameter="40"></md-progress-circular></div>',
         scope: {
@@ -29,18 +32,7 @@ angular.module('eagleeye')
 
               var chart = new google.visualization[scope.chartType](chartNode);
               var chartDataTable = new google.visualization.DataTable(angular.copy(scope.chartDataTable, {}));
-              var chartOptions = scope.chartOptions;
-
-              // default options
-              chartOptions.legend = {
-                position: 'top',          // can be 'bottom', 'left', 'in', 'none', 'right' or 'top'
-                alignment: 'end',         // can be 'start', 'center' or 'end'
-                maxLines: 2,              // Maximum number of lines in the legend.
-                textStyle: {
-                  color: '#555555',       // $color-gray-dark
-                }
-              };
-              chartOptions.titlePosition = 'none';
+              var chartOptions = angular.extend(scope.chartOptions, defaultChartOptions[scope.chartType.toLowerCase()]);
 
               $timeout(chart.draw(chartDataTable, chartOptions), 0);
             });
