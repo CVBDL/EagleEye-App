@@ -20,9 +20,13 @@ angular.module('eagleeye')
 
       this.chartData = {};
 
-      EagleEyeWebService.getChartById(id).then(function(data) {
+      this.getChartDataById = function(id) {
+        EagleEyeWebService.getChartById(id).then(function(data) {
           controller.chartData = data;
-      });
+        });
+      };
+
+      controller.getChartDataById(id);
 
       this.goSettings = function() {
         $state.go('chartSettings', { id: id });
@@ -42,7 +46,7 @@ angular.module('eagleeye')
         controller.deleteChartById();
         }, function() {
         });
-     };
+      };
 
       this.deleteChartById = function() {
         var id = this.chartData._id;
@@ -50,6 +54,11 @@ angular.module('eagleeye')
         EagleEyeWebService.deleteChartById(id).then(function() {
           $state.go('charts');
         });
+      };
+
+      this.refreshChart = function() {
+        var id = this.chartData._id;
+        controller.getChartDataById(id);
       };
     }
   ]);
