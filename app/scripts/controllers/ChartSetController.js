@@ -10,8 +10,10 @@
 angular.module('eagleeye')
   .controller('ChartSetController', [
     '$stateParams',
+    '$location',
     'EagleEyeWebService',
-    function($stateParams, EagleEyeWebService) {
+    'eeShareService',
+    function($stateParams, $location, EagleEyeWebService, eeShareService) {
       var controller = this,
         id = $stateParams.id;
 
@@ -29,5 +31,12 @@ angular.module('eagleeye')
           });
         }
       });
+
+      this.showShare = function() {
+        eeShareService.showShareDialog({
+          sharedTitle: this.settings.title,
+          sharedLink: $location.absUrl()
+        });
+      };
     }
   ]);
