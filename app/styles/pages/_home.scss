@@ -3,7 +3,7 @@
   // hero section
   .ee-hero {
     box-sizing: border-box;
-    color: $color-gray-dark;
+    color: $color-black-primary;
     margin: 0 auto;
     padding: $eagleeye-content-padding-secondary $eagleeye-content-padding-primary;
     max-width: $eagleeye-max-width;
@@ -12,12 +12,8 @@
       padding-bottom: $eagleeye-content-padding-secondary;
     }
 
-    .ee-button {
-      color: $color-secondary;
-    }
-
     .ee-icon {
-      color: $color-secondary !important;
+      color: $color-accent;
     }
   }
 
@@ -25,13 +21,13 @@
     padding-bottom: $eagleeye-content-padding-secondary;
 
     .sub-title {
-      color:  $color-secondary;
+      color:  $color-primary;
     }
   }
 
   // nav part
   .sub-nav-wrapper {
-    background-color: $color-gray-light-light;
+    background-color: $color-black-dividers;
   }
 
   .sub-nav,
@@ -55,7 +51,7 @@
       height: 100%;
 
       .md-button {
-        color: $color-secondary;
+        color: $color-accent;
       }
     }
   }
@@ -81,9 +77,21 @@
       padding: 24px 0;
     }
 
-    .md-button,
     .ee-icon {
-      color: $color-secondary !important;
+      color: $color-accent;
+    }
+
+    .md-button {
+      background-color: $color-accent;
+      color: #fff !important;
+
+      &:hover {
+        background-color: $color-accent;
+      }
+
+      .ee-icon {
+        color: #fff;
+      }
     }
 
     .md-button {

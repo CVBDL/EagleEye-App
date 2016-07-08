@@ -6,24 +6,39 @@ $font-family:     Roboto, 'Helvetica Neue', sans-serif !default;
 $font-size:       10px !default;
 $font-size-body:  14px;
 
+
+// Text Opacity
+// ------------------------------
+$text-opacity-dark-text-primary:     0.87;
+$text-opacity-dark-text-secondary:   0.54;
+$text-opacity-dark-text-disabled:    0.38;
+$text-opacity-dark-text-dividers:    0.12;
+$text-opacity-light-text-primary:    1   ;
+$text-opacity-light-text-secondary:  0.7 ;
+$text-opacity-light-text-disabled:   0.5 ;
+$text-opacity-light-text-dividers:   0.12;
+
+
 // Colors
 // ------------------------------
-$color-primary:           #bb2322;
-$color-secondary:         #ef5350;
+$color-primary:           #F44336;  // R: 500
+$color-primary-dark:      #D32F2F;  // R: 700
+$color-secondary:         #EF5350;  // R: 400
+$color-accent:            #00B0FF;  // Light B: A400
+$color-accent-dark:       #0091EA;  // Light B: A700
 $color-gray:              #808285;
 $color-gray-light:        #c8c8c8;
 $color-gray-light-light:  #eceff1;
 $color-gray-dark:         #555555;
 
-
-// Text Opacity
-// ------------------------------
-$text-opacity-dark-primary:     0.87;
-$text-opacity-dark-secondary:   0.54;
-$text-opacity-dark-disabled:    0.38;
-$text-opacity-light-primary:    1   ;
-$text-opacity-light-secondary:  0.7 ;
-$text-opacity-light-disabled:   0.5 ;
+$color-black-primary:     rgba(  0,   0,   0, $text-opacity-dark-text-primary);
+$color-black-secondary:   rgba(  0,   0,   0, $text-opacity-dark-text-secondary);
+$color-black-disabled:    rgba(  0,   0,   0, $text-opacity-dark-text-disabled);
+$color-black-dividers:    rgba(  0,   0,   0, $text-opacity-dark-text-dividers);
+$color-white-primary:     rgba(255, 255, 255, $text-opacity-light-text-primary);
+$color-white-secondary:   rgba(255, 255, 255, $text-opacity-light-text-secondary);
+$color-white-disabled:    rgba(255, 255, 255, $text-opacity-light-text-disabled);
+$color-white-dividers:    rgba(255, 255, 255, $text-opacity-light-text-dividers);
 
 
 // CSS3 Transitions

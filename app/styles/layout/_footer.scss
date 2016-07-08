@@ -33,7 +33,7 @@
   transition: opacity $eagleeye-transition-duration $eagleeye-transition-timing-function;
 
   &:hover {
-    opacity: $text-opacity-light-secondary;
+    opacity: $text-opacity-light-text-secondary;
   }
 }
 
@@ -43,7 +43,7 @@
   li {
 
     &:hover {
-      opacity: $text-opacity-light-secondary;
+      opacity: $text-opacity-light-text-secondary;
     }
   }
 }

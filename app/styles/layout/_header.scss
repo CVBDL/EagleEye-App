@@ -3,7 +3,7 @@
 .ee-header {
   @extend .ee-header-box-shadow;
 
-  background-color: $color-primary;
+  background-color: $color-primary-dark;
   position: relative;
 }
 
@@ -19,7 +19,7 @@
     transition: opacity $eagleeye-transition-duration $eagleeye-transition-timing-function;
 
     &:hover {
-      opacity: $text-opacity-light-secondary;
+      opacity: $text-opacity-light-text-secondary;
     }
   }
 }
@@ -59,17 +59,17 @@
     height: 100%;
 
     &.active a {
-      opacity: $text-opacity-light-primary;
+      opacity: $text-opacity-light-text-primary;
     }
 
     a {
       color: #fff;
-      opacity: $text-opacity-light-secondary;
+      opacity: $text-opacity-light-text-secondary;
       transition: opacity $eagleeye-transition-duration $eagleeye-transition-timing-function;
       padding: 0 $eagleeye-header-left-right-content-padding;
 
       &:hover {
-        opacity: $text-opacity-light-primary;
+        opacity: $text-opacity-light-text-primary;
       }
     }
   }

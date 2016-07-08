@@ -10,7 +10,7 @@ a {
   padding: 6px 12px;
 
   &:hover {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.26) !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4) !important;
   }
 }
 
@@ -31,31 +31,25 @@ a {
 }
 
 .ee-text-black-primary {
-  color: #000000;
-  opacity: $text-opacity-dark-primary;
+  color: $color-black-primary;
 }
 
 .ee-text-black-secondary {
-  color: #000000;
-  opacity: $text-opacity-dark-secondary;
+  color: $color-black-secondary;
 }
 
 .ee-text-black-disabled {
-  color: #000000;
-  opacity: $text-opacity-dark-disabled;
+  color: $color-black-disabled;
 }
 
 .ee-text-white-primary {
-  color: #ffffff;
-  opacity: $text-opacity-light-primary;
+  color: $color-white-primary;
 }
 
 .ee-text-white-secondary {
-  color: #ffffff;
-  opacity: $text-opacity-light-secondary;
+  color: $color-white-secondary;
 }
 
 .ee-text-white-disabled {
-  color: #ffffff;
-  opacity: $text-opacity-light-disabled;
+  color: $color-white-disabled;
 }
