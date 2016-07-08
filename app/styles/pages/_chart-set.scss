@@ -1,0 +1,29 @@
+.ee-chart-set-view {
+  .ee-chart-set-wrapper {
+    box-sizing: border-box;
+    margin: 0 auto;
+    max-width: $eagleeye-max-width;
+    padding: $eagleeye-content-padding-secondary 24px;
+  }
+
+  md-card {
+    margin: 0;
+  }
+
+  md-toolbar {
+    background-color: #fff;
+    color: $color-black-primary;
+    height: $eagleeye-header-height;
+    min-height: $eagleeye-header-height;
+    max-height: $eagleeye-header-height;
+
+    .md-button {
+      color: $color-secondary;  // set `md-ink-ripple` color
+    }
+
+    .ee-icon {
+      color: $color-accent;
+    }
+  }
+
+}
