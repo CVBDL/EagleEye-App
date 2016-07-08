@@ -1,9 +1,8 @@
 <div id="canv" class="ee-chart-set-view">
-
   <div class="ee-chart-set-wrapper">
     <md-card>
       <div ng-controller="ChartSetController as chartSetController" ng-cloak="" ng-app="eagleeye">
-        <md-toolbar style="color:write;background-color:rgba(0, 0, 0, 0.18)">
+        <md-toolbar>
           <div class="md-toolbar-tools">
             <h3>{{chartset.settings.title}} </h3>
             <span flex></span>
@@ -11,9 +10,13 @@
               <md-tooltip md-direction="botton">Refresh</md-tooltip>
               <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chartset.refreshChart()"> refresh </md-icon>
             </md-button>
-            <md-button class="md-icon-button">
-              <md-tooltip md-direction="botton">Save to Image</md-tooltip>
-              <md-icon md-font-set="material-icons" class="ee-icon"> add_a_photo </md-icon>
+            <md-button class="md-icon-button" aria-label="Fullscreen Mode">
+              <md-tooltip md-direction="botton">Fullscreen</md-tooltip>
+              <md-icon md-font-set="material-icons" class="ee-icon" ng-click=""> fullscreen </md-icon>
+            </md-button>
+            <md-button class="md-icon-button" aria-label="Save Photo">
+              <md-tooltip md-direction="botton">Save Photo</md-tooltip>
+              <md-icon md-font-set="material-icons" class="ee-icon"> photo </md-icon>
             </md-button>
             <md-button class="md-icon-button" aria-label="Settings" ng-click="chartset.showShare()">
               <md-tooltip md-direction="botton">Share</md-tooltip>
@@ -21,6 +24,7 @@
             </md-button>
           </div>
         </md-toolbar>
+        <md-divider></md-divider>
         <md-grid-list md-cols-gt-md="2" md-row-height-gt-md="5:4" md-gutter="12px" md-gutter-gt-sm="8px">
           <md-grid-tile ng-repeat="chart in chartset.charDataArray">
             <div style="float:left; width:100%;">
@@ -32,7 +36,6 @@
             </md-grid-tile-footer>
           </md-grid-tile>
         </md-grid-list>
-        <br>
       </div>
     </md-card>
   </div>
