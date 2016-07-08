@@ -1,7 +1,10 @@
 // Logo area
 // ------------------------------
 .ee-header {
+  @extend .ee-header-box-shadow;
+
   background-color: $color-primary;
+  position: relative;
 }
 
 .ee-header-row-wrapper {
