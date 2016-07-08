@@ -12,7 +12,7 @@ angular.module('eagleeye')
     '$stateParams',
     'EagleEyeWebService',
     '$mdDialog',
-    function ($stateParams, EagleEyeWebService,$mdDialog) {
+    function($stateParams, EagleEyeWebService, $mdDialog) {
       var controller = this,
         id = $stateParams.id;
 
@@ -32,33 +32,33 @@ angular.module('eagleeye')
         }
       };
       this.updateChartSetById = function() {
-          console.log("updateChartSetById()");
-          var id = this.settings._id;
-          var updateData = this.settings;
-          EagleEyeWebService.updateChartSetById(id,updateData);
-      }      
+        console.log("updateChartSetById()");
+        var id = this.settings._id;
+        var updateData = this.settings;
+        EagleEyeWebService.updateChartSetById(id, updateData);
+      }
       this.deleteChartSetById = function() {
-          console.log("deleteChartSetById()");
-          var id = this.settings._id;
-          EagleEyeWebService.deleteChartSetById(id).then(function() {
-            alert("Success");
+        console.log("deleteChartSetById()");
+        var id = this.settings._id;
+        EagleEyeWebService.deleteChartSetById(id).then(function() {
+          alert("Success");
         });
       }
 
-      var that = this ;
+      var that = this;
       this.showConfirm = function(ev) {
-        // Appending dialog to document.body to cover sidenav in docs app
+        // appending dialog to document.body to cover sidenav in docs app
         var confirm = $mdDialog.confirm()
-              .title('Would you like to delete this chart?')
-              .textContent('If you click Delete button, this chart will be delete and cannot restored!')
-              .ariaLabel('Lucky day')
-              .targetEvent(ev)
-              .ok('Delete')
-              .cancel('Cancel');
-          $mdDialog.show(confirm).then(function() {
-             that.deleteChartSetById();
+          .title('Would you like to delete this chart?')
+          .textContent('If you click Delete button, this chart will be delete and cannot restored!')
+          .ariaLabel('Lucky day')
+          .targetEvent(ev)
+          .ok('Delete')
+          .cancel('Cancel');
+        $mdDialog.show(confirm).then(function() {
+          that.deleteChartSetById();
         }, function() {
-             console.log("Cancel!");
+          console.log("Cancel!");
         });
       };
 
