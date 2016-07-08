@@ -18,8 +18,8 @@
             </div>
           </md-input-container>
           <md-input-container class="md-block">
-            <label>Friendly URL</label>
-            <input required="" name="clientName" ng-model="chartset.settings.friendlyUrl">
+            <label>Friendly URL s-</label>
+            <input required="" name="clientName" ng-model="chartset.showingURL">
             <div ng-messages="ChartSetUpdateForm.clientName.$error">
               <div ng-message="required">This is required.</div>
             </div>
@@ -44,9 +44,6 @@
       <section>
         <md-button class="md-primary md-raised" ng-click="chartset.updateChartSetById()">
           Save
-        </md-button>
-        <md-button class="md-primary md-raised" ng-click="chartset.showConfirm($event)">
-          DELETE
         </md-button>
       </section>
     </md-card>

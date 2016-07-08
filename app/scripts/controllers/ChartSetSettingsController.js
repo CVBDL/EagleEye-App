@@ -9,14 +9,24 @@
  */
 angular.module('eagleeye')
   .controller('ChartSetSettingsController', [
+    '$state',
     '$stateParams',
     'EagleEyeWebService',
     '$mdDialog',
-    function($stateParams, EagleEyeWebService, $mdDialog) {
+    function($state, $stateParams, EagleEyeWebService, $mdDialog) {
       var controller = this,
-        id = $stateParams.id;
+        id = $stateParams.id,
+        friendlyUrlPrefix = 's-';
+
+      this.showingURL = '';
 
       this.settings = {};
+
+      EagleEyeWebService.getChartSetById(id).then(function(chartSet) {
+          angular.extend(controller.settings, chartSet);
+          controller.showingURL = chartSet.friendlyUrl.substring(2);
+          angular.extend(controller.showingURL, chartSet.friendlyUrl.substring(2));
+      });
 
       this.deleteChart = function(id) {
         var index = this.settings.charts.indexOf(id);
@@ -34,18 +44,21 @@ angular.module('eagleeye')
       this.updateChartSetById = function() {
         console.log("updateChartSetById()");
         var id = this.settings._id;
+        this.settings.friendlyUrl = friendlyUrlPrefix + controller.showingURL;
         var updateData = this.settings;
-        EagleEyeWebService.updateChartSetById(id, updateData);
-      }
+        EagleEyeWebService.updateChartSetById(id, updateData).then(function(){
+          $state.go('chartSets');
+        });
+      };
+
       this.deleteChartSetById = function() {
         console.log("deleteChartSetById()");
         var id = this.settings._id;
         EagleEyeWebService.deleteChartSetById(id).then(function() {
           alert("Success");
         });
-      }
+      };
 
-      var that = this;
       this.showConfirm = function(ev) {
         // appending dialog to document.body to cover sidenav in docs app
         var confirm = $mdDialog.confirm()
@@ -56,16 +69,11 @@ angular.module('eagleeye')
           .ok('Delete')
           .cancel('Cancel');
         $mdDialog.show(confirm).then(function() {
-          that.deleteChartSetById();
+          controller.deleteChartSetById();
         }, function() {
           console.log("Cancel!");
         });
       };
-
-      EagleEyeWebService.getChartSetById(id).then(function(chartSet) {
-        angular.extend(controller.settings, chartSet);
-        controller.settings.friendlyUrl = chartSet.friendlyUrl.substring(2);
-      });
 
       EagleEyeWebService.getCharts().then(function(chartList) {
         controller.chartList = chartList;
