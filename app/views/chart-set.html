@@ -4,7 +4,7 @@
       <div ng-controller="ChartSetController as chartSetController" ng-cloak="" ng-app="eagleeye">
         <md-toolbar>
           <div class="md-toolbar-tools">
-            <h3>{{chartset.settings.title}} </h3>
+            <h3>Chart set overview</h3>
             <span flex></span>
             <md-button class="md-icon-button" aria-label="Refresh">
               <md-tooltip md-direction="botton">Refresh</md-tooltip>
@@ -25,7 +25,59 @@
           </div>
         </md-toolbar>
         <md-divider></md-divider>
-        <md-grid-list md-cols-gt-md="2" md-row-height-gt-md="5:4" md-gutter="12px" md-gutter-gt-sm="8px">
+        <md-content flex="" layout-padding="">
+          <!-- <p>{{chart.chartData.timestamp | date: 'medium'}}</p> -->
+          <h4>{{chartset.settings.title}}</h4>
+          <p class="ee-chart-status">
+            <md-icon md-font-set="material-icons" class="ee-icon"> person </md-icon> <span>EagleEye</span>
+            <md-icon md-font-set="material-icons" class="ee-icon"> access_time </md-icon> <span>{{chartset.settings.lastUpdateTimestamp | date: 'medium'}}</span></p>
+          <p>
+            <md-icon md-font-set="material-icons" class="ee-icon"> description </md-icon>
+            {{chartset.settings.description}}
+          </p>
+        </md-content>
+        <md-divider></md-divider>
+        <md-content class="ee-chart-set-charts-container" layout="row" layout-wrap>
+          <div class="ee-chart-set-chart-wrapper" flex="50" ng-repeat="chart in chartset.charDataArray">
+          <md-card>
+            <md-toolbar>
+              <div class="md-toolbar-tools">
+                <h2 class="ee-text-black-primary">{{chart.options.title}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" aria-label="Refresh">
+                  <md-tooltip md-direction="botton">Refresh</md-tooltip>
+                  <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chart.refreshChart()"> refresh </md-icon>
+                </md-button>
+                <md-button class="md-icon-button" aria-label="Fullscreen Mode">
+                  <md-tooltip md-direction="botton">Fullscreen</md-tooltip>
+                  <md-icon md-font-set="material-icons" class="ee-icon" ng-click=""> fullscreen </md-icon>
+                </md-button>
+                <md-button class="md-icon-button" aria-label="Settings" ng-click="chart.showShare()">
+                  <md-tooltip md-direction="botton">Share</md-tooltip>
+                  <md-icon md-font-set="material-icons" class="ee-icon"> shared </md-icon>
+                </md-button>
+                <md-button class="md-icon-button" aria-label="Settings" ng-click="chart.goSettings()">
+                  <md-tooltip md-direction="botton">Settings</md-tooltip>
+                  <md-icon md-font-set="material-icons" class="ee-icon"> settings </md-icon>
+                </md-button>
+              </div>
+            </md-toolbar>
+            <md-divider></md-divider>
+            <ee-google-chart chart-type="chart.chartType" chart-options="chart.options" chart-data-table="chart.datatable">
+            </ee-google-chart>
+            <md-divider></md-divider>
+            <md-content flex="" layout-padding="">
+              <p class="ee-chart-status">
+                <md-icon md-font-set="material-icons" class="ee-icon"> person </md-icon> <span>EagleEye</span>
+                <md-icon md-font-set="material-icons" class="ee-icon"> access_time </md-icon> <span>{{chart.lastUpdateTimestamp | date: 'medium'}}</span></p>
+              <p>
+                <md-icon md-font-set="material-icons" class="ee-icon"> description </md-icon>
+                {{chart.description}}
+              </p>
+            </md-content>
+          </md-card></div>
+        </md-content>
+        <!-- <md-grid-list md-cols-gt-md="2" md-row-height-gt-md="5:4" md-gutter="12px" md-gutter-gt-sm="8px">
           <md-grid-tile ng-repeat="chart in chartset.charDataArray">
             <div style="float:left; width:100%;">
               <ee-google-chart chart-type="chart.chartType" chart-options="chart.options" chart-data-table="chart.datatable">
@@ -35,7 +87,7 @@
               <h3 style="text-align:center">{{chart.options.title}}</h3>
             </md-grid-tile-footer>
           </md-grid-tile>
-        </md-grid-list>
+        </md-grid-list> -->
       </div>
     </md-card>
   </div>

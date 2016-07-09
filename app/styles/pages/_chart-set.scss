@@ -7,7 +7,7 @@
   }
 
   md-card {
-    margin: 0;
+    margin: 0 ;
   }
 
   md-toolbar {
@@ -26,4 +26,23 @@
     }
   }
 
+  md-content {
+    background-color: #fff;
+
+    .ee-chart-status {
+      span {
+        padding-right: $eagleeye-content-padding-secondary;
+      }
+    }
+  }
+
+  .ee-chart-set-charts-container {
+    box-sizing: border-box;
+    padding: ($eagleeye-google-chart-left-right-content-padding / 2);
+  }
+
+  .ee-chart-set-chart-wrapper {
+    box-sizing: border-box;
+    padding: ($eagleeye-google-chart-left-right-content-padding / 2);
+  }
 }
