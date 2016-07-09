@@ -9,11 +9,12 @@
  */
 angular.module('eagleeye')
   .controller('ChartSetController', [
+    '$state',
     '$stateParams',
     '$location',
     'EagleEyeWebService',
     'eeShareService',
-    function($stateParams, $location, EagleEyeWebService, eeShareService) {
+    function($state, $stateParams, $location, EagleEyeWebService, eeShareService) {
       var controller = this,
         id = $stateParams.id;
 
@@ -47,5 +48,13 @@ angular.module('eagleeye')
           sharedLink: $location.absUrl()
         });
       };
+
+      this.goToChart = function(chart) {
+        var id = chart.friendlyUrl || chart._id;
+
+        $state.go('chart', {
+          id: id
+        });
+      }
     }
   ]);

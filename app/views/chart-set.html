@@ -42,23 +42,17 @@
           <md-card>
             <md-toolbar>
               <div class="md-toolbar-tools">
-                <h2 class="ee-text-black-primary">{{chart.options.title}}</h2>
+                <h2 class="ee-text-black-primary">
+                  <a href="" ng-click="chartset.goToChart(chart)">{{chart.options.title}}</a>
+                </h2>
                 <span flex></span>
-                <md-button class="md-icon-button" aria-label="Refresh">
-                  <md-tooltip md-direction="botton">Refresh</md-tooltip>
-                  <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chart.refreshChart()"> refresh </md-icon>
-                </md-button>
                 <md-button class="md-icon-button" aria-label="Fullscreen Mode">
                   <md-tooltip md-direction="botton">Fullscreen</md-tooltip>
                   <md-icon md-font-set="material-icons" class="ee-icon" ng-click=""> fullscreen </md-icon>
                 </md-button>
-                <md-button class="md-icon-button" aria-label="Settings" ng-click="chart.showShare()">
-                  <md-tooltip md-direction="botton">Share</md-tooltip>
-                  <md-icon md-font-set="material-icons" class="ee-icon"> shared </md-icon>
-                </md-button>
-                <md-button class="md-icon-button" aria-label="Settings" ng-click="chart.goSettings()">
-                  <md-tooltip md-direction="botton">Settings</md-tooltip>
-                  <md-icon md-font-set="material-icons" class="ee-icon"> settings </md-icon>
+                <md-button class="md-icon-button" aria-label="Save Photo">
+                  <md-tooltip md-direction="botton">Save Photo</md-tooltip>
+                  <md-icon md-font-set="material-icons" class="ee-icon"> photo </md-icon>
                 </md-button>
               </div>
             </md-toolbar>
