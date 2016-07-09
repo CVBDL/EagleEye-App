@@ -4,7 +4,7 @@
       <div ng-controller="ChartSetController as chartSetController" ng-cloak="" ng-app="eagleeye">
         <md-toolbar>
           <div class="md-toolbar-tools">
-            <h3>Chart set overview</h3>
+            <h3>{{chartset.settings.title}}</h3>
             <span flex></span>
             <md-button class="md-icon-button" aria-label="Refresh">
               <md-tooltip md-direction="botton">Refresh</md-tooltip>
@@ -27,7 +27,6 @@
         <md-divider></md-divider>
         <md-content flex="" layout-padding="">
           <!-- <p>{{chart.chartData.timestamp | date: 'medium'}}</p> -->
-          <h4>{{chartset.settings.title}}</h4>
           <p class="ee-chart-status">
             <md-icon md-font-set="material-icons" class="ee-icon"> person </md-icon> <span>EagleEye</span>
             <md-icon md-font-set="material-icons" class="ee-icon"> access_time </md-icon> <span>{{chartset.settings.lastUpdateTimestamp | date: 'medium'}}</span></p>
