@@ -19,7 +19,9 @@ angular.module('eagleeye')
 
       controller.charDataArray = [];
 
-      EagleEyeWebService.getChartSetById(id).then(function(settings) {
+      this.getChartSetById = function(id) {
+        controller.charDataArray = [];
+        EagleEyeWebService.getChartSetById(id).then(function(settings) {
         controller.settings = settings;
 
         var chartsArray = controller.settings.charts;
@@ -31,6 +33,13 @@ angular.module('eagleeye')
           });
         }
       });
+      };
+
+      controller.getChartSetById(id);
+
+      this.refreshChartSet = function(){
+        controller.getChartSetById(id);
+      };
 
       this.showShare = function() {
         eeShareService.showShareDialog({
