@@ -101,7 +101,9 @@ angular
           strokeWidth: 0,
           fill: 'white'
         },
-        chartArea: null,
+        chartArea: {
+          width:'85%'
+        },
         crosshair: null,
         curveType: 'function',
         fontName: "Roboto, 'Helvetica Neue', sans-serif",
@@ -143,7 +145,9 @@ angular
           fill: 'white'
         },
         bar: { groupWidth: "61.8%" },
-        chartArea: null,
+        chartArea: {
+          width:'85%'
+        },
         fontName: "Roboto, 'Helvetica Neue', sans-serif",
         legend: {
           position: 'top',
@@ -181,7 +185,9 @@ angular
           fill: 'white'
         },
         bar: { groupWidth: "61.8%" },
-        chartArea: null,
+        chartArea: {
+          width:'85%'
+        },
         fontName: "Roboto, 'Helvetica Neue', sans-serif",
         legend: {
           position: 'top',
