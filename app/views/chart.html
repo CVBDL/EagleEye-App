@@ -8,6 +8,14 @@
           <md-button class="md-icon-button" aria-label="Refresh">
             <md-tooltip md-direction="botton">Refresh</md-tooltip>
             <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chart.refreshChart()"> refresh </md-icon>
+          </md-button>         
+          <md-button class="md-icon-button" aria-label="Refresh">
+            <md-tooltip md-direction="botton">Save to Image</md-tooltip>
+            <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chart.SaveImageOrPDF(0,chart.chartData)"> image </md-icon>
+          </md-button>
+          <md-button class="md-icon-button" aria-label="Refresh">
+            <md-tooltip md-direction="botton">Save to PDF</md-tooltip>
+            <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chart.SaveImageOrPDF(1,chart.chartData)"> picture_as_pdf </md-icon>
           </md-button>
           <md-button class="md-icon-button" aria-label="Fullscreen Mode">
             <md-tooltip md-direction="botton">Fullscreen</md-tooltip>
