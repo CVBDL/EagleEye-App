@@ -1,0 +1,13 @@
+.ee-delete-dialog {
+  md-dialog-content {
+    padding: $eagleeye-dialog-content-padding;
+  }
+
+  .ee-dialog-content {
+    margin: $eagleeye-dialog-content-body-top-bottom-content-margin 0;
+  }
+
+  .ee-btn-delete {
+    color: $color-primary;
+  }
+}
