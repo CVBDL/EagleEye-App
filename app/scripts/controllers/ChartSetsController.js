@@ -13,7 +13,8 @@ angular.module('eagleeye')
     '$mdDialog',
     '$mdMedia',
     'EagleEyeWebService',
-    function ($state, $mdDialog, $mdMedia, EagleEyeWebService) {
+    'eeDeleteConfirmationService',
+    function ($state, $mdDialog, $mdMedia, EagleEyeWebService, eeDeleteConfirmationService) {
       var controller = this;
 
       this.getChartSetsList = function()
@@ -26,18 +27,10 @@ angular.module('eagleeye')
       controller.getChartSetsList();
 
       this.showConfirm = function(ev, id) {
-      // Appending dialog to document.body to cover sidenav in docs app
-        var confirm = $mdDialog.confirm()
-          .title('Would you like to delete this chartSets?')
-          .textContent('Please be care that if you click "Delete The ChartSets" the chartSets will be deleted.')
-          .ariaLabel('Lucky day')
-          .targetEvent(ev)
-          .ok('Delete The ChartSets')
-          .cancel('Cancel');
-
-        $mdDialog.show(confirm).then(function() {
-          controller.deleteChartSetById(id);
-        }, function() {
+        eeDeleteConfirmationService.showDeleteConfirmationDialog().then(function(response) {
+          if (response === 'delete') {
+            controller.deleteChartSetById(id);
+          }
         });
       };
 
@@ -49,7 +42,7 @@ angular.module('eagleeye')
             $state.go('chartSet', { id: id });
         }
       };
-      
+
       this.deleteChartSetById = function(id) {
           EagleEyeWebService.deleteChartSetById(id).then(function() {
             controller.getChartSetsList();
