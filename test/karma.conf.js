@@ -41,7 +41,7 @@ module.exports = function(config) {
     ],
 
     // web server port
-    port: 6666,
+    port: 8888,
 
     // Start these browsers, currently available:
     // - Chrome
@@ -63,7 +63,7 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
-    singleRun: false,
+    singleRun: true,
 
     colors: true,
 
