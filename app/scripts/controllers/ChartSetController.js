@@ -81,7 +81,7 @@ angular.module('eagleeye')
                 doc.addImage(chart[imageCount].getImageURI(), 'JPEG', 20, 60);
                 doc.setFont("times");
                 doc.setFontType("italic");
-                doc.text(40, 40, "Title: " + chartset.charDataArray[imageCount].options.title); 
+                doc.text(40, 40, chartset.charDataArray[imageCount].options.title); 
                 imageCount++;
                 if(imageCount < allImageCount){
                   doc.addPage();
@@ -93,8 +93,8 @@ angular.module('eagleeye')
             var defaultChartOptions = GoogleChartsService.getDefaultChartOptions();
             var chartDataTable = new google.visualization.DataTable(angular.copy(chartData.datatable, {}));
             var chartOptions = chartData.options;
-            chartOptions.width = 1080;
-            chartOptions.height = 476;
+            chartOptions.width = 1024;
+            chartOptions.height = 768;
             chart[index].draw(chartDataTable, chartOptions);
           }
       };
@@ -117,7 +117,7 @@ angular.module('eagleeye')
                 doc.setFont("times");
                 doc.setFontType("italic");
                 doc.text(40, 20, "Provided by EagleEye"); 
-                doc.text(40, 40, "Title: " + chartData.options.title); 
+                doc.text(40, 40, chartData.options.title); 
                 doc.addImage(uri, 'JPEG', 20, 40);
                 doc.save(chartData.options.title);
           };
@@ -138,8 +138,8 @@ angular.module('eagleeye')
           var defaultChartOptions = GoogleChartsService.getDefaultChartOptions();
           var chartDataTable = new google.visualization.DataTable(angular.copy(chartData.datatable, {}));
           var chartOptions = chartData.options;
-          chartOptions.width = 1080;
-          chartOptions.height = 476;
+          chartOptions.width = 1024;
+          chartOptions.height = 768;
           chart.draw(chartDataTable, chartOptions);
       };
     }
