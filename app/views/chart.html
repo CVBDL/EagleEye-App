@@ -7,8 +7,8 @@
           <span flex></span>
           <span>
            <md-tooltip md-direction="botton">Auto Refresh</md-tooltip>
-           <md-switch aria-label="Auto Refresh" ng-model="chart.autoRefresh" ng-change="chart.autoChange()"></md-switch>
-          </span>  
+           <md-switch class="ee-auto-refresh-label" ng-class="{ 'ee-auto-refresh-disabled': !chart.autoRefresh }" aria-label="Auto Refresh" ng-model="chart.autoRefresh" ng-change="chart.autoChange()">auto</md-switch>
+          </span>
           <md-button class="md-icon-button" aria-label="Refresh">
             <md-tooltip md-direction="botton">Refresh</md-tooltip>
             <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chart.refreshChart()"> refresh </md-icon>

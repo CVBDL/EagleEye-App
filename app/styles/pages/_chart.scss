@@ -40,4 +40,25 @@
       }
     }
   }
+
+  md-switch {
+    span {
+      color: $color-accent;
+    }
+
+    &.md-checked {
+      ._md-thumb {
+        background-color: $color-accent;
+        color: $color-accent;
+      }
+      ._md-bar {
+        background-color: $color-accent-light;
+        color: $color-accent-light;
+      }
+    }
+
+    &.ee-auto-refresh-disabled span {
+      color: $color-black-disabled;
+    }
+  }
 }
