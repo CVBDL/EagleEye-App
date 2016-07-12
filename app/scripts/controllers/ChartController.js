@@ -21,6 +21,20 @@ angular.module('eagleeye')
 
       this.chartData = {};
 
+      this.autoRefresh = false;
+
+      this.autoInterval  = null ;
+      
+      this.autoChange = function(){
+          if(this.autoRefresh == true){
+            this.autoInterval =  setInterval(this.refreshChart,15000);
+          }
+          else if(this.autoRefresh == false){
+            clearInterval(this.autoInterval);
+            this.autoInterval = null;
+          }
+      }
+
       this.getChartDataById = function(id) {
         EagleEyeWebService.getChartById(id).then(function(data) {
           controller.chartData = data;
@@ -41,11 +55,11 @@ angular.module('eagleeye')
       };
 
       this.refreshChart = function() {
-        var id = this.chartData._id;
+        var id = controller.chartData._id;
         controller.getChartDataById(id);
       };
 
-    this.SaveImageOrPDF = function(fileType,chartData){
+      this.SaveImageOrPDF = function(fileType,chartData){
         
           function Save2Image(chart,chartData){
               var uri = chart.getImageURI();

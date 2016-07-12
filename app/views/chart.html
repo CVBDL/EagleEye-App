@@ -5,6 +5,10 @@
         <div class="md-toolbar-tools">
           <h2 class="ee-text-black-primary">{{chart.chartData.options.title}}</h2>
           <span flex></span>
+          <span>
+           <!--md-tooltip md-direction="botton">Auto Refresh</md-tooltip-->
+           <md-switch aria-label="AAA" ng-model="chart.autoRefresh" ng-change="chart.autoChange()"></md-switch>
+          </span>  
           <md-button class="md-icon-button" aria-label="Refresh">
             <md-tooltip md-direction="botton">Refresh</md-tooltip>
             <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chart.refreshChart()"> refresh </md-icon>

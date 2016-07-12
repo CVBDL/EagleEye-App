@@ -21,6 +21,20 @@ angular.module('eagleeye')
 
       controller.charDataArray = [];
 
+      this.autoRefresh = false;
+
+      this.autoInterval  = null ;
+      
+      this.autoChange = function(){
+          if(this.autoRefresh == true){
+            this.autoInterval =  setInterval(this.refreshChartSet,15000);
+          }
+          else if(this.autoRefresh == false){
+            clearInterval(this.autoInterval);
+            this.autoInterval = null;
+          }
+      }
+
       this.getChartSetById = function(id) {
         controller.charDataArray = [];
         EagleEyeWebService.getChartSetById(id).then(function(settings) {
