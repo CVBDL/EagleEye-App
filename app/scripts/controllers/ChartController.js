@@ -24,7 +24,7 @@ angular.module('eagleeye')
       this.autoRefresh = false;
 
       this.autoInterval  = null ;
-      
+
       this.autoChange = function(){
           if(this.autoRefresh == true){
             this.autoInterval =  setInterval(this.refreshChart,15000);
@@ -43,10 +43,6 @@ angular.module('eagleeye')
 
       controller.getChartDataById(id);
 
-      this.goSettings = function() {
-        $state.go('chartSettings', { id: id });
-      };
-
       this.showShare = function() {
         eeShareService.showShareDialog({
           sharedTitle: this.chartData.options.title,
@@ -60,7 +56,7 @@ angular.module('eagleeye')
       };
 
       this.SaveImageOrPDF = function(fileType,chartData){
-        
+
           function Save2Image(chart,chartData){
               var uri = chart.getImageURI();
               var aLink = document.createElement('a');
@@ -77,8 +73,8 @@ angular.module('eagleeye')
                 var doc = new jsPDF("l", "pt", "letter");
                 doc.setFont("times");
                 doc.setFontType("italic");
-                doc.text(40, 20, "Provided by EagleEye"); 
-                doc.text(40, 40, chartData.options.title); 
+                doc.text(40, 20, "Provided by EagleEye");
+                doc.text(40, 40, chartData.options.title);
                 doc.addImage(uri, 'JPEG', 20, 40);
                 doc.save(chartData.options.title);
           };

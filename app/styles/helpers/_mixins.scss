@@ -1,0 +1,11 @@
+// Mixins
+// ------------------------------
+@mixin text-ellipsis($lineCount, $font-size, $line-height) {
+  display: block;
+  display: -webkit-box;
+  height: $lineCount * $font-size * $line-height;
+  line-height: $line-height;
+  -webkit-line-clamp: $lineCount;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

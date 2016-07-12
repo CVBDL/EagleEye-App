@@ -26,7 +26,8 @@ angular.module('eagleeye')
 
       controller.getChartsList();
 
-      this.showConfirm = function(ev, id) {
+      this.showConfirm = function($event, id) {
+        $event.stopPropagation();
         eeDeleteConfirmationService.showDeleteConfirmationDialog().then(function(response) {
           if (response === 'delete') {
             controller.deleteChartById(id);
@@ -48,5 +49,14 @@ angular.module('eagleeye')
         });
       };
 
+      this.goToSettings = function($event, id, friendlyurl) {
+        $event.stopPropagation();
+
+        if (friendlyurl) {
+          $state.go('chartSettings', { id: friendlyurl });
+        } else {
+          $state.go('chartSettings', { id: id });
+        }
+      };
     }
   ]);

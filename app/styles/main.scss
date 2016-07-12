@@ -1,6 +1,7 @@
 // Helpers
 // ------------------------------
 @import 'helpers/functions';
+@import 'helpers/mixins';
 @import 'helpers/variables';
 
 
@@ -19,10 +20,12 @@
 @import 'layout/header';
 @import 'layout/footer';
 @import 'layout/delete-dialog';
+@import 'layout/list';
 
 
 // Pages
 // ------------------------------
 @import 'pages/home';
 @import 'pages/chart';
+@import 'pages/charts';
 @import 'pages/chart-set';
