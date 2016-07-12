@@ -1,35 +1,56 @@
-<div class="ee-chart-view">
-  <div class="ee-chart-wrapper">
-   <md-card>
-    <md-toolbar style="color:write;background-color:rgba(0, 0, 0, 0.18)">
-    <div class="md-toolbar-tools">
-        <h2>Charts List </h2>
-        <md-button class="md-icon-button" aria-label="Add" ui-sref="createChart">
+<div class="ee-charts-view">
+  <div class="ee-charts-wrapper">
+    <md-card>
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <h2 class="ee-text-black-primary">All charts list</h2>
+          <span flex></span>
+          <md-button class="md-icon-button" aria-label="Refresh">
+            <md-tooltip md-direction="botton">Refresh</md-tooltip>
+            <md-icon md-font-set="material-icons" class="ee-icon" ng-click=""> refresh </md-icon>
+          </md-button>
+          <md-button class="md-icon-button" aria-label="Add" ui-sref="createChart">
             <md-tooltip md-direction="botton">Create New Chart</md-tooltip>
-            <md-icon md-font-set="material-icons" class="ee-icon"> add_circle_outline </md-icon>
-        </md-button>
-    </div>
-    </md-toolbar>
-
-    <md-divider></md-divider>
-    <div>
-        <div>
-          <md-list-item  ng-click="charts.openCharts(chart._id, chart.friendlyUrl)" ng-repeat="chart in charts.chartList">
-              <p> {{ chart.options.title }} </p>
-                <md-button class="md-icon-button">
-                    <md-tooltip md-direction="botton">Edit</md-tooltip>
-                    <md-icon  md-font-set="material-icons" class="ee-icon"> edit </md-icon>
-                </md-button>
-                <md-button class="md-icon-button" aria-label="Delete" ng-click="charts.showConfirm($event, chart._id)">
+            <md-icon md-font-set="material-icons" class="ee-icon"> add </md-icon>
+          </md-button>
+        </div>
+      </md-toolbar>
+      <md-divider></md-divider>
+      <div class="ee-list-item" ng-repeat="chart in charts.chartList track by chart._id">
+        <a href="javascript:;" ng-click="charts.openCharts(chart._id, chart.friendlyUrl)">
+          <div class="ee-list-item-content-container" layout="row" layout-align="start center">
+            <div class="ee-list-item-col-1 ee-list-item-index ee-text-black-primary" flex="none">
+              {{$index + 1}}
+            </div>
+            <div class="ee-list-item-col-2" flex="auto" layout="column" layout-align="space-between start">
+              <div class="ee-list-item-row-1" flex="auto" layout="row" layout-align="start center">
+                <h3 class="ee-text-black-primary ee-list-item-title">{{chart.options.title}}</h3>
+                <p class="ee-text-black-secondary">
+                  <md-icon md-font-set="material-icons" class="ee-icon"> access_time </md-icon> <span>{{chart.chartData.lastUpdateTimestamp | date: 'medium'}}</span>
+                </p>
+              </div>
+              <div class="ee-list-item-row-2 ee-text-black-secondary" flex="auto">
+                <p>{{chart.description}}</p>
+              </div>
+            </div>
+            <div class="ee-list-item-col-3" flex="none">
+              <md-toolbar>
+                <div class="md-toolbar-tools">
+                  <md-button class="md-icon-button" aria-label="Settings" ng-click="charts.goToSettings($event, chart._id, chart.friendlyUrl)">
+                    <md-tooltip md-direction="botton">Settings</md-tooltip>
+                    <md-icon md-font-set="material-icons" class="ee-icon"> settings </md-icon>
+                  </md-button>
+                  <md-button class="md-icon-button" aria-label="Delete" ng-click="charts.showConfirm($event, chart._id)">
                     <md-tooltip md-direction="botton">Delete</md-tooltip>
                     <md-icon md-font-set="material-icons" class="ee-icon"> delete </md-icon>
-                </md-button>
-              <md-divider></md-divider>
-          </md-list-item>
-        </div>
-    </div>
-
-    <md-divider></md-divider>
+                  </md-button>
+                </div>
+              </md-toolbar>
+            </div>
+          </div>
+        </a>
+        <md-divider ng-hide="$last"></md-divider>
+      </div>
     </md-card>
-    </div>
+  </div>
 </div>
