@@ -53,11 +53,10 @@
               <md-tooltip md-direction="botton">Submit</md-tooltip>
       </md-button>
       </md-card-actions>  
-        <span class="progress" ng-show="excelFile.progress >= 0">
-        <div style="width:{{chart.excelFile.progress}}%"
-             ng-bind="chart.excelFile.progress + '%'"></div>
-      </span>
-      <span ng-show="chart.excelFile.result">Upload Successful</span>
+      <md-progress-linear ng-show="chart.excelFile.progress >= 0" md-mode="determinate" value="chart.excelFile.progress"></md-progress-linear>
+      <div style="width:80%">
+      <span ng-show="chart.excelFile.progress == 100">Upload Successful</span>
+      </div>
       <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
       <br>
     </md-card>
