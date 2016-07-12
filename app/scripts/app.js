@@ -106,7 +106,8 @@ angular
         },
         crosshair: null,
         curveType: 'function',
-        fontName: "Roboto, 'Helvetica Neue', sans-serif",
+        // fontName: "Roboto, 'Helvetica Neue', sans-serif",
+        fontSize: 14,
         legend: {
           position: 'top',
           alignment: 'end',
@@ -123,7 +124,7 @@ angular
           isHtml: false,
           textStyle: {
             color: '#555555', // $color-gray-dark
-            fontName: "Roboto, 'Helvetica Neue', sans-serif",
+            // fontName: "Roboto, 'Helvetica Neue', sans-serif",
             fontSize: 14,
             bold: false,
             italic: false
@@ -148,7 +149,8 @@ angular
         chartArea: {
           width:'85%'
         },
-        fontName: "Roboto, 'Helvetica Neue', sans-serif",
+        // fontName: "Roboto, 'Helvetica Neue', sans-serif",
+        fontSize: 14,
         legend: {
           position: 'top',
           alignment: 'end',
@@ -163,7 +165,7 @@ angular
           isHtml: false,
           textStyle: {
             color: '#555555', // $color-gray-dark
-            fontName: "Roboto, 'Helvetica Neue', sans-serif",
+            // fontName: "Roboto, 'Helvetica Neue', sans-serif",
             fontSize: 14,
             bold: false,
             italic: false
@@ -188,7 +190,8 @@ angular
         chartArea: {
           width:'85%'
         },
-        fontName: "Roboto, 'Helvetica Neue', sans-serif",
+        // fontName: "Roboto, 'Helvetica Neue', sans-serif",
+        fontSize: 14,
         legend: {
           position: 'top',
           alignment: 'end',
@@ -203,7 +206,7 @@ angular
           isHtml: false,
           textStyle: {
             color: '#555555', // $color-gray-dark
-            fontName: "Roboto, 'Helvetica Neue', sans-serif",
+            // fontName: "Roboto, 'Helvetica Neue', sans-serif",
             fontSize: 14,
             bold: false,
             italic: false
