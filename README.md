@@ -51,4 +51,8 @@ grunt serve
 
 ## Testing
 
-Running `grunt test` will run the unit tests with karma.
+```sh
+grunt test
+```
+
+It will run the unit tests with karma and PhantomJS.
