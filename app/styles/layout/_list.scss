@@ -1,8 +1,7 @@
 .ee-list-item {
   box-sizing: border-box;
   color: $color-black-primary;
-  padding: $eagleeye-list-top-bottom-content-padding $eagleeye-list-left-right-content-padding;
-  padding-bottom: 0;
+  padding: 0 $eagleeye-list-left-right-content-padding;
   transition: background-color $eagleeye-transition-duration $eagleeye-transition-timing-function;
 
   &:hover {
@@ -10,35 +9,31 @@
   }
 
   .ee-list-item-content-container {
-    height: 80px;
-    max-height: 80px;
+    box-sizing: border-box;
+    height: $eagleeye-list-container-height;
+    padding: $eagleeye-list-container-top-bottom-content-padding 0;
+  }
+
+  .ee-list-item-col-1 {
+    width: $eagleeye-list-item-col-1-left-margin;
   }
 
   .ee-list-item-col-2 {
-    margin-left: $eagleeye-list-col-2-left-margin;
-    max-height: 100px;
-    overflow: hidden;
-  }
+    margin-left: $eagleeye-list-item-col-2-left-margin;
 
-  .ee-list-item-row-1 {
-    margin-bottom: 8px;
-    p {
-      margin-left: 32px;
+    .ee-list-item-row-1 {
+      margin-bottom: $eagleeye-list-container-top-bottom-content-padding;
+
+      p {
+        margin-left: 32px;
+      }
     }
-  }
 
-  .ee-list-item-row-2 {
-    p {
-      @include text-ellipsis(2, 14px, 20 / 14);
+    .ee-list-item-row-2 {
+      p {
+        @include text-ellipsis(2, 14px, 20 / 14);
+      }
     }
-  }
-
-  .ee-list-item-description {
-    text-overflow: hidden;
-  }
-
-  .ee-list-item-row-2 {
-    margin-bottom: $eagleeye-list-top-bottom-content-padding;
   }
 
   md-toolbar {
