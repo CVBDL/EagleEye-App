@@ -30,9 +30,7 @@
         </md-toolbar>
         <md-divider></md-divider>
         <md-content flex="" layout-padding="">
-          <!-- <p>{{chart.chartData.timestamp | date: 'medium'}}</p> -->
           <p class="ee-chart-status">
-            <md-icon md-font-set="material-icons" class="ee-icon"> person </md-icon> <span>EagleEye</span>
             <md-icon md-font-set="material-icons" class="ee-icon"> access_time </md-icon> <span>{{chartset.settings.lastUpdateTimestamp | date: 'medium'}}</span></p>
           <p>{{chartset.settings.description}}</p>
         </md-content>
