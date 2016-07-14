@@ -28,6 +28,7 @@ angular.module('eagleeye')
 
       this.showConfirm = function($event, id) {
         $event.stopPropagation();
+
         eeDeleteConfirmationService.showDeleteConfirmationDialog().then(function(response) {
           if (response === 'delete') {
             controller.deleteChartById(id);

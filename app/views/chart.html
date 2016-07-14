@@ -6,8 +6,8 @@
           <h2 class="ee-text-black-primary">{{chart.chartData.options.title}}</h2>
           <span flex></span>
           <span>
-           <md-tooltip md-direction="botton">Auto Refresh</md-tooltip>
-           <md-switch class="ee-auto-refresh-label" ng-class="{ 'ee-auto-refresh-disabled': !chart.autoRefresh }" aria-label="Auto Refresh" ng-model="chart.autoRefresh" ng-change="chart.autoChange()">auto</md-switch>
+            <md-tooltip md-direction="botton">Auto Refresh</md-tooltip>
+            <md-switch class="ee-auto-refresh-label" ng-class="{ 'ee-auto-refresh-disabled': !chart.autoRefresh }" aria-label="Auto Refresh" ng-model="chart.autoRefresh" ng-change="chart.autoChange()">auto</md-switch>
           </span>
           <md-button class="md-icon-button" aria-label="Refresh">
             <md-tooltip md-direction="botton">Refresh</md-tooltip>
@@ -36,7 +36,6 @@
       </ee-google-chart>
       <md-divider></md-divider>
       <md-content flex="" layout-padding="">
-        <!-- <p>{{chart.chartData.timestamp | date: 'medium'}}</p> -->
         <p class="ee-chart-status">
           <md-icon md-font-set="material-icons" class="ee-icon"> person </md-icon> <span>EagleEye</span>
           <md-icon md-font-set="material-icons" class="ee-icon"> access_time </md-icon> <span>{{chart.chartData.lastUpdateTimestamp | date: 'medium'}}</span>
