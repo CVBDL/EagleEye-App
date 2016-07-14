@@ -26,7 +26,9 @@ angular.module('eagleeye')
 
       controller.getChartSetsList();
 
-      this.showConfirm = function(ev, id) {
+      this.showConfirm = function($event, id) {
+        $event.stopPropagation();
+
         eeDeleteConfirmationService.showDeleteConfirmationDialog().then(function(response) {
           if (response === 'delete') {
             controller.deleteChartSetById(id);
@@ -47,6 +49,16 @@ angular.module('eagleeye')
           EagleEyeWebService.deleteChartSetById(id).then(function() {
             controller.getChartSetsList();
           });
+      };
+
+      this.goToSettings = function($event, id, friendlyurl) {
+        $event.stopPropagation();
+
+        if (friendlyurl) {
+          $state.go('chartSetSettings', { id: friendlyurl });
+        } else {
+          $state.go('chartSetSettings', { id: id });
+        }
       };
     }
   ]);

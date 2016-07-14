@@ -24,8 +24,12 @@ angular.module('eagleeye')
 
       EagleEyeWebService.getChartSetById(id).then(function(chartSet) {
           angular.extend(controller.settings, chartSet);
-          controller.showingURL = chartSet.friendlyUrl.substring(2);
-          angular.extend(controller.showingURL, chartSet.friendlyUrl.substring(2));
+
+          if (chartSet.friendlyUrl) {
+            controller.showingURL = chartSet.friendlyUrl.substring(2);
+          } else {
+            controller.showingURL = '';
+          }
       });
 
       this.deleteChart = function(id) {
