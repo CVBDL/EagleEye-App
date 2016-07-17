@@ -1,0 +1,38 @@
+.ee-chart-set-creation-view {
+  background-color: $color-gray-light-light;
+
+  .ee-chart-set-creation-wrapper {
+    box-sizing: border-box;
+    margin: 0 auto;
+    max-width: $eagleeye-max-width;
+    padding: $eagleeye-content-padding-secondary $eagleeye-content-padding-primary;
+  }
+
+  md-card {
+    margin: 0;
+  }
+
+  md-toolbar {
+    background-color: #fff;
+    height: $eagleeye-header-height;
+    min-height: $eagleeye-header-height;
+    max-height: $eagleeye-header-height;
+  }
+
+  md-content {
+    background-color: #fff;
+  }
+
+  .ee-hint {
+    position: absolute;
+    // left: 2px;
+    right: 2px;
+    bottom: 7px;
+    /* Copy styles from ng-messages */
+    font-size: 12px;
+    line-height: 14px;
+    transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+    /* Set our own color */
+    color: grey;
+  }
+}
