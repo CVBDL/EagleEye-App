@@ -37,7 +37,7 @@ html, body {
 }
 
 
-// Dialog
+// List
 // ------------------------------
 .ee-list-item {
   font-size: rem(1.4);
@@ -49,6 +49,20 @@ html, body {
 
 .ee-list-item-index {
   font-size: rem(2.0);
+}
+
+.ee-list-item-index {
+  font-size: rem(2.0);
+}
+
+.ee-list-item-narrow {
+  .ee-list-item-title {
+    font-size: rem(1.6);
+  }
+
+  .ee-list-item-index {
+    font-size: rem(1.4);
+  }
 }
 
 

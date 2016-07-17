@@ -46,3 +46,28 @@
     background-color: transparent !important;
   }
 }
+
+.ee-list-item.ee-list-item-narrow {
+  .ee-list-item-content-container {
+    height: 60px;
+    padding: 0;
+  }
+
+  .ee-list-item-col-1 {
+    width: 40px;
+  }
+
+  .ee-list-item-col-2 {
+    margin-left: 0;
+
+    .ee-list-item-row-1 {
+      margin-bottom: 2px;
+    }
+
+    .ee-list-item-row-2 {
+      p {
+        @include text-ellipsis(1, 14px, 20 / 14);
+      }
+    }
+  }
+}

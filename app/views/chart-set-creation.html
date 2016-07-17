@@ -1,23 +1,28 @@
 <div class="ee-chart-set-creation-view">
   <div class="ee-chart-set-creation-wrapper">
     <md-card>
-    <md-toolbar>
+      <md-toolbar>
         <div class="md-toolbar-tools">
           <h3 class="ee-text-black-primary">Create chart set</h3>
+          <span flex></span>
+          <md-button class="md-icon-button" aria-label="Save">
+            <md-tooltip md-direction="botton">Save</md-tooltip>
+            <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chartset.save()"> save </md-icon>
+          </md-button>
         </div>
       </md-toolbar>
       <md-divider></md-divider>
-      <md-content layout-padding="">
-        <form name="chartSetCreationForm">
-          <div layout="row">
-            <md-input-container class="md-block" flex>
+      <md-content layout-padding>
+        <form name="chartSetCreationForm" layout="row">
+          <div flex>
+            <md-input-container class="md-block">
               <label>Title</label>
               <input md-maxlength="60" required name="title" ng-model="chartset.settings.title">
               <div ng-messages="chartSetCreationForm.title.$error" role="alert" md-auto-hide="false">
                 <div ng-message="required">This is required.</div>
               </div>
             </md-input-container>
-            <md-input-container class="md-block" flex>
+            <md-input-container class="md-block">
               <label>Friendly URL</label>
               <input name="friendlyUrl" ee-friendly-url-validator="chartset" ng-model="chartset.settings.friendlyUrl">
               <div class="ee-hint">A custom chart set domain name. Should be unique or empty.</div>
@@ -26,31 +31,69 @@
                 <div ng-message="friendlyUrlAvailable">The url is already in use</div>
               </div>
             </md-input-container>
+            <md-input-container class="md-block">
+              <label>Description</label>
+              <textarea name="description" ng-model="chartset.settings.description" md-maxlength="200" rows="3" md-select-on-focus></textarea>
+              <div ng-messages="chartSetCreationForm.description.$error" role="alert" md-auto-hide="false">
+                <div ng-message="md-maxlength" class="my-message">
+                  Don't use the long version silly...we don't need to be that specific...
+                </div>
+              </div>
+            </md-input-container>
           </div>
-          <md-input-container class="md-block">
-            <label>Description</label>
-            <textarea ng-model="chartset.settings.description" md-maxlength="200" rows="3" md-select-on-focus></textarea>
-          </md-input-container>
-        </form>
-      </md-content>
-      <md-chips ng-model="chartset.settings.charts" md-contact-image="image" placeholder="Search to add"></md-chips>
-      <div>
-        <md-list class="fixedRows" style="margin-bottom:10px">
-          <md-subheader>Charts</md-subheader>
-          <md-list-item class="md-2-line" style="box-sizing: border-box;float:left;" ng-repeat="chart in chartset.chartList">
-            <div class="md-list-item-text" style="margin:20px">
-              <img ng-src="images/Chart.png" class="md-avatar" alt="">
-              <div class="md-list-item-text compact">
-                <h3>{{chart.options.title}} <button ng-click="chartset.addToChartSet(chart)">+</button> </h3>
-                <p>description...</p>
+          <div flex="5"></div>
+          <div flex>
+            <md-input-container class="md-block">
+              <md-icon md-font-set="material-icons" class="ee-icon"> search </md-icon>
+              <input ng-model="chartset.searchKeyword" type="text" placeholder="Search the chart sets">
+            </md-input-container>
+
+      <div class="ee-list-item ee-list-item-narrow" ng-repeat="chart in chartset.chartList track by chart._id">
+        <a href="javascript:;">
+          <div class="ee-list-item-content-container" layout="row" layout-align="start center">
+            <div class="ee-list-item-col-1 ee-list-item-index ee-text-black-primary" flex="none">
+              {{$index + 1}}
+            </div>
+            <div class="ee-list-item-col-2" flex="auto" layout="column" layout-align="space-between start">
+              <div class="ee-list-item-row-1" flex="auto" layout="row" layout-align="start center">
+                <h3 class="ee-text-black-primary ee-list-item-title">{{chart.options.title}}</h3>
+              </div>
+              <div class="ee-list-item-row-2 ee-text-black-secondary" flex="auto">
+                <p>{{chart.description}}</p>
               </div>
             </div>
-          </md-list-item>
-        </md-list>
+            <div class="ee-list-item-col-3" flex="none">
+              <md-toolbar>
+                <div class="md-toolbar-tools">
+                  <md-checkbox class="md-secondary" ng-model="topping.wanted"></md-checkbox>
+                </div>
+              </md-toolbar>
+            </div>
+          </div>
+        </a>
+        <md-divider ng-hide="$last"></md-divider>
       </div>
-      <div style="clear:both">
-        <md-button class="md-primary md-raised" ng-click="chartset.save()">Save</md-button>
-      </div>
+
+
+
+
+            <md-chips ng-model="chartset.settings.charts" md-contact-image="image" placeholder="Search to add"></md-chips>
+            <div>
+              <md-list class="fixedRows" style="margin-bottom:10px">
+                <md-subheader>Charts</md-subheader>
+                <md-list-item class="md-2-line" style="box-sizing: border-box;float:left;" ng-repeat="chart in chartset.chartList">
+                  <div class="md-list-item-text" style="margin:20px">
+                    <img ng-src="images/Chart.png" class="md-avatar" alt="">
+                    <div class="md-list-item-text compact">
+                      <h3>{{chart.options.title}} <button ng-click="chartset.addToChartSet(chart)">+</button> </h3>
+                    </div>
+                  </div>
+                </md-list-item>
+              </md-list>
+            </div>
+          </div>
+        </form>
+      </md-content>
     </md-card>
   </div>
 </div>
