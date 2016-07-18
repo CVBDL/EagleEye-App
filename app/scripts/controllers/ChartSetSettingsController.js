@@ -55,30 +55,6 @@ angular.module('eagleeye')
         });
       };
 
-      this.deleteChartSetById = function() {
-        console.log("deleteChartSetById()");
-        var id = this.settings._id;
-        EagleEyeWebService.deleteChartSetById(id).then(function() {
-          alert("Success");
-        });
-      };
-
-      this.showConfirm = function(ev) {
-        // appending dialog to document.body to cover sidenav in docs app
-        var confirm = $mdDialog.confirm()
-          .title('Would you like to delete this chart?')
-          .textContent('If you click Delete button, this chart will be delete and cannot restored!')
-          .ariaLabel('Lucky day')
-          .targetEvent(ev)
-          .ok('Delete')
-          .cancel('Cancel');
-        $mdDialog.show(confirm).then(function() {
-          controller.deleteChartSetById();
-        }, function() {
-          console.log("Cancel!");
-        });
-      };
-
       EagleEyeWebService.getCharts().then(function(chartList) {
         controller.chartList = chartList;
       });
