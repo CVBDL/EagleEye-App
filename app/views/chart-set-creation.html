@@ -40,57 +40,75 @@
                 </div>
               </div>
             </md-input-container>
+            <h4>Chart List:</h4>
+            <div class="ee-list-item ee-list-item-narrow"
+                ng-repeat="chart in chartset.selectedCharts track by chart._id">
+              <a href="javascript:;">
+                <div class="ee-list-item-content-container" layout="row" layout-align="start center">
+                  <div class="ee-list-item-col-1 ee-list-item-index ee-text-black-primary" flex="none">
+                    {{$index + 1}}
+                  </div>
+                  <div class="ee-list-item-col-2" flex="auto" layout="column" layout-align="space-between start">
+                    <div class="ee-list-item-row-1" flex="auto" layout="row" layout-align="start center">
+                      <h3 class="ee-text-black-primary ee-list-item-title">{{chart.options.title}}</h3>
+                    </div>
+                    <div class="ee-list-item-row-2 ee-text-black-secondary" flex="auto">
+                      <p>{{chart.description}}</p>
+                    </div>
+                  </div>
+                  <div class="ee-list-item-col-3" flex="none">
+                    <md-toolbar>
+                      <div class="md-toolbar-tools">
+                        <md-button class="md-icon-button" aria-label="Move up" ng-click="chartset.moveUp(chart)">
+                          <md-tooltip md-direction="botton">Move up</md-tooltip>
+                          <md-icon md-font-set="material-icons" class="ee-icon"> arrow_upward </md-icon>
+                        </md-button>
+                        <md-button class="md-icon-button" aria-label="Move down" ng-click="chartset.moveDown(chart)">
+                          <md-tooltip md-direction="botton">Move down</md-tooltip>
+                          <md-icon md-font-set="material-icons" class="ee-icon"> arrow_downward </md-icon>
+                        </md-button>
+                      </div>
+                    </md-toolbar>
+                  </div>
+                </div>
+              </a>
+              <md-divider ng-hide="$last"></md-divider>
+            </div>
           </div>
           <div flex="5"></div>
           <div flex>
             <md-input-container class="md-block">
               <md-icon md-font-set="material-icons" class="ee-icon"> search </md-icon>
-              <input ng-model="chartset.searchKeyword" type="text" placeholder="Search the chart sets">
+              <input ng-model="chartset.settings.searchKeyword" type="text" placeholder="Search the chart sets">{{chartset.filterOptions}}
             </md-input-container>
-
-      <div class="ee-list-item ee-list-item-narrow" ng-repeat="chart in chartset.chartList track by chart._id">
-        <a href="javascript:;">
-          <div class="ee-list-item-content-container" layout="row" layout-align="start center">
-            <div class="ee-list-item-col-1 ee-list-item-index ee-text-black-primary" flex="none">
-              {{$index + 1}}
-            </div>
-            <div class="ee-list-item-col-2" flex="auto" layout="column" layout-align="space-between start">
-              <div class="ee-list-item-row-1" flex="auto" layout="row" layout-align="start center">
-                <h3 class="ee-text-black-primary ee-list-item-title">{{chart.options.title}}</h3>
-              </div>
-              <div class="ee-list-item-row-2 ee-text-black-secondary" flex="auto">
-                <p>{{chart.description}}</p>
-              </div>
-            </div>
-            <div class="ee-list-item-col-3" flex="none">
-              <md-toolbar>
-                <div class="md-toolbar-tools">
-                  <md-checkbox class="md-secondary" ng-model="topping.wanted"></md-checkbox>
-                </div>
-              </md-toolbar>
-            </div>
-          </div>
-        </a>
-        <md-divider ng-hide="$last"></md-divider>
-      </div>
-
-
-
-
-            <md-chips ng-model="chartset.settings.charts" md-contact-image="image" placeholder="Search to add"></md-chips>
-            <div>
-              <md-list class="fixedRows" style="margin-bottom:10px">
-                <md-subheader>Charts</md-subheader>
-                <md-list-item class="md-2-line" style="box-sizing: border-box;float:left;" ng-repeat="chart in chartset.chartList">
-                  <div class="md-list-item-text" style="margin:20px">
-                    <img ng-src="images/Chart.png" class="md-avatar" alt="">
-                    <div class="md-list-item-text compact">
-                      <h3>{{chart.options.title}} <button ng-click="chartset.addToChartSet(chart)">+</button> </h3>
+            <md-content class="ee-list-container">
+              <div class="ee-list-item ee-list-item-narrow"
+                  ng-repeat="chart in chartset.chartList | filter: chartset.filterFunction track by chart._id">
+                <a href="javascript:;">
+                  <div class="ee-list-item-content-container" layout="row" layout-align="start center">
+                    <div class="ee-list-item-col-1 ee-list-item-index ee-text-black-primary" flex="none">
+                      {{$index + 1}}
+                    </div>
+                    <div class="ee-list-item-col-2" flex="auto" layout="column" layout-align="space-between start">
+                      <div class="ee-list-item-row-1" flex="auto" layout="row" layout-align="start center">
+                        <h3 class="ee-text-black-primary ee-list-item-title">{{chart.options.title}}</h3>
+                      </div>
+                      <div class="ee-list-item-row-2 ee-text-black-secondary" flex="auto">
+                        <p>{{chart.description}}</p>
+                      </div>
+                    </div>
+                    <div class="ee-list-item-col-3" flex="none">
+                      <md-toolbar>
+                        <div class="md-toolbar-tools">
+                          <md-checkbox class="md-secondary" ng-model="chart.checked" ng-change="chartset.onCheckboxChanged(chart)" aria-label="{{chart.options.title}}"></md-checkbox>
+                        </div>
+                      </md-toolbar>
                     </div>
                   </div>
-                </md-list-item>
-              </md-list>
-            </div>
+                </a>
+                <md-divider ng-hide="$last"></md-divider>
+              </div>
+            </md-content>
           </div>
         </form>
       </md-content>

@@ -33,6 +33,10 @@
 
   md-content {
     background-color: #fff;
+
+    &.ee-list-container {
+      height: 650px;
+    }
   }
 
   .ee-hint {
