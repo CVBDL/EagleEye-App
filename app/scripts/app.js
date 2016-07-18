@@ -214,5 +214,45 @@ angular
         }
       });
 
+            // bar chart default options
+      // docs: https://developers.google.com/chart/interactive/docs/gallery/barchart#configuration-options
+      GoogleChartsServiceProvider.setComboChartDefaultOptions({
+        animation: {
+          startup: true,
+          duration: 500,
+          easing: 'linear'
+        },
+        backgroundColor: {
+          stroke: 'white',
+          strokeWidth: 0,
+          fill: 'white'
+        },
+        bar: { groupWidth: "61.8%" },
+        chartArea: {
+          width:'85%'
+        },
+        // fontName: "Roboto, 'Helvetica Neue', sans-serif",
+        fontSize: 14,
+        legend: {
+          position: 'top',
+          alignment: 'end',
+          maxLines: 2,
+          textStyle: {
+            color: '#555555', // $color-gray-dark
+          }
+        },
+        titlePosition: 'none',
+        tooltip: {
+          ignoreBounds: false,
+          isHtml: false,
+          textStyle: {
+            color: '#555555', // $color-gray-dark
+            // fontName: "Roboto, 'Helvetica Neue', sans-serif",
+            fontSize: 14,
+            bold: false,
+            italic: false
+          }
+        }
+      });
     }
   ]);

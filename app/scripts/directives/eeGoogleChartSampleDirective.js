@@ -10,7 +10,9 @@ angular.module('eagleeye')
   .directive('eeGoogleChartSample', [
     'GoogleChartsService',
     function (GoogleChartsService) {
-      var chartDataTableSamples = GoogleChartsService.getChartDataTableSamples();
+      var chartTypeOptions = GoogleChartsService.getChartTypeOptions();
+      var selectedChartTypeOption = chartTypeOptions[0];
+      var chartDataTableSamples = GoogleChartsService.getChartDataTableSamples(selectedChartTypeOption.value.toLowerCase());
 
       return {
         template: '<ee-google-chart chart-type="chartType" chart-options="chartOptions" chart-data-table="chartDataTable"></ee-google-chart>',
@@ -25,8 +27,14 @@ angular.module('eagleeye')
             scope.chartDataTable = chartDataTableSamples[scope.chartMajorAxisDataType];
           });
 
+          var unwatchChartType = scope.$watch('chartType', function setChartDataTableByType() {
+            chartDataTableSamples = GoogleChartsService.getChartDataTableSamples(scope.chartType.toLowerCase());
+            scope.chartDataTable = chartDataTableSamples[scope.chartMajorAxisDataType];
+          });
+
           scope.$on('$destroy', function() {
             unwatchChartMajorAxisDataType();
+            unwatchChartType();
           });
         }
       };

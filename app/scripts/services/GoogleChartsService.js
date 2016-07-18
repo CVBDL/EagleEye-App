@@ -21,6 +21,10 @@ angular.module('eagleeye')
       label: 'Bar Chart',
       value: 'BarChart',
       construcorName: 'BarChart'
+    }, {
+      label: 'Combo Chart',
+      value: 'ComboChart',
+      construcorName: 'ComboChart'
     }];
 
     // https://developers.google.com/chart/interactive/docs/reference#dataparam
@@ -31,14 +35,27 @@ angular.module('eagleeye')
       datetime: {"cols":[{"id":"","label":"Time of Day","pattern":"","type":"datetime"},{"id":"","label":"Motivation Level","pattern":"","type":"number"}],"rows":[{"c":[{"v":"Date(2015, 0, 1)"},{"v":5}]},{"c":[{"v":"Date(2015, 0, 1, 0, 30, 0)"},{"v":5.1}]},{"c":[{"v":"Date(2015, 0, 1, 1, 0, 0)"},{"v":6.2}]},{"c":[{"v":"Date(2015, 0, 1, 2, 0, 0)"},{"v":7}]},{"c":[{"v":"Date(2015, 0, 1, 3, 0, 0)"},{"v":6.4}]},{"c":[{"v":"Date(2015, 0, 1, 4, 0, 0)"},{"v":3}]},{"c":[{"v":"Date(2015, 0, 1, 5, 0, 0)"},{"v":4}]},{"c":[{"v":"Date(2015, 0, 1, 6, 0, 0)"},{"v":4.2}]},{"c":[{"v":"Date(2015, 0, 1, 7, 0, 0)"},{"v":1}]},{"c":[{"v":"Date(2015, 0, 1, 8, 0, 0)"},{"v":2.7}]},{"c":[{"v":"Date(2015, 0, 1, 9, 0, 0)"},{"v":3.9}]},{"c":[{"v":"Date(2015, 0, 1, 10, 0, 0)"},{"v":3.8}]},{"c":[{"v":"Date(2015, 0, 1, 11, 0, 0)"},{"v":5}]},{"c":[{"v":"Date(2015, 0, 1, 12, 0, 0)"},{"v":6.2}]},{"c":[{"v":"Date(2015, 0, 1, 13, 0, 0)"},{"v":7.8}]},{"c":[{"v":"Date(2015, 0, 1, 14, 0, 0)"},{"v":9.1}]},{"c":[{"v":"Date(2015, 0, 1, 15, 0, 0)"},{"v":8}]},{"c":[{"v":"Date(2015, 0, 1, 16, 0, 0)"},{"v":6.8}]},{"c":[{"v":"Date(2015, 0, 1, 17, 0, 0)"},{"v":7.2}]},{"c":[{"v":"Date(2015, 0, 1, 18, 0, 0)"},{"v":4}]},{"c":[{"v":"Date(2015, 0, 1, 19, 0, 0)"},{"v":5.9}]},{"c":[{"v":"Date(2015, 0, 1, 20, 0, 0)"},{"v":6.3}]},{"c":[{"v":"Date(2015, 0, 1, 21, 0, 0)"},{"v":6}]},{"c":[{"v":"Date(2015, 0, 1, 22, 0, 0)"},{"v":3}]},{"c":[{"v":"Date(2015, 0, 1, 23, 0, 0)"},{"v":2.2}]},{"c":[{"v":"Date(2015, 0, 2)"},{"v":2.4}]},{"c":[{"v":"Date(2015, 0, 2, 1, 0, 0)"},{"v":3.6}]},{"c":[{"v":"Date(2015, 0, 2, 2, 0, 0)"},{"v":4}]},{"c":[{"v":"Date(2015, 0, 2, 3, 0, 0)"},{"v":5.5}]},{"c":[{"v":"Date(2015, 0, 2, 4, 0, 0)"},{"v":7.1}]},{"c":[{"v":"Date(2015, 0, 2, 5, 0, 0)"},{"v":6}]},{"c":[{"v":"Date(2015, 0, 2, 6, 0, 0)"},{"v":7.8}]},{"c":[{"v":"Date(2015, 0, 2, 7, 0, 0)"},{"v":8.2}]},{"c":[{"v":"Date(2015, 0, 2, 8, 0, 0)"},{"v":9}]}]}
     };
 
+    var chartDataTableComboSamples = {
+      string: {"cols":[{"label":"Month","type":"string"},{"label":"Bolivia","type":"number"},{"label":"Ecuador","type":"number"},{"label":"Madagascar","type":"number"},{"label":"Papua New Guinea","type":"number"},{"label":"Rwanda","type":"number"},{"label":"Average","type":"number"}],"rows":[{"c":[{"v":"2004/05"},{"v":165},{"v":938},{"v":522},{"v":998},{"v":450},{"v":614.6}]},{"c":[{"v":"2005/06"},{"v":135},{"v":1120},{"v":599},{"v":1268},{"v":288},{"v":682}]},{"c":[{"v":"2006/07"},{"v":157},{"v":1167},{"v":587},{"v":807},{"v":397},{"v":623}]},{"c":[{"v":"2007/08"},{"v":139},{"v":1110},{"v":615},{"v":968},{"v":215},{"v":609.4}]},{"c":[{"v":"2008/09"},{"v":136},{"v":691},{"v":629},{"v":1026},{"v":366},{"v":569.6}]}]},
+      number: {},
+      date: {},
+      datetime: {}
+    };
+
     var defaultChartOptions = {
       linechart: {},
       columnchart: {},
-      barchart: {}
+      barchart: {},
+      combochart: {}
     };
+
 
     function setDefaultChartOptions(chartType, options) {
       angular.extend(defaultChartOptions[chartType], options);
+    }
+
+    function setDefaultChartData(chartType, data) {
+      angular.extend(defaultChartData[chartType], data);
     }
 
     this.setLineChartDefaultOptions = function(options) {
@@ -53,13 +70,21 @@ angular.module('eagleeye')
       setDefaultChartOptions('barchart', options);
     };
 
+    this.setComboChartDefaultOptions = function(options) {
+      setDefaultChartOptions('combochart', options);
+    };
+
     this.$get = [function() {
       return {
         getChartTypeOptions: function() {
           return chartTypeOptions;
         },
-        getChartDataTableSamples: function() {
-          return chartDataTableSamples;
+        getChartDataTableSamples: function(chartType) {
+          if(chartType == "combochart"){
+            return chartDataTableComboSamples;
+          } else {
+            return chartDataTableSamples;
+          }
         },
         getDefaultChartOptions: function() {
           return defaultChartOptions;

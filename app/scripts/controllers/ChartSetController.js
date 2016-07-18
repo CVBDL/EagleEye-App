@@ -88,8 +88,10 @@ angular.module('eagleeye')
                 chart[index] = new google.visualization.LineChart(document.createElement("div"));
             else if( chartData.chartType.indexOf('ColumnChart')>-1 )
                 chart[index] = new google.visualization.ColumnChart(document.createElement("div"));
-            else
+            else if( chartData.chartType.indexOf('BarChart')>-1 )
                 chart[index] = new google.visualization.BarChart(document.createElement("div"));
+            else
+                chart[index] = new google.visualization.ComboChart(document.createElement("div"));
             // Wait for the chart to finish drawing before calling the getImageURI() method.
             google.visualization.events.addListener(chart[index], 'ready',function () {
                 doc.addImage(chart[imageCount].getImageURI(), 'JPEG', 20, 60);

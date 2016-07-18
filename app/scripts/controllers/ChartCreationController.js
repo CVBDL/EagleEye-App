@@ -17,9 +17,9 @@ angular.module('eagleeye')
     function ($scope, $http, $state, GoogleChartsService, EagleEyeWebService) {
       var friendlyUrlPrefix = 'c-';
 
-      this.chartDataTableSamples = GoogleChartsService.getChartDataTableSamples();
       this.chartTypeOptions = GoogleChartsService.getChartTypeOptions();
       this.selectedChartTypeOption = this.chartTypeOptions[0];
+      this.chartDataTableSamples = GoogleChartsService.getChartDataTableSamples(this.selectedChartTypeOption.value.toLowerCase());
       this.settings = {
         title: '',
         description: '',
@@ -50,7 +50,7 @@ angular.module('eagleeye')
               title: this.settings.vAxisTitle
             }
           },
-          datatable: this.chartDataTableSamples[this.settings.majorAxisDataType]
+          datatable: GoogleChartsService.getChartDataTableSamples(this.selectedChartTypeOption.value.toLowerCase())[this.settings.majorAxisDataType]
         });
 
         EagleEyeWebService.createChart(data).then(function(newChart) {
