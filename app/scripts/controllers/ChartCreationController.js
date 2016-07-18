@@ -50,7 +50,7 @@ angular.module('eagleeye')
               title: this.settings.vAxisTitle
             }
           },
-          datatable: this.chartDataTableSamples[this.settings.majorAxisDataType]
+          datatable: this.chartDataTableSamples[this.selectedChartTypeOption.value.toLowerCase()][this.settings.majorAxisDataType]
         });
 
         EagleEyeWebService.createChart(data).then(function(newChart) {
@@ -79,6 +79,26 @@ angular.module('eagleeye')
         tooltip: {
           showColorCode: true
         }
+      };
+
+      this.combochartOptions ={
+        title: this.settings.title,
+        hAxis: {
+          title: this.settings.hAxisTitle
+        },
+        vAxis: {
+          title: this.settings.vAxisTitle
+        },
+        animation: {
+          duration: 500,
+          easing: 'out',
+          startup: true
+        },
+        tooltip: {
+          showColorCode: true
+        },
+        seriesType: 'bars',
+        series: {5: {type: 'line'}}
       };
     }
   ]);
