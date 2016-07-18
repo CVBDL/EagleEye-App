@@ -1,3 +1,4 @@
+// Normal list
 .ee-list-item {
   box-sizing: border-box;
   color: $color-black-primary;
@@ -44,5 +45,38 @@
 
   md-toolbar {
     background-color: transparent !important;
+  }
+}
+
+
+// Narrow list
+.ee-list-item.ee-list-item-narrow {
+  .ee-list-item-content-container {
+    height: 60px;
+    padding: 0;
+  }
+
+  .ee-list-item-col-1 {
+    width: 40px;
+  }
+
+  .ee-list-item-col-2 {
+    margin-left: 0;
+
+    .ee-list-item-row-1 {
+      margin-bottom: 2px;
+    }
+
+    .ee-list-item-row-2 {
+      p {
+        @include text-ellipsis(1, 14px, 20 / 14);
+      }
+    }
+  }
+
+  .ee-list-item-col-3 {
+    md-checkbox {
+      margin-bottom: 0;
+    }
   }
 }
