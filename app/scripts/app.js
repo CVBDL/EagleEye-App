@@ -102,7 +102,7 @@ angular
           fill: 'white'
         },
         chartArea: {
-          width:'85%'
+          width: '85%'
         },
         crosshair: null,
         curveType: 'function',
@@ -147,7 +147,7 @@ angular
         },
         bar: { groupWidth: "61.8%" },
         chartArea: {
-          width:'85%'
+          width: '85%'
         },
         // fontName: "Roboto, 'Helvetica Neue', sans-serif",
         fontSize: 14,
@@ -188,7 +188,7 @@ angular
         },
         bar: { groupWidth: "61.8%" },
         chartArea: {
-          width:'85%'
+          width: '85%'
         },
         // fontName: "Roboto, 'Helvetica Neue', sans-serif",
         fontSize: 14,
@@ -214,8 +214,8 @@ angular
         }
       });
 
-            // bar chart default options
-      // docs: https://developers.google.com/chart/interactive/docs/gallery/barchart#configuration-options
+      // chart default options
+      // docs: https://developers.google.com/chart/interactive/docs/gallery/combochart#configuration-options
       GoogleChartsServiceProvider.setComboChartDefaultOptions({
         animation: {
           startup: true,
@@ -229,7 +229,7 @@ angular
         },
         bar: { groupWidth: "61.8%" },
         chartArea: {
-          width:'85%'
+          width: '85%'
         },
         // fontName: "Roboto, 'Helvetica Neue', sans-serif",
         fontSize: 14,
