@@ -37,12 +37,13 @@ angular.module('eagleeye')
             }
 
             var chart = new google.visualization[scope.chartType](chartNode);
-            var chartDataTable = new google.visualization.DataTable(angular.copy(scope.chartDataTable, {})); 
-            var chartOptions = angular.copy(scope.chartOptions, defaultChartOptions[scope.chartType.toLowerCase()]);
-            if(scope.chartType.toLowerCase() == "combochart"){
-                chartOptions.seriesType = 'bars';
-                chartOptions.series = {5: {type: 'line'}};
-            } 
+            var chartDataTable = new google.visualization.DataTable(angular.copy(scope.chartDataTable, {}));
+            var chartOptions = angular.merge(angular.copy(scope.chartOptions, {}), defaultChartOptions[scope.chartType.toLowerCase()]);
+
+            if (scope.chartType.toLowerCase() == "combochart") {
+              chartOptions.seriesType = 'bars';
+              chartOptions.series = { 5: { type: 'line' } };
+            }
 
             $timeout(chart.draw(chartDataTable, chartOptions), 0);
           });
@@ -56,8 +57,8 @@ angular.module('eagleeye')
         }
 
         var unwatchChartType = scope.$watch('chartType', drawChart);
-        var unwatchChartOptions = scope.$watch('chartOptions', drawChart);
-        var unwatchChartDataTable = scope.$watch('chartDataTable', drawChart);
+        var unwatchChartOptions = scope.$watch('chartOptions', drawChart, true);
+        var unwatchChartDataTable = scope.$watchCollection('chartDataTable', drawChart);
 
         angular.element($window).on('resize', windowResizeHandler);
 

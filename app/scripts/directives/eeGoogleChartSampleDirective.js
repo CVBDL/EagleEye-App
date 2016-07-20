@@ -12,30 +12,27 @@ angular.module('eagleeye')
     function (GoogleChartsService) {
       var chartTypeOptions = GoogleChartsService.getChartTypeOptions();
       var selectedChartTypeOption = chartTypeOptions[0];
-      var chartDataTableSamples = GoogleChartsService.getChartDataTableSamples(selectedChartTypeOption.value.toLowerCase());
 
       return {
         template: '<ee-google-chart chart-type="chartType" chart-options="chartOptions" chart-data-table="chartDataTable"></ee-google-chart>',
         scope: {
-          chartOptions: '=',
-          chartType: '=',
-          chartMajorAxisDataType: '='
+          chartType: '@',
+          chartMajorAxisDataType: '@',
+          chartOptions: '='
         },
         restrict: 'E',
-        link: function postLink(scope) {
-          var unwatchChartMajorAxisDataType = scope.$watch('chartMajorAxisDataType', function setChartDataTable() {
-            scope.chartDataTable = chartDataTableSamples[scope.chartMajorAxisDataType];
+        link: function postLink($scope, $element, $attr) {
+          $attr.$observe('chartType', function setChartDataTable() {
+            updateChartDataTable();
           });
 
-          var unwatchChartType = scope.$watch('chartType', function setChartDataTableByType() {
-            chartDataTableSamples = GoogleChartsService.getChartDataTableSamples(scope.chartType.toLowerCase());
-            scope.chartDataTable = chartDataTableSamples[scope.chartMajorAxisDataType];
+          $attr.$observe('chartMajorAxisDataType', function setChartDataTable() {
+            updateChartDataTable();
           });
 
-          scope.$on('$destroy', function() {
-            unwatchChartMajorAxisDataType();
-            unwatchChartType();
-          });
+          function updateChartDataTable() {
+            $scope.chartDataTable = GoogleChartsService.getChartDataTableSamples($scope.chartType.toLowerCase(), $scope.chartMajorAxisDataType);
+          }
         }
       };
     }

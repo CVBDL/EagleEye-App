@@ -122,6 +122,7 @@ angular
         tooltip: {
           ignoreBounds: false,
           isHtml: false,
+          showColorCode: true,
           textStyle: {
             color: '#555555', // $color-gray-dark
             // fontName: "Roboto, 'Helvetica Neue', sans-serif",
@@ -163,6 +164,7 @@ angular
         tooltip: {
           ignoreBounds: false,
           isHtml: false,
+          showColorCode: true,
           textStyle: {
             color: '#555555', // $color-gray-dark
             // fontName: "Roboto, 'Helvetica Neue', sans-serif",
@@ -204,6 +206,7 @@ angular
         tooltip: {
           ignoreBounds: false,
           isHtml: false,
+          showColorCode: true,
           textStyle: {
             color: '#555555', // $color-gray-dark
             // fontName: "Roboto, 'Helvetica Neue', sans-serif",
@@ -245,6 +248,7 @@ angular
         tooltip: {
           ignoreBounds: false,
           isHtml: false,
+          showColorCode: true,
           textStyle: {
             color: '#555555', // $color-gray-dark
             // fontName: "Roboto, 'Helvetica Neue', sans-serif",

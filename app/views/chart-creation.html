@@ -1,6 +1,6 @@
 <div class="ee-chart-view">
   <div class="ee-chart-wrapper">
-    <md-card> 
+    <md-card>
     <div>
     <div style="float:left;width:25%;margin-left:10px">
       <md-content layout-padding="">
@@ -8,7 +8,7 @@
 
           <md-input-container class="md-block">
             <label>Chart Title</label>
-            <input required="" name="clientName" ng-model="newChart.settings.title">
+            <input required="" name="clientName" ng-model="newChart.chartOptions.title">
             <div ng-messages="ChartCreationForm.clientName.$error">
               <div ng-message="required">This is required.</div>
             </div>
@@ -24,7 +24,7 @@
 
           <md-input-container class="md-block">
             <label>H-axis Title</label>
-            <input required="" name="clientName" ng-model="newChart.settings.hAxisTitle">
+            <input required="" name="clientName" ng-model="newChart.chartOptions.hAxis.title">
             <div ng-messages="ChartCreationForm.clientName.$error">
               <div ng-message="required">This is required.</div>
             </div>
@@ -32,7 +32,7 @@
 
           <md-input-container class="md-block">
             <label>V-axis Title</label>
-            <input required="" name="clientName" ng-model="newChart.settings.vAxisTitle">
+            <input required="" name="clientName" ng-model="newChart.chartOptions.vAxis.title">
             <div ng-messages="ChartCreationForm.clientName.$error">
               <div ng-message="required">This is required.</div>
             </div>
@@ -51,9 +51,9 @@
       </div>
       <div style="width:70%;float:right">
           <ee-google-chart-sample
-          chart-type="newChart.selectedChartTypeOption.construcorName"
-          chart-options="newChart.chartOptions"
-          chart-major-axis-data-type="newChart.settings.majorAxisDataType">
+          chart-type="{{newChart.selectedChartTypeOption.construcorName}}"
+          chart-major-axis-data-type="{{newChart.settings.majorAxisDataType}}"
+          chart-options="newChart.chartOptions">
           </ee-google-chart-sample>
       </div>
   </div>
@@ -88,7 +88,7 @@
   </div>
 
   <section>
-    <md-button class="md-primary md-raised" ng-click="newChart.createChart()">Create Chart</button>
+    <md-button class="md-primary md-raised" ng-click="newChart.createChart()">Create Chart</md-button>
   </section>
 
   </md-card>

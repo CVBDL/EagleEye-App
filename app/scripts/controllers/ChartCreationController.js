@@ -19,14 +19,21 @@ angular.module('eagleeye')
 
       this.chartTypeOptions = GoogleChartsService.getChartTypeOptions();
       this.selectedChartTypeOption = this.chartTypeOptions[0];
-      this.chartDataTableSamples = GoogleChartsService.getChartDataTableSamples(this.selectedChartTypeOption.value.toLowerCase());
+
       this.settings = {
-        title: '',
         description: '',
-        hAxisTitle: '',
-        vAxisTitle: '',
         friendlyUrl: '',
         majorAxisDataType: 'string'
+      };
+
+      this.chartOptions = {
+        title: '',
+        hAxis: {
+          title: ''
+        },
+        vAxis: {
+          title: ''
+        }
       };
 
       this.createChart = function() {
@@ -42,15 +49,15 @@ angular.module('eagleeye')
           domainDataType: this.settings.majorAxisDataType,
           friendlyUrl: friendlyUrl,
           options: {
-            title: this.settings.title,
+            title: this.chartOptions.title,
             hAxis: {
-              title: this.settings.hAxisTitle
+              title: this.chartOptions.hAxis.title
             },
             vAxis: {
-              title: this.settings.vAxisTitle
+              title: this.chartOptions.vAxis.title
             }
           },
-          datatable: GoogleChartsService.getChartDataTableSamples(this.selectedChartTypeOption.value.toLowerCase())[this.settings.majorAxisDataType]
+          datatable: GoogleChartsService.getChartDataTableSamples(this.selectedChartTypeOption.value.toLowerCase(), this.settings.majorAxisDataType)
         });
 
         EagleEyeWebService.createChart(data).then(function(newChart) {
@@ -61,24 +68,6 @@ angular.module('eagleeye')
         }, function(error) {
           console.log(error);
         });
-      };
-
-      this.chartOptions = {
-        title: this.settings.title,
-        hAxis: {
-          title: this.settings.hAxisTitle
-        },
-        vAxis: {
-          title: this.settings.vAxisTitle
-        },
-        animation: {
-          duration: 500,
-          easing: 'out',
-          startup: true
-        },
-        tooltip: {
-          showColorCode: true
-        }
       };
     }
   ]);
