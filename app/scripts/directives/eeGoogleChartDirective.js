@@ -42,7 +42,7 @@ angular.module('eagleeye')
 
             if (scope.chartType.toLowerCase() == "combochart") {
               chartOptions.seriesType = 'bars';
-              chartOptions.series = { 5: { type: 'line' } };
+              chartOptions.series = { 0: { type: 'line' } };
             }
 
             $timeout(chart.draw(chartDataTable, chartOptions), 0);
