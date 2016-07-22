@@ -23,10 +23,11 @@
     margin-left: $eagleeye-list-item-col-2-left-margin;
 
     .ee-list-item-row-1 {
+      width: 100%;
       margin-bottom: $eagleeye-list-container-top-bottom-content-padding;
 
       p {
-        margin-left: 32px;
+        margin-right: 32px;
       }
     }
 
