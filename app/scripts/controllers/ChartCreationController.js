@@ -33,7 +33,8 @@ angular.module('eagleeye')
         },
         vAxis: {
           title: ''
-        }
+        },
+        isStacked : 'false'
       };
 
       this.createChart = function() {
@@ -55,7 +56,8 @@ angular.module('eagleeye')
             },
             vAxis: {
               title: this.chartOptions.vAxis.title
-            }
+            },
+            isStacked : this.chartOptions.isStacked === 'true'
           },
           datatable: GoogleChartsService.getChartDataTableSamples(this.selectedChartTypeOption.value.toLowerCase(), this.settings.majorAxisDataType)
         });

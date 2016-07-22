@@ -67,7 +67,7 @@
            </md-radio-button>
          </md-radio-group>
     </div>
-    <div style="float:right;width:70%;margin-left:10px">
+    <div style="float:left;width:35%;margin-left:10px">
         <a class="md-headline ee-text-black-primary">Major axis data type <a href="https://developers.google.com/chart/interactive/docs/customizing_axes#terminology" target="_blank">What's major axis?</a> </a>
         <md-radio-group ng-model="newChart.settings.majorAxisDataType">
            <md-radio-button  name="majorAxisDataType" class="md-primary" value="string">
@@ -84,6 +84,17 @@
            </md-radio-button>
         </md-radio-group>
 
+    </div>
+    <div style="float:left;width:15%;margin-left:25px">
+        <a class="md-headline ee-text-black-primary">Chart Options</a>
+        <md-radio-group ng-model="newChart.chartOptions.isStacked">
+           <md-radio-button  name="isStacked" class="md-primary" value=true>
+               Is Stacked
+           </md-radio-button>
+           <md-radio-button  name="isStacked" class="md-primary" value=false>
+               No Stacked
+           </md-radio-button>
+        </md-radio-group>
     </div>
   </div>
 
