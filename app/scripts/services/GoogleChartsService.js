@@ -25,6 +25,10 @@ angular.module('eagleeye')
       label: 'Combo Chart',
       value: 'ComboChart',
       construcorName: 'ComboChart'
+    }, {
+      label: 'Image Chart',
+      value: 'ImageChart',
+      construcorName: ''
     }];
 
     var lineChartDataTableSamples = {
