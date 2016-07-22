@@ -8,6 +8,11 @@
  * Controller of the eagleeye
  */
 angular.module('eagleeye')
-  .controller('HomeController', function () {
-
-  });
+  .controller('HomeController', [
+    '$state',
+    function ($state) {
+      this.goToDevelop = function() {
+        $state.go('develop');
+      };
+    }
+  ]);
