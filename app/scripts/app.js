@@ -80,6 +80,12 @@ angular
           templateUrl: 'views/chart-set-settings.html',
           controller: 'ChartSetSettingsController',
           controllerAs: 'chartset'
+        })
+        .state('develop', {
+          url: '/develop',
+          templateUrl: 'views/develop.html',
+          controller: 'DevelopController',
+          controllerAs: 'develop'
         });
 
       // default router
