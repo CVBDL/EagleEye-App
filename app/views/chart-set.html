@@ -1,14 +1,14 @@
-<div id="canv" class="ee-chart-set-view">
-  <div class="ee-chart-set-wrapper">
+<div id="canv" class="ee-view">
+  <div class="ee-wrapper">
     <md-card>
       <md-toolbar>
         <div class="md-toolbar-tools">
-          <h3>{{chartset.settings.title}}</h3>
+          <h2 class="ee-text-black-primary">{{chartset.settings.title}}</h2>
           <span flex></span>
           <span>
-              <md-tooltip md-direction="botton">Auto Refresh</md-tooltip>
-              <md-switch aria-label="Auto Refresh" ng-model="chartset.autoRefresh" ng-change="chartset.autoChange()"></md-switch>
-            </span>
+            <md-tooltip md-direction="botton">Auto Refresh</md-tooltip>
+            <md-switch aria-label="Auto Refresh" ng-model="chartset.autoRefresh" ng-change="chartset.autoChange()"></md-switch>
+          </span>
           <md-button class="md-icon-button" aria-label="Refresh">
             <md-tooltip md-direction="botton">Refresh</md-tooltip>
             <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chartset.refreshChartSet()"> refresh </md-icon>

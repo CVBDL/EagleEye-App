@@ -5,11 +5,11 @@
     box-sizing: border-box;
     color: $color-black-primary;
     margin: 0 auto;
-    padding: $eagleeye-content-padding-secondary $eagleeye-content-padding-primary;
+    padding: $eagleeye-content-padding-vertical $eagleeye-content-padding-large-horizontal;
     max-width: $eagleeye-max-width;
 
     .list {
-      padding-bottom: $eagleeye-content-padding-secondary;
+      padding-bottom: $eagleeye-content-padding-vertical;
     }
 
     .ee-icon {
@@ -18,7 +18,7 @@
   }
 
   .ee-headline {
-    padding-bottom: $eagleeye-content-padding-secondary;
+    padding-bottom: $eagleeye-content-padding-vertical;
 
     .sub-title {
       color:  $color-primary;
@@ -34,13 +34,13 @@
   .dev {
     margin: 0 auto;
     max-width: $eagleeye-max-width;
-    padding: ($eagleeye-content-padding-secondary / 2) $eagleeye-content-padding-primary;
+    padding: ($eagleeye-content-padding-vertical / 2) $eagleeye-content-padding-large-horizontal;
   }
 
   .sub-nav-item {
     box-sizing: border-box;
     height: $eagleeye-home-nav-card-height;
-    margin-right: $eagleeye-content-padding-secondary / 2;
+    margin-right: $eagleeye-content-padding-vertical / 2;
 
     &:last-child {
       margin-right: 0;
@@ -57,7 +57,7 @@
   }
 
   .dev-image {
-    margin-right: $eagleeye-content-padding-secondary / 2;
+    margin-right: $eagleeye-content-padding-vertical / 2;
 
     img {
       width: 100%;
@@ -67,7 +67,7 @@
 
   .dev-text {
     box-sizing: border-box;
-    padding: $eagleeye-content-padding-secondary / 2;
+    padding: $eagleeye-content-padding-vertical / 2;
 
     h2 {
       padding-bottom: 24px;
