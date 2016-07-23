@@ -1,0 +1,85 @@
+.ee-view {
+  .ee-wrapper {
+    box-sizing: border-box;
+    margin: 0 auto;
+    max-width: $eagleeye-max-width;
+    padding: $eagleeye-content-padding-vertical $eagleeye-content-padding-horizontal;
+  }
+
+  .ee-wrapper-sm {
+    padding: $eagleeye-content-padding-vertical $eagleeye-content-padding-large-horizontal;
+  }
+
+  md-card {
+    margin: 0;
+    height: 100%;
+  }
+
+  md-toolbar {
+    background-color: #fff;
+    height: $eagleeye-header-height;
+    min-height: $eagleeye-header-height;
+    max-height: $eagleeye-header-height;
+
+    .md-button {
+      color: $color-secondary;  // set `md-ink-ripple` color
+    }
+
+    .ee-icon {
+      color: $color-accent;
+
+      &:hover {
+        color: $color-accent-dark;
+      }
+    }
+
+    a {
+      color: $color-accent;
+
+      &:hover {
+        color: $color-accent-dark;
+      }
+    }
+  }
+
+  md-content {
+    background-color: #fff;
+
+    .ee-chart-status {
+      span {
+        padding-right: $eagleeye-content-padding-horizontal;
+      }
+    }
+  }
+
+  md-switch {
+    span {
+      color: $color-accent;
+    }
+
+    &.md-checked {
+      ._md-thumb {
+        background-color: $color-accent;
+        color: $color-accent;
+      }
+      ._md-bar {
+        background-color: $color-accent-light;
+        color: $color-accent-light;
+      }
+    }
+
+    &.ee-auto-refresh-disabled span {
+      color: $color-black-disabled;
+    }
+  }
+
+  .ee-chart-set-charts-container {
+    box-sizing: border-box;
+    padding: ($eagleeye-google-chart-left-right-content-padding / 2);
+  }
+
+  .ee-chart-set-chart-wrapper {
+    box-sizing: border-box;
+    padding: ($eagleeye-google-chart-left-right-content-padding / 2);
+  }
+}
