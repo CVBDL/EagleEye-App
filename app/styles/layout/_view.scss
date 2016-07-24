@@ -50,6 +50,10 @@
         padding-right: $eagleeye-content-padding-horizontal;
       }
     }
+
+    &.ee-list-container {
+      height: 650px;
+    }
   }
 
   md-switch {
@@ -81,5 +85,19 @@
   .ee-chart-set-chart-wrapper {
     box-sizing: border-box;
     padding: ($eagleeye-google-chart-left-right-content-padding / 2);
+  }
+
+  // chart set creation and settings
+  .ee-hint {
+    position: absolute;
+    // left: 2px;
+    right: 2px;
+    bottom: 7px;
+    /* Copy styles from ng-messages */
+    font-size: 12px;
+    line-height: 14px;
+    transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+    /* Set our own color */
+    color: grey;
   }
 }
