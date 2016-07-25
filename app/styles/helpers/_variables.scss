@@ -27,10 +27,9 @@ $color-secondary:         #EF5350;  // R: 400
 $color-accent-light:      #80D8FF;  // Light B: A100
 $color-accent:            #00B0FF;  // Light B: A400
 $color-accent-dark:       #0091EA;  // Light B: A700
-$color-gray:              #808285;
-$color-gray-light:        #c8c8c8;
-$color-gray-light-light:  #eceff1;
-$color-gray-dark:         #555555;
+$color-gray-light:        #EEEEEE;  // Grey: 200
+$color-gray:              #9E9E9E;  // Grey: 500
+$color-gray-dark:         #616161;  // Grey: 700
 
 $color-black-primary:     rgba(  0,   0,   0, $text-opacity-dark-text-primary);
 $color-black-secondary:   rgba(  0,   0,   0, $text-opacity-dark-text-secondary);
