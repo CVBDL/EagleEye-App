@@ -4,7 +4,11 @@
   @extend .ee-header-box-shadow;
 
   background-color: $color-primary-dark;
-  position: relative;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 10000;
 }
 
 .ee-header-row-wrapper {
@@ -77,6 +81,7 @@
 
 .ee-nav-item {
   display: inline-block;
+  outline: 0;
 }
 
 
