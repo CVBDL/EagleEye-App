@@ -105,3 +105,19 @@
     color: grey;
   }
 }
+
+
+@media (max-width: $layout-breakpoint-md - 1) {
+  .ee-view {
+    .ee-wrapper,
+    .ee-wrapper-sm {
+      padding-top: ($eagleeye-content-padding-vertical / 2);
+      padding-bottom: ($eagleeye-content-padding-vertical / 2);
+    }
+
+    .ee-wrapper-sm {
+      padding-left: $eagleeye-content-padding-horizontal;
+      padding-right: $eagleeye-content-padding-horizontal;
+    }
+  }
+}
