@@ -37,9 +37,21 @@
           </a>
         </div>
         <ul class="ee-navbar" layout="row" role="navigation">
-          <li class="active"><a class="ee-nav-item" ui-sref="home">Home</a></li>
-          <li><a class="ee-nav-item" ui-sref="charts">Charts</a></li>
-          <li><a class="ee-nav-item" ui-sref="chartSets">Chart Sets</a></li>
+          <li ui-sref-active="active">
+            <a class="ee-nav-item" ui-sref="home">Home</a>
+          </li>
+          <li ui-sref-active="active">
+            <a class="ee-nav-item" ui-sref="charts">Charts</a>
+            <a ui-sref="createChart" hide></a>
+            <a ui-sref="chart" hide></a>
+            <a ui-sref="chartSettings" hide></a>
+          </li>
+          <li ui-sref-active="active">
+            <a class="ee-nav-item" ui-sref="chartSets">Chart Sets</a>
+            <a ui-sref="createChartSet" hide></a>
+            <a ui-sref="chartSet" hide></a>
+            <a ui-sref="chartSetSettings" hide></a>
+          </li>
         </ul>
       </div>
     </header>
