@@ -15,6 +15,7 @@ angular.module('eagleeye')
     function ($state, $stateParams, Upload) {
       var controller = this;
       controller.id = $stateParams.id;
+      controller.type = $stateParams.type;
 
       this.goViewChart = function(){
         $state.go('chart', {id : controller.id});
@@ -26,7 +27,7 @@ angular.module('eagleeye')
 
       this.upload = function (file) {
         file.upload = Upload.upload({
-          url: 'http://localhost:3000/chartFile/upload',
+          url: controller.type == "chart" ? 'http://localhost:3000/chartFile/upload' : 'http://localhost:3000/chartFile/uploadImage',
           data: {id: controller.id, file: file},
         });
 

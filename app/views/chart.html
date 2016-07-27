@@ -32,8 +32,11 @@
         </div>
       </md-toolbar>
       <md-divider></md-divider>
-      <ee-google-chart chart-type="chart.chartData.chartType" chart-options="chart.chartData.options" chart-data-table="chart.chartData.datatable">
+
+      <ee-google-chart ng-if="chart.chartData.chartType!='ImageChart'" chart-type="chart.chartData.chartType" chart-options="chart.chartData.options" chart-data-table="chart.chartData.datatable">
       </ee-google-chart>
+      <div id="{{chart.image_file_name}}"></div>
+      <div ng-if="chart.chartData.chartType=='ImageChart'" ><img ng-src="http://localhost:3000/uploadChartImages/{{chart.chartData.image_file_name}}" /></div>
       <md-divider></md-divider>
       <md-content flex="" layout-padding="">
         <p class="ee-chart-status">

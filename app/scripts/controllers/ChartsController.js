@@ -50,13 +50,13 @@ angular.module('eagleeye')
         });
       };
 
-      this.goToSettings = function($event, id, friendlyurl) {
+      this.goToSettings = function($event, id, friendlyurl, type) {
         $event.stopPropagation();
 
         if (friendlyurl) {
-          $state.go('chartSettings', { id: friendlyurl });
+          $state.go('chartSettings', { id: friendlyurl, type: type });
         } else {
-          $state.go('chartSettings', { id: id });
+          $state.go('chartSettings', { id: id, type: type });
         }
       };
     }

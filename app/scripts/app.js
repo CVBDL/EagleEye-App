@@ -52,7 +52,7 @@ angular
           controllerAs: 'chart'
         })
         .state('chartSettings', {
-          url: '/charts/:id/settings',
+          url: '/charts/:id/settings/:type',
           templateUrl: 'views/chart-settings.html',
           controller: 'ChartSettingsController',
           controllerAs: 'chart'
@@ -76,7 +76,7 @@ angular
           controllerAs: 'chartset'
         })
         .state('chartSetSettings', {
-          url: '/chart-sets/:id/settings',
+          url: '/chart-sets/:id/settings/',
           templateUrl: 'views/chart-set-settings.html',
           controller: 'ChartSetSettingsController',
           controllerAs: 'chartset'

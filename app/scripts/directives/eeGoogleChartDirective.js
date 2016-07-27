@@ -19,7 +19,8 @@ angular.module('eagleeye')
         scope: {
           chartDataTable: '=',
           chartOptions: '=',
-          chartType: '='
+          chartType: '=',
+          chartFile: '='
         },
         restrict: 'E',
         link: postLinkFn
@@ -32,10 +33,10 @@ angular.module('eagleeye')
 
         function drawChart() {
           google.charts.setOnLoadCallback(function drawOnLoad() {
-            if (!scope.chartType || !scope.chartDataTable) {
+            if (!scope.chartType || !scope.chartDataTable || "ImageChart" == scope.chartType) {
               return;
             }
-
+            
             var chart = new google.visualization[scope.chartType](chartNode);
             var chartDataTable = new google.visualization.DataTable(angular.copy(scope.chartDataTable, {}));
             var chartOptions = angular.merge(angular.copy(scope.chartOptions, {}), defaultChartOptions[scope.chartType.toLowerCase()]);
