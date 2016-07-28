@@ -22,9 +22,9 @@ angular.module('eagleeye')
       controller.charDataArray = [];
 
       this.autoRefresh = false;
+      this.autoInterval  = null;
+      this.imageChartBaseUrl = EagleEyeWebService.getStaticServerSideImageBaseUrl();
 
-      this.autoInterval  = null ;
-      
       this.autoChange = function(){
           if(this.autoRefresh == true){
             this.autoInterval =  setInterval(this.refreshChartSet,15000);
@@ -79,7 +79,7 @@ angular.module('eagleeye')
            var doc = new jsPDF("l", "pt", "letter");
             doc.setFont("times");
             doc.setFontType("italic");
-            doc.text(40, 20, "Provided by EagleEye"); 
+            doc.text(40, 20, "Provided by EagleEye");
             var index = 0;
             var chart = new Array(allImageCount);
           for(index= 0 ; index <  allImageCount ; index ++){
@@ -97,7 +97,7 @@ angular.module('eagleeye')
                 doc.addImage(chart[imageCount].getImageURI(), 'JPEG', 20, 60);
                 doc.setFont("times");
                 doc.setFontType("italic");
-                doc.text(40, 40, chartset.charDataArray[imageCount].options.title); 
+                doc.text(40, 40, chartset.charDataArray[imageCount].options.title);
                 imageCount++;
                 if(imageCount < allImageCount){
                   doc.addPage();
@@ -115,7 +115,7 @@ angular.module('eagleeye')
           }
       };
     this.SaveImageOrPDF = function(fileType,chartData){
-        
+
           function Save2Image(chart,chartData){
               var uri = chart.getImageURI();
               var aLink = document.createElement('a');
@@ -132,8 +132,8 @@ angular.module('eagleeye')
                 var doc = new jsPDF("l", "pt", "letter");
                 doc.setFont("times");
                 doc.setFontType("italic");
-                doc.text(40, 20, "Provided by EagleEye"); 
-                doc.text(40, 40, chartData.options.title); 
+                doc.text(40, 20, "Provided by EagleEye");
+                doc.text(40, 40, chartData.options.title);
                 doc.addImage(uri, 'JPEG', 20, 40);
                 doc.save(chartData.options.title);
           };

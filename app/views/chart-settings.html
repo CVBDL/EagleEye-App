@@ -12,7 +12,7 @@
       </md-button>
       <md-button aria-label="viewcharts" ng-click="chart.goViewCharts()"> View Charts
       </md-button>
-      </md-card-actions>  
+      </md-card-actions>
       </md-card-title-text>
     </md-card-title>
   </md-toolbar>
@@ -28,7 +28,7 @@
     <br>
     <br>
     <md-card-actions layout="row" layout-align="end center">
-      <md-button aria-label="file download"><a href="http://localhost:3000/chartFile/downloadExcel/{{chart.id}}">Go to Download</a>
+      <md-button aria-label="file download"><a href="{{chart.excelTemplateDownloadBaseUrl + chart.id}}">Go to Download</a>
         <md-tooltip md-direction="botton">File download</md-tooltip>
       </md-button>
       </md-card-actions>
@@ -52,7 +52,7 @@
       <md-button aria-label="Submit" ng-click="chart.upload(chart.excelFile)">STEP 2. Submit
               <md-tooltip md-direction="botton">Submit</md-tooltip>
       </md-button>
-      </md-card-actions>  
+      </md-card-actions>
       <md-progress-linear ng-show="chart.excelFile.progress >= 0" md-mode="determinate" value="chart.excelFile.progress"></md-progress-linear>
       <div style="width:80%">
       <span ng-show="chart.excelFile.progress == 100">Upload Successful</span>

@@ -9,15 +9,43 @@
  */
 angular.module('eagleeye')
   .provider('EagleEyeWebService', function EagleEyeWebServiceProvider() {
-    var webServiceBaseUrl = '';
+    var webServiceBaseUrl = '',
+      fileUploadServiceBaseUrl = '',
+      staticServerSideImageBaseUrl = '',
+      excelTemplateDownloadBaseUrl = '';
 
     this.setWebServiceBaseUrl = function(url) {
       webServiceBaseUrl = url;
     };
 
+    this.setFileUploadServiceBaseUrl = function(url) {
+      fileUploadServiceBaseUrl = url;
+    };
+
+    this.setStaticServerSideImageBaseUrl = function(url) {
+      staticServerSideImageBaseUrl = url;
+    };
+
+    this.setExcelTemplateDownloadBaseUrl = function(url) {
+      excelTemplateDownloadBaseUrl = url;
+    };
+
     this.$get = [
       '$http',
-      function EagleEyeWebService($http) {
+      'Upload',
+      function EagleEyeWebService($http, Upload) {
+
+        function getFileUploadServiceBaseUrl() {
+          return fileUploadServiceBaseUrl;
+        }
+
+        function getStaticServerSideImageBaseUrl() {
+          return staticServerSideImageBaseUrl;
+        }
+
+        function getExcelTemplateDownloadBaseUrl() {
+          return excelTemplateDownloadBaseUrl;
+        }
 
         function fetchServer(options) {
           return $http(options).then(function(response) {
@@ -121,7 +149,34 @@ angular.module('eagleeye')
           });
         }
 
+        function uploadFile(file, type, id) {
+          var url = '';
+
+          if (type === 'chart') {
+            url = fileUploadServiceBaseUrl + 'upload';
+          } else {
+            url = fileUploadServiceBaseUrl + 'uploadImage';
+          }
+
+          file.upload = Upload.upload({
+            url: url,
+            data: { id: id, file: file }
+          });
+
+          file.upload.then(undefined, function (response) {
+            if (response.status > 0)
+              alert(response.status + ': ' + response.data);
+
+          }, function (evt) {
+            // Math.min is to fix IE which reports 200% sometimes
+            file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+          });
+        }
+
         return {
+          getFileUploadServiceBaseUrl: getFileUploadServiceBaseUrl,
+          getStaticServerSideImageBaseUrl: getStaticServerSideImageBaseUrl,
+          getExcelTemplateDownloadBaseUrl: getExcelTemplateDownloadBaseUrl,
           getCharts: getCharts,
           getChartById: getChartById,
           createChart: createChart,
@@ -130,7 +185,8 @@ angular.module('eagleeye')
           createChartSet: createChartSet,
           deleteChartById:deleteChartById,
           deleteChartSetById:deleteChartSetById,
-          updateChartSetById:updateChartSetById
+          updateChartSetById:updateChartSetById,
+          uploadFile: uploadFile
         };
       }
     ];

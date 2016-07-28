@@ -11,11 +11,14 @@ angular.module('eagleeye')
   .controller('ChartSettingsController', [
     '$state',
     '$stateParams',
+    'EagleEyeWebService',
     'Upload',
-    function ($state, $stateParams, Upload) {
+    function ($state, $stateParams, EagleEyeWebService, Upload) {
       var controller = this;
       controller.id = $stateParams.id;
       controller.type = $stateParams.type;
+
+      this.excelTemplateDownloadBaseUrl = EagleEyeWebService.getExcelTemplateDownloadBaseUrl();
 
       this.goViewChart = function(){
         $state.go('chart', {id : controller.id});
@@ -26,22 +29,7 @@ angular.module('eagleeye')
       };
 
       this.upload = function (file) {
-        file.upload = Upload.upload({
-          url: controller.type == "chart" ? 'http://localhost:3000/chartFile/upload' : 'http://localhost:3000/chartFile/uploadImage',
-          data: {id: controller.id, file: file},
-        });
-
-        file.upload.then(function (response) {
-          // $timeout(function () {
-          //   file.result = response.data;
-          // });
-        }, function (response) {
-          if (response.status > 0)
-            alert(response.status + ': ' + response.data);
-        }, function (evt) {
-          // Math.min is to fix IE which reports 200% sometimes
-          file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-        });
+        EagleEyeWebService.uploadFile(file, controller.type, controller.id);
       }
     }
   ]);
