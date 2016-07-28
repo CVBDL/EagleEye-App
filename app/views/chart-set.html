@@ -61,9 +61,8 @@
             <ee-google-chart ng-if="chart.chartType!='ImageChart'" chart-type="chart.chartType" chart-options="chart.options" chart-data-table="chart.datatable">
             </ee-google-chart>
             <div ng-if="chart.chartType=='ImageChart'" class="ee-image-chart-container">
-              <img ng-src="http://localhost:3000/uploadChartImages/{{chart.image_file_name}}" />
+              <img ng-src="{{chart.image_file_name ? chartset.imageChartBaseUrl + chart.image_file_name : ''}}" />
             </div>
-            <md-divider></md-divider>
             <md-divider></md-divider>
             <md-content flex="" layout-padding="">
               <p class="ee-chart-status">

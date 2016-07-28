@@ -22,6 +22,7 @@ angular.module('eagleeye')
       this.chartData = {};
       this.autoRefresh = false;
       this.autoInterval = null;
+      this.imageChartBaseUrl = EagleEyeWebService.getStaticServerSideImageBaseUrl();
 
       this.autoChange = function() {
         if (this.autoRefresh == true) {

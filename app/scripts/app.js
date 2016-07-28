@@ -94,6 +94,15 @@ angular
       // set eagleeye restful web service root endpoint
       EagleEyeWebServiceProvider.setWebServiceBaseUrl('http://localhost:3000/api/v1/');
 
+      // set eagleeye image & excel file uploading service endpoint
+      EagleEyeWebServiceProvider.setFileUploadServiceBaseUrl('http://localhost:3000/chartFile/');
+
+      // set eagleeye excel template downloading base url
+      EagleEyeWebServiceProvider.setExcelTemplateDownloadBaseUrl('http://localhost:3000/chartFile/downloadExcel/');
+
+      // set eagleeye server side static image files base url
+      EagleEyeWebServiceProvider.setStaticServerSideImageBaseUrl('http://localhost:3000/uploadChartImages/');
+
       // line chart default options
       // docs: https://developers.google.com/chart/interactive/docs/gallery/linechart#configuration-options
       GoogleChartsServiceProvider.setLineChartDefaultOptions({
