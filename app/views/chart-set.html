@@ -17,10 +17,10 @@
             <md-tooltip md-direction="botton">Save to PDF</md-tooltip>
             <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chartset.Save2PDF(chartset)"> picture_as_pdf </md-icon>
           </md-button>
-          <md-button class="md-icon-button" aria-label="Fullscreen Mode">
+          <!-- <md-button class="md-icon-button" aria-label="Fullscreen Mode">
             <md-tooltip md-direction="botton">Fullscreen</md-tooltip>
             <md-icon md-font-set="material-icons" class="ee-icon" ng-click=""> fullscreen </md-icon>
-          </md-button>
+          </md-button> -->
           <md-button class="md-icon-button" aria-label="Settings" ng-click="chartset.showShare()">
             <md-tooltip md-direction="botton">Share</md-tooltip>
             <md-icon md-font-set="material-icons" class="ee-icon"> shared </md-icon>
@@ -43,10 +43,10 @@
                   <a href="#/charts/{{chart.friendlyUrl || chart._id}}" ng-click="chartset.goToChart(chart)">{{chart.options.title}}</a>
                 </h2>
                 <span flex></span>
-                <md-button class="md-icon-button" aria-label="Fullscreen Mode">
+                <!-- <md-button class="md-icon-button" aria-label="Fullscreen Mode">
                   <md-tooltip md-direction="botton">Fullscreen</md-tooltip>
                   <md-icon md-font-set="material-icons" class="ee-icon" ng-click=""> fullscreen </md-icon>
-                </md-button>
+                </md-button> -->
                 <md-button class="md-icon-button" aria-label="Refresh">
                   <md-tooltip md-direction="botton">Save to Image</md-tooltip>
                   <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chartset.SaveImageOrPDF(0,chart)"> image </md-icon>
