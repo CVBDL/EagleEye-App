@@ -20,8 +20,15 @@ angular.module('eagleeye')
         friendlyUrlPrefix = 's-';
 
       this.showingURL = '';
-      this.settings = {};
+      this.settings = {
+        searchKeyword: ''
+      };
       this.selectedCharts = [];
+
+      this.filterFunction = function(chart) {
+        return chart.options.title.indexOf(controller.settings.searchKeyword) >= 0 ||
+          chart.description.indexOf(controller.settings.searchKeyword) >= 0;
+      }
 
       var promiseChartSet = EagleEyeWebService.getChartSetById(id).then(function(chartSet) {
         angular.extend(controller.settings, chartSet);
