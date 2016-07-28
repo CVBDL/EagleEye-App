@@ -109,7 +109,7 @@ angular
         animation: {
           startup: true,
           duration: 500,
-          easing: 'linear'
+          easing: 'out'
         },
         backgroundColor: {
           stroke: 'white',
@@ -154,7 +154,7 @@ angular
         animation: {
           startup: true,
           duration: 500,
-          easing: 'linear'
+          easing: 'out'
         },
         backgroundColor: {
           stroke: 'white',
@@ -196,7 +196,7 @@ angular
         animation: {
           startup: true,
           duration: 500,
-          easing: 'linear'
+          easing: 'out'
         },
         backgroundColor: {
           stroke: 'white',
@@ -238,7 +238,7 @@ angular
         animation: {
           startup: true,
           duration: 500,
-          easing: 'linear'
+          easing: 'out'
         },
         backgroundColor: {
           stroke: 'white',
