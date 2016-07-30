@@ -274,4 +274,5 @@ angular
         }
       });
     }
-  ]);
+  ])
+  .constant('FEEDBACK_EMAIL', 'pzhong@ra.rockwell.com');

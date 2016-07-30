@@ -3,7 +3,7 @@
 .ee-header {
   @extend .ee-header-box-shadow;
 
-  background-color: $color-primary-dark;
+  background-color: $color-primary-light;
   position: fixed;
   top: 0;
   right: 0;
@@ -82,6 +82,14 @@
 .ee-nav-item {
   display: inline-block;
   outline: 0;
+}
+
+.ee-feedback {
+  margin-left: auto;
+
+  md-icon {
+    color: #fff;
+  }
 }
 
 
