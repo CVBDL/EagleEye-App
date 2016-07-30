@@ -6,6 +6,7 @@ body {
 
 body {
   box-sizing: border-box;
+  padding-top: $eagleeye-header-height;
   padding-bottom: $eagleeye-footer-height;
   position: absolute;
   top: 0;
