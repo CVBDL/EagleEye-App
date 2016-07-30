@@ -76,7 +76,12 @@ $eagleeye-header-left-right-content-padding:  $eagleeye-content-padding-horizont
 $eagleeye-header-top-bottom-content-padding:  ($eagleeye-header-height - $eagleeye-header-content-height) / 2;
 
 
-// Layout: Header
+// Layout: Dialog
+// ------------------------------
+$eagleeye-footer-height:                      48px;
+
+
+// Layout: Dialog
 // ------------------------------
 $eagleeye-dialog-content-padding:                         24px;
 $eagleeye-dialog-content-body-top-bottom-content-margin:  24px;
@@ -86,6 +91,7 @@ $eagleeye-dialog-content-body-top-bottom-content-margin:  24px;
 // ------------------------------
 $eagleeye-google-chart-height:                      350px;
 $eagleeye-google-chart-left-right-content-padding:  16px;  // align wmd-toolbar
+
 
 // Layout: List
 // ------------------------------

@@ -5,6 +5,8 @@ body {
 }
 
 body {
+  box-sizing: border-box;
+  padding-bottom: $eagleeye-footer-height;
   position: absolute;
   top: 0;
   left: 0;

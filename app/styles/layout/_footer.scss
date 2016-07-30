@@ -1,5 +1,9 @@
 .ee-footer {
   color: #fff;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .ee-footer-wrapper {
@@ -7,11 +11,8 @@
 }
 
 .ee-footer-content {
+  height: $eagleeye-footer-height;
   margin: 0 auto;
   max-width: $eagleeye-max-width;
   padding: 0 $eagleeye-header-left-right-content-padding;
-
-  p {
-    padding: ($eagleeye-header-left-right-content-padding / 2) 0;
-  }
 }
