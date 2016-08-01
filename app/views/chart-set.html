@@ -47,14 +47,19 @@
                   <md-tooltip md-direction="botton">Fullscreen</md-tooltip>
                   <md-icon md-font-set="material-icons" class="ee-icon" ng-click=""> fullscreen </md-icon>
                 </md-button> -->
-                <md-button class="md-icon-button" aria-label="Refresh">
-                  <md-tooltip md-direction="botton">Save to Image</md-tooltip>
-                  <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chartset.SaveImageOrPDF(0,chart)"> image </md-icon>
-                </md-button>
-                <md-button class="md-icon-button" aria-label="Refresh">
-                  <md-tooltip md-direction="botton">Save to PDF</md-tooltip>
-                  <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chartset.SaveImageOrPDF(1,chart)"> picture_as_pdf </md-icon>
-                </md-button>
+                <md-menu>
+                  <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                    <md-icon md-font-set="material-icons" class="ee-icon"> more_vert </md-icon>
+                  </md-button>
+                  <md-menu-content width="3">
+                    <md-menu-item>
+                      <md-button ng-click="chartset.SaveImageOrPDF(0,chart)"> <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chartset.SaveImageOrPDF(0,chart)"> image </md-icon> <span md-menu-align-target>Save as picture</span></md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                      <md-button ng-click="chartset.SaveImageOrPDF(1,chart)"> <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chartset.SaveImageOrPDF(1,chart)"> picture_as_pdf </md-icon> <span md-menu-align-target>Save as pdf</span></md-button>
+                    </md-menu-item>
+                  </md-menu-content>
+                </md-menu>
               </div>
             </md-toolbar>
             <md-divider></md-divider>

@@ -275,4 +275,6 @@ angular
       });
     }
   ])
+
+  // seperate by comma: ,
   .constant('FEEDBACK_EMAIL', 'pzhong@ra.rockwell.com');
