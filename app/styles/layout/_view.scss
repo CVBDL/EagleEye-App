@@ -9,6 +9,25 @@ md-menu-content {
 }
 
 .ee-view {
+  .ee-view-header-container {
+    background-color: #fff;
+
+    .ee-view-header {
+      box-sizing: border-box;
+      margin: 0 auto;
+      max-width: $eagleeye-max-width;
+      padding: $eagleeye-content-padding-vertical $eagleeye-content-padding-horizontal;
+    }
+
+    .ee-icon {
+      color: $color-accent;
+
+      &:hover {
+        color: $color-accent-dark;
+      }
+    }
+  }
+
   .ee-wrapper {
     box-sizing: border-box;
     margin: 0 auto;
@@ -88,13 +107,14 @@ md-menu-content {
   }
 
   .ee-chart-set-charts-container {
+    background-color: transparent;
     box-sizing: border-box;
-    padding: ($eagleeye-google-chart-left-right-content-padding / 2);
+    padding: 0;
   }
 
   .ee-chart-set-chart-wrapper {
     box-sizing: border-box;
-    padding: ($eagleeye-google-chart-left-right-content-padding / 2);
+    padding: ($eagleeye-google-chart-left-right-content-padding / 2) 0;
   }
 
   // chart set creation and settings
