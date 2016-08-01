@@ -119,7 +119,11 @@ angular
         chartArea: {
           width: '85%'
         },
-        crosshair: null,
+        crosshair: {
+          color: '#80D8FF',
+          orientation: 'vertical',
+          trigger: 'both'
+        },
         curveType: 'function',
         // fontName: "Roboto, 'Helvetica Neue', sans-serif",
         fontSize: 14,
