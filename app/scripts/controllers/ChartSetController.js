@@ -111,6 +111,10 @@ angular.module('eagleeye')
             var defaultChartOptions = GoogleChartsService.getDefaultChartOptions();
             var chartDataTable = new google.visualization.DataTable(angular.copy(chartData.datatable, {}));
             var chartOptions = chartData.options;
+            if (chartData.chartType.toLowerCase() == "combochart") {
+              chartOptions.seriesType = 'bars';
+              chartOptions.series = { 0: { type: 'line' } };
+            }
             chartOptions.width = 1024;
             chartOptions.height = 768;
             chart[index].draw(chartDataTable, chartOptions);
@@ -158,6 +162,10 @@ angular.module('eagleeye')
           var defaultChartOptions = GoogleChartsService.getDefaultChartOptions();
           var chartDataTable = new google.visualization.DataTable(angular.copy(chartData.datatable, {}));
           var chartOptions = chartData.options;
+          if (chartData.chartType.toLowerCase() == "combochart") {
+              chartOptions.seriesType = 'bars';
+              chartOptions.series = { 0: { type: 'line' } };
+          }
           chartOptions.width = 1024;
           chartOptions.height = 768;
           chart.draw(chartDataTable, chartOptions);
