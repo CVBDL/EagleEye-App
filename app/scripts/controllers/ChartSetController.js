@@ -110,7 +110,7 @@ angular.module('eagleeye')
             });
             var defaultChartOptions = GoogleChartsService.getDefaultChartOptions();
             var chartDataTable = new google.visualization.DataTable(angular.copy(chartData.datatable, {}));
-            var chartOptions = chartData.options;
+            var chartOptions = angular.copy(chartData.options, {});
             if (chartData.chartType.toLowerCase() == "combochart") {
               chartOptions.seriesType = 'bars';
               chartOptions.series = { 0: { type: 'line' } };
@@ -161,7 +161,7 @@ angular.module('eagleeye')
           });
           var defaultChartOptions = GoogleChartsService.getDefaultChartOptions();
           var chartDataTable = new google.visualization.DataTable(angular.copy(chartData.datatable, {}));
-          var chartOptions = chartData.options;
+          var chartOptions = angular.copy(chartData.options, {});
           if (chartData.chartType.toLowerCase() == "combochart") {
               chartOptions.seriesType = 'bars';
               chartOptions.series = { 0: { type: 'line' } };
