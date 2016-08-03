@@ -32,134 +32,52 @@
   </div>
   <div class="ee-wrapper">
     <md-content class="ee-chart-set-charts-container" layout="row" layout-wrap layout-align="start stretch">
-        <div class="ee-chart-set-chart-wrapper" flex="100" ng-repeat="chart in chartset.charDataArray">
-          <md-card>
-            <md-toolbar>
-              <div class="md-toolbar-tools">
-                <h2 class="ee-text-black-primary">
+      <div class="ee-chart-set-chart-wrapper" flex="100" ng-repeat="chart in chartset.charDataArray">
+        <md-card>
+          <md-toolbar>
+            <div class="md-toolbar-tools">
+              <h2 class="ee-text-black-primary">
                   <a href="#/charts/{{chart.friendlyUrl || chart._id}}" ng-click="chartset.goToChart(chart)" target="_blank">{{chart.options.title}}</a>
                 </h2>
-                <span flex></span>
-                <!-- <md-button class="md-icon-button" aria-label="Fullscreen Mode">
+              <span flex></span>
+              <!-- <md-button class="md-icon-button" aria-label="Fullscreen Mode">
                   <md-tooltip md-direction="botton">Fullscreen</md-tooltip>
                   <md-icon md-font-set="material-icons" class="ee-icon" ng-click=""> fullscreen </md-icon>
                 </md-button> -->
-                <md-menu>
-                  <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                    <md-icon md-font-set="material-icons" class="ee-icon"> more_vert </md-icon>
-                  </md-button>
-                  <md-menu-content width="3">
-                    <md-menu-item>
-                      <md-button ng-click="chartset.SaveImageOrPDF(0,chart)"> <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chartset.SaveImageOrPDF(0,chart)"> image </md-icon> <span md-menu-align-target>Save as picture</span></md-button>
-                    </md-menu-item>
-                    <md-menu-item>
-                      <md-button ng-click="chartset.SaveImageOrPDF(1,chart)"> <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chartset.SaveImageOrPDF(1,chart)"> picture_as_pdf </md-icon> <span md-menu-align-target>Save as pdf</span></md-button>
-                    </md-menu-item>
-                  </md-menu-content>
-                </md-menu>
-              </div>
-            </md-toolbar>
-            <md-divider></md-divider>
-            <ee-google-chart ng-if="chart.chartType!='ImageChart'" chart-type="chart.chartType" chart-options="chart.options" chart-data-table="chart.datatable">
-            </ee-google-chart>
-            <div ng-if="chart.chartType=='ImageChart'" class="ee-image-chart-container">
-              <img ng-src="{{chart.image_file_name ? chartset.imageChartBaseUrl + chart.image_file_name : ''}}" />
+              <md-menu ng-hide="chart.chartType === 'ImageChart'">
+                <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                  <md-icon md-font-set="material-icons" class="ee-icon"> more_vert </md-icon>
+                </md-button>
+                <md-menu-content width="3">
+                  <md-menu-item>
+                    <md-button ng-click="chartset.SaveImageOrPDF(0,chart)">
+                      <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chartset.SaveImageOrPDF(0,chart)"> image </md-icon> <span md-menu-align-target>Save as picture</span></md-button>
+                  </md-menu-item>
+                  <md-menu-item>
+                    <md-button ng-click="chartset.SaveImageOrPDF(1,chart)">
+                      <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chartset.SaveImageOrPDF(1,chart)"> picture_as_pdf </md-icon> <span md-menu-align-target>Save as pdf</span></md-button>
+                  </md-menu-item>
+                </md-menu-content>
+              </md-menu>
             </div>
-            <md-divider></md-divider>
-            <md-content flex="" layout-padding="">
-              <p class="ee-chart-status">
-                <md-icon md-font-set="material-icons" class="ee-icon"> access_time </md-icon> <span>{{chart.lastUpdateTimestamp | date: 'medium'}}</span></p>
-              <p>
-                <md-icon md-font-set="material-icons" class="ee-icon"> description </md-icon>
-                {{chart.description}}
-              </p>
-            </md-content>
-          </md-card>
-        </div>
-      </md-content>
-
-
-
-
-
-
-
-
-
-
-
-    <!-- <md-card>
-      <md-toolbar>
-        <div class="md-toolbar-tools">
-          <h2 class="ee-text-black-primary">{{chartset.settings.title}}</h2>
-          <span flex></span>
-          <span>
-            <md-tooltip md-direction="botton">Auto Refresh</md-tooltip>
-            <md-switch aria-label="Auto Refresh" ng-model="chartset.autoRefresh" ng-change="chartset.autoChange()"></md-switch>
-          </span>
-          <md-button class="md-icon-button" aria-label="Refresh">
-            <md-tooltip md-direction="botton">Refresh</md-tooltip>
-            <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chartset.refreshChartSet()"> refresh </md-icon>
-          </md-button>
-          <md-button class="md-icon-button" aria-label="Refresh">
-            <md-tooltip md-direction="botton">Save to PDF</md-tooltip>
-            <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chartset.Save2PDF(chartset)"> picture_as_pdf </md-icon>
-          </md-button>
-          <md-button class="md-icon-button" aria-label="Settings" ng-click="chartset.showShare()">
-            <md-tooltip md-direction="botton">Share</md-tooltip>
-            <md-icon md-font-set="material-icons" class="ee-icon"> shared </md-icon>
-          </md-button>
-        </div>
-      </md-toolbar>
-      <md-divider></md-divider>
-      <md-content flex="" layout-padding="">
-        <p class="ee-chart-status">
-          <md-icon md-font-set="material-icons" class="ee-icon"> access_time </md-icon> <span>{{chartset.settings.lastUpdateTimestamp | date: 'medium'}}</span></p>
-        <p>{{chartset.settings.description}}</p>
-      </md-content>
-      <md-divider></md-divider>
-      <md-content class="ee-chart-set-charts-container" layout="row" layout-wrap layout-align="start stretch">
-        <div class="ee-chart-set-chart-wrapper" flex="100" ng-repeat="chart in chartset.charDataArray">
-          <md-card>
-            <md-toolbar>
-              <div class="md-toolbar-tools">
-                <h2 class="ee-text-black-primary">
-                  <a href="#/charts/{{chart.friendlyUrl || chart._id}}" ng-click="chartset.goToChart(chart)">{{chart.options.title}}</a>
-                </h2>
-                <span flex></span>
-                <md-menu>
-                  <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                    <md-icon md-font-set="material-icons" class="ee-icon"> more_vert </md-icon>
-                  </md-button>
-                  <md-menu-content width="3">
-                    <md-menu-item>
-                      <md-button ng-click="chartset.SaveImageOrPDF(0,chart)"> <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chartset.SaveImageOrPDF(0,chart)"> image </md-icon> <span md-menu-align-target>Save as picture</span></md-button>
-                    </md-menu-item>
-                    <md-menu-item>
-                      <md-button ng-click="chartset.SaveImageOrPDF(1,chart)"> <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chartset.SaveImageOrPDF(1,chart)"> picture_as_pdf </md-icon> <span md-menu-align-target>Save as pdf</span></md-button>
-                    </md-menu-item>
-                  </md-menu-content>
-                </md-menu>
-              </div>
-            </md-toolbar>
-            <md-divider></md-divider>
-            <ee-google-chart ng-if="chart.chartType!='ImageChart'" chart-type="chart.chartType" chart-options="chart.options" chart-data-table="chart.datatable">
-            </ee-google-chart>
-            <div ng-if="chart.chartType=='ImageChart'" class="ee-image-chart-container">
-              <img ng-src="{{chart.image_file_name ? chartset.imageChartBaseUrl + chart.image_file_name : ''}}" />
-            </div>
-            <md-divider></md-divider>
-            <md-content flex="" layout-padding="">
-              <p class="ee-chart-status">
-                <md-icon md-font-set="material-icons" class="ee-icon"> access_time </md-icon> <span>{{chart.lastUpdateTimestamp | date: 'medium'}}</span></p>
-              <p>
-                <md-icon md-font-set="material-icons" class="ee-icon"> description </md-icon>
-                {{chart.description}}
-              </p>
-            </md-content>
-          </md-card>
-        </div>
-      </md-content>
-    </md-card> -->
+          </md-toolbar>
+          <md-divider></md-divider>
+          <ee-google-chart ng-if="chart.chartType!='ImageChart'" chart-type="chart.chartType" chart-options="chart.options" chart-data-table="chart.datatable">
+          </ee-google-chart>
+          <div ng-if="chart.chartType=='ImageChart'" class="ee-image-chart-container">
+            <img ng-src="{{chart.image_file_name ? chartset.imageChartBaseUrl + chart.image_file_name : ''}}" />
+          </div>
+          <md-divider></md-divider>
+          <md-content flex="" layout-padding="">
+            <p class="ee-chart-status">
+              <md-icon md-font-set="material-icons" class="ee-icon"> access_time </md-icon> <span>{{chart.lastUpdateTimestamp | date: 'medium'}}</span></p>
+            <p>
+              <md-icon md-font-set="material-icons" class="ee-icon"> description </md-icon>
+              {{chart.description}}
+            </p>
+          </md-content>
+        </md-card>
+      </div>
+    </md-content>
   </div>
 </div>
