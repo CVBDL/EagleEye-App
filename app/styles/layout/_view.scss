@@ -39,6 +39,19 @@ md-menu-content {
     padding: $eagleeye-content-padding-vertical $eagleeye-content-padding-large-horizontal;
   }
 
+  .ee-card-container {
+    md-card-title-media {
+      margin-top: 0;
+    }
+
+    md-card-actions {
+      .md-button,
+      .md-button a {
+        color: $color-accent;
+      }
+    }
+  }
+
   md-card {
     margin: 0;
     height: 100%;

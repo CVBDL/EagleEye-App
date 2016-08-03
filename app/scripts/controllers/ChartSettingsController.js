@@ -18,9 +18,18 @@ angular.module('eagleeye')
       controller.id = $stateParams.id;
       controller.type = $stateParams.type;
 
+      this.isLoading = true;
+
       this.excelTemplateDownloadBaseUrl = EagleEyeWebService.getExcelTemplateDownloadBaseUrl();
 
-      this.goViewChart = function(){
+      this.getChartDataById = function(id) {
+        EagleEyeWebService.getChartById(id).then(function(data) {
+          controller.chartType = data.chartType;
+          controller.isLoading = false;
+        });
+      };
+
+      this.goViewChart = function() {
         $state.go('chart', {id : controller.id});
       };
 
@@ -31,5 +40,7 @@ angular.module('eagleeye')
       this.upload = function (file) {
         EagleEyeWebService.uploadFile(file, controller.type, controller.id);
       }
+
+      this.getChartDataById(controller.id);
     }
   ]);
