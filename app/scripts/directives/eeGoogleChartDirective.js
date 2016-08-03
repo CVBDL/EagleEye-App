@@ -8,10 +8,11 @@
  */
 angular.module('eagleeye')
   .directive('eeGoogleChart', [
+    '$rootScope',
     '$timeout',
     '$window',
     'GoogleChartsService',
-    function($timeout, $window, GoogleChartsService) {
+    function($rootScope, $timeout, $window, GoogleChartsService) {
       var defaultChartOptions = GoogleChartsService.getDefaultChartOptions();
 
       return {
@@ -36,7 +37,7 @@ angular.module('eagleeye')
             if (!scope.chartType || !scope.chartDataTable || "ImageChart" == scope.chartType) {
               return;
             }
-            
+
             var chart = new google.visualization[scope.chartType](chartNode);
             var chartDataTable = new google.visualization.DataTable(angular.copy(scope.chartDataTable, {}));
             var chartOptions = angular.merge(angular.copy(scope.chartOptions, {}), defaultChartOptions[scope.chartType.toLowerCase()]);
@@ -60,6 +61,8 @@ angular.module('eagleeye')
         var unwatchChartType = scope.$watch('chartType', drawChart);
         var unwatchChartOptions = scope.$watch('chartOptions', drawChart, true);
         var unwatchChartDataTable = scope.$watchCollection('chartDataTable', drawChart);
+
+        $rootScope.$on('ee.googlechart.redraw', windowResizeHandler);
 
         angular.element($window).on('resize', windowResizeHandler);
 

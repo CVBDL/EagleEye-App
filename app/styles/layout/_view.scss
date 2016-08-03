@@ -151,6 +151,15 @@ md-menu-content {
     max-height: 100%;
     margin: 0 auto;
   }
+
+  .ee-wrapper.ee-chart-set-column-view {
+    max-width: none;
+    padding: 8px;
+
+    .ee-chart-set-chart-wrapper {
+      padding: 8px;
+    }
+  }
 }
 
 

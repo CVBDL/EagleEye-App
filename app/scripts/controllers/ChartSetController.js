@@ -9,13 +9,14 @@
  */
 angular.module('eagleeye')
   .controller('ChartSetController', [
+    '$rootScope',
     '$state',
     '$stateParams',
     '$location',
     'EagleEyeWebService',
     'eeShareService',
     'GoogleChartsService',
-    function($state, $stateParams, $location, EagleEyeWebService, eeShareService, GoogleChartsService) {
+    function($rootScope, $state, $stateParams, $location, EagleEyeWebService, eeShareService, GoogleChartsService) {
       var controller = this,
         id = $stateParams.id;
 
@@ -24,6 +25,12 @@ angular.module('eagleeye')
       this.autoRefresh = false;
       this.autoInterval = null;
       this.imageChartBaseUrl = EagleEyeWebService.getStaticServerSideImageBaseUrl();
+      this.viewMode = 'list';  // or 'column'
+
+      this.switchViewMode = function(mode) {
+        this.viewMode = mode;
+        $rootScope.$emit('ee.googlechart.redraw');
+      };
 
       this.autoChange = function() {
         if (this.autoRefresh == true) {

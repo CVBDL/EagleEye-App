@@ -12,8 +12,16 @@
           <md-tooltip md-direction="botton">Refresh</md-tooltip>
           <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chartset.refreshChartSet()"> refresh </md-icon>
         </md-button>
-        <md-button class="md-icon-button" aria-label="Refresh">
-          <md-tooltip md-direction="botton">Save to PDF</md-tooltip>
+        <md-button class="md-icon-button" aria-label="Switch to column view" ng-if="chartset.viewMode === 'list'">
+          <md-tooltip md-direction="botton">Switch to column view</md-tooltip>
+          <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chartset.switchViewMode('column')"> view_column </md-icon>
+        </md-button>
+        <md-button class="md-icon-button" aria-label="Switch to list view" ng-if="chartset.viewMode === 'column'">
+          <md-tooltip md-direction="botton">Switch to list view</md-tooltip>
+          <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chartset.switchViewMode('list')"> list </md-icon>
+        </md-button>
+        <md-button class="md-icon-button" aria-label="Save as pdf">
+          <md-tooltip md-direction="botton">Save as pdf</md-tooltip>
           <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chartset.Save2PDF(chartset)"> picture_as_pdf </md-icon>
         </md-button>
         <md-button class="md-icon-button" aria-label="Settings" ng-click="chartset.showShare()">
@@ -30,9 +38,9 @@
       </div>
     </div>
   </div>
-  <div class="ee-wrapper">
+  <div class="ee-wrapper" ng-class="{ 'ee-chart-set-column-view': chartset.viewMode === 'column' }">
     <md-content class="ee-chart-set-charts-container" layout="row" layout-wrap layout-align="start stretch">
-      <div class="ee-chart-set-chart-wrapper" flex="100" ng-repeat="chart in chartset.charDataArray">
+      <div class="ee-chart-set-chart-wrapper" flex="{{chartset.viewMode === 'list' ? 100 : 50}}" ng-repeat="chart in chartset.charDataArray">
         <md-card>
           <md-toolbar>
             <div class="md-toolbar-tools">
