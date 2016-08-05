@@ -80,6 +80,19 @@ angular.module('eagleeye')
         });
       };
 
+      function getBase64FromImage(id) {
+          var img = document.getElementById(id);
+          var canvas = document.createElement("canvas");
+          var width =img.width;
+          var height =img.height;
+          canvas.width = 1024;
+          canvas.height = 768;
+          var ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0,width,height,0,0,canvas.width,canvas.height);
+
+          return canvas.toDataURL("image/png");
+      }
+
       this.Save2PDF = function(chartset) {
         var doc = new jsPDF("l", "pt", "letter");
         doc.setFont("times");-
@@ -88,8 +101,15 @@ angular.module('eagleeye')
         var allImageArray = new Array();
         for( var i = 0; i< chartset.charDataArray.length ; i++){
           if (chartset.charDataArray[i].chartType.indexOf('ImageChart') > -1){
-            if (chartset.charDataArray[i].image_file_name === undefined )
-               continue;
+            if (chartset.charDataArray[i].image_file_name === undefined ){
+              continue;
+            }
+            var dataURL = getBase64FromImage(chartset.charDataArray[i].options.title);
+              doc.addImage(dataURL, 'JPEG', 20, 60);
+              doc.setFont("times");
+              doc.setFontType("italic");
+              doc.text(40, 40, "gg");
+              doc.addPage();
           }
           else{
             allImageArray.splice(i,1,chartset.charDataArray[i]);
