@@ -81,17 +81,27 @@ angular.module('eagleeye')
       };
 
       this.Save2PDF = function(chartset) {
-        var allImageCount = chartset.charDataArray.length;
-        var imageCount = 0;
-        var size = [1080 + 80, 576 + 20];
         var doc = new jsPDF("l", "pt", "letter");
-        doc.setFont("times");
+        doc.setFont("times");-
         doc.setFontType("italic");
         doc.text(40, 20, "Provided by EagleEye");
+        var allImageArray = new Array();
+        for( var i = 0; i< chartset.charDataArray.length ; i++){
+          if (chartset.charDataArray[i].chartType.indexOf('ImageChart') > -1){
+            if (chartset.charDataArray[i].image_file_name === undefined )
+               continue;
+          }
+          else{
+            allImageArray.splice(i,1,chartset.charDataArray[i]);
+          }
+        }
+        var allImageCount = allImageArray.length;
+        var imageCount = 0;
+        var size = [1080 + 80, 576 + 20];
         var index = 0;
         var chart = new Array(allImageCount);
         for (index = 0; index < allImageCount; index++) {
-          var chartData = chartset.charDataArray[index];
+          var chartData = allImageArray[index];
           if (chartData.chartType.indexOf('LineChart') > -1)
             chart[index] = new google.visualization.LineChart(document.createElement("div"));
           else if (chartData.chartType.indexOf('ColumnChart') > -1)
@@ -107,7 +117,7 @@ angular.module('eagleeye')
             doc.addImage(chart[imageCount].getImageURI(), 'JPEG', 20, 60);
             doc.setFont("times");
             doc.setFontType("italic");
-            doc.text(40, 40, chartset.charDataArray[imageCount].options.title);
+            doc.text(40, 40, allImageArray[imageCount].options.title);
             imageCount++;
             if (imageCount < allImageCount) {
               doc.addPage();
