@@ -98,6 +98,8 @@ angular.module('eagleeye')
             chart[index] = new google.visualization.ColumnChart(document.createElement("div"));
           else if (chartData.chartType.indexOf('BarChart') > -1)
             chart[index] = new google.visualization.BarChart(document.createElement("div"));
+          else if (chartData.chartType.indexOf('AreaChart') > -1)
+            chart[index] = new google.visualization.AreaChart(document.createElement("div"));
           else
             chart[index] = new google.visualization.ComboChart(document.createElement("div"));
           // Wait for the chart to finish drawing before calling the getImageURI() method.
@@ -156,6 +158,8 @@ angular.module('eagleeye')
           chart = new google.visualization.ColumnChart(document.createElement("div"));
         else if (chartData.chartType.indexOf('BarChart') > -1)
           chart = new google.visualization.BarChart(document.createElement("div"));
+        else if (chartData.chartType.indexOf('AreaChart') > -1)
+          chart = new google.visualization.AreaChart(document.createElement("div"));
         else
           chart = new google.visualization.ComboChart(document.createElement("div"));
         // Wait for the chart to finish drawing before calling the getImageURI() method.
