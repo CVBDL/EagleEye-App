@@ -152,12 +152,36 @@ md-menu-content {
     margin: 0 auto;
   }
 
-  .ee-wrapper.ee-chart-set-column-view {
-    max-width: none;
-    padding: 8px;
+  // .ee-wrapper.ee-chart-set-column-view {
+  //   max-width: none;
+  //   padding: 8px;
 
-    .ee-chart-set-chart-wrapper {
+  //   .ee-chart-set-chart-wrapper {
+  //     padding: 8px;
+  //   }
+  // }
+
+  &.ee-chart-set-column-view {
+    .ee-wrapper {
+      max-width: none;
       padding: 8px;
+
+      .ee-chart-set-chart-wrapper {
+        padding: 8px;
+      }
+    }
+
+    .ee-view-header {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .ee-view-header-content:last-child {
+      display: none;
+    }
+
+    .ee-chartset-info {
+      display: none;
     }
   }
 }

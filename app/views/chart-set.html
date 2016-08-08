@@ -1,4 +1,4 @@
-<div id="canv" class="ee-view">
+<div id="canv" class="ee-view" ng-class="{ 'ee-chart-set-column-view': chartset.viewMode === 'column' }">
   <div class="ee-view-header-container">
     <div class="ee-view-header">
       <div class="ee-view-header-content" layout="row" layout-align="start center">
@@ -38,7 +38,7 @@
       </div>
     </div>
   </div>
-  <div class="ee-wrapper" ng-class="{ 'ee-chart-set-column-view': chartset.viewMode === 'column' }">
+  <div class="ee-wrapper">
     <md-content class="ee-chart-set-charts-container" layout="row" layout-wrap layout-align="start stretch">
       <div class="ee-chart-set-chart-wrapper" flex="{{chartset.viewMode === 'list' ? 100 : 50}}" ng-repeat="chart in chartset.charDataArray">
         <md-card>
@@ -75,8 +75,8 @@
           <div ng-if="chart.chartType=='ImageChart'" class="ee-image-chart-container">
             <img crossOrigin="anonymous" id="{{chart.options.title}}" ng-src="{{chart.image_file_name ? chartset.imageChartBaseUrl + chart.image_file_name : ''}}" />
           </div>
-          <md-divider></md-divider>
-          <md-content flex="" layout-padding="">
+          <md-divider ng-hide="chartset.viewMode === 'column'"></md-divider>
+          <md-content class="ee-chartset-info" flex layout-padding>
             <p class="ee-chart-status">
               <md-icon md-font-set="material-icons" class="ee-icon"> access_time </md-icon> <span>{{chart.lastUpdateTimestamp | date: 'medium'}}</span></p>
             <p>

@@ -9,3 +9,7 @@ ee-google-chart-sample {
     height: 100%;
   }
 }
+
+.ee-chart-set-column-view ee-google-chart {
+  height: $eagleeye-google-chart-small-height;
+}
