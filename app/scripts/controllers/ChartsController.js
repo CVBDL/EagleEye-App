@@ -18,13 +18,14 @@ angular.module('eagleeye')
     function($state, $mdDialog, $mdMedia, $http, EagleEyeWebService, eeDeleteConfirmationService) {
       var controller = this;
 
+      this.isLoading = true;
+
       this.getChartsList = function() {
         EagleEyeWebService.getCharts().then(function(chartList) {
+          controller.isLoading = false;
           controller.chartList = chartList;
         });
       };
-
-      controller.getChartsList();
 
       this.showConfirm = function($event, id) {
         $event.stopPropagation();
@@ -59,5 +60,7 @@ angular.module('eagleeye')
           $state.go('chartSettings', { id: id, type: type });
         }
       };
+
+      this.getChartsList();
     }
   ]);

@@ -14,17 +14,17 @@ angular.module('eagleeye')
     '$mdMedia',
     'EagleEyeWebService',
     'eeDeleteConfirmationService',
-    function ($state, $mdDialog, $mdMedia, EagleEyeWebService, eeDeleteConfirmationService) {
+    function($state, $mdDialog, $mdMedia, EagleEyeWebService, eeDeleteConfirmationService) {
       var controller = this;
 
-      this.getChartSetsList = function()
-      {
+      this.isLoading = true;
+
+      this.getChartSetsList = function() {
         EagleEyeWebService.getChartSets().then(function(chartSetList) {
+          controller.isLoading = false;
           controller.chartSetList = chartSetList;
         });
-      }
-
-      controller.getChartSetsList();
+      };
 
       this.showConfirm = function($event, id) {
         $event.stopPropagation();
@@ -36,19 +36,18 @@ angular.module('eagleeye')
         });
       };
 
-      this.openChartSets = function(id, friendlyurl){
-        if(friendlyurl){
-            $state.go('chartSet', { id: friendlyurl });
-        }
-        else{
-            $state.go('chartSet', { id: id });
+      this.openChartSets = function(id, friendlyurl) {
+        if (friendlyurl) {
+          $state.go('chartSet', { id: friendlyurl });
+        } else {
+          $state.go('chartSet', { id: id });
         }
       };
 
       this.deleteChartSetById = function(id) {
-          EagleEyeWebService.deleteChartSetById(id).then(function() {
-            controller.getChartSetsList();
-          });
+        EagleEyeWebService.deleteChartSetById(id).then(function() {
+          controller.getChartSetsList();
+        });
       };
 
       this.goToSettings = function($event, id, friendlyurl) {
@@ -60,5 +59,7 @@ angular.module('eagleeye')
           $state.go('chartSetSettings', { id: id });
         }
       };
+
+      this.getChartSetsList();
     }
   ]);

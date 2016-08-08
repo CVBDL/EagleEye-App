@@ -16,6 +16,9 @@
       </div>
       </md-toolbar>
       <md-divider></md-divider>
+      <md-content layout="row" layout-padding  layout-align="center center" ng-if="chartsets.isLoading">
+        <md-progress-circular class="ee-progress-circular" md-diameter="40"></md-progress-circular>
+      </md-content>
       <div class="ee-list-item" ng-repeat="chartset in chartsets.chartSetList track by chartset._id">
         <a href="javascript:;" ng-click="chartsets.openChartSets(chartset._id, chartset.friendlyUrl)">
           <div class="ee-list-item-content-container" layout="row" layout-align="start center">

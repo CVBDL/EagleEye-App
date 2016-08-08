@@ -16,6 +16,9 @@
         </div>
       </md-toolbar>
       <md-divider></md-divider>
+      <md-content layout="row" layout-padding  layout-align="center center" ng-if="charts.isLoading">
+        <md-progress-circular class="ee-progress-circular" md-diameter="40"></md-progress-circular>
+      </md-content>
       <div class="ee-list-item" ng-repeat="chart in charts.chartList track by chart._id">
         <a href="javascript:;" ng-click="charts.openCharts(chart._id, chart.friendlyUrl)">
           <div class="ee-list-item-content-container" layout="row" layout-align="start center">
