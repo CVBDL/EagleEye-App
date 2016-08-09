@@ -12,9 +12,10 @@ angular.module('eagleeye')
     '$scope',
     '$http',
     '$state',
+    '$mdDialog',
     'GoogleChartsService',
     'EagleEyeWebService',
-    function ($scope, $http, $state, GoogleChartsService, EagleEyeWebService) {
+    function($scope, $http, $state, $mdDialog, GoogleChartsService, EagleEyeWebService) {
       var friendlyUrlPrefix = 'c-';
 
       this.chartTypeOptions = GoogleChartsService.getChartTypeOptions();
@@ -34,7 +35,7 @@ angular.module('eagleeye')
         vAxis: {
           title: ''
         },
-        isStacked : 'false'
+        isStacked: 'false'
       };
 
       this.createChart = function() {
@@ -57,7 +58,7 @@ angular.module('eagleeye')
             vAxis: {
               title: this.chartOptions.vAxis.title
             },
-            isStacked : this.chartOptions.isStacked === 'true'
+            isStacked: this.chartOptions.isStacked === 'true'
           },
           datatable: GoogleChartsService.getChartDataTableSamples(this.selectedChartTypeOption.value.toLowerCase(), this.settings.majorAxisDataType)
         });
@@ -71,5 +72,19 @@ angular.module('eagleeye')
           console.log(error);
         });
       };
+
+      this.showHelp = function(name, ev) {
+        // var
+        $mdDialog.show(
+          $mdDialog.alert()
+          .parent(angular.element(document.body))
+          .clickOutsideToClose(true)
+          .title('This is an alert title')
+          .textContent('You can specify some description text in here.')
+          .ariaLabel('Alert Dialog Demo')
+          .ok('Got it!')
+          .targetEvent(ev)
+        );
+      }
     }
   ]);

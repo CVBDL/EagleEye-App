@@ -1,107 +1,79 @@
-<div class="ee-chart-view">
-  <div class="ee-chart-wrapper">
+<div class="ee-view">
+  <div class="ee-wrapper">
     <md-card>
-    <div>
-    <div style="float:left;width:25%;margin-left:10px">
-      <md-content layout-padding="">
-        <form name="ChartCreationForm">
-
-          <md-input-container class="md-block">
-            <label>Chart Title</label>
-            <input required="" name="clientName" ng-model="newChart.chartOptions.title">
-            <div ng-messages="ChartCreationForm.clientName.$error">
-              <div ng-message="required">This is required.</div>
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <h3 class="ee-text-black-primary">Create chart</h3>
+          <span flex></span>
+          <md-button class="md-icon-button" aria-label="Save">
+            <md-tooltip md-direction="botton">Save</md-tooltip>
+            <md-icon md-font-set="material-icons" class="ee-icon" ng-click="newChart.createChart()"> save </md-icon>
+          </md-button>
+        </div>
+      </md-toolbar>
+      <md-divider></md-divider>
+      <md-content layout-padding layout="row">
+        <div flex="50">
+          <form name="ChartCreationForm">
+            <md-input-container class="md-block">
+              <label>Title</label>
+              <input required name="chartTitle" ng-model="newChart.chartOptions.title">
+              <div ng-messages="ChartCreationForm.chartTitle.$error">
+                <div ng-message="required">This is required.</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+              <label>Description</label>
+              <input name="chartDescription" ng-model="newChart.settings.description">
+            </md-input-container>
+            <div layout="row">
+              <md-input-container class="md-block" flex>
+                <label>H-axis title</label>
+                <input name="chartHAxisTitle" ng-model="newChart.chartOptions.hAxis.title">
+              </md-input-container>
+              <md-input-container class="md-block" flex>
+                <label>V-axis title</label>
+                <input name="chartVAxisTitle" ng-model="newChart.chartOptions.vAxis.title">
+              </md-input-container>
+              <md-input-container class="md-block" flex>
+                <label>Friendly url</label>
+                <input name="chartFriendlyUrl" ng-model="newChart.settings.friendlyUrl">
+              </md-input-container>
             </div>
-          </md-input-container>
-
-          <md-input-container class="md-block">
-            <label>Chart Description</label>
-            <input required="" name="clientName" ng-model="newChart.settings.description">
-            <div ng-messages="ChartCreationForm.clientName.$error">
-              <div ng-message="required">This is required.</div>
+            <div layout="row">
+              <md-input-container flex>
+                <label>Chart types</label>
+                <md-select ng-model="newChart.selectedChartTypeOption" ng-model-options="{ trackBy: '$value.value' }">
+                  <md-option ng-repeat="chartTypeOption in newChart.chartTypeOptions" ng-value="{{chartTypeOption}}">
+                    {{chartTypeOption.label}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+              <md-input-container flex>
+                <label>Major axis data types</label>
+                <md-select ng-model="newChart.settings.majorAxisDataType">
+                  <md-option value="string">String</md-option>
+                  <md-option value="number">Number</md-option>
+                  <md-option value="date">Date</md-option>
+                  <md-option value="datetime">Datetime</md-option>
+                </md-select>
+              </md-input-container>
+              <md-input-container flex>
+                <label>Is stacked?</label>
+                <md-select ng-model="newChart.chartOptions.isStacked">
+                  <md-option value="true">Yes</md-option>
+                  <md-option value="false">No</md-option>
+                </md-select>
+              </md-input-container>
             </div>
-          </md-input-container>
-
-          <md-input-container class="md-block">
-            <label>H-axis Title</label>
-            <input required="" name="clientName" ng-model="newChart.chartOptions.hAxis.title">
-            <div ng-messages="ChartCreationForm.clientName.$error">
-              <div ng-message="required">This is required.</div>
-            </div>
-          </md-input-container>
-
-          <md-input-container class="md-block">
-            <label>V-axis Title</label>
-            <input required="" name="clientName" ng-model="newChart.chartOptions.vAxis.title">
-            <div ng-messages="ChartCreationForm.clientName.$error">
-              <div ng-message="required">This is required.</div>
-            </div>
-          </md-input-container>
-
-          <md-input-container class="md-block">
-            <label>Friendly Url c-</label>
-            <input required="" name="clientName" ng-model="newChart.settings.friendlyUrl">
-            <div ng-messages="ChartCreationForm.clientName.$error">
-              <div ng-message="required">This is required.</div>
-            </div>
-          </md-input-container>
-
-        </form>
-      </md-content>
-      </div>
-      <div style="width:70%;float:right">
-          <ee-google-chart-sample
-          chart-type="{{newChart.selectedChartTypeOption.construcorName}}"
-          chart-major-axis-data-type="{{newChart.settings.majorAxisDataType}}"
-          chart-options="newChart.chartOptions">
+          </form>
+        </div>
+        <div flex>
+          <p class="ee-chart-demo-title">Live demo:</p>
+          <ee-google-chart-sample chart-type="{{newChart.selectedChartTypeOption.construcorName}}" chart-major-axis-data-type="{{newChart.settings.majorAxisDataType}}" chart-options="newChart.chartOptions">
           </ee-google-chart-sample>
-      </div>
-  </div>
-
- <div>
-    <div style="float:left;width:25%;margin-left:25px">
-         <a class="md-headline ee-text-black-primary" >Chart type</a>
-         <md-radio-group ng-model="newChart.selectedChartTypeOption" ng-repeat="chartTypeOption in newChart.chartTypeOptions">
-           <md-radio-button class="md-primary" name="chartTypeOption" ng-value="chartTypeOption">
-           {{chartTypeOption.label}}
-           </md-radio-button>
-         </md-radio-group>
-    </div>
-    <div style="float:left;width:35%;margin-left:10px">
-        <a class="md-headline ee-text-black-primary">Major axis data type <a href="https://developers.google.com/chart/interactive/docs/customizing_axes#terminology" target="_blank">What's major axis?</a> </a>
-        <md-radio-group ng-model="newChart.settings.majorAxisDataType">
-           <md-radio-button  name="majorAxisDataType" class="md-primary" value="string">
-               String
-           </md-radio-button>
-           <md-radio-button  name="majorAxisDataType" class="md-primary" value="number">
-               Number
-           </md-radio-button>
-           <md-radio-button  name="majorAxisDataType" class="md-primary" value="date">
-               Date
-           </md-radio-button>
-           <md-radio-button  name="majorAxisDataType" class="md-primary" value="datetime">
-               Datetime
-           </md-radio-button>
-        </md-radio-group>
-
-    </div>
-    <div style="float:left;width:15%;margin-left:25px">
-        <a class="md-headline ee-text-black-primary">Chart Options</a>
-        <md-radio-group ng-model="newChart.chartOptions.isStacked">
-           <md-radio-button  name="isStacked" class="md-primary" value=true>
-               Is Stacked
-           </md-radio-button>
-           <md-radio-button  name="isStacked" class="md-primary" value=false>
-               No Stacked
-           </md-radio-button>
-        </md-radio-group>
-    </div>
-  </div>
-
-  <section>
-    <md-button class="md-primary md-raised" ng-click="newChart.createChart()">Create Chart</md-button>
-  </section>
-
-  </md-card>
+        </div>
+      </md-content>
+    </md-card>
   </div>
 </div>
