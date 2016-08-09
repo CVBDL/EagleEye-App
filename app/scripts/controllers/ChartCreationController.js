@@ -73,18 +73,17 @@ angular.module('eagleeye')
         });
       };
 
-      this.showHelp = function(name, ev) {
-        // var
-        $mdDialog.show(
-          $mdDialog.alert()
-          .parent(angular.element(document.body))
-          .clickOutsideToClose(true)
-          .title('This is an alert title')
-          .textContent('You can specify some description text in here.')
-          .ariaLabel('Alert Dialog Demo')
-          .ok('Got it!')
-          .targetEvent(ev)
-        );
+      this.showHelp = function(ev) {
+        $mdDialog.show({
+          templateUrl: 'scripts/templates/chart-creation-help.tmpl.html',
+          controller: [ '$scope', function($scope) {
+            $scope.cancel = function() {
+              $mdDialog.cancel();
+            };
+          }],
+          parent: angular.element(document.body),
+          clickOutsideToClose: true
+        });
       }
     }
   ]);
