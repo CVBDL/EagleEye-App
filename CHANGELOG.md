@@ -1,3 +1,14 @@
+<a name="1.0.0-alpha.1"></a>
+# 1.0.0-alpha.1 (2016-08-10)
+
+
+### Features
+
+* New UI for chart creation
+* Add chart creation helping dialog
+* Support area chart default options
+
+
 <a name="1.0.0-alpha.0"></a>
 # 1.0.0-alpha.0 (2016-08-08)
 
