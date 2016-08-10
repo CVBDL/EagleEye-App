@@ -105,220 +105,23 @@ angular
 
       // line chart default options
       // docs: https://developers.google.com/chart/interactive/docs/gallery/linechart#configuration-options
-      GoogleChartsServiceProvider.setLineChartDefaultOptions({
-        animation: {
-          startup: true,
-          duration: 500,
-          easing: 'out'
-        },
-        backgroundColor: {
-          stroke: 'white',
-          strokeWidth: 0,
-          fill: 'white'
-        },
-        chartArea: {
-          width: '85%'
-        },
-        crosshair: {
-          color: '#80D8FF',
-          orientation: 'vertical',
-          trigger: 'both'
-        },
-        curveType: 'function',
-        // fontName: "Roboto, 'Helvetica Neue', sans-serif",
-        fontSize: 14,
-        legend: {
-          position: 'top',
-          alignment: 'end',
-          maxLines: 2,
-          textStyle: {
-            color: '#555555', // $color-gray-dark
-          }
-        },
-        lineWidth: 2,
-        pointShape: 'circle',
-        titlePosition: 'none',
-        tooltip: {
-          ignoreBounds: false,
-          isHtml: false,
-          showColorCode: true,
-          textStyle: {
-            color: '#555555', // $color-gray-dark
-            // fontName: "Roboto, 'Helvetica Neue', sans-serif",
-            fontSize: 14,
-            bold: false,
-            italic: false
-          }
-        }
-      });
+      GoogleChartsServiceProvider.setLineChartDefaultOptions({});
 
       // column chart default options
       // docs: https://developers.google.com/chart/interactive/docs/gallery/columnchart#configuration-options
-      GoogleChartsServiceProvider.setColumnChartDefaultOptions({
-        animation: {
-          startup: true,
-          duration: 500,
-          easing: 'out'
-        },
-        backgroundColor: {
-          stroke: 'white',
-          strokeWidth: 0,
-          fill: 'white'
-        },
-        bar: { groupWidth: "61.8%" },
-        chartArea: {
-          width: '85%'
-        },
-        // fontName: "Roboto, 'Helvetica Neue', sans-serif",
-        fontSize: 14,
-        legend: {
-          position: 'top',
-          alignment: 'end',
-          maxLines: 2,
-          textStyle: {
-            color: '#555555', // $color-gray-dark
-          }
-        },
-        titlePosition: 'none',
-        tooltip: {
-          ignoreBounds: false,
-          isHtml: false,
-          showColorCode: true,
-          textStyle: {
-            color: '#555555', // $color-gray-dark
-            // fontName: "Roboto, 'Helvetica Neue', sans-serif",
-            fontSize: 14,
-            bold: false,
-            italic: false
-          }
-        }
-      });
+      GoogleChartsServiceProvider.setColumnChartDefaultOptions({});
 
       // bar chart default options
       // docs: https://developers.google.com/chart/interactive/docs/gallery/barchart#configuration-options
-      GoogleChartsServiceProvider.setBarChartDefaultOptions({
-        animation: {
-          startup: true,
-          duration: 500,
-          easing: 'out'
-        },
-        backgroundColor: {
-          stroke: 'white',
-          strokeWidth: 0,
-          fill: 'white'
-        },
-        bar: { groupWidth: "61.8%" },
-        chartArea: {
-          width: '85%'
-        },
-        // fontName: "Roboto, 'Helvetica Neue', sans-serif",
-        fontSize: 14,
-        legend: {
-          position: 'top',
-          alignment: 'end',
-          maxLines: 2,
-          textStyle: {
-            color: '#555555', // $color-gray-dark
-          }
-        },
-        titlePosition: 'none',
-        tooltip: {
-          ignoreBounds: false,
-          isHtml: false,
-          showColorCode: true,
-          textStyle: {
-            color: '#555555', // $color-gray-dark
-            // fontName: "Roboto, 'Helvetica Neue', sans-serif",
-            fontSize: 14,
-            bold: false,
-            italic: false
-          }
-        }
-      });
+      GoogleChartsServiceProvider.setBarChartDefaultOptions({});
 
       // chart default options
       // docs: https://developers.google.com/chart/interactive/docs/gallery/combochart#configuration-options
-      GoogleChartsServiceProvider.setComboChartDefaultOptions({
-        animation: {
-          startup: true,
-          duration: 500,
-          easing: 'out'
-        },
-        backgroundColor: {
-          stroke: 'white',
-          strokeWidth: 0,
-          fill: 'white'
-        },
-        bar: { groupWidth: "61.8%" },
-        chartArea: {
-          width: '85%'
-        },
-        // fontName: "Roboto, 'Helvetica Neue', sans-serif",
-        fontSize: 14,
-        legend: {
-          position: 'top',
-          alignment: 'end',
-          maxLines: 2,
-          textStyle: {
-            color: '#555555', // $color-gray-dark
-          }
-        },
-        titlePosition: 'none',
-        tooltip: {
-          ignoreBounds: false,
-          isHtml: false,
-          showColorCode: true,
-          textStyle: {
-            color: '#555555', // $color-gray-dark
-            // fontName: "Roboto, 'Helvetica Neue', sans-serif",
-            fontSize: 14,
-            bold: false,
-            italic: false
-          }
-        }
-      });
+      GoogleChartsServiceProvider.setComboChartDefaultOptions({});
 
       // chart default options
       // docs: https://developers.google.com/chart/interactive/docs/gallery/areachart#configuration-options
-      GoogleChartsServiceProvider.setAreaChartDefaultOptions({
-        animation: {
-          startup: true,
-          duration: 500,
-          easing: 'out'
-        },
-        backgroundColor: {
-          stroke: 'white',
-          strokeWidth: 0,
-          fill: 'white'
-        },
-        bar: { groupWidth: "61.8%" },
-        chartArea: {
-          width: '85%'
-        },
-        // fontName: "Roboto, 'Helvetica Neue', sans-serif",
-        fontSize: 14,
-        legend: {
-          position: 'top',
-          alignment: 'end',
-          maxLines: 2,
-          textStyle: {
-            color: '#555555', // $color-gray-dark
-          }
-        },
-        titlePosition: 'none',
-        tooltip: {
-          ignoreBounds: false,
-          isHtml: false,
-          showColorCode: true,
-          textStyle: {
-            color: '#555555', // $color-gray-dark
-            // fontName: "Roboto, 'Helvetica Neue', sans-serif",
-            fontSize: 14,
-            bold: false,
-            italic: false
-          }
-        }
-      });
+      GoogleChartsServiceProvider.setAreaChartDefaultOptions({});
     }
   ])
 
