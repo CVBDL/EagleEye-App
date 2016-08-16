@@ -16,7 +16,6 @@ angular.module('eagleeye')
     function ($state, $stateParams, EagleEyeWebService, Upload) {
       var controller = this;
       controller.id = $stateParams.id;
-      controller.type = $stateParams.type;
 
       this.isLoading = true;
 
@@ -38,7 +37,7 @@ angular.module('eagleeye')
       };
 
       this.upload = function (file) {
-        EagleEyeWebService.uploadFile(file, controller.type, controller.id);
+        EagleEyeWebService.uploadFile(file, controller.chartType, controller.id);
       }
 
       this.getChartDataById(controller.id);

@@ -55,9 +55,9 @@ angular.module('eagleeye')
         $event.stopPropagation();
 
         if (friendlyurl) {
-          $state.go('chartSettings', { id: friendlyurl, type: type });
+          $state.go('chartSettings', { id: friendlyurl });
         } else {
-          $state.go('chartSettings', { id: id, type: type });
+          $state.go('chartSettings', { id: id });
         }
       };
 
