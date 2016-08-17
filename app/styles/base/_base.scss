@@ -1,0 +1,19 @@
+html,
+body {
+  background-color: $color-gray-light;
+}
+
+body {
+  box-sizing: border-box;
+  height: auto;
+  padding-top: $eagleeye-header-height;
+  padding-bottom: $eagleeye-footer-height;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+a {
+  text-decoration: none;
+}

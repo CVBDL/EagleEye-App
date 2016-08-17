@@ -1,106 +1,83 @@
-.ee-home-view {
-
-  // hero section
-  .ee-hero {
-    box-sizing: border-box;
-    color: $color-black-primary;
-    margin: 0 auto;
-    padding: $eagleeye-content-padding-vertical $eagleeye-content-padding-large-horizontal;
-    max-width: $eagleeye-max-width;
-
-    .list {
-      padding-bottom: $eagleeye-content-padding-vertical;
-    }
-
-    .ee-icon {
-      color: $color-accent;
-    }
-  }
-
-  .ee-headline {
-    padding-bottom: $eagleeye-content-padding-vertical;
-
-    .sub-title {
-      color:  $color-primary;
-    }
-  }
-
-  // nav part
-  .sub-nav-wrapper {
-    background-color: $color-black-dividers;
-  }
-
-  .sub-nav,
-  .dev {
-    margin: 0 auto;
-    max-width: $eagleeye-max-width;
-    padding: ($eagleeye-content-padding-vertical / 2) $eagleeye-content-padding-large-horizontal;
-  }
-
-  .sub-nav-item {
-    box-sizing: border-box;
-    height: $eagleeye-home-nav-card-height;
-
-    md-card {
-      margin: 0;
-
-      .md-button {
-        color: $color-accent;
-      }
-    }
-  }
-
-  .dev-image {
-    margin-right: $eagleeye-content-padding-vertical / 2;
-  }
-
-  .dev-text {
-    box-sizing: border-box;
-    padding: $eagleeye-content-padding-vertical / 2;
-
-    h2 {
-      padding-bottom: 24px;
-    }
-
-    ul {
-      padding: 24px 0;
-    }
-
-    .ee-icon {
-      color: $color-accent;
-    }
-
-    .md-button {
-      background-color: $color-accent;
-      color: #fff !important;
-
-      &:hover {
-        background-color: $color-accent;
-      }
-
-      .ee-icon {
-        color: #fff;
-      }
-    }
-
-    .md-button {
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-  }
+// hero section
+// ------------------------------
+.ee-hero {
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: $eagleeye-content-padding-vertical $eagleeye-content-padding-large-horizontal;
+  max-width: $eagleeye-max-width;
 }
 
+.ee-hero__list {
+  color: $color-black-primary;
+  padding-bottom: $eagleeye-content-padding-vertical;
+}
+
+.ee-hero__headline {
+  padding-bottom: $eagleeye-content-padding-vertical;
+}
+
+.ee-hero__headline__title {
+  color: $color-black-primary;
+}
+
+.ee-hero__headline__sub-title {
+  color:  $color-primary;
+}
+
+
+// sub-nav section
+// ------------------------------
+.ee-sub-nav-wrapper {
+  background-color: $color-black-dividers;
+}
+
+.ee-sub-nav {
+  margin: 0 auto;
+  max-width: $eagleeye-max-width;
+  padding: ($eagleeye-content-padding-vertical / 2) $eagleeye-content-padding-large-horizontal;
+}
+
+.ee-sub-nav__item {
+  box-sizing: border-box;
+  height: $eagleeye-home-nav-card-height;
+}
+
+
+// dev section
+// ------------------------------
+.ee-dev {
+  margin: 0 auto;
+  max-width: $eagleeye-max-width;
+  padding: ($eagleeye-content-padding-vertical / 2) $eagleeye-content-padding-large-horizontal;
+}
+
+.ee-dev__image {
+  margin-right: $eagleeye-content-padding-vertical / 2;
+}
+
+.ee-dev__text {
+  box-sizing: border-box;
+  padding: $eagleeye-content-padding-vertical / 2;
+}
+
+.ee-dev__text__header {
+  padding-bottom: 24px;
+}
+
+.ee-dev__text__list {
+  padding: 24px 0;
+}
+
+
+// xtra-small screen
+// ------------------------------
 @media (max-width: $layout-breakpoint-xs - 1) {
-  // Xtra-small screen
-
-  .ee-home-view {
-    .sub-nav,
-    .dev {
-      padding: 0;
+  .ee-sub-nav,
+  .ee-dev {
+    padding: 0;
     }
 
-    .dev-text {
-      text-align: center;
-    }
+  .ee-dev__text {
+    text-align: center;
   }
 }

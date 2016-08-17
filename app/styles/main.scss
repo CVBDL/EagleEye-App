@@ -7,14 +7,25 @@
 
 // Bases
 // ------------------------------
-@import 'base/normalize';
-@import 'base/reset';
+@import 'vendors/reset';
+
+
+// Bases
+// ------------------------------
+@import 'base/base';
 @import 'base/fonts';
 @import 'base/material-icons';
 @import 'base/typography';
 
 
-// Layout
+// Modules - Minor components
+// ------------------------------
+@import 'modules/buttons';
+@import 'modules/cards';
+@import 'modules/icons';
+
+
+// Layout - Major components
 // ------------------------------
 @import 'layout/common';
 @import 'layout/google-chart';
