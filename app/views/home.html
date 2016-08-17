@@ -1,25 +1,26 @@
 <div class="ee-home-view">
-  <div class="ee-hero-wrapper" hide-xs>
-    <div class="ee-hero">
-      <h1 class="ee-headline">
-        <p class="title">Create Charts &amp; Chart Sets</p>
-        <p class="sub-title">Better Data Visualization</p>
+  <div class="ee-hero" hide-xs>
+    <h1 class="ee-hero__headline">
+        <p class="ee-hero__headline__title">Create Charts &amp; Chart Sets</p>
+        <p class="ee-hero__headline__sub-title">Better Data Visualization</p>
       </h1>
-      <ul class="list ee-hero-list">
-        <li><md-icon md-font-set="material-icons" class="ee-icon"> done </md-icon><span>Make your own charts: Line Chart, Bar Chart or Column Chart</span></li>
-        <li><md-icon md-font-set="material-icons" class="ee-icon"> done </md-icon><span>Collect your charts into a chart set</span></li>
-        <li><md-icon md-font-set="material-icons" class="ee-icon"> done </md-icon><span>Share charts and chart sets with others</span></li>
-      </ul>
-    </div>
+    <ul class="ee-hero__list">
+      <li>
+        <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> done </md-icon><span>Make your own charts: Line Chart, Bar Chart or Column Chart</span></li>
+      <li>
+        <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> done </md-icon><span>Collect your charts into a chart set</span></li>
+      <li>
+        <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> done </md-icon><span>Share charts and chart sets with others</span></li>
+    </ul>
   </div>
-  <div class="sub-nav-wrapper">
-    <div class="sub-nav" layout="row" layout-wrap layout-padding>
-      <div class="sub-nav-item" flex="50" flex-xs="100" flex-gt-md="25">
-        <md-card layout-fill>
+  <div class="ee-sub-nav-wrapper">
+    <div class="ee-sub-nav" layout="row" layout-wrap layout-padding>
+      <div class="ee-sub-nav__item" flex="50" flex-xs="100" flex-gt-md="25">
+        <md-card class="ee-card--no-margin" layout-fill>
           <md-card-title>
             <md-card-title-media>
               <div class="md-media-sm card-media">
-                <img src="images/Chart.png" alt="">
+                <img src="images/Chart.png" alt="View Charts">
               </div>
             </md-card-title-media>
             <md-card-title-text>
@@ -28,17 +29,16 @@
             </md-card-title-text>
           </md-card-title>
           <md-card-actions layout="row" layout-align="end center">
-          <md-button ui-sref="charts"><span>View Charts</span></md-button>
+            <md-button class="ee-button--accent" ui-sref="charts"><span>View Charts</span></md-button>
           </md-card-actions>
         </md-card>
       </div>
-
-      <div class="sub-nav-item" flex="50" flex-xs="100" flex-gt-md="25">
-        <md-card layout-fill>
+      <div class="ee-sub-nav__item" flex="50" flex-xs="100" flex-gt-md="25">
+        <md-card class="ee-card--no-margin" layout-fill>
           <md-card-title>
             <md-card-title-media>
               <div class="md-media-sm card-media">
-                <img src="images/CreateNewChart.png" alt="">
+                <img src="images/CreateNewChart.png" alt="New Chart">
               </div>
             </md-card-title-media>
             <md-card-title-text>
@@ -47,17 +47,16 @@
             </md-card-title-text>
           </md-card-title>
           <md-card-actions layout="row" layout-align="end center">
-            <md-button ui-sref="createChart"><span>Create Chart</span></md-button>
+            <md-button class="ee-button--accent" ui-sref="createChart"><span>Create Chart</span></md-button>
           </md-card-actions>
         </md-card>
       </div>
-
-      <div class="sub-nav-item" flex="50" flex-xs="100" flex-gt-md="25">
-        <md-card layout-fill>
+      <div class="ee-sub-nav__item" flex="50" flex-xs="100" flex-gt-md="25">
+        <md-card class="ee-card--no-margin" layout-fill>
           <md-card-title>
             <md-card-title-media>
               <div class="md-media-sm card-media">
-                <img src="images/ChartCategory.png" alt="">
+                <img src="images/ChartCategory.png" alt="View Chart Sets">
               </div>
             </md-card-title-media>
             <md-card-title-text>
@@ -66,17 +65,16 @@
             </md-card-title-text>
           </md-card-title>
           <md-card-actions layout="row" layout-align="end center">
-            <md-button ui-sref="chartSets"><span>View Chart Sets</span></md-button>
+            <md-button class="ee-button--accent" ui-sref="chartSets"><span>View Chart Sets</span></md-button>
           </md-card-actions>
         </md-card>
       </div>
-
-      <div class="sub-nav-item" flex="50" flex-xs="100" flex-gt-md="25">
-        <md-card layout-fill>
+      <div class="ee-sub-nav__item" flex="50" flex-xs="100" flex-gt-md="25">
+        <md-card class="ee-card--no-margin" layout-fill>
           <md-card-title>
             <md-card-title-media>
               <div class="md-media-sm card-media">
-                <img src="images/CreateNewChartCategory.png" alt="">
+                <img src="images/CreateNewChartCategory.png" alt="New Chart Set">
               </div>
             </md-card-title-media>
             <md-card-title-text>
@@ -85,26 +83,28 @@
             </md-card-title-text>
           </md-card-title>
           <md-card-actions layout="row" layout-align="end center">
-            <md-button ui-sref="createChartSet"><span>Create Chart Set</span></md-button>
+            <md-button class="ee-button--accent" ui-sref="createChartSet"><span>Create Chart Set</span></md-button>
           </md-card-actions>
         </md-card>
       </div>
     </div>
   </div>
-
-  <div class="dev" layout="row" layout-padding>
-    <div class="dev-image" flex="50" hide-xs>
+  <div class="ee-dev" layout="row" layout-padding>
+    <div class="ee-dev__image" flex="50" hide-xs>
       <img src="images/develop.jpeg" alt="Develop" layout-fill>
     </div>
-    <div class="dev-text" flex="50" flex-xs="100">
-      <h2 class="md-headline">Want to Develop?</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, rerum, nesciunt! Praesentium dicta ipsum commodi reiciendis placeat non quia tenetur unde, minus. Ut necessitatibus maiores fugit consequuntur veritatis amet, quibusdam.</p>
-      <ul class="list">
-        <li><md-icon md-font-set="material-icons" class="ee-icon"> done </md-icon><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span></li>
-        <li><md-icon md-font-set="material-icons" class="ee-icon"> done </md-icon><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, officia.</span></li>
-        <li><md-icon md-font-set="material-icons" class="ee-icon"> done </md-icon><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span></li>
+    <div class="ee-dev__text" flex="50" flex-xs="100">
+      <h2 class="md-headline ee-dev__text__header">Want to Develop?</h2>
+      <p>EagleEye Platform provides a set of RESTFul APIs. You could make use of them to handle the data. Please contact EagleEye development team for help.</p>
+      <ul class="ee-dev__text__list">
+        <li>
+          <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> done </md-icon><span>RESTFul APIs</span></li>
+        <li>
+          <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> done </md-icon><span>Google Visualization APIs</span></li>
+        <li>
+          <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> done </md-icon><span>Good Documents</span></li>
       </ul>
-      <md-button class="md-raised ee-button" ng-click="home.goToDevelop()"><md-icon md-font-set="material-icons" class="ee-icon"> code </md-icon><span>Learn More</span></md-button>
+      <md-button class="md-raised ee-button--raised" ng-click="home.goToDevelop()">Read More</md-button>
     </div>
   </div>
 </div>
