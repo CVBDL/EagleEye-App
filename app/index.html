@@ -21,40 +21,40 @@
     <![endif]-->
 
     <header class="ee-header">
-      <div class="ee-header-row-wrapper" layout="row">
-        <div class="ee-logo-wrapper" layout="row">
+      <div class="ee-header__wrapper" layout="row">
+        <div class="ee-header__logo" layout="row">
           <a ui-sref="home">
-            <div class="ee-logo-icon">
+            <div class="ee-header__logo__icon">
               <img src="images/logo.png" alt="EagleEye Logo">
             </div>
           </a>
-          <a ui-sref="home" class="ee-logo-title">
-            <div>
-              <h1 class="ee-product-name">EagleEye</h1>
+          <a ui-sref="home">
+            <div class="ee-header__logo__text">
+              <span>EagleEye</span>
             </div>
           </a>
         </div>
-        <ul class="ee-navbar" layout="row" role="navigation">
-          <li ui-sref-active="active">
-            <a class="ee-nav-item" href="#/home" ui-sref="home">Home</a>
+        <ul class="ee-header__nav" layout="row"  layout-align="center center" role="navigation">
+          <li>
+            <a class="ee-header__nav__item" ui-sref-active="ee-header__nav__item--active" href="#/home" ui-sref="home">Home</a>
           </li>
-          <li ui-sref-active="active">
-            <a class="ee-nav-item" href="#/charts" ui-sref="charts">Charts</a>
+          <li>
+            <a class="ee-header__nav__item" ui-sref-active="ee-header__nav__item--active" href="#/charts" ui-sref="charts">Charts</a>
             <a ui-sref="createChart" hide></a>
             <a ui-sref="chart" hide></a>
             <a ui-sref="chartSettings" hide></a>
           </li>
-          <li ui-sref-active="active">
-            <a class="ee-nav-item" href="#/chartsets" ui-sref="chartSets">Chart Sets</a>
+          <li>
+            <a class="ee-header__nav__item" ui-sref-active="ee-header__nav__item--active" href="#/chartsets" ui-sref="chartSets">Chart Sets</a>
             <a ui-sref="createChartSet" hide></a>
             <a ui-sref="chartSet" hide></a>
             <a ui-sref="chartSetSettings" hide></a>
           </li>
         </ul>
-        <div class="ee-feedback">
+        <div class="ee-header__feedback">
           <md-button class="md-icon-button" aria-label="Feedback" href="{{feedbackLink}}">
             <md-tooltip md-direction="botton">Feedback</md-tooltip>
-            <md-icon md-font-set="material-icons"> feedback </md-icon>
+            <md-icon md-font-set="material-icons" class="ee-icon--white"> feedback </md-icon>
           </md-button>
         </div>
       </div>

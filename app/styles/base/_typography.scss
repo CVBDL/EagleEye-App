@@ -8,12 +8,12 @@ html, body {
 
 // Header
 // ------------------------------
-.ee-product-name {
+.ee-header__logo__text {
   font-size: rem(2);
   line-height: $eagleeye-header-content-height;
 }
 
-.ee-nav-item {
+.ee-header__nav__item {
   line-height: $eagleeye-header-content-height;
 }
 

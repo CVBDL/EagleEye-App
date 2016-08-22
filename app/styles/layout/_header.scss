@@ -1,4 +1,4 @@
-// Logo area
+// logo
 // ------------------------------
 .ee-header {
   background-color: $color-primary-light;
@@ -10,14 +10,14 @@
   z-index: 30;
 }
 
-.ee-header-row-wrapper {
+.ee-header__wrapper {
   margin: 0 auto;
   height: $eagleeye-header-height;
   max-width: $eagleeye-max-width;
   padding: $eagleeye-header-top-bottom-content-padding $eagleeye-header-left-right-content-padding;
 }
 
-.ee-logo-wrapper {
+.ee-header__logo {
   a {
     transition: opacity $eagleeye-transition-duration $eagleeye-transition-timing-function;
 
@@ -27,75 +27,53 @@
   }
 }
 
-.ee-logo-icon {
+.ee-header__logo__icon {
   background-color: #fff;
   border-radius: 50%;
   width: $eagleeye-header-content-height;
   height: $eagleeye-header-content-height;
-  margin-right: $eagleeye-header-left-content-padding -
-                $eagleeye-header-left-right-content-padding -
-                $eagleeye-header-content-height;
+  margin-right: ($eagleeye-header-left-content-padding - $eagleeye-header-left-right-content-padding - $eagleeye-header-content-height);
 
   img {
     width: 70%;
-    margin: $eagleeye-header-content-height * (1 - 0.7) / 2;
+    margin: ($eagleeye-header-content-height * (1 - 0.7) / 2);
   }
 }
 
-.ee-logo-title {
+.ee-header__logo__text {
   color: #ffffff;
-
-  div {
-    height: $eagleeye-header-content-height;
-  }
+  height: $eagleeye-header-content-height;
 }
 
 
-// Nav area
+// nav
 // -----------------------------
-.ee-navbar {
+.ee-header__nav {
   list-style: none;
   height: $eagleeye-header-content-height;
   margin-left: $eagleeye-header-height;
-
-  li {
-    height: 100%;
-
-    &.active a {
-      opacity: $text-opacity-light-text-primary;
-    }
-
-    a {
-      color: #fff;
-      opacity: $text-opacity-light-text-secondary;
-      transition: opacity $eagleeye-transition-duration $eagleeye-transition-timing-function;
-      padding: 0 $eagleeye-header-left-right-content-padding;
-
-      &:hover {
-        opacity: $text-opacity-light-text-primary;
-      }
-    }
-  }
 }
 
-.ee-nav-item {
+.ee-header__nav__item {
+  color: #fff;
   display: inline-block;
-  outline: 0;
-}
+  height: $eagleeye-header-content-height;
+  opacity: $text-opacity-light-text-secondary;
+  transition: opacity $eagleeye-transition-duration $eagleeye-transition-timing-function;
+  padding: 0 $eagleeye-header-left-right-content-padding;
 
-.ee-feedback {
-  margin-left: auto;
-
-  md-icon {
-    color: #fff;
+  &:hover {
+    opacity: $text-opacity-light-text-primary;
   }
 }
 
+.ee-header__nav__item--active {
+  opacity: $text-opacity-light-text-primary;
+}
 
-// Browsehappy
+
+// feedback
 // -----------------------------
-.browsehappy {
-  margin: 0 auto;
-  max-width: $eagleeye-max-width;
-  padding: $eagleeye-header-top-bottom-content-padding $eagleeye-header-left-right-content-padding;
+.ee-header__feedback {
+  margin-left: auto;
 }
