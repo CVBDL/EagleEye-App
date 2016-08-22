@@ -1,33 +1,29 @@
 <div class="ee-view">
-  <div class="ee-wrapper">
-    <md-card>
-      <md-toolbar>
+  <div class="ee-view__content-container">
+    <md-card class="ee-layout--no-margin">
+      <md-toolbar class="ee-toolbar">
         <div class="md-toolbar-tools">
           <h2 class="ee-text-black-primary">{{chart.chartData.options.title}}</h2>
           <span flex></span>
           <span ng-hide="chart.chartData.chartType ==='ImageChart'">
             <md-tooltip md-direction="botton">Auto Refresh</md-tooltip>
-            <md-switch class="ee-auto-refresh-label" ng-class="{ 'ee-auto-refresh-disabled': !chart.autoRefresh }" aria-label="Auto Refresh" ng-model="chart.autoRefresh" ng-change="chart.autoChange()">auto</md-switch>
+            <md-switch class="ee-auto-refresh-label ee-switch" ng-class="{ 'ee-auto-refresh-disabled': !chart.autoRefresh }" aria-label="Auto Refresh" ng-model="chart.autoRefresh" ng-change="chart.autoChange()">auto</md-switch>
           </span>
           <md-button class="md-icon-button" aria-label="Refresh" ng-hide="chart.chartData.chartType ==='ImageChart'">
             <md-tooltip md-direction="botton">Refresh</md-tooltip>
-            <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chart.refreshChart()"> refresh </md-icon>
+            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="chart.refreshChart()"> refresh </md-icon>
           </md-button>
-          <!-- <md-button class="md-icon-button" aria-label="Fullscreen Mode">
-            <md-tooltip md-direction="botton">Fullscreen</md-tooltip>
-            <md-icon md-font-set="material-icons" class="ee-icon" ng-click=""> fullscreen </md-icon>
-          </md-button> -->
           <md-button class="md-icon-button" aria-label="Save as image" ng-hide="chart.chartData.chartType ==='ImageChart'">
             <md-tooltip md-direction="botton">Save as Image</md-tooltip>
-            <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chart.SaveImageOrPDF(0,chart.chartData)"> image </md-icon>
+            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="chart.SaveImageOrPDF(0,chart.chartData)"> image </md-icon>
           </md-button>
           <md-button class="md-icon-button" aria-label="Save as pdf" ng-hide="chart.chartData.chartType ==='ImageChart'">
             <md-tooltip md-direction="botton">Save as PDF</md-tooltip>
-            <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chart.SaveImageOrPDF(1,chart.chartData)"> picture_as_pdf </md-icon>
+            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="chart.SaveImageOrPDF(1,chart.chartData)"> picture_as_pdf </md-icon>
           </md-button>
           <md-button class="md-icon-button" aria-label="Share" ng-click="chart.showShare()">
             <md-tooltip md-direction="botton">Share</md-tooltip>
-            <md-icon md-font-set="material-icons" class="ee-icon"> shared </md-icon>
+            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> shared </md-icon>
           </md-button>
         </div>
       </md-toolbar>
@@ -38,9 +34,9 @@
         <img ng-src="{{chart.chartData.image_file_name ? chart.imageChartBaseUrl + chart.chartData.image_file_name : ''}}" />
       </div>
       <md-divider></md-divider>
-      <md-content flex="" layout-padding="">
-        <p class="ee-chart-status">
-          <md-icon md-font-set="material-icons" class="ee-icon"> access_time </md-icon> <span>{{chart.chartData.lastUpdateTimestamp | date: 'medium'}}</span>
+      <md-content class="ee-content" flex layout-padding>
+        <p>
+          <md-icon md-font-set="material-icons" class="ee-icon"> access_time </md-icon> <span class="ee-layout--padding-right">{{chart.chartData.lastUpdateTimestamp | date: 'medium'}}</span>
         </p>
         <p>{{chart.chartData.description}}</p>
       </md-content>

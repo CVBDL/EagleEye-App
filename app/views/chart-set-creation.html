@@ -1,18 +1,18 @@
 <div class="ee-view">
-  <div class="ee-wrapper">
-    <md-card>
-      <md-toolbar>
+  <div class="ee-view__content-container">
+    <md-card class="ee-layout--no-margin">
+      <md-toolbar class="ee-toolbar">
         <div class="md-toolbar-tools">
           <h3 class="ee-text-black-primary">Create chart set</h3>
           <span flex></span>
           <md-button class="md-icon-button" aria-label="Save">
             <md-tooltip md-direction="botton">Save</md-tooltip>
-            <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chartset.save()"> save </md-icon>
+            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="chartset.save()"> save </md-icon>
           </md-button>
         </div>
       </md-toolbar>
       <md-divider></md-divider>
-      <md-content layout-padding>
+      <md-content class="ee-content" layout-padding>
         <form name="chartSetCreationForm" layout="row">
           <div flex>
             <md-input-container class="md-block">
@@ -25,7 +25,7 @@
             <md-input-container class="md-block">
               <label>Friendly URL</label>
               <input name="friendlyUrl" ee-friendly-url-validator="chartset" ng-model="chartset.settings.friendlyUrl">
-              <div class="ee-hint">A custom chart set domain name. Should be unique or empty.</div>
+              <div class="ee-input-hint">A custom chart set domain name. Should be unique or empty.</div>
               <div ng-messages="chartSetCreationForm.friendlyUrl.$error" role="alert" md-auto-hide="false">
                 <div ng-message="friendlyUrlChecking">Checking database...</div>
                 <div ng-message="friendlyUrlAvailable">The url is already in use</div>
@@ -57,15 +57,15 @@
                     </div>
                   </div>
                   <div class="ee-list-item-col-3" flex="none">
-                    <md-toolbar>
+                    <md-toolbar class="ee-toolbar">
                       <div class="md-toolbar-tools">
                         <md-button class="md-icon-button" aria-label="Move up" ng-click="chartset.moveUp(chart)">
                           <md-tooltip md-direction="botton">Move up</md-tooltip>
-                          <md-icon md-font-set="material-icons" class="ee-icon"> arrow_upward </md-icon>
+                          <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> arrow_upward </md-icon>
                         </md-button>
                         <md-button class="md-icon-button" aria-label="Move down" ng-click="chartset.moveDown(chart)">
                           <md-tooltip md-direction="botton">Move down</md-tooltip>
-                          <md-icon md-font-set="material-icons" class="ee-icon"> arrow_downward </md-icon>
+                          <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> arrow_downward </md-icon>
                         </md-button>
                       </div>
                     </md-toolbar>
@@ -81,7 +81,7 @@
               <md-icon md-font-set="material-icons" class="ee-icon"> search </md-icon>
               <input ng-model="chartset.settings.searchKeyword" type="text" placeholder="Search the chart sets">{{chartset.filterOptions}}
             </md-input-container>
-            <md-content class="ee-list-container">
+            <md-content class="ee-view__chart-list-container ee-content">
               <div class="ee-list-item ee-list-item-narrow"
                   ng-repeat="chart in chartset.chartList | filter: chartset.filterFunction track by chart._id">
                 <a href="javascript:;">
@@ -98,7 +98,7 @@
                       </div>
                     </div>
                     <div class="ee-list-item-col-3" flex="none">
-                      <md-toolbar>
+                      <md-toolbar class="ee-toolbar">
                         <div class="md-toolbar-tools">
                           <md-checkbox class="md-secondary" ng-model="chart.checked" ng-change="chartset.onCheckboxChanged(chart)" aria-label="{{chart.options.title}}"></md-checkbox>
                         </div>

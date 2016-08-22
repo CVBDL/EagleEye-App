@@ -1,22 +1,22 @@
 <div class="ee-view">
-  <div class="ee-wrapper ee-wrapper-sm">
-    <md-card>
-      <md-toolbar>
+  <div class="ee-view__content-container ee-view__content-container--samll">
+    <md-card class="ee-layout--no-margin">
+      <md-toolbar class="ee-toolbar">
         <div class="md-toolbar-tools">
         <h2 class="ee-text-black-primary">All chart sets list</h2>
         <span flex></span>
         <md-button class="md-icon-button" aria-label="Refresh">
           <md-tooltip md-direction="botton">Refresh</md-tooltip>
-          <md-icon md-font-set="material-icons" class="ee-icon" ng-click="chartsets.getChartSetsList()"> refresh </md-icon>
+          <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="chartsets.getChartSetsList()"> refresh </md-icon>
         </md-button>
         <md-button class="md-icon-button" aria-label="Create a new chart set" ui-sref="createChartSet">
           <md-tooltip md-direction="botton">Create a new chart set</md-tooltip>
-          <md-icon md-font-set="material-icons" class="ee-icon"> create </md-icon>
+          <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> create </md-icon>
         </md-button>
       </div>
       </md-toolbar>
       <md-divider></md-divider>
-      <md-content layout="row" layout-padding  layout-align="center center" ng-if="chartsets.isLoading">
+      <md-content class="ee-content" layout="row" layout-padding  layout-align="center center" ng-if="chartsets.isLoading">
         <md-progress-circular class="ee-progress-circular" md-diameter="40"></md-progress-circular>
       </md-content>
       <div class="ee-list-item" ng-repeat="chartset in chartsets.chartSetList track by chartset._id">
@@ -37,15 +37,15 @@
               </div>
             </div>
             <div class="ee-list-item-col-3" flex="none">
-              <md-toolbar>
+              <md-toolbar class="ee-toolbar">
                 <div class="md-toolbar-tools">
                   <md-button class="md-icon-button" aria-label="Settings" ng-click="chartsets.goToSettings($event, chartset._id, chartset.friendlyUrl)">
                     <md-tooltip md-direction="botton">Settings</md-tooltip>
-                    <md-icon md-font-set="material-icons" class="ee-icon"> settings </md-icon>
+                    <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> settings </md-icon>
                   </md-button>
                   <md-button class="md-icon-button" aria-label="Delete" ng-click="chartsets.showConfirm($event, chartset._id)">
                     <md-tooltip md-direction="botton">Delete</md-tooltip>
-                    <md-icon md-font-set="material-icons" class="ee-icon"> delete </md-icon>
+                    <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> delete </md-icon>
                   </md-button>
                 </div>
               </md-toolbar>

@@ -1,9 +1,14 @@
 .ee-icon {
+  outline: 0;
   margin-right: 6px;
 }
 
 .ee-icon--accent {
-  color: $color-accent;
+  color: $color-accent !important;
+
+  &:hover {
+    color: $color-accent-dark !important;
+  }
 }
 
 .ee-icon--white {

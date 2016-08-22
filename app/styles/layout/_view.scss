@@ -1,157 +1,50 @@
-md-menu-content {
-  .ee-icon {
-    color: $color-accent;
-
-    &:hover {
-      color: $color-accent-dark;
-    }
-  }
+.ee-view__wrapper {
+  background-color: #fff;
 }
 
+.ee-view__content-container {
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: $eagleeye-max-width;
+  padding: $eagleeye-content-padding-vertical $eagleeye-content-padding-horizontal;
+}
+
+.ee-view__content-container--small {
+  padding: $eagleeye-content-padding-vertical $eagleeye-content-padding-large-horizontal;
+}
+
+.ee-view__chart-list-container {
+  height: 650px;
+}
+
+.ee-chart-set-chart-wrapper {
+  box-sizing: border-box;
+  padding: ($eagleeye-google-chart-left-right-content-padding / 2) 0;
+}
+
+.ee-input-hint {
+  position: absolute;
+  // left: 2px;
+  right: 2px;
+  bottom: 7px;
+  /* Copy styles from ng-messages */
+  font-size: 12px;
+  line-height: 14px;
+  transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+  /* Set our own color */
+  color: grey;
+}
+
+.ee-image-chart-container img {
+  width: auto;
+  height: auto !important;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0 auto;
+}
+
+
 .ee-view {
-  .ee-view-header-container {
-    background-color: #fff;
-
-    .ee-view-header {
-      box-sizing: border-box;
-      margin: 0 auto;
-      max-width: $eagleeye-max-width;
-      padding: $eagleeye-content-padding-vertical $eagleeye-content-padding-horizontal;
-    }
-
-    .ee-icon {
-      color: $color-accent;
-
-      &:hover {
-        color: $color-accent-dark;
-      }
-    }
-  }
-
-  .ee-wrapper {
-    box-sizing: border-box;
-    margin: 0 auto;
-    max-width: $eagleeye-max-width;
-    padding: $eagleeye-content-padding-vertical $eagleeye-content-padding-horizontal;
-  }
-
-  .ee-wrapper-sm {
-    padding: $eagleeye-content-padding-vertical $eagleeye-content-padding-large-horizontal;
-  }
-
-  .ee-card-container {
-    md-card-title-media {
-      margin-top: 0;
-    }
-
-    md-card-actions {
-      .md-button,
-      .md-button a {
-        color: $color-accent;
-      }
-    }
-  }
-
-  md-card {
-    margin: 0;
-    height: 100%;
-  }
-
-  md-toolbar {
-    background-color: #fff;
-    height: $eagleeye-header-height;
-    min-height: $eagleeye-header-height;
-    max-height: $eagleeye-header-height;
-
-    .md-button {
-      color: $color-secondary;  // set `md-ink-ripple` color
-    }
-
-    .ee-icon {
-      color: $color-accent;
-
-      &:hover {
-        color: $color-accent-dark;
-      }
-    }
-
-    a {
-      color: $color-accent;
-
-      &:hover {
-        color: $color-accent-dark;
-      }
-    }
-  }
-
-  md-content {
-    background-color: #fff;
-
-    .ee-chart-status {
-      span {
-        padding-right: $eagleeye-content-padding-horizontal;
-      }
-    }
-
-    &.ee-list-container {
-      height: 650px;
-    }
-  }
-
-  md-switch {
-    span {
-      color: $color-accent;
-    }
-
-    &.md-checked {
-      ._md-thumb {
-        background-color: $color-accent;
-        color: $color-accent;
-      }
-      ._md-bar {
-        background-color: $color-accent-light;
-        color: $color-accent-light;
-      }
-    }
-
-    &.ee-auto-refresh-disabled span {
-      color: $color-black-disabled;
-    }
-  }
-
-  .ee-chart-set-charts-container {
-    background-color: transparent;
-    box-sizing: border-box;
-    padding: 0;
-  }
-
-  .ee-chart-set-chart-wrapper {
-    box-sizing: border-box;
-    padding: ($eagleeye-google-chart-left-right-content-padding / 2) 0;
-  }
-
-  // chart set creation and settings
-  .ee-hint {
-    position: absolute;
-    // left: 2px;
-    right: 2px;
-    bottom: 7px;
-    /* Copy styles from ng-messages */
-    font-size: 12px;
-    line-height: 14px;
-    transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
-    /* Set our own color */
-    color: grey;
-  }
-
-  .ee-image-chart-container img {
-    width: auto;
-    height: auto !important;
-    max-width: 100%;
-    max-height: 100%;
-    margin: 0 auto;
-  }
-
   &.ee-chart-set-column-view {
     .ee-wrapper {
       max-width: none;

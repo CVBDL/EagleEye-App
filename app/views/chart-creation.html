@@ -1,22 +1,22 @@
 <div class="ee-view">
-  <div class="ee-wrapper">
-    <md-card>
-      <md-toolbar>
+  <div class="ee-view__content-container">
+    <md-card class="ee-layout--no-margin">
+      <md-toolbar class="ee-toolbar">
         <div class="md-toolbar-tools">
           <h3 class="ee-text-black-primary">Create chart</h3>
           <span flex></span>
           <md-button class="md-icon-button" aria-label="Help">
             <md-tooltip md-direction="botton">Help</md-tooltip>
-            <md-icon md-font-set="material-icons" class="ee-icon" ng-click="newChart.showHelp($event)"> help_outline </md-icon>
+            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="newChart.showHelp($event)"> help_outline </md-icon>
           </md-button>
           <md-button class="md-icon-button" aria-label="Save">
             <md-tooltip md-direction="botton">Save</md-tooltip>
-            <md-icon md-font-set="material-icons" class="ee-icon" ng-click="newChart.createChart()"> save </md-icon>
+            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="newChart.createChart()"> save </md-icon>
           </md-button>
         </div>
       </md-toolbar>
       <md-divider></md-divider>
-      <md-content layout-padding layout="row">
+      <md-content class="ee-content" layout-padding layout="row">
         <div flex="50">
           <form name="ChartCreationForm">
             <md-input-container class="md-block">

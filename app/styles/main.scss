@@ -23,12 +23,16 @@
 @import 'modules/buttons';
 @import 'modules/cards';
 @import 'modules/colors';
+@import 'modules/content';
 @import 'modules/icons';
 @import 'modules/progress-circular';
+@import 'modules/switch';
+@import 'modules/toolbar';
 
 
 // Layout - Major components
 // ------------------------------
+@import 'layout/layout';
 @import 'layout/browsehappy';
 @import 'layout/dialog';
 @import 'layout/footer';

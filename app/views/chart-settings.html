@@ -1,23 +1,23 @@
 <div class="ee-view">
-  <div class="ee-wrapper ee-wrapper-sm">
-    <md-card>
-      <md-toolbar>
+  <div class="ee-view__content-container ee-view__content-container--small">
+    <md-card class="ee-layout--no-margin">
+      <md-toolbar class="ee-toolbar">
         <div class="md-toolbar-tools">
           <h2 class="ee-text-black-primary">Chart settings</h2>
           <span flex></span>
           <md-button class="md-icon-button" aria-label="View chart" ng-click="chart.goViewChart()">
             <md-tooltip md-direction="botton">View chart</md-tooltip>
-            <md-icon md-font-set="material-icons" class="ee-icon"> show_chart </md-icon>
+            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> show_chart </md-icon>
           </md-button>
         </div>
       </md-toolbar>
       <md-divider></md-divider>
-      <md-content layout="row" layout-padding  layout-align="center center">
+      <md-content class="ee-content" layout="row" layout-padding  layout-align="center center">
         <md-progress-circular class="ee-progress-circular" md-diameter="40" ng-if="chart.isLoading"></md-progress-circular>
         <div class="ee-card-container" ng-if="!chart.isLoading && chart.chartType !== 'ImageChart'" flex>
-          <md-card>
+          <md-card class="ee-layout--no-margin">
             <md-card-title>
-              <md-card-title-media>
+              <md-card-title-media class="ee-layout--no-margin">
                 <div class="md-media card-media"><md-icon md-font-set="material-icons" class="ee-icon"> looks_one </md-icon></div>
               </md-card-title-media>
               <md-card-title-text>
@@ -26,16 +26,16 @@
               </md-card-title-text>
             </md-card-title>
             <md-card-actions layout="row" layout-align="end center">
-              <md-button aria-label="file download">
-                <a href="{{chart.excelTemplateDownloadBaseUrl + chart.id}}">Go to Download</a>
+              <md-button class="ee-button--accent" aria-label="file download">
+                <a class="ee-button--accent" href="{{chart.excelTemplateDownloadBaseUrl + chart.id}}">Go to Download</a>
               </md-button>
             </md-card-actions>
           </md-card>
         </div>
         <div class="ee-card-container" ng-if="!chart.isLoading && chart.chartType !== 'ImageChart'" flex>
-          <md-card layout-fill>
+          <md-card layout-fill class="ee-layout--no-margin">
             <md-card-title>
-              <md-card-title-media>
+              <md-card-title-media class="ee-layout--no-margin">
                 <md-icon md-font-set="material-icons" class="ee-icon"> looks_two </md-icon>
               </md-card-title-media>
               <md-card-title-text>
@@ -44,8 +44,8 @@
               </md-card-title-text>
             </md-card-title>
             <md-card-actions layout="row" layout-align="end center">
-              <md-button ngf-select ng-model="chart.excelFile" name="file">Choose File</md-button>
-              <md-button aria-label="Submit" ng-click="chart.upload(chart.excelFile)">Submit</md-button>
+              <md-button class="ee-button--accent" ngf-select ng-model="chart.excelFile" name="file">Choose File</md-button>
+              <md-button class="ee-button--accent" aria-label="Submit" ng-click="chart.upload(chart.excelFile)">Submit</md-button>
             </md-card-actions>
             <md-progress-linear ng-show="chart.excelFile.progress >= 0" md-mode="determinate" value="chart.excelFile.progress"></md-progress-linear>
             <div style="width:80%">
@@ -55,9 +55,9 @@
           </md-card>
         </div>
         <div class="ee-card-container" ng-if="!chart.isLoading && chart.chartType === 'ImageChart'" flex>
-          <md-card layout-fill>
+          <md-card layout-fill class="ee-layout--no-margin">
             <md-card-title>
-              <md-card-title-media>
+              <md-card-title-media class="ee-layout--no-margin">
                 <md-icon md-font-set="material-icons" class="ee-icon"> looks_one </md-icon>
               </md-card-title-media>
               <md-card-title-text>
@@ -66,8 +66,8 @@
               </md-card-title-text>
             </md-card-title>
             <md-card-actions layout="row" layout-align="end center">
-              <md-button ngf-select ng-model="chart.excelFile" name="file">Choose File</md-button>
-              <md-button aria-label="Submit" ng-click="chart.upload(chart.excelFile)">Submit</md-button>
+              <md-button class="ee-button--accent" ngf-select ng-model="chart.excelFile" name="file">Choose File</md-button>
+              <md-button class="ee-button--accent" aria-label="Submit" ng-click="chart.upload(chart.excelFile)">Submit</md-button>
             </md-card-actions>
             <md-progress-linear ng-show="chart.excelFile.progress >= 0" md-mode="determinate" value="chart.excelFile.progress"></md-progress-linear>
             <div style="width:80%">
