@@ -22,20 +22,20 @@
 // ------------------------------
 @import 'modules/buttons';
 @import 'modules/cards';
+@import 'modules/colors';
 @import 'modules/icons';
 
 
 // Layout - Major components
 // ------------------------------
-@import 'layout/common';
+@import 'layout/browsehappy';
+@import 'layout/dialog';
+@import 'layout/footer';
 @import 'layout/google-chart';
 @import 'layout/header';
-@import 'layout/footer';
-@import 'layout/dialog';
 @import 'layout/list';
 @import 'layout/share';
 @import 'layout/view';
-@import 'layout/browsehappy';
 
 
 // Pages
