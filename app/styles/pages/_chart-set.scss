@@ -1,0 +1,14 @@
+.ee-chart-set-chart-wrapper {
+  box-sizing: border-box;
+  padding: ($eagleeye-google-chart-left-right-content-padding / 2) 0;
+}
+
+.ee-view--column {
+  .ee-chart-set-chart-wrapper {
+    padding: $eagleeye-layout-padding;
+  }
+
+  .ee-chartset-info {
+    display: none;
+  }
+}

@@ -17,75 +17,32 @@
   height: 650px;
 }
 
-.ee-chart-set-chart-wrapper {
-  box-sizing: border-box;
-  padding: ($eagleeye-google-chart-left-right-content-padding / 2) 0;
-}
-
-.ee-input-hint {
-  position: absolute;
-  // left: 2px;
-  right: 2px;
-  bottom: 7px;
-  /* Copy styles from ng-messages */
-  font-size: 12px;
-  line-height: 14px;
-  transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
-  /* Set our own color */
-  color: grey;
-}
-
-.ee-image-chart-container img {
-  width: auto;
-  height: auto !important;
-  max-width: 100%;
-  max-height: 100%;
-  margin: 0 auto;
-}
-
-
-.ee-view {
-  &.ee-chart-set-column-view {
-    .ee-wrapper {
-      max-width: none;
-      padding: 8px;
-
-      .ee-chart-set-chart-wrapper {
-        padding: 8px;
-      }
-    }
-
-    .ee-view-header {
-      padding-top: 0;
-      padding-bottom: 0;
-    }
-
-    .ee-view-header-content:last-child {
-      display: none;
-    }
-
-    .ee-chartset-info {
-      display: none;
-    }
+.ee-view--column {
+  .ee-view__content-container {
+    max-width: none;
+    padding: 0;
   }
 
-  .ee-chart-demo-title {
-    margin-left: 40px;
+  .ee-view__header-content {
+    padding-left: $eagleeye-layout-padding;
+    padding-right: $eagleeye-layout-padding;
+  }
+
+  .ee-view__header-content:last-child {
+    display: none;
   }
 }
 
 
 @media (max-width: $layout-breakpoint-sm - 1) {
-  .ee-view {
-    .ee-wrapper,
-    .ee-wrapper-sm {
-      padding-top: ($eagleeye-content-padding-vertical / 2);
-      padding-bottom: ($eagleeye-content-padding-vertical / 2);
-    }
+  .ee-view__content-container,
+  .ee-view__content-container--small {
+    padding-top: ($eagleeye-content-padding-vertical / 2);
+    padding-bottom: ($eagleeye-content-padding-vertical / 2);
+  }
 
-    .ee-wrapper-sm {
-      padding-left: $eagleeye-content-padding-horizontal;
-      padding-right: $eagleeye-content-padding-horizontal;
-    }
+  .ee-view__content-container--small {
+    padding-left: $eagleeye-content-padding-horizontal;
+    padding-right: $eagleeye-content-padding-horizontal;
   }
 }

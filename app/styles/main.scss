@@ -25,6 +25,8 @@
 @import 'modules/colors';
 @import 'modules/content';
 @import 'modules/icons';
+@import 'modules/image-chart';
+@import 'modules/input';
 @import 'modules/progress-circular';
 @import 'modules/switch';
 @import 'modules/toolbar';
@@ -46,3 +48,5 @@
 // Pages
 // ------------------------------
 @import 'pages/home';
+@import 'pages/chart-creation';
+@import 'pages/chart-set';

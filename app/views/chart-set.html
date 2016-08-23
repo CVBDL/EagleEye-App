@@ -1,7 +1,7 @@
-<div id="canv" class="ee-view" ng-class="{ 'ee-chart-set-column-view': chartset.viewMode === 'column' }">
+<div id="canv" class="ee-view" ng-class="{ 'ee-view--column': chartset.viewMode === 'column' }">
   <div class="ee-view__wrapper">
     <div class="ee-view__content-container">
-      <div class="ee-view-header-content" layout="row" layout-align="start center">
+      <div class="ee-view__header-content" layout="row" layout-align="start center">
         <h2 class="ee-text-black-primary">{{chartset.settings.title}}</h2>
         <span flex></span>
         <span>
@@ -29,7 +29,7 @@
           <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> shared </md-icon>
         </md-button>
       </div>
-      <div class="ee-view-header-content" layout="row" layout-align="start center">
+      <div class="ee-view__header-content" layout="row" layout-align="start center">
         <md-content class="ee-content" flex>
           <p>
             <md-icon md-font-set="material-icons"> access_time </md-icon> <span class="ee-layout--padding-right">{{chartset.settings.lastUpdateTimestamp | date: 'medium'}}</span></p>
