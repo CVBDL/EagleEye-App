@@ -1,23 +1,25 @@
 <md-dialog class="ee-dialog" aria-label="Help dialog">
   <md-dialog-content class="md-dialog-content">
-    <h2 class="md-title">Details about chart options</h2>
-    <p class="ee-dialog-content">
-      <span class="md-subhead">What's major axis data types?</span>
-      <br>
-      <span>The major axis is the axis along the natural orientation of the chart. For line, area, column, combo, stepped area charts, this is the horizontal axis. For a bar chart it is the vertical one.</span>
-      <span>In line, area, bar, column (and combo charts containing only such series), you can control the type of the major axis:</span>
-      <br>
-      <span>1. For a discrete axis, set the data column type to string.</span>
-      <br>
-      <span>2. For a continuous axis, set the data column type to one of: number, date or datetime.</span>
-      <br />
-    </p>
-    <p class="ee-dialog-content">
-      <span class="md-subhead">What's stacked chart?</span>
-      <br>
-      <span>A stacked bar chart is a bar chart that places related values atop one another. If there are any negative values, they are stacked in reverse order below the chart's axis baseline.</span>
-    </p>
-    <p class="ee-dialog-content"><a href="https://developers.google.com/chart/interactive/docs/customizing_axes" target="_blank">More at Google Chart Guides</a></p>
+    <div class="md-dialog-content-body">
+      <h2 class="md-title">Details about chart options</h2>
+      <p class="ee-layout--padding-top">
+        <span class="md-subhead">What's major axis data types?</span>
+        <br>
+        <span>The major axis is the axis along the natural orientation of the chart. For line, area, column, combo, stepped area charts, this is the horizontal axis. For a bar chart it is the vertical one.</span>
+        <span>In line, area, bar, column (and combo charts containing only such series), you can control the type of the major axis:</span>
+        <br>
+        <span>1. For a discrete axis, set the data column type to string.</span>
+        <br>
+        <span>2. For a continuous axis, set the data column type to one of: number, date or datetime.</span>
+        <br />
+      </p>
+      <p class="ee-layout--padding-top">
+        <span class="md-subhead">What's stacked chart?</span>
+        <br>
+        <span>A stacked bar chart is a bar chart that places related values atop one another. If there are any negative values, they are stacked in reverse order below the chart's axis baseline.</span>
+      </p>
+      <p class="ee-layout--padding-top"><a href="https://developers.google.com/chart/interactive/docs/customizing_axes" target="_blank">More at Google Chart Guides</a></p>
+    </div>
   </md-dialog-content>
   <md-dialog-actions>
     <md-button ng-click="cancel()" class="md-secondary">Got it!</md-button>

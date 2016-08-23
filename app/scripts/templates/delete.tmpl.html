@@ -1,10 +1,12 @@
 <md-dialog class="ee-dialog" aria-label="Delete confirmation dialog">
-  <md-dialog-content>
-    <h2 class="md-title">Are you sure you want to delete it?</h2>
-    <p class="ee-dialog-content">It will be removed permanently.</p>
+  <md-dialog-content class="md-dialog-content">
+    <div class="md-dialog-content-body">
+      <h2 class="md-title">Are you sure you want to delete it?</h2>
+      <p class="ee-layout--padding-top">It will be removed permanently.</p>
+    </div>
   </md-dialog-content>
   <md-dialog-actions>
     <md-button ng-click="cancel()" class="md-secondary">Cancle</md-button>
-    <md-button ng-click="delete()" class="md-primary ee-btn-delete">Delete</md-button>
+    <md-button ng-click="delete()" class="md-primary ee-button--primary">Delete</md-button>
   </md-dialog-actions>
 </md-dialog>

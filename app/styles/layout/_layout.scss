@@ -9,3 +9,21 @@
 .ee-layout--padding {
   padding: $eagleeye-layout-padding;
 }
+
+.ee-layout--padding-large {
+  padding: $eagleeye-dialog-content-padding;
+}
+
+.ee-layout--padding-v {
+  padding-top: $layout-gutter-width;
+  padding-bottom: $layout-gutter-width;
+}
+
+.ee-layout--padding-h {
+  padding-left: $layout-gutter-width;
+  padding-right: $layout-gutter-width;
+}
+
+.ee-layout--padding-top {
+  padding-top: $layout-gutter-width;
+}
