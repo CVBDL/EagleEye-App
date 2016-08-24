@@ -1,5 +1,4 @@
-ee-google-chart,
-ee-google-chart-sample {
+.ee-google-chart {
   display: block;
   margin: 0;
   padding: 0 $eagleeye-google-chart-left-right-content-padding;
@@ -10,6 +9,6 @@ ee-google-chart-sample {
   }
 }
 
-.ee-chart-set-column-view ee-google-chart {
+.ee-chart-set-column-view .ee-google-chart {
   height: $eagleeye-google-chart-small-height;
 }

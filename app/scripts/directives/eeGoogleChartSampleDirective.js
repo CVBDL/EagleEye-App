@@ -14,7 +14,7 @@ angular.module('eagleeye')
       var selectedChartTypeOption = chartTypeOptions[0];
 
       return {
-        template: '<ee-google-chart chart-type="chartType" chart-options="chartOptions" chart-data-table="chartDataTable"></ee-google-chart>',
+        template: '<ee-google-chart class="ee-google-chart" chart-type="chartType" chart-options="chartOptions" chart-data-table="chartDataTable"></ee-google-chart>',
         scope: {
           chartType: '@',
           chartMajorAxisDataType: '@',
