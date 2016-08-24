@@ -2,12 +2,16 @@
   margin: 0;
 }
 
-.ee-layout--padding-right {
-  padding-right: $eagleeye-content-padding-horizontal
+.ee-layout--no-padding {
+  padding: 0;
 }
 
 .ee-layout--padding {
   padding: $eagleeye-layout-padding;
+}
+
+.ee-layout--padding-right {
+  padding-right: $eagleeye-content-padding-horizontal
 }
 
 .ee-layout--padding-large {
@@ -26,4 +30,8 @@
 
 .ee-layout--padding-top {
   padding-top: $layout-gutter-width;
+}
+
+.ee-layout--transparent {
+  background-color: transparent !important;
 }

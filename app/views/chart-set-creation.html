@@ -41,24 +41,25 @@
               </div>
             </md-input-container>
             <h4>Chart List:</h4>
-            <div class="ee-list-item ee-list-item-narrow"
+            <div class="ee-list">
+            <div class="ee-list__item ee-list__item--narrow"
                 ng-repeat="chart in chartset.selectedCharts track by chart._id">
               <a href="javascript:;">
-                <div class="ee-list-item-content-container" layout="row" layout-align="start center">
-                  <div class="ee-list-item-col-1 ee-list-item-index ee-text-black-primary" flex="none">
+                <div class="ee-list__item__content" layout="row" layout-align="start center">
+                  <div class="ee-list__item__content__col-1 ee-list__item__index ee-text-black-primary" flex="none">
                     {{$index + 1}}
                   </div>
-                  <div class="ee-list-item-col-2" flex="auto" layout="column" layout-align="space-between start">
-                    <div class="ee-list-item-row-1" flex="auto" layout="row" layout-align="start center">
-                      <h3 class="ee-text-black-primary ee-list-item-title">{{chart.options.title}}</h3>
+                  <div class="ee-list__item__content__col-2" flex="auto" layout="column" layout-align="space-between start">
+                    <div class="ee-list__item__content__col-2__row-1" flex="auto" layout="row" layout-align="start center">
+                      <h3 class="ee-list__item__title ee-text-black-primary">{{chart.options.title}}</h3>
                     </div>
-                    <div class="ee-list-item-row-2 ee-text-black-secondary" flex="auto">
+                    <div class="ee-list__item__content__col-2__row-2 ee-text-black-secondary" flex="auto">
                       <p>{{chart.description}}</p>
                     </div>
                   </div>
-                  <div class="ee-list-item-col-3" flex="none">
-                    <md-toolbar class="ee-toolbar">
-                      <div class="md-toolbar-tools">
+                  <div flex="none">
+                      <md-toolbar class="ee-toolbar ee-layout--transparent">
+                        <div class="md-toolbar-tools ee-layout--no-padding">
                         <md-button class="md-icon-button" aria-label="Move up" ng-click="chartset.moveUp(chart)">
                           <md-tooltip md-direction="botton">Move up</md-tooltip>
                           <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> arrow_upward </md-icon>
@@ -75,32 +76,33 @@
               <md-divider ng-hide="$last"></md-divider>
             </div>
           </div>
+          </div>
           <div flex="5"></div>
           <div flex>
             <md-input-container class="md-block">
               <md-icon md-font-set="material-icons" class="ee-icon"> search </md-icon>
               <input ng-model="chartset.settings.searchKeyword" type="text" placeholder="Search the chart sets">{{chartset.filterOptions}}
             </md-input-container>
-            <md-content class="ee-view__chart-list-container ee-content">
-              <div class="ee-list-item ee-list-item-narrow"
+            <md-content class="ee-view__chart-list-container ee-content ee-list">
+              <div class="ee-list__item ee-list__item--narrow"
                   ng-repeat="chart in chartset.chartList | filter: chartset.filterFunction track by chart._id">
                 <a href="javascript:;">
-                  <div class="ee-list-item-content-container" layout="row" layout-align="start center">
-                    <div class="ee-list-item-col-1 ee-list-item-index ee-text-black-primary" flex="none">
+                  <div class="ee-list__item__content" layout="row" layout-align="start center">
+                    <div class="ee-list__item__content__col-1 ee-list__item__index ee-text-black-primary" flex="none">
                       {{$index + 1}}
                     </div>
-                    <div class="ee-list-item-col-2" flex="auto" layout="column" layout-align="space-between start">
-                      <div class="ee-list-item-row-1" flex="auto" layout="row" layout-align="start center">
-                        <h3 class="ee-text-black-primary ee-list-item-title">{{chart.options.title}}</h3>
+                    <div class="ee-list__item__content__col-2" flex="auto" layout="column" layout-align="space-between start">
+                      <div class="ee-list__item__content__col-2__row-1" flex="auto" layout="row" layout-align="start center">
+                        <h3 class="ee-list__item__title ee-text-black-primary">{{chart.options.title}}</h3>
                       </div>
-                      <div class="ee-list-item-row-2 ee-text-black-secondary" flex="auto">
+                      <div class="ee-list__item__content__col-2__row-2 ee-text-black-secondary" flex="auto">
                         <p>{{chart.description}}</p>
                       </div>
                     </div>
-                    <div class="ee-list-item-col-3" flex="none">
-                      <md-toolbar class="ee-toolbar">
-                        <div class="md-toolbar-tools">
-                          <md-checkbox class="md-secondary" ng-model="chart.checked" ng-change="chartset.onCheckboxChanged(chart)" aria-label="{{chart.options.title}}"></md-checkbox>
+                    <div flex="none">
+                      <md-toolbar class="ee-toolbar ee-layout--transparent">
+                        <div class="md-toolbar-tools ee-layout--no-padding">
+                          <md-checkbox class="md-secondary ee-layout--no-margin" ng-model="chart.checked" ng-change="chartset.onCheckboxChanged(chart)" aria-label="{{chart.options.title}}"></md-checkbox>
                         </div>
                       </md-toolbar>
                     </div>

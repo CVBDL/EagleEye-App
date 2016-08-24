@@ -32,28 +32,20 @@ html, body {
 
 // List
 // ------------------------------
-.ee-list-item {
+.ee-list__item {
   font-size: rem(1.4);
 }
 
-.ee-list-item-title {
-  font-size: rem(1.8);
+.ee-list__item__title {
+  font-size: rem(1.6);
 }
 
-.ee-list-item-index {
-  font-size: rem(2.0);
+.ee-list__item__index {
+  font-size: rem(1.6);
 }
 
-.ee-list-item-index {
-  font-size: rem(2.0);
-}
-
-.ee-list-item-narrow {
-  .ee-list-item-title {
-    font-size: rem(1.6);
-  }
-
-  .ee-list-item-index {
+.ee-list__item--narrow {
+  .ee-list__item__index {
     font-size: rem(1.4);
   }
 }

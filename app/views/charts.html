@@ -19,40 +19,39 @@
       <md-content class="ee-content" layout="row" layout-padding layout-align="center center" ng-if="charts.isLoading">
         <md-progress-circular class="ee-progress-circular" md-diameter="40"></md-progress-circular>
       </md-content>
-      <div class="ee-list-item" ng-repeat="chart in charts.chartList track by chart._id">
-        <a href="javascript:;" ng-click="charts.openCharts(chart._id, chart.friendlyUrl)">
-          <div class="ee-list-item-content-container" layout="row" layout-align="start center">
-            <div class="ee-list-item-col-1 ee-list-item-index ee-text-black-primary" flex="none">
-              {{$index + 1}}
-            </div>
-            <div class="ee-list-item-col-2" flex="auto" layout="column" layout-align="space-between start">
-              <div class="ee-list-item-row-1" flex="auto" layout="row" layout-align="space-between center">
-                <h3 class="ee-text-black-primary ee-list-item-title">{{chart.options.title}}</h3>
-                <p class="ee-text-black-secondary">
-                  <md-icon md-font-set="material-icons" class="ee-icon"> access_time </md-icon> <span>{{chart.lastUpdateTimestamp | date: 'medium'}}</span>
-                </p>
+      <div class="ee-list">
+        <div class="ee-list__item" ng-repeat="chart in charts.chartList track by chart._id">
+          <a href="javascript:;" ng-click="charts.openCharts(chart._id, chart.friendlyUrl)">
+            <div class="ee-list__item__content" layout="row" layout-align="start center">
+              <div class="ee-list__item__content__col-1 ee-list__item__index ee-text-black-primary" flex="none">
+                {{$index + 1}}
               </div>
-              <div class="ee-list-item-row-2 ee-text-black-secondary" flex="auto">
-                <p>{{chart.description}}</p>
-              </div>
-            </div>
-            <div class="ee-list-item-col-3" flex="none">
-              <md-toolbar class="ee-toolbar">
-                <div class="md-toolbar-tools">
-                  <md-button class="md-icon-button" aria-label="Settings" ng-click="charts.goToSettings($event, chart._id, chart.friendlyUrl, chart.type)">
-                    <md-tooltip md-direction="botton">Settings</md-tooltip>
-                    <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> settings </md-icon>
-                  </md-button>
-                  <md-button class="md-icon-button" aria-label="Delete" ng-click="charts.showConfirm($event, chart._id)">
-                    <md-tooltip md-direction="botton">Delete</md-tooltip>
-                    <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> delete </md-icon>
-                  </md-button>
+              <div class="ee-list__item__content__col-2" flex="auto" layout="column" layout-align="space-between start">
+                <div class="ee-list__item__content__col-2__row-1" flex="auto" layout="row" layout-align="space-between center">
+                  <h3 class="ee-list__item__title ee-text-black-primary">{{chart.options.title}}</h3>
                 </div>
-              </md-toolbar>
+                <div class="ee-list__item__content__col-2__row-2 ee-text-black-secondary" flex="auto">
+                  <p>{{chart.description}}</p>
+                </div>
+              </div>
+              <div flex="none">
+                <md-toolbar class="ee-toolbar ee-layout--transparent">
+                  <div class="md-toolbar-tools ee-layout--no-padding">
+                    <md-button class="md-icon-button" aria-label="Settings" ng-click="charts.goToSettings($event, chart._id, chart.friendlyUrl, chart.type)">
+                      <md-tooltip md-direction="botton">Settings</md-tooltip>
+                      <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> settings </md-icon>
+                    </md-button>
+                    <md-button class="md-icon-button" aria-label="Delete" ng-click="charts.showConfirm($event, chart._id)">
+                      <md-tooltip md-direction="botton">Delete</md-tooltip>
+                      <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> delete </md-icon>
+                    </md-button>
+                  </div>
+                </md-toolbar>
+              </div>
             </div>
-          </div>
-        </a>
-        <md-divider ng-hide="$last"></md-divider>
+          </a>
+          <md-divider ng-hide="$last"></md-divider>
+        </div>
       </div>
     </md-card>
   </div>

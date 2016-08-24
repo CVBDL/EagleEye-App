@@ -40,7 +40,7 @@
   </div>
   <div class="ee-view__content-container">
     <md-content class="ee-content ee-content--transparent" layout="row" layout-wrap layout-align="start stretch">
-      <div class="ee-chart-set-chart-wrapper" flex="{{chartset.viewMode === 'list' ? 100 : 50}}" ng-repeat="chart in chartset.charDataArray">
+      <div class="ee-chart-set-chart-wrapper" flex="{{chartset.viewMode === 'list' ? 100 : 50}}" ng-repeat="chart in chartset.charDataArray track by chart._id">
         <md-card class="ee-layout--no-margin">
           <md-toolbar class="ee-toolbar">
             <div class="md-toolbar-tools">
