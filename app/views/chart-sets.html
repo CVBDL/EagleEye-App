@@ -37,14 +37,21 @@
               <div flex="none">
                 <md-toolbar class="ee-toolbar ee-layout--transparent">
                   <div class="md-toolbar-tools ee-layout--no-padding">
-                    <md-button class="md-icon-button" aria-label="Settings" ng-click="chartsets.goToSettings($event, chartset._id, chartset.friendlyUrl)">
-                      <md-tooltip md-direction="botton">Settings</md-tooltip>
-                      <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> settings </md-icon>
-                    </md-button>
-                    <md-button class="md-icon-button" aria-label="Delete" ng-click="chartsets.showConfirm($event, chartset._id)">
-                      <md-tooltip md-direction="botton">Delete</md-tooltip>
-                      <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> delete </md-icon>
-                    </md-button>
+                    <md-menu>
+                      <md-button aria-label="Tools menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                        <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> more_vert </md-icon>
+                      </md-button>
+                      <md-menu-content width="3">
+                        <md-menu-item>
+                          <md-button ng-click="chartsets.goToSettings($event, chartset._id, chartset.friendlyUrl)">
+                            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> settings </md-icon> <span md-menu-align-target>Settings</span></md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                          <md-button ng-click="chartsets.showConfirm($event, chartset._id)">
+                            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> delete </md-icon> <span md-menu-align-target>Delete</span></md-button>
+                        </md-menu-item>
+                      </md-menu-content>
+                    </md-menu>
                   </div>
                 </md-toolbar>
               </div>
