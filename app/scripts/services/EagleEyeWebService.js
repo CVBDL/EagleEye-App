@@ -24,6 +24,18 @@ angular.module('eagleeye')
         excelTemplateDownloadBaseUrl = url + 'chartFile/downloadExcel/';
       }
 
+      function getFileUploadServiceBaseUrl() {
+        return fileUploadServiceBaseUrl;
+      }
+
+      function getStaticServerSideImageBaseUrl() {
+        return staticServerSideImageBaseUrl;
+      }
+
+      function getExcelTemplateDownloadBaseUrl() {
+        return excelTemplateDownloadBaseUrl;
+      }
+
       function fetchServer(options) {
         return $http(options).then(function(response) {
           return response.data;
@@ -153,6 +165,9 @@ angular.module('eagleeye')
 
       return {
         setRootEndpoint: setRootEndpoint,
+        getFileUploadServiceBaseUrl: getFileUploadServiceBaseUrl,
+        getStaticServerSideImageBaseUrl: getStaticServerSideImageBaseUrl,
+        getExcelTemplateDownloadBaseUrl: getExcelTemplateDownloadBaseUrl,
         getCharts: getCharts,
         getChartById: getChartById,
         createChart: createChart,
