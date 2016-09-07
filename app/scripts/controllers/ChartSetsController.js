@@ -60,6 +60,10 @@ angular.module('eagleeye')
         }
       };
 
+      this.goToCreateChartSet = function() {
+        $state.go('createChartSet');
+      };
+
       this.getChartSetsList();
     }
   ]);

@@ -61,6 +61,10 @@ angular.module('eagleeye')
         }
       };
 
+      this.goToCreateChart = function() {
+        $state.go('createChart');
+      };
+
       this.getChartsList();
     }
   ]);

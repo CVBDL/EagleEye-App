@@ -16,8 +16,13 @@
       </div>
       </md-toolbar>
       <md-divider></md-divider>
-      <md-content class="ee-content" layout="row" layout-padding  layout-align="center center" ng-if="chartsets.isLoading">
+      <md-content class="ee-content" layout="row" layout-padding layout-align="center center" ng-if="chartsets.isLoading">
         <md-progress-circular class="ee-progress-circular" md-diameter="40"></md-progress-circular>
+      </md-content>
+      <md-content class="ee-content" layout="row" layout-padding layout-align="center center" ng-if="!chartsets.isLoading && chartsets.chartSetList.length === 0">
+        <md-button class="md-fab" aria-label="Create a new chart set" ng-click="chartsets.goToCreateChartSet()">
+          <md-icon md-font-set="material-icons"> add </md-icon>
+        </md-button>
       </md-content>
       <div class="ee-list">
         <div class="ee-list__item" ng-repeat="chartset in chartsets.chartSetList track by chartset._id">
