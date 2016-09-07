@@ -18,90 +18,93 @@ angular
   .config([
     '$stateProvider',
     '$urlRouterProvider',
-    'EagleEyeWebServiceProvider',
     'GoogleChartsServiceProvider',
-    function($stateProvider, $urlRouterProvider, EagleEyeWebServiceProvider, GoogleChartsServiceProvider) {
+    function($stateProvider, $urlRouterProvider, GoogleChartsServiceProvider) {
       $stateProvider
-        .state('app', {
+        .state('root', {
           url: '',
           abstract: true,
-          controller: 'AppController'
+          template: '<ui-view></ui-view>',
+          controller: 'RootController',
+          resolve: {
+            config: ['$http', function($http) {
+              return $http.get('../config.json');
+            }]
+          }
         })
         .state('home', {
           url: '/home',
           templateUrl: 'views/home.html',
           controller: 'HomeController',
-          controllerAs: 'home'
+          controllerAs: 'home',
+          parent: 'root'
         })
         .state('charts', {
           url: '/charts',
           templateUrl: 'views/charts.html',
           controller: 'ChartsController',
-          controllerAs: 'charts'
+          controllerAs: 'charts',
+          parent: 'root'
         })
         .state('createChart', {
           url: '/charts/new',
           templateUrl: 'views/chart-creation.html',
           controller: 'ChartCreationController',
-          controllerAs: 'newChart'
+          controllerAs: 'newChart',
+          parent: 'root'
         })
         .state('chart', {
           url: '/charts/:id',
           templateUrl: 'views/chart.html',
           controller: 'ChartController',
-          controllerAs: 'chart'
+          controllerAs: 'chart',
+          parent: 'root'
         })
         .state('chartSettings', {
           url: '/charts/:id/settings',
           templateUrl: 'views/chart-settings.html',
           controller: 'ChartSettingsController',
-          controllerAs: 'chart'
+          controllerAs: 'chart',
+          parent: 'root'
         })
         .state('chartSets', {
           url: '/chart-sets',
           templateUrl: 'views/chart-sets.html',
           controller: 'ChartSetsController',
-          controllerAs: 'chartsets'
+          controllerAs: 'chartsets',
+          parent: 'root'
         })
         .state('createChartSet', {
           url: '/chart-sets/new',
           templateUrl: 'views/chart-set-creation.html',
           controller: 'ChartSetCreationController',
-          controllerAs: 'chartset'
+          controllerAs: 'chartset',
+          parent: 'root'
         })
         .state('chartSet', {
           url: '/chart-sets/:id',
           templateUrl: 'views/chart-set.html',
           controller: 'ChartSetController',
-          controllerAs: 'chartset'
+          controllerAs: 'chartset',
+          parent: 'root'
         })
         .state('chartSetSettings', {
           url: '/chart-sets/:id/settings',
           templateUrl: 'views/chart-set-settings.html',
           controller: 'ChartSetSettingsController',
-          controllerAs: 'chartset'
+          controllerAs: 'chartset',
+          parent: 'root'
         })
         .state('develop', {
           url: '/develop',
           templateUrl: 'views/develop.html',
           controller: 'DevelopController',
-          controllerAs: 'develop'
+          controllerAs: 'develop',
+          parent: 'root'
         });
 
       // default router
       $urlRouterProvider.otherwise('/home');
-
-      // set eagleeye restful web service root endpoint
-      EagleEyeWebServiceProvider.setWebServiceBaseUrl('http://localhost:3000/api/v1/');
-
-      // set eagleeye image & excel file uploading service endpoint
-      EagleEyeWebServiceProvider.setFileUploadServiceBaseUrl('http://localhost:3000/chartFile/');
-
-      // set eagleeye excel template downloading base url
-      EagleEyeWebServiceProvider.setExcelTemplateDownloadBaseUrl('http://localhost:3000/chartFile/downloadExcel/');
-
-      // set eagleeye server side static image files base url
-      EagleEyeWebServiceProvider.setStaticServerSideImageBaseUrl('http://localhost:3000/uploadChartImages/');
 
       // line chart default options
       // docs: https://developers.google.com/chart/interactive/docs/gallery/linechart#configuration-options
