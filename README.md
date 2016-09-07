@@ -48,7 +48,6 @@ grunt
 grunt serve
 ```
 
-
 ## Testing
 
 ```sh
@@ -56,3 +55,13 @@ grunt test
 ```
 
 It will run the unit tests with karma and PhantomJS.
+
+## Deployment
+
+Update `config.json` to specify EagleEye Platform API root endpoint.
+
+```json
+{
+  "root_endpoint": "http://127.0.0.1:3000/"
+}
+```
