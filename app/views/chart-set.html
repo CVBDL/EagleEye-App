@@ -72,7 +72,7 @@
             <img crossOrigin="anonymous" id="{{chart.options.title}}" ng-src="{{chart.image_file_name ? chartset.imageChartBaseUrl + chart.image_file_name : ''}}" />
           </div>
           <md-divider ng-hide="chartset.viewMode === 'column'"></md-divider>
-          <md-content class="ee-chartset-info ee-content" flex layout-padding>
+          <md-content class="ee-chartset-info ee-content" layout-padding>
             <p>
               <md-icon md-font-set="material-icons" class="ee-icon"> access_time </md-icon> <span class="ee-layout--padding-right">{{chart.lastUpdateTimestamp | date: 'medium'}}</span></p>
             <p>{{chart.description}}</p>
