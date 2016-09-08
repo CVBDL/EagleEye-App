@@ -33,6 +33,8 @@
 }
 
 .ee-list__item__content__col-2__row-2 {
+  width: 100%;
+
   p {
     @include text-ellipsis(1, 14px, 20 / 14);
   }
