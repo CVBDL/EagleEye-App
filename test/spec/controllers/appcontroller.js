@@ -6,18 +6,24 @@ describe('Controller: AppController', function () {
   beforeEach(module('eagleeye'));
 
   var AppController,
-    scope;
+    $scope,
+    FEEDBACK_EMAIL;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
-    scope = $rootScope.$new();
+  beforeEach(inject(function ($controller, $rootScope, _FEEDBACK_EMAIL_) {
+    $scope = $rootScope.$new();
+    FEEDBACK_EMAIL = _FEEDBACK_EMAIL_;
     AppController = $controller('AppController', {
-      $scope: scope
-      // place here mocked dependencies
+      $scope: $scope,
+      FEEDBACK_EMAIL: FEEDBACK_EMAIL
     });
   }));
 
-  // it('should attach a list of awesomeThings to the scope', function () {
-  //   expect(AppController.awesomeThings.length).toBe(3);
-  // });
+  it('should init AppController correctly', function() {
+    expect(AppController).toBeDefined();
+  });
+
+  it('should set correct feedback link', function () {
+    expect($scope.feedbackLink).toBe("mailto:"+ FEEDBACK_EMAIL + "?subject=EagleEye+Feedback");
+  });
 });
