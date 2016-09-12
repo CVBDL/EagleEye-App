@@ -106,25 +106,6 @@ angular
       // default router
       $urlRouterProvider.otherwise('/home');
 
-      // line chart default options
-      // docs: https://developers.google.com/chart/interactive/docs/gallery/linechart#configuration-options
-      GoogleChartsServiceProvider.setLineChartDefaultOptions({});
-
-      // column chart default options
-      // docs: https://developers.google.com/chart/interactive/docs/gallery/columnchart#configuration-options
-      GoogleChartsServiceProvider.setColumnChartDefaultOptions({});
-
-      // bar chart default options
-      // docs: https://developers.google.com/chart/interactive/docs/gallery/barchart#configuration-options
-      GoogleChartsServiceProvider.setBarChartDefaultOptions({});
-
-      // chart default options
-      // docs: https://developers.google.com/chart/interactive/docs/gallery/combochart#configuration-options
-      GoogleChartsServiceProvider.setComboChartDefaultOptions({});
-
-      // chart default options
-      // docs: https://developers.google.com/chart/interactive/docs/gallery/areachart#configuration-options
-      GoogleChartsServiceProvider.setAreaChartDefaultOptions({});
     }
   ])
 
