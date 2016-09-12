@@ -13,10 +13,6 @@
             <md-tooltip md-direction="botton">Refresh</md-tooltip>
             <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="chart.refreshChart()"> refresh </md-icon>
           </md-button>
-          <md-button class="md-icon-button" aria-label="Save as image" ng-hide="chart.chartData.chartType ==='ImageChart'">
-            <md-tooltip md-direction="botton">Save as Image</md-tooltip>
-            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="chart.SaveImageOrPDF(0,chart.chartData)"> image </md-icon>
-          </md-button>
           <md-button class="md-icon-button" aria-label="Save as pdf" ng-hide="chart.chartData.chartType ==='ImageChart'">
             <md-tooltip md-direction="botton">Save as PDF</md-tooltip>
             <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="chart.SaveImageOrPDF(1,chart.chartData)"> picture_as_pdf </md-icon>
