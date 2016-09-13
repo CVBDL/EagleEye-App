@@ -6,18 +6,52 @@ describe('Controller: HomeController', function () {
   beforeEach(module('eagleeye'));
 
   var HomeController,
-    scope;
+    $httpBackend,
+    $rootScope,
+    $scope,
+    $state;
+
+  var resolvedConfig = {
+    "root_endpoint": "http://127.0.0.1:3000/"
+  };
+
+  beforeEach(inject(function($httpBackend, $templateCache) {
+    $httpBackend.when('GET', '../config.json').respond(resolvedConfig);
+
+    $templateCache.put('views/home.html', '');
+    $templateCache.put('views/develop.html', '');
+  }));
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
-    scope = $rootScope.$new();
+  beforeEach(inject(function ($injector, $controller) {
+    $httpBackend = $injector.get('$httpBackend');
+    $rootScope = $injector.get('$rootScope');
+    $state = $injector.get('$state');
+
+    $scope = $rootScope.$new();
+
     HomeController = $controller('HomeController', {
-      $scope: scope
-      // place here mocked dependencies
+      $scope: $scope,
+      $state: $state
     });
   }));
 
-  // it('should attach a list of awesomeThings to the scope', function () {
-  //   expect(HomeController.awesomeThings.length).toBe(3);
-  // });
+  afterEach(function() {
+    $httpBackend.verifyNoOutstandingExpectation();
+    $httpBackend.verifyNoOutstandingRequest();
+  });
+
+  it('should init HomeController correctly', function() {
+    $httpBackend.flush();
+    expect(HomeController).toBeDefined();
+    expect(HomeController.goToDevelop).toBeDefined();
+  });
+
+  it('should go to develop view when calls goToDevelop()', function () {
+    $httpBackend.flush();
+    HomeController.goToDevelop();
+    $rootScope.$digest();
+
+    expect($state.current.name).toBe('develop');
+  });
 });

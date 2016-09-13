@@ -1,10 +1,9 @@
 'use strict';
 
-describe('Main app.js', function () {
+describe('app.js', function () {
 
-  // load the controller's module
+  // load the main module
   beforeEach(module('eagleeye'));
-  beforeEach(module('ngMock'));
 
   var $injector,
     $state,
@@ -12,24 +11,17 @@ describe('Main app.js', function () {
     $httpBackend,
     $templateCache,
     $location,
-    $stateParams,
-    configRequestHandler,
-    configJSON = {
-      "root_endpoint": "http://127.0.0.1:3000/"
-    };
+    $stateParams;
 
-  // Initialize the controller and a mock scope
-  beforeEach(inject(function (_$injector_, _$state_, _$rootScope_, _$httpBackend_, _$templateCache_) {
-    $injector = _$injector_;
-    $state = _$state_;
-    $rootScope = _$rootScope_;
-    $httpBackend = _$httpBackend_;
-    $templateCache = _$templateCache_;
-    $location = $injector.get('$location');
-    $stateParams = $injector.get('$stateParams');
+  var resolvedConfig = {
+    "root_endpoint": "http://127.0.0.1:3000/"
+  };
 
+  var chartId = '57837029c66dc1a4570962b6';
+  var chartSetId = '578c8c493164a7304f72a9f3';
 
-    configRequestHandler = $httpBackend.when('GET', '../config.json').respond(configJSON);
+  beforeEach(inject(function($httpBackend, $templateCache) {
+    $httpBackend.when('GET', '../config.json').respond(resolvedConfig);
 
     $templateCache.put('views/home.html', '');
     $templateCache.put('views/chart.html', '');
@@ -41,6 +33,16 @@ describe('Main app.js', function () {
     $templateCache.put('views/chart-set.html', '');
     $templateCache.put('views/chart-set-settings.html', '');
     $templateCache.put('views/develop.html', '');
+  }));
+
+  beforeEach(inject(function (_$injector_) {
+    $injector = _$injector_;
+
+    $httpBackend = $injector.get('$httpBackend');
+    $location    = $injector.get('$location');
+    $rootScope   = $injector.get('$rootScope');
+    $state       = $injector.get('$state');
+    $stateParams = $injector.get('$stateParams');
   }));
 
   afterEach(function() {
@@ -68,8 +70,8 @@ describe('Main app.js', function () {
 
     $httpBackend.flush();
 
-    configPromise.then(function(data) {
-      expect(data.data).toEqual(configJSON);
+    configPromise.then(function(resolvedValue) {
+      expect(resolvedValue.data).toEqual(resolvedConfig);
     });
   });
 
@@ -106,7 +108,7 @@ describe('Main app.js', function () {
   it('should go to chart state', function() {
     var stateName = 'chart',
       stateOptions = {
-        id: 'the-id'
+        id: chartId
       };
 
     $httpBackend.flush();
@@ -120,7 +122,7 @@ describe('Main app.js', function () {
   it('should go to chartSettings state', function() {
     var stateName = 'chartSettings',
       stateOptions = {
-        id: 'the-id'
+        id: chartId
       };
 
     $httpBackend.flush();
@@ -129,7 +131,7 @@ describe('Main app.js', function () {
 
     expect($state.current.name).toBe(stateName);
     expect($stateParams.id).toBe(stateOptions.id);
-    expect($location.url()).toBe('/charts/the-id/settings');
+    expect($location.url()).toBe('/charts/' + chartId + '/settings');
   });
 
   it('should go to chartSets state', function() {
@@ -155,7 +157,7 @@ describe('Main app.js', function () {
   it('should go to chartSet state', function() {
     var stateName = 'chartSet',
       stateOptions = {
-        id: 'the-id'
+        id: chartSetId
       };
 
     $httpBackend.flush();
@@ -164,13 +166,13 @@ describe('Main app.js', function () {
 
     expect($state.current.name).toBe(stateName);
     expect($stateParams.id).toBe(stateOptions.id);
-    expect($location.url()).toBe('/chart-sets/the-id');
+    expect($location.url()).toBe('/chart-sets/' + chartSetId);
   });
 
   it('should go to chartSetSettings state', function() {
     var stateName = 'chartSetSettings',
       stateOptions = {
-        id: 'the-id'
+        id: chartSetId
       };
 
     $httpBackend.flush();
@@ -179,7 +181,7 @@ describe('Main app.js', function () {
 
     expect($state.current.name).toBe(stateName);
     expect($stateParams.id).toBe(stateOptions.id);
-    expect($location.url()).toBe('/chart-sets/the-id/settings');
+    expect($location.url()).toBe('/chart-sets/' + chartSetId +'/settings');
   });
 
   it('should go to develop state', function() {
