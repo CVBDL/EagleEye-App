@@ -4,9 +4,6 @@
 
 [![Join the chat at https://gitter.im/CVBDL](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/CVBDL)
 
-This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
-version 0.15.1.
-
 ## Installation
 
 * Install Git (https://git-scm.com/download/win)
