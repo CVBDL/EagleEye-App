@@ -58,11 +58,13 @@ describe('app.js', function () {
   it('should default to home state', function() {
     var notExistPath = '#/not-exist-url';
     var stateName = 'home';
+    var url = '/home';
 
     $location.path(notExistPath);
     $httpBackend.flush();
 
     expect($state.current.name).toBe(stateName);
+    expect($location.url()).toBe(url);
   });
 
   it('should resolve with correct config data', function() {
@@ -77,39 +79,46 @@ describe('app.js', function () {
 
   it('should go to home state', function() {
     var stateName = 'home';
+    var url = '/home';
 
     $httpBackend.flush();
     $state.go(stateName);
     $rootScope.$digest();
 
     expect($state.current.name).toBe(stateName);
+    expect($location.url()).toBe(url);
   });
 
   it('should go to charts state', function() {
     var stateName = 'charts';
+    var url = '/charts';
 
     $httpBackend.flush();
     $state.go(stateName);
     $rootScope.$digest();
 
     expect($state.current.name).toBe(stateName);
+    expect($location.url()).toBe(url);
   });
 
   it('should go to create chart state', function() {
     var stateName = 'createChart';
+    var url = '/charts/new';
 
     $httpBackend.flush();
     $state.go(stateName);
     $rootScope.$digest();
 
     expect($state.current.name).toBe(stateName);
+    expect($location.url()).toBe(url);
   });
 
   it('should go to chart state', function() {
-    var stateName = 'chart',
-      stateOptions = {
-        id: chartId
-      };
+    var stateName = 'chart';
+    var url = '/charts/';
+    var stateOptions = {
+      id: chartId
+    };
 
     $httpBackend.flush();
     $state.go(stateName, stateOptions);
@@ -117,13 +126,14 @@ describe('app.js', function () {
 
     expect($state.current.name).toBe(stateName);
     expect($stateParams.id).toBe(stateOptions.id);
+    expect($location.url()).toBe(url + chartId);
   });
 
   it('should go to chartSettings state', function() {
-    var stateName = 'chartSettings',
-      stateOptions = {
-        id: chartId
-      };
+    var stateName = 'chartSettings';
+    var stateOptions = {
+      id: chartId
+    };
 
     $httpBackend.flush();
     $state.go(stateName, stateOptions);
@@ -136,29 +146,33 @@ describe('app.js', function () {
 
   it('should go to chartSets state', function() {
     var stateName = 'chartSets';
+    var url = '/chart-sets';
 
     $httpBackend.flush();
     $state.go(stateName);
     $rootScope.$digest();
 
     expect($state.current.name).toBe(stateName);
+    expect($location.url()).toBe(url);
   });
 
   it('should go to createChartSet state', function() {
     var stateName = 'createChartSet';
+    var url = '/chart-sets/new';
 
     $httpBackend.flush();
     $state.go(stateName);
     $rootScope.$digest();
 
     expect($state.current.name).toBe(stateName);
+    expect($location.url()).toBe(url);
   });
 
   it('should go to chartSet state', function() {
-    var stateName = 'chartSet',
-      stateOptions = {
-        id: chartSetId
-      };
+    var stateName = 'chartSet';
+    var stateOptions = {
+      id: chartSetId
+    };
 
     $httpBackend.flush();
     $state.go(stateName, stateOptions);
@@ -170,10 +184,10 @@ describe('app.js', function () {
   });
 
   it('should go to chartSetSettings state', function() {
-    var stateName = 'chartSetSettings',
-      stateOptions = {
-        id: chartSetId
-      };
+    var stateName = 'chartSetSettings';
+    var stateOptions = {
+      id: chartSetId
+    };
 
     $httpBackend.flush();
     $state.go(stateName, stateOptions);
@@ -186,12 +200,14 @@ describe('app.js', function () {
 
   it('should go to develop state', function() {
     var stateName = 'develop';
+    var url = '/develop';
 
     $httpBackend.flush();
     $state.go(stateName);
     $rootScope.$digest();
 
     expect($state.current.name).toBe(stateName);
+    expect($location.url()).toBe(url);
   });
 
 });
