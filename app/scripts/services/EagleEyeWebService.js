@@ -20,11 +20,17 @@ angular.module('eagleeye')
         staticServerSideImageBaseUrl = url + 'uploadChartImages/';
       }
 
+      function getWebServiceBaseUrl() {
+        return webServiceBaseUrl;
+      }
+
       function getStaticServerSideImageBaseUrl() {
         return staticServerSideImageBaseUrl;
       }
 
       function getExcelTemplateDownloadUrl(id) {
+        id = id || '';
+
         return webServiceBaseUrl + 'download/excels/' + id;
       }
 
@@ -157,6 +163,7 @@ angular.module('eagleeye')
 
       return {
         setRootEndpoint: setRootEndpoint,
+        getWebServiceBaseUrl: getWebServiceBaseUrl,
         getStaticServerSideImageBaseUrl: getStaticServerSideImageBaseUrl,
         getExcelTemplateDownloadUrl: getExcelTemplateDownloadUrl,
         getCharts: getCharts,
