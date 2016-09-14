@@ -13,27 +13,19 @@ angular.module('eagleeye')
     'Upload',
     function EagleEyeWebService($http, Upload) {
       var webServiceBaseUrl = '',
-        fileUploadServiceBaseUrl = '',
-        staticServerSideImageBaseUrl = '',
-        excelTemplateDownloadBaseUrl = '';
+        staticServerSideImageBaseUrl = '';
 
       function setRootEndpoint(url) {
         webServiceBaseUrl            = url + 'api/v1/';
-        fileUploadServiceBaseUrl     = url + 'chartFile/',
-        staticServerSideImageBaseUrl = url + 'uploadChartImages/',
-        excelTemplateDownloadBaseUrl = url + 'chartFile/downloadExcel/';
-      }
-
-      function getFileUploadServiceBaseUrl() {
-        return fileUploadServiceBaseUrl;
+        staticServerSideImageBaseUrl = url + 'uploadChartImages/';
       }
 
       function getStaticServerSideImageBaseUrl() {
         return staticServerSideImageBaseUrl;
       }
 
-      function getExcelTemplateDownloadBaseUrl() {
-        return excelTemplateDownloadBaseUrl;
+      function getExcelTemplateDownloadUrl(id) {
+        return webServiceBaseUrl + 'download/excels/' + id;
       }
 
       function fetchServer(options) {
@@ -143,9 +135,9 @@ angular.module('eagleeye')
         var url = '';
 
         if (type === 'chart') {
-          url = fileUploadServiceBaseUrl + 'upload';
+          url = webServiceBaseUrl + 'upload/excels';
         } else {
-          url = fileUploadServiceBaseUrl + 'uploadImage';
+          url = webServiceBaseUrl + 'upload/images';
         }
 
         file.upload = Upload.upload({
@@ -165,9 +157,8 @@ angular.module('eagleeye')
 
       return {
         setRootEndpoint: setRootEndpoint,
-        getFileUploadServiceBaseUrl: getFileUploadServiceBaseUrl,
         getStaticServerSideImageBaseUrl: getStaticServerSideImageBaseUrl,
-        getExcelTemplateDownloadBaseUrl: getExcelTemplateDownloadBaseUrl,
+        getExcelTemplateDownloadUrl: getExcelTemplateDownloadUrl,
         getCharts: getCharts,
         getChartById: getChartById,
         createChart: createChart,

@@ -19,7 +19,7 @@ angular.module('eagleeye')
 
       this.isLoading = true;
 
-      this.excelTemplateDownloadBaseUrl = EagleEyeWebService.getExcelTemplateDownloadBaseUrl();
+      this.excelTemplateDownloadUrl = EagleEyeWebService.getExcelTemplateDownloadUrl(controller.id);
 
       this.getChartDataById = function(id) {
         EagleEyeWebService.getChartById(id).then(function(data) {
