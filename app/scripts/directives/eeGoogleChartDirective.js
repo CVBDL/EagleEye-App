@@ -40,7 +40,7 @@ angular.module('eagleeye')
 
             var chart = new google.visualization[scope.chartType](chartNode);
             var chartDataTable = new google.visualization.DataTable(angular.copy(scope.chartDataTable, {}));
-            var chartOptions = angular.merge(angular.copy(scope.chartOptions, {}), defaultChartOptions[scope.chartType.toLowerCase()]);
+            var chartOptions = angular.merge({}, defaultChartOptions[scope.chartType.toLowerCase()], angular.copy(scope.chartOptions, {}));
 
             if (scope.chartType.toLowerCase() == "combochart") {
               chartOptions.seriesType = 'bars';

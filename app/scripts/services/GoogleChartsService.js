@@ -74,7 +74,7 @@ angular.module('eagleeye')
       linechart: {
         animation: {
           startup: true,
-          duration: 500,
+          duration: 350,
           easing: 'out'
         },
         backgroundColor: {
@@ -120,7 +120,7 @@ angular.module('eagleeye')
       columnchart: {
         animation: {
           startup: true,
-          duration: 500,
+          duration: 350,
           easing: 'out'
         },
         backgroundColor: {
@@ -159,7 +159,7 @@ angular.module('eagleeye')
       barchart: {
         animation: {
           startup: true,
-          duration: 500,
+          duration: 350,
           easing: 'out'
         },
         backgroundColor: {
@@ -205,7 +205,7 @@ angular.module('eagleeye')
       combochart: {
         animation: {
           startup: true,
-          duration: 500,
+          duration: 350,
           easing: 'out'
         },
         backgroundColor: {
@@ -244,7 +244,7 @@ angular.module('eagleeye')
       areachart: {
         animation: {
           startup: true,
-          duration: 500,
+          duration: 350,
           easing: 'out'
         },
         backgroundColor: {
