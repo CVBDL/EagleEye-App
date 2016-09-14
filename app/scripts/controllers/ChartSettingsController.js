@@ -24,6 +24,7 @@ angular.module('eagleeye')
       this.getChartDataById = function(id) {
         EagleEyeWebService.getChartById(id).then(function(data) {
           controller.chartType = data.chartType;
+          controller.type = data.type;
           controller.isLoading = false;
         });
       };
@@ -37,7 +38,7 @@ angular.module('eagleeye')
       };
 
       this.upload = function (file) {
-        EagleEyeWebService.uploadFile(file, controller.chartType, controller.id);
+        EagleEyeWebService.uploadFile(file, controller.type, controller.id);
       }
 
       this.getChartDataById(controller.id);
