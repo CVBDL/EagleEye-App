@@ -30,19 +30,31 @@ angular.module('eagleeye')
       this.chartOptions = {
         title: '',
         hAxis: {
-          title: ''
+          title: '',
+          isPrecent: 'false'
         },
         vAxis: {
-          title: ''
+          title: '',
+          isPrecent: 'false'
         },
-        isStacked: 'false'
+        isStacked: 'false',
       };
 
       this.createChart = function() {
         var friendlyUrl = '';
+        var formatePrecentV = '';
+        var formatePrecentH = '';
 
-        if (this.settings.friendlyUrl) {
+        if (this.settings.friendlyUrl){
           friendlyUrl = friendlyUrlPrefix + this.settings.friendlyUrl;
+        }
+
+        if (this.chartOptions.vAxis.isPrecent === 'true'){
+          formatePrecentV = '##.##%';
+        }
+
+        if (this.chartOptions.hAxis.isPrecent === 'true'){
+          formatePrecentH = '##.##%';
         }
 
         var data = JSON.stringify({
@@ -53,10 +65,12 @@ angular.module('eagleeye')
           options: {
             title: this.chartOptions.title,
             hAxis: {
-              title: this.chartOptions.hAxis.title
+              title: this.chartOptions.hAxis.title,
+              format: formatePrecentH
             },
             vAxis: {
-              title: this.chartOptions.vAxis.title
+              title: this.chartOptions.vAxis.title,
+              format: formatePrecentV
             },
             combolines: this.chartOptions.combolines,
             isStacked: this.chartOptions.isStacked === 'true'
