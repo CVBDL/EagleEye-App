@@ -90,7 +90,7 @@ angular.module('eagleeye')
           orientation: 'vertical',
           trigger: 'both'
         },
-        curveType: 'function',
+        curveType: 'none',
         // fontName: "Roboto, 'Helvetica Neue', sans-serif",
         fontSize: 14,
         legend: {
@@ -175,7 +175,7 @@ angular.module('eagleeye')
           orientation: 'vertical',
           trigger: 'both'
         },
-        curveType: 'function',
+        curveType: 'none',
         // fontName: "Roboto, 'Helvetica Neue', sans-serif",
         fontSize: 14,
         legend: {
