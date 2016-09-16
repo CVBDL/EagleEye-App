@@ -58,6 +58,7 @@ angular.module('eagleeye')
             vAxis: {
               title: this.chartOptions.vAxis.title
             },
+            combolines: this.chartOptions.combolines,
             isStacked: this.chartOptions.isStacked === 'true'
           },
           datatable: GoogleChartsService.getChartDataTableSamples(this.selectedChartTypeOption.value.toLowerCase(), this.settings.majorAxisDataType)
@@ -73,6 +74,7 @@ angular.module('eagleeye')
         });
       };
 
+
       this.showHelp = function(ev) {
         $mdDialog.show({
           templateUrl: 'scripts/templates/chart-creation-help.tmpl.html',
@@ -84,6 +86,14 @@ angular.module('eagleeye')
           parent: angular.element(document.body),
           clickOutsideToClose: true
         });
-      }
+      };
+
+      this.showLines = function(){
+        if(this.selectedChartTypeOption.value.toLowerCase() == "combochart"){
+          return true;
+        }else{
+          return false;
+        }
+      };
     }
   ]);

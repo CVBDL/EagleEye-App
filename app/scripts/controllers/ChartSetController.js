@@ -150,8 +150,15 @@ angular.module('eagleeye')
           var chartDataTable = new google.visualization.DataTable(angular.copy(chartData.datatable, {}));
           var chartOptions = angular.copy(chartData.options, {});
           if (chartData.chartType.toLowerCase() == "combochart") {
-            chartOptions.seriesType = 'bars';
-            chartOptions.series = { 0: { type: 'line' } };
+              if(isNaN(chartOptions.combolines) || chartOptions.combolines.length == 0)
+              {
+                chartOptions.combolines = 1;
+              }
+              chartOptions.seriesType = 'bars';
+              chartOptions.series = {};
+              for( var i = 0; i < chartOptions.combolines ; i++){
+               chartOptions.series[i] = { type: 'line' };
+              }
           }
           chartOptions.width = 1024;
           chartOptions.height = 768;
@@ -207,8 +214,15 @@ angular.module('eagleeye')
         var chartDataTable = new google.visualization.DataTable(angular.copy(chartData.datatable, {}));
         var chartOptions = angular.copy(chartData.options, {});
         if (chartData.chartType.toLowerCase() == "combochart") {
+          if(isNaN(chartOptions.combolines) || chartOptions.combolines.length == 0)
+          {
+              chartOptions.combolines = 1;
+          }
           chartOptions.seriesType = 'bars';
-          chartOptions.series = { 0: { type: 'line' } };
+          chartOptions.series = {};
+          for( var i = 0; i < chartOptions.combolines ; i++){
+            chartOptions.series[i] = { type: 'line' };
+          }
         }
         chartOptions.width = 1024;
         chartOptions.height = 768;

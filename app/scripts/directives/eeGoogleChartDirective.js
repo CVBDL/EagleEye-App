@@ -43,8 +43,15 @@ angular.module('eagleeye')
             var chartOptions = angular.merge({}, defaultChartOptions[scope.chartType.toLowerCase()], angular.copy(scope.chartOptions, {}));
 
             if (scope.chartType.toLowerCase() == "combochart") {
+              if(isNaN(chartOptions.combolines) || chartOptions.combolines.length == 0)
+              {
+                chartOptions.combolines = 1;
+              }
               chartOptions.seriesType = 'bars';
-              chartOptions.series = { 0: { type: 'line' } };
+              chartOptions.series = {};
+              for( var i = 0; i < chartOptions.combolines ; i++){
+               chartOptions.series[i] = { type: 'line' };
+              }
             }
 
             $timeout(chart.draw(chartDataTable, chartOptions), 0);

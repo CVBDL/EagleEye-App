@@ -69,6 +69,10 @@
                   <md-option value="false">No</md-option>
                 </md-select>
               </md-input-container>
+               <md-input-container class="md-block" flex ng-if="newChart.showLines()">
+                <label>Lines: Default 1</label>
+                <input name="chartCombolinesTitle" ng-model="newChart.chartOptions.combolines">
+              </md-input-container>
             </div>
           </form>
         </div>
