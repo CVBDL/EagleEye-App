@@ -38,6 +38,10 @@ angular.module('eagleeye')
           isPercent: 'false'
         },
         isStacked: 'false',
+        chartArea: {
+          left: '',
+          width: ''
+        }
       };
 
       this.createChart = function() {
@@ -45,16 +49,25 @@ angular.module('eagleeye')
         var formatePercentV = '';
         var formatePercentH = '';
 
-        if (this.settings.friendlyUrl){
+        if (this.settings.friendlyUrl) {
           friendlyUrl = friendlyUrlPrefix + this.settings.friendlyUrl;
         }
 
-        if (this.chartOptions.vAxis.isPercent === 'true'){
+        if (this.chartOptions.vAxis.isPercent === 'true') {
           formatePercentV = 'percent';
         }
 
-        if (this.chartOptions.hAxis.isPercent === 'true'){
+        if (this.chartOptions.hAxis.isPercent === 'true') {
           formatePercentV = 'percent';
+        }
+
+        var _chartArea = {};
+
+        if (this.chartOptions.chartArea.left !== '') {
+          _chartArea.left = this.chartOptions.chartArea.left;
+        }
+        if (this.chartOptions.chartArea.width !== '') {
+          _chartArea.width = this.chartOptions.chartArea.width;
         }
 
         var data = JSON.stringify({
@@ -73,7 +86,8 @@ angular.module('eagleeye')
               format: formatePercentV
             },
             combolines: this.chartOptions.combolines,
-            isStacked: this.chartOptions.isStacked === 'true'
+            isStacked: this.chartOptions.isStacked === 'true',
+            chartArea: _chartArea
           },
           datatable: GoogleChartsService.getChartDataTableSamples(this.selectedChartTypeOption.value.toLowerCase(), this.settings.majorAxisDataType)
         });
@@ -92,7 +106,7 @@ angular.module('eagleeye')
       this.showHelp = function(ev) {
         $mdDialog.show({
           templateUrl: 'scripts/templates/chart-creation-help.tmpl.html',
-          controller: [ '$scope', function($scope) {
+          controller: ['$scope', function($scope) {
             $scope.cancel = function() {
               $mdDialog.cancel();
             };
@@ -102,10 +116,10 @@ angular.module('eagleeye')
         });
       };
 
-      this.showLines = function(){
-        if(this.selectedChartTypeOption.value.toLowerCase() == "combochart"){
+      this.showLines = function() {
+        if (this.selectedChartTypeOption.value.toLowerCase() == "combochart") {
           return true;
-        }else{
+        } else {
           return false;
         }
       };
