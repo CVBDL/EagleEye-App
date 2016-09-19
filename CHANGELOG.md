@@ -1,3 +1,16 @@
+<a name="1.0.0-beta.6"></a>
+# 1.0.0-beta.6 (2016-09-19)
+
+## Bug Fixes
+
+* Fix chart default options merging.
+
+## Features
+
+* Config series type in combo chart.
+* Support showing percent values on axis labels and chart tooltips.
+
+
 <a name="1.0.0-beta.5"></a>
 # 1.0.0-beta.5 (2016-09-14)
 
