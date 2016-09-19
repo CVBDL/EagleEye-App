@@ -31,30 +31,30 @@ angular.module('eagleeye')
         title: '',
         hAxis: {
           title: '',
-          isPrecent: 'false'
+          isPercent: 'false'
         },
         vAxis: {
           title: '',
-          isPrecent: 'false'
+          isPercent: 'false'
         },
         isStacked: 'false',
       };
 
       this.createChart = function() {
         var friendlyUrl = '';
-        var formatePrecentV = '';
-        var formatePrecentH = '';
+        var formatePercentV = '';
+        var formatePercentH = '';
 
         if (this.settings.friendlyUrl){
           friendlyUrl = friendlyUrlPrefix + this.settings.friendlyUrl;
         }
 
-        if (this.chartOptions.vAxis.isPrecent === 'true'){
-          formatePrecentV = 'percent';
+        if (this.chartOptions.vAxis.isPercent === 'true'){
+          formatePercentV = 'percent';
         }
 
-        if (this.chartOptions.hAxis.isPrecent === 'true'){
-          formatePrecentV = 'percent';
+        if (this.chartOptions.hAxis.isPercent === 'true'){
+          formatePercentV = 'percent';
         }
 
         var data = JSON.stringify({
@@ -66,11 +66,11 @@ angular.module('eagleeye')
             title: this.chartOptions.title,
             hAxis: {
               title: this.chartOptions.hAxis.title,
-              format: formatePrecentH
+              format: formatePercentH
             },
             vAxis: {
               title: this.chartOptions.vAxis.title,
-              format: formatePrecentV
+              format: formatePercentV
             },
             combolines: this.chartOptions.combolines,
             isStacked: this.chartOptions.isStacked === 'true'
