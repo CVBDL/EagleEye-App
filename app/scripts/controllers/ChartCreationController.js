@@ -50,11 +50,11 @@ angular.module('eagleeye')
         }
 
         if (this.chartOptions.vAxis.isPrecent === 'true'){
-          formatePrecentV = '##.##%';
+          formatePrecentV = 'percent';
         }
 
         if (this.chartOptions.hAxis.isPrecent === 'true'){
-          formatePrecentH = '##.##%';
+          formatePrecentV = 'percent';
         }
 
         var data = JSON.stringify({

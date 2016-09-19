@@ -43,14 +43,31 @@ angular.module('eagleeye')
             var chartOptions = angular.merge({}, defaultChartOptions[scope.chartType.toLowerCase()], angular.copy(scope.chartOptions, {}));
 
             if (scope.chartType.toLowerCase() == "combochart") {
-              if(isNaN(chartOptions.combolines) || chartOptions.combolines.length == 0)
-              {
+
+              if (isNaN(chartOptions.combolines) || chartOptions.combolines.length == 0) {
                 chartOptions.combolines = 1;
               }
+
               chartOptions.seriesType = 'bars';
               chartOptions.series = {};
-              for( var i = 0; i < chartOptions.combolines ; i++){
-               chartOptions.series[i] = { type: 'line' };
+
+              for (var i = 0; i < chartOptions.combolines; i++) {
+                chartOptions.series[i] = { type: 'line' };
+              }
+            }
+
+            // format percent values
+            // TODO: it'll format all columns to percentage, it should be configurable
+            var formatter;
+            var numberOfColumns = 0;
+            var pattern = '#,###.###%';
+
+            if (chartOptions.vAxis.format === 'percent' || chartOptions.hAxis.format === 'percent') {
+              formatter = new google.visualization.NumberFormat({ pattern: pattern });
+              numberOfColumns = chartDataTable.getNumberOfColumns();
+
+              for (var i = 1; i < numberOfColumns; i++) {
+                formatter.format(chartDataTable, i);
               }
             }
 
