@@ -1,3 +1,15 @@
+<a name="1.0.0-beta.7"></a>
+# 1.0.0-beta.7 (2016-09-20)
+
+## Bug Fixes
+
+* Fix wrong chart order in chart set setting.
+
+## Features
+
+* Support `chartArea` google chart option
+
+
 <a name="1.0.0-beta.6"></a>
 # 1.0.0-beta.6 (2016-09-19)
 
