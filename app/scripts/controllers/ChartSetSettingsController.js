@@ -47,8 +47,8 @@ angular.module('eagleeye')
       $q.all([promiseChartSet, promiseCharts]).then(function(data) {
         if (controller.settings.charts && controller.settings.charts.length > 0 &&
           controller.chartList && controller.chartList.length > 0) {
-          controller.chartList.forEach(function(chart) {
-            controller.settings.charts.forEach(function(chartId) {
+          controller.settings.charts.forEach(function(chartId) {
+            controller.chartList.forEach(function(chart) {
               if (chart._id === chartId) {
                 chart.checked = true;
                 controller.selectedCharts.push(chart);
