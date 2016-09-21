@@ -28,12 +28,20 @@
           <md-tooltip md-direction="botton">Share</md-tooltip>
           <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> shared </md-icon>
         </md-button>
+        <md-select ng-show="chartset.viewMode === 'column'" placeholder="View other chartset" ng-model="chartset.selectChartSet" md-on-open="chartset.loadChartSets()" style="min-width: 200px;" ng-change="chartset.goToChartSet(chartset.selectChartSet)">
+          <md-option ng-value="set" ng-repeat="set in chartset.chartSetList">{{set.title}}</md-option>
+        </md-select>
       </div>
       <div class="ee-view__header-content" layout="row" layout-align="start center">
         <md-content class="ee-content" flex>
           <p>
             <md-icon md-font-set="material-icons"> access_time </md-icon> <span class="ee-layout--padding-right">{{chartset.settings.lastUpdateTimestamp | date: 'medium'}}</span></p>
           <p>{{chartset.settings.description}}</p>
+        </md-content>
+        <md-content class="ee-content" flex="none">
+          <md-select placeholder="View other chartset" ng-model="chartset.selectChartSet" md-on-open="chartset.loadChartSets()" style="min-width: 200px;" ng-change="chartset.goToChartSet(chartset.selectChartSet)">
+            <md-option ng-value="set" ng-repeat="set in chartset.chartSetList">{{set.title}}</md-option>
+          </md-select>
         </md-content>
       </div>
     </div>

@@ -80,6 +80,16 @@ angular.module('eagleeye')
         });
       };
 
+      this.loadChartSets = function() {
+        EagleEyeWebService.getChartSets().then(function(chartSetList) {
+          controller.chartSetList = chartSetList;
+        });
+      };
+
+      this.goToChartSet = function(chartset) {
+        $state.go('chartSet', { id: chartset._id });
+      };
+
       function getBase64FromImage(id) {
           var img = document.getElementById(id);
           var canvas = document.createElement("canvas");
