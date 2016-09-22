@@ -48,6 +48,10 @@
                       </md-button>
                       <md-menu-content width="3">
                         <md-menu-item>
+                          <md-button ng-click="charts.goToOptions($event, chart._id, chart.friendlyUrl, chart.type)">
+                            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> settings </md-icon> <span md-menu-align-target>Options</span></md-button>
+                        </md-menu-item>
+                        <md-menu-item>
                           <md-button ng-click="charts.goToSettings($event, chart._id, chart.friendlyUrl, chart.type)">
                             <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> settings </md-icon> <span md-menu-align-target>Settings</span></md-button>
                         </md-menu-item>

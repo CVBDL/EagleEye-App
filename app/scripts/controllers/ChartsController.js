@@ -61,6 +61,16 @@ angular.module('eagleeye')
         }
       };
 
+      this.goToOptions = function($event, id, friendlyurl, type) {
+        $event.stopPropagation();
+
+        if (friendlyurl) {
+          $state.go('chartOptions', { id: friendlyurl });
+        } else {
+          $state.go('chartOptions', { id: id });
+        }
+      };
+
       this.goToCreateChart = function() {
         $state.go('createChart');
       };
