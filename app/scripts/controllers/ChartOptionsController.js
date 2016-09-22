@@ -111,6 +111,7 @@ angular.module('eagleeye')
           controller.settings.description = response.description;
           controller.settings.friendlyUrl = response.friendlyUrl;
           controller.settings.options     = response.options;
+          controller.settings.friendlyUrl = response.friendlyUrl ? response.friendlyUrl.substring(2) : '';
         });
       };
 
