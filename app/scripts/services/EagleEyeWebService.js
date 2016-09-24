@@ -74,6 +74,18 @@ angular.module('eagleeye')
         });
       }
 
+      function updateChartById(id, data) {
+        // https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#edit-a-chart
+        // PUT /api/v1/charts
+        var url = webServiceBaseUrl + 'charts/' + id;
+
+        return fetchServer({
+          method: 'PUT',
+          url: url,
+          data: data
+        });
+      }
+
       function deleteChartById(id) {
         // https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#delete-one-chart
         // DELETE /api/v1/charts
@@ -169,6 +181,7 @@ angular.module('eagleeye')
         getCharts: getCharts,
         getChartById: getChartById,
         createChart: createChart,
+        updateChartById: updateChartById,
         getChartSets: getChartSets,
         getChartSetById: getChartSetById,
         createChartSet: createChartSet,
