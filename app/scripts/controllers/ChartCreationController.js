@@ -21,78 +21,66 @@ angular.module('eagleeye')
       this.chartTypeOptions = GoogleChartsService.getChartTypeOptions();
       this.selectedChartTypeOption = this.chartTypeOptions[0];
 
+      this.stackOptions = [{
+        value: true,
+        label: 'Yes'
+      }, {
+        value: false,
+        label: 'No'
+      }];
+
+      this.formatOptions = [{
+        value: 'percent',
+        label: 'Yes'
+      }, {
+        value: '',
+        label: 'No'
+      }];
+
       this.settings = {
         description: '',
         friendlyUrl: '',
-        majorAxisDataType: 'string'
-      };
-
-      this.chartOptions = {
-        title: '',
-        hAxis: {
+        domainDataType: 'string',
+        options: {
           title: '',
-          isPercent: 'false'
-        },
-        vAxis: {
-          title: '',
-          isPercent: 'false'
-        },
-        isStacked: 'false',
-        chartArea: {
-          left: '',
-          width: ''
+          hAxis: {
+            title: '',
+            format: ''
+          },
+          vAxis: {
+            title: '',
+            format: ''
+          },
+          combolines: '',
+          isStacked: 'false',
+          chartArea: {
+            left: '',
+            width: ''
+          }
         }
       };
 
-      this.createChart = function() {
-        var friendlyUrl = '';
-        var formatPercentV = '';
-        var formatPercentH = '';
+      this.save = function() {
+        var savedData = angular.copy(this.settings, {}),
+          chartArea = {};
 
         if (this.settings.friendlyUrl) {
-          friendlyUrl = friendlyUrlPrefix + this.settings.friendlyUrl;
+          savedData.friendlyUrl = friendlyUrlPrefix + this.settings.friendlyUrl;
         }
 
-        if (this.chartOptions.vAxis.isPercent === 'true') {
-          formatPercentV = 'percent';
+        if (this.settings.options.chartArea.left !== '') {
+          chartArea.left = this.settings.options.chartArea.left;
         }
 
-        if (this.chartOptions.hAxis.isPercent === 'true') {
-          formatPercentH = 'percent';
+        if (this.settings.options.chartArea.width !== '') {
+          chartArea.width = this.settings.options.chartArea.width;
         }
 
-        var _chartArea = {};
+        savedData.options.chartArea = chartArea;
+        savedData.chartType = this.selectedChartTypeOption.value;
+        savedData.datatable = GoogleChartsService.getChartDataTableSamples(this.selectedChartTypeOption.value.toLowerCase(), this.settings.domainDataType)
 
-        if (this.chartOptions.chartArea.left !== '') {
-          _chartArea.left = this.chartOptions.chartArea.left;
-        }
-        if (this.chartOptions.chartArea.width !== '') {
-          _chartArea.width = this.chartOptions.chartArea.width;
-        }
-
-        var data = JSON.stringify({
-          description: this.settings.description,
-          chartType: this.selectedChartTypeOption.value,
-          domainDataType: this.settings.majorAxisDataType,
-          friendlyUrl: friendlyUrl,
-          options: {
-            title: this.chartOptions.title,
-            hAxis: {
-              title: this.chartOptions.hAxis.title,
-              format: formatPercentH
-            },
-            vAxis: {
-              title: this.chartOptions.vAxis.title,
-              format: formatPercentV
-            },
-            combolines: this.chartOptions.combolines,
-            isStacked: this.chartOptions.isStacked === 'true',
-            chartArea: _chartArea
-          },
-          datatable: GoogleChartsService.getChartDataTableSamples(this.selectedChartTypeOption.value.toLowerCase(), this.settings.majorAxisDataType)
-        });
-
-        EagleEyeWebService.createChart(data).then(function(newChart) {
+        EagleEyeWebService.createChart(JSON.stringify(savedData)).then(function(newChart) {
           $state.go('chart', {
             id: newChart._id
           });
@@ -101,7 +89,6 @@ angular.module('eagleeye')
           console.log(error);
         });
       };
-
 
       this.showHelp = function(ev) {
         $mdDialog.show({
@@ -114,14 +101,6 @@ angular.module('eagleeye')
           parent: angular.element(document.body),
           clickOutsideToClose: true
         });
-      };
-
-      this.showLines = function() {
-        if (this.selectedChartTypeOption.value.toLowerCase() == "combochart") {
-          return true;
-        } else {
-          return false;
-        }
       };
     }
   ]);

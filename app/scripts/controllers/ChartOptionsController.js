@@ -63,11 +63,11 @@ angular.module('eagleeye')
       };
 
       this.save = function() {
-        var updateData = angular.copy(this.settings, {}),
+        var savedData = angular.copy(this.settings, {}),
           chartArea = {};
 
         if (this.settings.friendlyUrl) {
-          updateData.friendlyUrl = friendlyUrlPrefix + this.settings.friendlyUrl;
+          savedData.friendlyUrl = friendlyUrlPrefix + this.settings.friendlyUrl;
         }
 
         if (this.settings.options.chartArea.left !== '') {
@@ -78,9 +78,9 @@ angular.module('eagleeye')
           chartArea.width = this.settings.options.chartArea.width;
         }
 
-        updateData.options.chartArea = chartArea;
+        savedData.options.chartArea = chartArea;
 
-        EagleEyeWebService.updateChartById(controller.id, JSON.stringify(updateData)).then(function() {
+        EagleEyeWebService.updateChartById(controller.id, JSON.stringify(savedData)).then(function() {
           $state.go('chart', {
             id: controller.id
           });
