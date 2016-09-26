@@ -107,6 +107,7 @@ angular.module('eagleeye')
         EagleEyeWebService.getChartById(controller.id).then(function(response) {
           controller.id = response._id;
           controller.chartType = response.chartType;
+          controller.domainDataType = response.domainDataType;
 
           controller.settings.description = response.description;
           controller.settings.friendlyUrl = response.friendlyUrl;
