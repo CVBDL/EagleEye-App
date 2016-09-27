@@ -26,6 +26,7 @@ angular.module('eagleeye')
           controller.chartType = data.chartType;
           controller.type = data.type;
           controller.isLoading = false;
+          controller.title = data.options.title;
         });
       };
 
