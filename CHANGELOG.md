@@ -1,3 +1,13 @@
+<a name="1.0.0-beta.8"></a>
+# 1.0.0-beta.8 (2016-09-27)
+
+## Features
+
+* You're able to navigate to other chartset inside chartset page.
+* Support edit chart options.
+* New UI for chart creation page and chart options page.
+
+
 <a name="1.0.0-beta.7"></a>
 # 1.0.0-beta.7 (2016-09-20)
 
