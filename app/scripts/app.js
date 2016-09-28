@@ -74,6 +74,13 @@ angular
           controllerAs: 'chart',
           parent: 'root'
         })
+        .state('chartOptionsAdvance', {
+          url: '/charts/:id/options-advance',
+          templateUrl: 'views/chart-options-advance.html',
+          controller: 'ChartOptionsAdvanceController',
+          controllerAs: 'chart',
+          parent: 'root'
+        })
         .state('chartSets', {
           url: '/chart-sets',
           templateUrl: 'views/chart-sets.html',
