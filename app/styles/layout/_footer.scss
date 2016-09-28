@@ -1,18 +1,14 @@
 .ee-footer {
-  color: #fff;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.ee-footer__wrapper {
-  background: linear-gradient($color-gray, $color-gray-dark);
+  color: $color-gray;
 }
 
 .ee-footer__content {
-  height: $eagleeye-footer-height;
+  box-sizing: border-box;
   margin: 0 auto;
   max-width: $eagleeye-max-width;
-  padding: 0 $eagleeye-header-left-right-content-padding;
+  padding: $eagleeye-content-padding-vertical $eagleeye-content-padding-horizontal;
+
+  p {
+    padding-top: $eagleeye-layout-padding;
+  }
 }
