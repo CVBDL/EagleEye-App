@@ -27,7 +27,7 @@ angular.module('eagleeye')
         } catch (e) {
           $mdDialog.show(
             $mdDialog.alert()
-            .parent(angular.element(document.querySelector('.ui-view-container')[0]))
+            .parent(angular.element(document.body))
             .clickOutsideToClose(true)
             .title('Validation failed')
             .textContent('Input options are not a valid JSON string.')
