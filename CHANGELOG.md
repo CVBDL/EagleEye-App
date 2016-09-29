@@ -1,3 +1,13 @@
+<a name="1.0.0-beta.9"></a>
+# 1.0.0-beta.9 (2016-09-29)
+
+## Features
+
+* Show title when edit a chart.
+* New page for chart advance editing.
+* New UI for footer.
+
+
 <a name="1.0.0-beta.8"></a>
 # 1.0.0-beta.8 (2016-09-27)
 
