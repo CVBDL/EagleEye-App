@@ -57,7 +57,7 @@ angular
           url: '/charts/:id',
           templateUrl: 'views/chart.html',
           controller: 'ChartController',
-          controllerAs: 'chart',
+          controllerAs: 'ctrl',
           parent: 'root'
         })
         .state('chartSettings', {

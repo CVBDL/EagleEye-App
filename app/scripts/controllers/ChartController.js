@@ -12,101 +12,52 @@ angular.module('eagleeye')
     '$state',
     '$stateParams',
     '$location',
+    '$interval',
     'EagleEyeWebService',
-    'eeShareService',
     'GoogleChartsService',
-    function($state, $stateParams, $location, EagleEyeWebService, eeShareService, GoogleChartsService) {
+    'eeShareService',
+    'eeSaveAsPDFService',
+    function($state, $stateParams, $location, $interval, EagleEyeWebService, GoogleChartsService, eeShareService, eeSaveAsPDFService) {
       var controller = this,
-        id = $stateParams.id;
+        id = $stateParams.id,
+        delay = 60 * 1000,
+        autoRefreshIntervalId;
 
-      this.chartData = {};
-      this.autoRefresh = false;
-      this.autoInterval = null;
-      this.imageChartBaseUrl = EagleEyeWebService.getStaticServerSideImageBaseUrl();
+      this.chart = {};
+      this.autoReloadSwitch = false;
+      this.imageChartBaseUrl = '';
 
-      this.autoChange = function() {
-        if (this.autoRefresh == true) {
-          this.autoInterval = setInterval(this.refreshChart, 15000);
-        } else if (this.autoRefresh == false) {
-          clearInterval(this.autoInterval);
-          this.autoInterval = null;
-        }
-      };
-
-      this.getChartDataById = function(id) {
+      this.loadChart = function() {
         EagleEyeWebService.getChartById(id).then(function(data) {
-          controller.chartData = data;
+          controller.chart = data;
         });
       };
 
-      controller.getChartDataById(id);
+      this.toggleAutoReloadChart = function() {
+        if (this.autoReloadSwitch) {
+          this.autoRefreshIntervalId = $interval(this.loadChart, delay);
+
+        } else {
+          $interval.cancel(this.autoRefreshIntervalId);
+        }
+      };
 
       this.showShare = function() {
         eeShareService.showShareDialog({
-          sharedTitle: this.chartData.options.title,
+          sharedTitle: this.chart.options.title,
           sharedLink: $location.absUrl()
         });
       };
 
-      this.refreshChart = function() {
-        var id = controller.chartData._id;
-        controller.getChartDataById(id);
+      this.SaveImageOrPDF = function(fileType, chart) {
+        eeSaveAsPDFService.SaveImageOrPDF(fileType, chart);
       };
 
-      this.SaveImageOrPDF = function(fileType, chartData) {
-        var chart = new google.visualization[chartData.chartType](document.createElement("div"));
-
-        // wait for the chart to finish drawing before calling the getImageURI() method
-        google.visualization.events.addListener(chart, 'ready', function() {
-          switch (fileType) {
-            case 0:
-              Save2Image(chart, chartData);
-              break;
-            case 1:
-              Save2PDF(chart, chartData);
-              break;
-          }
-        });
-
-        var defaultChartOptions = GoogleChartsService.getDefaultChartOptions();
-        var chartDataTable = new google.visualization.DataTable(angular.copy(chartData.datatable, {}));
-        var chartOptions = angular.copy(chartData.options, {}); 
-        if (chartData.chartType.toLowerCase() == "combochart") {
-              if(isNaN(chartOptions.combolines) || chartOptions.combolines.length == 0)
-              {
-                chartOptions.combolines = 1;
-              }
-              chartOptions.seriesType = 'bars';
-              chartOptions.series = {};
-              for( var i = 0; i < chartOptions.combolines ; i++){
-               chartOptions.series[i] = { type: 'line' };
-              }
-        }
-        chartOptions.width = 1024;
-        chartOptions.height = 768;
-        chart.draw(chartDataTable, chartOptions);
-      };
-
-      function Save2Image(chart, chartData) {
-        var uri = chart.getImageURI();
-        var aLink = document.createElement('a');
-        var evt = document.createEvent("HTMLEvents");
-        evt.initEvent("click", false, false);
-        aLink.download = chartData.options.title;
-        aLink.href = uri;
-        aLink.dispatchEvent(evt);
+      function init() {
+        controller.imageChartBaseUrl = EagleEyeWebService.getStaticServerSideImageBaseUrl();
+        controller.loadChart();
       }
 
-      function Save2PDF(chart, chartData) {
-        var uri = chart.getImageURI();
-        var size = [chart.ba + 20, chart.Ea + 20];
-        var doc = new jsPDF("l", "pt", "letter");
-        doc.setFont("times");
-        doc.setFontType("italic");
-        doc.text(40, 20, "Provided by EagleEye");
-        doc.text(40, 40, chartData.options.title);
-        doc.addImage(uri, 'JPEG', 20, 40);
-        doc.save(chartData.options.title);
-      }
+      init();
     }
   ]);

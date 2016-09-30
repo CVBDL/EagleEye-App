@@ -3,38 +3,38 @@
     <md-card class="ee-layout--no-margin">
       <md-toolbar class="ee-toolbar">
         <div class="md-toolbar-tools">
-          <h2 class="ee-text-black-primary">{{chart.chartData.options.title}}</h2>
+          <h2 class="ee-text-black-primary">{{ctrl.chart.options.title}}</h2>
           <span flex></span>
-          <span ng-hide="chart.chartData.chartType ==='ImageChart'">
+          <span ng-hide="ctrl.chart.chartType ==='ImageChart'">
             <md-tooltip md-direction="botton">Auto Refresh</md-tooltip>
-            <md-switch class="ee-auto-refresh-label ee-switch" ng-class="{ 'ee-auto-refresh-disabled': !chart.autoRefresh }" aria-label="Auto Refresh" ng-model="chart.autoRefresh" ng-change="chart.autoChange()">auto</md-switch>
+            <md-switch class="ee-auto-refresh-label ee-switch" ng-class="{ 'ee-auto-refresh-disabled': !ctrl.autoReloadSwitch }" aria-label="Auto Refresh" ng-model="ctrl.autoReloadSwitch" ng-change="ctrl.toggleAutoReloadChart()">auto</md-switch>
           </span>
-          <md-button class="md-icon-button" aria-label="Refresh" ng-hide="chart.chartData.chartType ==='ImageChart'">
+          <md-button class="md-icon-button" aria-label="Refresh" ng-hide="ctrl.chart.chartType ==='ImageChart'">
             <md-tooltip md-direction="botton">Refresh</md-tooltip>
-            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="chart.refreshChart()"> refresh </md-icon>
+            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.loadChart()"> refresh </md-icon>
           </md-button>
-          <md-button class="md-icon-button" aria-label="Save as pdf" ng-hide="chart.chartData.chartType ==='ImageChart'">
+          <md-button class="md-icon-button" aria-label="Save as pdf" ng-hide="ctrl.chart.chartType ==='ImageChart'">
             <md-tooltip md-direction="botton">Save as PDF</md-tooltip>
-            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="chart.SaveImageOrPDF(1,chart.chartData)"> picture_as_pdf </md-icon>
+            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.SaveImageOrPDF(1, ctrl.chart)"> picture_as_pdf </md-icon>
           </md-button>
-          <md-button class="md-icon-button" aria-label="Share" ng-click="chart.showShare()">
+          <md-button class="md-icon-button" aria-label="Share" ng-click="ctrl.showShare()">
             <md-tooltip md-direction="botton">Share</md-tooltip>
             <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> shared </md-icon>
           </md-button>
         </div>
       </md-toolbar>
       <md-divider></md-divider>
-      <ee-google-chart class="ee-google-chart" ng-if="chart.chartData.chartType!='ImageChart'" chart-type="chart.chartData.chartType" chart-options="chart.chartData.options" chart-data-table="chart.chartData.datatable">
+      <ee-google-chart class="ee-google-chart" ng-if="ctrl.chart.chartType!='ImageChart'" chart-type="ctrl.chart.chartType" chart-options="ctrl.chart.options" chart-data-table="ctrl.chart.datatable">
       </ee-google-chart>
-      <div ng-if="chart.chartData.chartType=='ImageChart'" class="ee-image-chart-container">
-        <img ng-src="{{chart.chartData.image_file_name ? chart.imageChartBaseUrl + chart.chartData.image_file_name : ''}}" />
+      <div ng-if="ctrl.chart.chartType=='ImageChart'" class="ee-image-chart-container">
+        <img ng-src="{{ctrl.chart.image_file_name ? ctrl.imageChartBaseUrl + ctrl.chart.image_file_name : ''}}" />
       </div>
       <md-divider></md-divider>
       <md-content class="ee-content" layout-padding>
         <p>
-          <md-icon md-font-set="material-icons" class="ee-icon"> access_time </md-icon> <span class="ee-layout--padding-right">{{chart.chartData.lastUpdateTimestamp | date: 'medium'}}</span>
+          <md-icon md-font-set="material-icons" class="ee-icon"> access_time </md-icon> <span class="ee-layout--padding-right">{{ctrl.chart.lastUpdateTimestamp | date: 'medium'}}</span>
         </p>
-        <p>{{chart.chartData.description}}</p>
+        <p>{{ctrl.chart.description}}</p>
       </md-content>
     </md-card>
   </div>
