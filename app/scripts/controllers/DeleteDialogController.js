@@ -11,7 +11,10 @@ angular.module('eagleeye')
   .controller('DeleteDialogController', [
     '$scope',
     '$mdDialog',
-    function($scope, $mdDialog) {
+    'title',
+    function($scope, $mdDialog, title) {
+      $scope.title = title;
+
       $scope.cancel = function() {
         $mdDialog.cancel('cancel');
       };

@@ -26,10 +26,12 @@ angular.module('eagleeye')
         });
       };
 
-      this.showConfirm = function($event, id) {
+      this.showConfirm = function($event, id, title) {
         $event.stopPropagation();
 
-        eeDeleteConfirmationService.showDeleteConfirmationDialog().then(function(response) {
+        eeDeleteConfirmationService.showDeleteConfirmationDialog({
+          title: title
+        }).then(function(response) {
           if (response === 'delete') {
             controller.deleteChartSetById(id);
           }
