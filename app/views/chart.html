@@ -1,5 +1,5 @@
 <div class="ee-view">
-  <div class="ee-view__content-container">
+  <md-content class="ee-content--transparent ee-view__content-container">
     <md-card class="ee-layout--no-margin">
       <md-toolbar class="ee-toolbar">
         <div class="md-toolbar-tools">
@@ -24,18 +24,20 @@
         </div>
       </md-toolbar>
       <md-divider></md-divider>
-      <ee-google-chart class="ee-google-chart" ng-if="ctrl.chart.chartType!='ImageChart'" chart-type="ctrl.chart.chartType" chart-options="ctrl.chart.options" chart-data-table="ctrl.chart.datatable">
-      </ee-google-chart>
-      <div ng-if="ctrl.chart.chartType=='ImageChart'" class="ee-image-chart-container">
-        <img ng-src="{{ctrl.chart.image_file_name ? ctrl.imageChartBaseUrl + ctrl.chart.image_file_name : ''}}" />
-      </div>
+      <md-card-content>
+        <ee-google-chart class="ee-google-chart" ng-if="ctrl.chart.chartType!='ImageChart'" chart-type="ctrl.chart.chartType" chart-options="ctrl.chart.options" chart-data-table="ctrl.chart.datatable">
+        </ee-google-chart>
+        <div ng-if="ctrl.chart.chartType=='ImageChart'" class="ee-image-chart-container">
+          <img ng-src="{{ctrl.chart.image_file_name ? ctrl.imageChartBaseUrl + ctrl.chart.image_file_name : ''}}" />
+        </div>
+      </md-card-content>
       <md-divider></md-divider>
-      <md-content class="ee-content" layout-padding>
+      <md-card-footer>
         <p>
           <md-icon md-font-set="material-icons" class="ee-icon"> access_time </md-icon> <span class="ee-layout--padding-right">{{ctrl.chart.lastUpdateTimestamp | date: 'medium'}}</span>
         </p>
         <p>{{ctrl.chart.description}}</p>
-      </md-content>
+      </md-card-footer>
     </md-card>
-  </div>
+  </md-content>
 </div>
