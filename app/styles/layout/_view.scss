@@ -9,10 +9,6 @@
   padding: $eagleeye-content-padding-vertical $eagleeye-content-padding-horizontal;
 }
 
-.ee-view__content-container--small {
-  padding: $eagleeye-content-padding-vertical $eagleeye-content-padding-large-horizontal;
-}
-
 .ee-view__chart-list-container {
   height: 650px;
 }
@@ -35,14 +31,8 @@
 
 
 @media (max-width: $layout-breakpoint-sm - 1) {
-  .ee-view__content-container,
-  .ee-view__content-container--small {
+  .ee-view__content-container {
     padding-top: ($eagleeye-content-padding-vertical / 2);
     padding-bottom: ($eagleeye-content-padding-vertical / 2);
-  }
-
-  .ee-view__content-container--small {
-    padding-left: $eagleeye-content-padding-horizontal;
-    padding-right: $eagleeye-content-padding-horizontal;
   }
 }
