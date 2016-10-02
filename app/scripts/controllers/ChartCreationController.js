@@ -9,13 +9,11 @@
  */
 angular.module('eagleeye')
   .controller('ChartCreationController', [
-    '$scope',
-    '$http',
     '$state',
     '$mdDialog',
     'GoogleChartsService',
     'EagleEyeWebService',
-    function($scope, $http, $state, $mdDialog, GoogleChartsService, EagleEyeWebService) {
+    function($state, $mdDialog, GoogleChartsService, EagleEyeWebService) {
       var friendlyUrlPrefix = 'c-';
 
       this.chartTypeOptions = GoogleChartsService.getChartTypeOptions();
@@ -37,7 +35,7 @@ angular.module('eagleeye')
         label: 'No'
       }];
 
-      this.settings = {
+      this.chart = {
         description: '',
         friendlyUrl: '',
         domainDataType: 'string',
@@ -61,24 +59,24 @@ angular.module('eagleeye')
       };
 
       this.save = function() {
-        var savedData = angular.copy(this.settings, {}),
+        var savedData = angular.copy(this.chart, {}),
           chartArea = {};
 
-        if (this.settings.friendlyUrl) {
-          savedData.friendlyUrl = friendlyUrlPrefix + this.settings.friendlyUrl;
+        if (this.chart.friendlyUrl) {
+          savedData.friendlyUrl = friendlyUrlPrefix + this.chart.friendlyUrl;
         }
 
-        if (this.settings.options.chartArea.left !== '') {
-          chartArea.left = this.settings.options.chartArea.left;
+        if (this.chart.options.chartArea.left !== '') {
+          chartArea.left = this.chart.options.chartArea.left;
         }
 
-        if (this.settings.options.chartArea.width !== '') {
-          chartArea.width = this.settings.options.chartArea.width;
+        if (this.chart.options.chartArea.width !== '') {
+          chartArea.width = this.chart.options.chartArea.width;
         }
 
         savedData.options.chartArea = chartArea;
         savedData.chartType = this.selectedChartTypeOption.value;
-        savedData.datatable = GoogleChartsService.getChartDataTableSamples(this.selectedChartTypeOption.value.toLowerCase(), this.settings.domainDataType)
+        savedData.datatable = GoogleChartsService.getChartDataTableSamples(this.selectedChartTypeOption.value.toLowerCase(), this.chart.domainDataType)
 
         EagleEyeWebService.createChart(JSON.stringify(savedData)).then(function(newChart) {
           $state.go('chart', {
@@ -102,5 +100,6 @@ angular.module('eagleeye')
           clickOutsideToClose: true
         });
       };
+
     }
   ]);

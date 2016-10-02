@@ -50,7 +50,7 @@ angular
           url: '/charts/new',
           templateUrl: 'views/chart-creation.html',
           controller: 'ChartCreationController',
-          controllerAs: 'newChart',
+          controllerAs: 'ctrl',
           parent: 'root'
         })
         .state('chart', {
