@@ -102,7 +102,7 @@ describe('app.js', function () {
   });
 
   it('should go to create chart state', function() {
-    var stateName = 'createChart';
+    var stateName = 'chartCreation';
     var url = '/charts/new';
 
     $httpBackend.flush();
