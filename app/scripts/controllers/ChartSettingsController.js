@@ -12,36 +12,30 @@ angular.module('eagleeye')
     '$state',
     '$stateParams',
     'EagleEyeWebService',
-    'Upload',
-    function ($state, $stateParams, EagleEyeWebService, Upload) {
-      var controller = this;
-      controller.id = $stateParams.id;
+    function ($state, $stateParams, EagleEyeWebService) {
+      var controller = this,
+        id = controller.id = $stateParams.id;
 
+      this.chart = {};
       this.isLoading = true;
-
-      this.excelTemplateDownloadUrl = EagleEyeWebService.getExcelTemplateDownloadUrl(controller.id);
-
-      this.getChartDataById = function(id) {
-        EagleEyeWebService.getChartById(id).then(function(data) {
-          controller.chartType = data.chartType;
-          controller.type = data.type;
-          controller.isLoading = false;
-          controller.title = data.options.title;
-        });
-      };
-
-      this.goViewChart = function() {
-        $state.go('chart', {id : controller.id});
-      };
-
-      this.goViewCharts = function(){
-        $state.go('charts');
-      };
+      this.excelTemplateDownloadUrl = '';
 
       this.upload = function (file) {
         EagleEyeWebService.uploadFile(file, controller.type, controller.id);
+      };
+
+      function loadChart() {
+        EagleEyeWebService.getChartById(id).then(function(data) {
+          controller.isLoading = false;
+          controller.chart = data;
+        });
       }
 
-      this.getChartDataById(controller.id);
+      function init() {
+        controller.excelTemplateDownloadUrl = EagleEyeWebService.getExcelTemplateDownloadUrl(id);
+        loadChart();
+      }
+
+      init();
     }
   ]);

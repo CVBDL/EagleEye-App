@@ -1,24 +1,32 @@
 <div class="ee-view">
-  <div class="ee-view__content-container">
-    <md-card class="ee-layout--no-margin">
+  <md-content class="ee-view__content-container ee-content--transparent">
+    <div md-whiteframe="1" class="ee-content">
       <md-toolbar class="ee-toolbar">
         <div class="md-toolbar-tools">
-          <h2 class="ee-text-black-primary">{{chart.title}}</h2>
+          <h2 class="ee-text-black-primary">{{ctrl.chart.options.title}}</h2>
           <span flex></span>
-          <md-button class="md-icon-button" aria-label="View chart" ng-click="chart.goViewChart()">
+          <md-button class="md-icon-button" aria-label="View chart" ui-sref="chart({ id: ctrl.id })">
             <md-tooltip md-direction="botton">View chart</md-tooltip>
             <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> show_chart </md-icon>
           </md-button>
         </div>
       </md-toolbar>
       <md-divider></md-divider>
-      <md-content class="ee-content" layout="row" layout-padding  layout-align="center center">
-        <md-progress-circular class="ee-progress-circular" md-diameter="40" ng-if="chart.isLoading"></md-progress-circular>
-        <div class="ee-card-container" ng-if="!chart.isLoading && chart.chartType !== 'ImageChart'" flex>
+
+      <!-- Loading Indicator -->
+      <div ng-if="ctrl.isLoading" layout="row" layout-padding layout-align="center center">
+        <md-progress-circular class="ee-progress-circular" md-diameter="40"></md-progress-circular>
+      </div>
+
+      <!-- Google Chart Types -->
+      <div ng-if="!ctrl.isLoading && ctrl.chart.chartType !== 'ImageChart'" layout="row" layout-padding layout-wrap>
+        <div class="ee-card-container" flex="50" flex-xs="100">
           <md-card class="ee-layout--no-margin">
             <md-card-title>
               <md-card-title-media class="ee-layout--no-margin">
-                <div class="md-media card-media"><md-icon md-font-set="material-icons" class="ee-icon"> looks_one </md-icon></div>
+                <div class="md-media card-media">
+                  <md-icon md-font-set="material-icons" class="ee-icon"> looks_one </md-icon>
+                </div>
               </md-card-title-media>
               <md-card-title-text>
                 <span class="md-headline">Download template</span>
@@ -27,12 +35,12 @@
             </md-card-title>
             <md-card-actions layout="row" layout-align="end center">
               <md-button class="ee-button--accent" aria-label="file download">
-                <a class="ee-button--accent" href="{{chart.excelTemplateDownloadUrl}}">Go to Download</a>
+                <a class="ee-button--accent" ng-href="{{ctrl.excelTemplateDownloadUrl}}">Go to Download</a>
               </md-button>
             </md-card-actions>
           </md-card>
         </div>
-        <div class="ee-card-container" ng-if="!chart.isLoading && chart.chartType !== 'ImageChart'" flex>
+        <div class="ee-card-container" flex="50" flex-xs="100">
           <md-card layout-fill class="ee-layout--no-margin">
             <md-card-title>
               <md-card-title-media class="ee-layout--no-margin">
@@ -44,17 +52,21 @@
               </md-card-title-text>
             </md-card-title>
             <md-card-actions layout="row" layout-align="end center">
-              <md-button class="ee-button--accent" ngf-select ng-model="chart.excelFile" name="file">Choose File</md-button>
-              <md-button class="ee-button--accent" aria-label="Submit" ng-click="chart.upload(chart.excelFile)">Submit</md-button>
+              <md-button class="ee-button--accent" ngf-select ng-model="ctrl.excelFile" name="file">Choose File</md-button>
+              <md-button class="ee-button--accent" aria-label="Submit" ng-click="ctrl.upload(ctrl.excelFile)">Submit</md-button>
             </md-card-actions>
-            <md-progress-linear ng-show="chart.excelFile.progress >= 0" md-mode="determinate" value="chart.excelFile.progress"></md-progress-linear>
-            <div style="width:80%">
-              <span ng-show="chart.excelFile.progress == 100">Upload Successful</span>
+            <md-progress-linear ng-show="ctrl.excelFile.progress >= 0" md-mode="determinate" value="ctrl.excelFile.progress"></md-progress-linear>
+            <div>
+              <span ng-show="ctrl.excelFile.progress == 100">Upload Successful</span>
             </div>
             <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
           </md-card>
         </div>
-        <div class="ee-card-container" ng-if="!chart.isLoading && chart.chartType === 'ImageChart'" flex>
+      </div>
+
+      <!-- Custom Image Chart Type -->
+      <div ng-if="!ctrl.isLoading && ctrl.chart.chartType === 'ImageChart'" layout="row" layout-padding>
+        <div class="ee-card-container" flex="100">
           <md-card layout-fill class="ee-layout--no-margin">
             <md-card-title>
               <md-card-title-media class="ee-layout--no-margin">
@@ -66,17 +78,18 @@
               </md-card-title-text>
             </md-card-title>
             <md-card-actions layout="row" layout-align="end center">
-              <md-button class="ee-button--accent" ngf-select ng-model="chart.excelFile" name="file">Choose File</md-button>
-              <md-button class="ee-button--accent" aria-label="Submit" ng-click="chart.upload(chart.excelFile)">Submit</md-button>
+              <md-button class="ee-button--accent" ngf-select ng-model="ctrl.excelFile" name="file">Choose File</md-button>
+              <md-button class="ee-button--accent" aria-label="Submit" ng-click="ctrl.upload(ctrl.excelFile)">Submit</md-button>
             </md-card-actions>
-            <md-progress-linear ng-show="chart.excelFile.progress >= 0" md-mode="determinate" value="chart.excelFile.progress"></md-progress-linear>
-            <div style="width:80%">
-              <span ng-show="chart.excelFile.progress == 100">Upload Successful</span>
+            <md-progress-linear ng-show="ctrl.excelFile.progress >= 0" md-mode="determinate" value="ctrl.excelFile.progress"></md-progress-linear>
+            <div>
+              <span ng-show="ctrl.excelFile.progress == 100">Upload Successful</span>
             </div>
             <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
           </md-card>
         </div>
-      </md-content>
-    </md-card>
-  </div>
+      </div>
+
+    </div>
+  </md-content>
 </div>
