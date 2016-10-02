@@ -36,7 +36,7 @@ angular
           url: '/home',
           templateUrl: 'views/home.html',
           controller: 'HomeController',
-          controllerAs: 'home',
+          controllerAs: 'ctrl',
           parent: 'root'
         })
         .state('charts', {

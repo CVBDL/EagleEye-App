@@ -44,14 +44,5 @@ describe('Controller: HomeController', function () {
   it('should init HomeController correctly', function() {
     $httpBackend.flush();
     expect(HomeController).toBeDefined();
-    expect(HomeController.goToDevelop).toBeDefined();
-  });
-
-  it('should go to develop view when calls goToDevelop()', function () {
-    $httpBackend.flush();
-    HomeController.goToDevelop();
-    $rootScope.$digest();
-
-    expect($state.current.name).toBe('develop');
   });
 });
