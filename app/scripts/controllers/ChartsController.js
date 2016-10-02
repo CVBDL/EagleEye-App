@@ -20,7 +20,7 @@ angular.module('eagleeye')
 
       this.isLoading = true;
 
-      this.getChartsList = function() {
+      this.loadChartList = function() {
         EagleEyeWebService.getCharts().then(function(chartList) {
           controller.isLoading = false;
           controller.chartList = chartList;
@@ -32,51 +32,24 @@ angular.module('eagleeye')
 
         eeDeleteConfirmationService.showDeleteConfirmationDialog({
           title: title
+
         }).then(function(response) {
           if (response === 'delete') {
-            controller.deleteChartById(id);
+            deleteChartById(id);
           }
         });
       };
 
-      this.openCharts = function(id, friendlyurl) {
-        if (friendlyurl) {
-          $state.go('chart', { id: friendlyurl });
-        } else {
-          $state.go('chart', { id: id });
-        }
-      };
-
-      this.deleteChartById = function(id) {
+      function deleteChartById(id) {
         EagleEyeWebService.deleteChartById(id).then(function() {
-          controller.getChartsList();
+          controller.loadChartList();
         });
-      };
+      }
 
-      this.goToSettings = function($event, id, friendlyurl, type) {
-        $event.stopPropagation();
+      function init() {
+        controller.loadChartList();
+      }
 
-        if (friendlyurl) {
-          $state.go('chartSettings', { id: friendlyurl });
-        } else {
-          $state.go('chartSettings', { id: id });
-        }
-      };
-
-      this.goToOptions = function($event, id, friendlyurl, type) {
-        $event.stopPropagation();
-
-        if (friendlyurl) {
-          $state.go('chartOptions', { id: friendlyurl });
-        } else {
-          $state.go('chartOptions', { id: id });
-        }
-      };
-
-      this.goToCreateChart = function() {
-        $state.go('createChart');
-      };
-
-      this.getChartsList();
+      init();
     }
   ]);

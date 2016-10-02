@@ -43,10 +43,10 @@ angular
           url: '/charts',
           templateUrl: 'views/charts.html',
           controller: 'ChartsController',
-          controllerAs: 'charts',
+          controllerAs: 'ctrl',
           parent: 'root'
         })
-        .state('createChart', {
+        .state('chartCreation', {
           url: '/charts/new',
           templateUrl: 'views/chart-creation.html',
           controller: 'ChartCreationController',
