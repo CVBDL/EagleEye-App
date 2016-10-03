@@ -1,25 +1,27 @@
 <div class="ee-view">
-  <div class="ee-view__content-container">
-    <md-card class="ee-layout--no-margin">
+  <md-content class="ee-view__content-container ee-content--transparent">
+    <div md-whiteframe="1" class="ee-content">
       <md-toolbar class="ee-toolbar">
         <div class="md-toolbar-tools">
-          <h3 class="ee-text-black-primary">Edit: {{chart.title}} (Use Carefully)</h3>
+          <h3 class="ee-text-black-primary">Edit: {{ctrl.title}} (Use Carefully)</h3>
           <span flex></span>
           <md-button class="md-icon-button" aria-label="Save">
             <md-tooltip md-direction="botton">Save</md-tooltip>
-            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="chart.save()"> save </md-icon>
+            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.save()"> save </md-icon>
           </md-button>
         </div>
       </md-toolbar>
       <md-divider></md-divider>
-      <md-content class="ee-content" layout-padding>
-        <div layout="row">
-          <md-input-container flex>
-            <label>Input full settings here</label>
-            <textarea ng-model="chart.settings" rows="10" md-select-on-focus></textarea>
-          </md-input-container>
-        </div>
-      </md-content>
-    </md-card>
-  </div>
+      <div layout-padding>
+        <form name="ChartOptionsAdvanceForm">
+          <div layout="row">
+            <md-input-container flex>
+              <label>Input full settings here</label>
+              <textarea ng-model="ctrl.settings" rows="10" md-select-on-focus></textarea>
+            </md-input-container>
+          </div>
+        </form>
+      </div>
+    </div>
+  </md-content>
 </div>
