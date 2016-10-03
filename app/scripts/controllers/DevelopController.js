@@ -8,6 +8,4 @@
  * Controller of the eagleeye
  */
 angular.module('eagleeye')
-  .controller('DevelopController', function () {
-
-  });
+  .controller('DevelopController', function () { });

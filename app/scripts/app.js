@@ -99,7 +99,7 @@ angular
           url: '/chart-sets/:id',
           templateUrl: 'views/chart-set.html',
           controller: 'ChartSetController',
-          controllerAs: 'chartset',
+          controllerAs: 'ctrl',
           parent: 'root'
         })
         .state('chartSetSettings', {
@@ -113,7 +113,7 @@ angular
           url: '/develop',
           templateUrl: 'views/develop.html',
           controller: 'DevelopController',
-          controllerAs: 'develop',
+          controllerAs: 'ctrl',
           parent: 'root'
         });
 

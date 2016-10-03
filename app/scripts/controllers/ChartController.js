@@ -35,10 +35,10 @@ angular.module('eagleeye')
 
       this.toggleAutoReloadChart = function() {
         if (this.autoReloadSwitch) {
-          this.autoRefreshIntervalId = $interval(this.loadChart, delay);
+          autoRefreshIntervalId = $interval(this.loadChart, delay);
 
         } else {
-          $interval.cancel(this.autoRefreshIntervalId);
+          $interval.cancel(autoRefreshIntervalId);
         }
       };
 
