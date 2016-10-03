@@ -157,7 +157,7 @@ describe('app.js', function () {
   });
 
   it('should go to createChartSet state', function() {
-    var stateName = 'createChartSet';
+    var stateName = 'chartSetCreation';
     var url = '/chart-sets/new';
 
     $httpBackend.flush();
