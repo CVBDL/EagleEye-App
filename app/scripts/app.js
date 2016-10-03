@@ -85,7 +85,7 @@ angular
           url: '/chart-sets',
           templateUrl: 'views/chart-sets.html',
           controller: 'ChartSetsController',
-          controllerAs: 'chartsets',
+          controllerAs: 'ctrl',
           parent: 'root'
         })
         .state('createChartSet', {

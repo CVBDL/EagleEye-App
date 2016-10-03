@@ -10,12 +10,9 @@
 angular.module('eagleeye')
   .controller('ChartsController', [
     '$state',
-    '$mdDialog',
-    '$mdMedia',
-    '$http',
     'EagleEyeWebService',
     'eeDeleteConfirmationService',
-    function($state, $mdDialog, $mdMedia, $http, EagleEyeWebService, eeDeleteConfirmationService) {
+    function($state, EagleEyeWebService, eeDeleteConfirmationService) {
       var controller = this;
 
       this.isLoading = true;

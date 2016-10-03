@@ -1,32 +1,32 @@
 <div class="ee-view">
-  <div class="ee-view__content-container">
-    <md-card class="ee-layout--no-margin">
+  <md-content class="ee-view__content-container ee-content--transparent">
+    <div md-whiteframe="1" class="ee-content">
       <md-toolbar class="ee-toolbar">
         <div class="md-toolbar-tools">
-        <h2 class="ee-text-black-primary">All chart sets list</h2>
-        <span flex></span>
-        <md-button class="md-icon-button" aria-label="Refresh">
-          <md-tooltip md-direction="botton">Refresh</md-tooltip>
-          <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="chartsets.getChartSetsList()"> refresh </md-icon>
-        </md-button>
-        <md-button class="md-icon-button" aria-label="Create a new chart set" ui-sref="createChartSet">
-          <md-tooltip md-direction="botton">Create a new chart set</md-tooltip>
-          <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> create </md-icon>
-        </md-button>
-      </div>
+          <h2 class="ee-text-black-primary">All chart sets list</h2>
+          <span flex></span>
+          <md-button class="md-icon-button" aria-label="Refresh">
+            <md-tooltip md-direction="botton">Refresh</md-tooltip>
+            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.loadChartList()"> refresh </md-icon>
+          </md-button>
+          <md-button class="md-icon-button" aria-label="Create a new chart set" ui-sref="createChartSet">
+            <md-tooltip md-direction="botton">Create a new chart set</md-tooltip>
+            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> create </md-icon>
+          </md-button>
+        </div>
       </md-toolbar>
       <md-divider></md-divider>
-      <md-content class="ee-content" layout="row" layout-padding layout-align="center center" ng-if="chartsets.isLoading">
+      <div layout="row" layout-padding layout-align="center center" ng-if="ctrl.isLoading">
         <md-progress-circular class="ee-progress-circular" md-diameter="40"></md-progress-circular>
-      </md-content>
-      <md-content class="ee-content" layout="row" layout-padding layout-align="center center" ng-if="!chartsets.isLoading && chartsets.chartSetList.length === 0">
-        <md-button class="md-fab" aria-label="Create a new chart set" ng-click="chartsets.goToCreateChartSet()">
+      </div>
+      <div layout="row" layout-padding layout-align="center center" ng-if="!ctrl.isLoading && ctrl.chartSetList.length === 0">
+        <md-button class="md-fab" aria-label="Create a new chart set" ui-sref="createChartSet">
           <md-icon md-font-set="material-icons"> add </md-icon>
         </md-button>
-      </md-content>
+      </div>
       <div class="ee-list">
-        <div class="ee-list__item" ng-repeat="chartset in chartsets.chartSetList track by chartset._id">
-          <a href="javascript:;" ng-click="chartsets.openChartSets(chartset._id, chartset.friendlyUrl)">
+        <div class="ee-list__item" ng-repeat="chartset in ctrl.chartSetList track by chartset._id">
+          <a ui-sref="chartSet({ id: chartset.friendlyUrl || chartset._id })">
             <div class="ee-list__item__content" layout="row" layout-align="start center">
               <div class="ee-list__item__content__col-1 ee-list__item__index ee-text-black-primary" flex="none">
                 {{$index + 1}}
@@ -48,11 +48,11 @@
                       </md-button>
                       <md-menu-content width="3">
                         <md-menu-item>
-                          <md-button ng-click="chartsets.goToSettings($event, chartset._id, chartset.friendlyUrl)">
+                          <md-button ui-sref="chartSetSettings({ id: chartset.friendlyUrl || chartset._id })">
                             <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> settings </md-icon> <span md-menu-align-target>Settings</span></md-button>
                         </md-menu-item>
                         <md-menu-item>
-                          <md-button ng-click="chartsets.showConfirm($event, chartset._id, chartset.title)">
+                          <md-button ng-click="ctrl.showConfirm($event, chartset._id, chartset.title)">
                             <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> delete </md-icon> <span md-menu-align-target>Delete</span></md-button>
                         </md-menu-item>
                       </md-menu-content>
@@ -65,6 +65,6 @@
           <md-divider ng-hide="$last"></md-divider>
         </div>
       </div>
-    </md-card>
-  </div>
+    </div>
+  </md-content>
 </div>
