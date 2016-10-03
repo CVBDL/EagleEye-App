@@ -40,7 +40,7 @@ angular.module('eagleeye')
         label: 'No'
       }];
 
-      this.settings = {
+      this.chart = {
         description: '',
         friendlyUrl: '',
         options: {
@@ -63,19 +63,19 @@ angular.module('eagleeye')
       };
 
       this.save = function() {
-        var savedData = angular.copy(this.settings, {}),
+        var savedData = angular.copy(this.chart, {}),
           chartArea = {};
 
-        if (this.settings.friendlyUrl) {
-          savedData.friendlyUrl = friendlyUrlPrefix + this.settings.friendlyUrl;
+        if (this.chart.friendlyUrl) {
+          savedData.friendlyUrl = friendlyUrlPrefix + this.chart.friendlyUrl;
         }
 
-        if (this.settings.options.chartArea.left !== '') {
-          chartArea.left = this.settings.options.chartArea.left;
+        if (this.chart.options.chartArea.left !== '') {
+          chartArea.left = this.chart.options.chartArea.left;
         }
 
-        if (this.settings.options.chartArea.width !== '') {
-          chartArea.width = this.settings.options.chartArea.width;
+        if (this.chart.options.chartArea.width !== '') {
+          chartArea.width = this.chart.options.chartArea.width;
         }
 
         savedData.options.chartArea = chartArea;
@@ -109,10 +109,10 @@ angular.module('eagleeye')
           controller.chartType = response.chartType;
           controller.domainDataType = response.domainDataType;
 
-          controller.settings.description = response.description;
-          controller.settings.friendlyUrl = response.friendlyUrl;
-          controller.settings.options     = response.options;
-          controller.settings.friendlyUrl = response.friendlyUrl ? response.friendlyUrl.substring(2) : '';
+          controller.chart.description = response.description;
+          controller.chart.friendlyUrl = response.friendlyUrl;
+          controller.chart.options     = response.options;
+          controller.chart.friendlyUrl = response.friendlyUrl ? response.friendlyUrl.substring(2) : '';
         });
       };
 

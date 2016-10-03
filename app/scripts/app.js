@@ -71,7 +71,7 @@ angular
           url: '/charts/:id/options',
           templateUrl: 'views/chart-options.html',
           controller: 'ChartOptionsController',
-          controllerAs: 'chart',
+          controllerAs: 'ctrl',
           parent: 'root'
         })
         .state('chartOptionsAdvance', {

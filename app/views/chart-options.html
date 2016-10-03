@@ -1,92 +1,92 @@
 <div class="ee-view">
-  <div class="ee-view__content-container">
-    <md-card class="ee-layout--no-margin">
+  <md-content class="ee-view__content-container ee-content--transparent">
+    <div md-whiteframe="1" class="ee-content">
       <md-toolbar class="ee-toolbar">
         <div class="md-toolbar-tools">
           <h3 class="ee-text-black-primary">Edit chart</h3>
           <span flex></span>
           <md-button class="md-icon-button" aria-label="Help">
             <md-tooltip md-direction="botton">Help</md-tooltip>
-            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="chart.showHelp($event)"> help_outline </md-icon>
+            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.showHelp($event)"> help_outline </md-icon>
           </md-button>
           <md-button class="md-icon-button" aria-label="Save">
             <md-tooltip md-direction="botton">Save</md-tooltip>
-            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="chart.save()"> save </md-icon>
+            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.save()"> save </md-icon>
           </md-button>
         </div>
       </md-toolbar>
       <md-divider></md-divider>
-      <md-content class="ee-content" layout-padding>
+      <div layout-padding>
         <form name="ChartCreationForm">
           <div layout="row">
             <md-input-container flex="50">
               <label>Title</label>
-              <input required name="chartTitle" ng-model="chart.settings.options.title">
+              <input required name="chartTitle" ng-model="ctrl.chart.options.title">
               <div ng-messages="ChartCreationForm.chartTitle.$error">
                 <div ng-message="required">This is required.</div>
               </div>
             </md-input-container>
             <md-input-container flex>
               <label>Stacked or not</label>
-              <md-select ng-model="chart.settings.options.isStacked">
-                <md-option ng-value="option.value" ng-repeat="option in chart.stackOptions">{{option.label}}</md-option>
+              <md-select ng-model="ctrl.chart.options.isStacked">
+                <md-option ng-value="option.value" ng-repeat="option in ctrl.stackOptions">{{option.label}}</md-option>
               </md-select>
             </md-input-container>
           </div>
           <div layout="row">
             <md-input-container flex="50">
               <label>Friendly url</label>
-              <input name="chartFriendlyUrl" ng-model="chart.settings.friendlyUrl">
+              <input name="chartFriendlyUrl" ng-model="ctrl.chart.friendlyUrl">
             </md-input-container>
             <md-input-container flex>
               <label>Percent on V-axis</label>
-              <md-select ng-model="chart.settings.options.vAxis.format">
-                <md-option ng-value="option.value" ng-repeat="option in chart.formatOptions">{{option.label}}</md-option>
+              <md-select ng-model="ctrl.chart.options.vAxis.format">
+                <md-option ng-value="option.value" ng-repeat="option in ctrl.formatOptions">{{option.label}}</md-option>
               </md-select>
             </md-input-container>
             <md-input-container flex>
               <label>Percent on H-axis</label>
-              <md-select ng-model="chart.settings.options.hAxis.format">
-                <md-option ng-value="option.value" ng-repeat="option in chart.formatOptions">{{option.label}}</md-option>
+              <md-select ng-model="ctrl.chart.options.hAxis.format">
+                <md-option ng-value="option.value" ng-repeat="option in ctrl.formatOptions">{{option.label}}</md-option>
               </md-select>
             </md-input-container>
-            <md-input-container flex ng-if="chart.chartType === 'ComboChart'">
+            <md-input-container flex ng-if="ctrl.chartType === 'ComboChart'">
               <label>Combo Lines: Default 1</label>
-              <input name="chartCombolines" ng-model="chart.settings.options.combolines">
+              <input name="chartCombolines" ng-model="ctrl.chart.options.combolines">
             </md-input-container>
           </div>
           <div layout="row">
             <md-input-container flex="50">
               <label>Description</label>
-              <input name="chartDescription" ng-model="chart.settings.description">
+              <input name="chartDescription" ng-model="ctrl.chart.description">
             </md-input-container>
             <md-input-container flex>
               <label>H-axis title</label>
-              <input name="chartHAxisTitle" ng-model="chart.settings.options.hAxis.title">
+              <input name="chartHAxisTitle" ng-model="ctrl.chart.options.hAxis.title">
             </md-input-container>
             <md-input-container flex>
               <label>V-axis title</label>
-              <input name="chartVAxisTitle" ng-model="chart.settings.options.vAxis.title">
+              <input name="chartVAxisTitle" ng-model="ctrl.chart.options.vAxis.title">
             </md-input-container>
             <md-input-container flex>
               <label>chartArea.left</label>
-              <input name="chartAreaLeft" ng-model="chart.settings.options.chartArea.left">
+              <input name="chartAreaLeft" ng-model="ctrl.chart.options.chartArea.left">
             </md-input-container>
             <md-input-container flex>
               <label>chartArea.width</label>
-              <input name="chartAreaWidth" ng-model="chart.settings.options.chartArea.width">
+              <input name="chartAreaWidth" ng-model="ctrl.chart.options.chartArea.width">
             </md-input-container>
           </div>
         </form>
-      </md-content>
+      </div>
       <md-divider></md-divider>
-      <md-content class="ee-content" layout-padding layout="row">
+      <div layout-padding>
         <div flex="100">
           <p>Live demo:</p>
-          <ee-google-chart-sample class="ee-google-chart" chart-type="{{chart.chartType}}" chart-major-axis-data-type="{{chart.domainDataType}}" chart-options="chart.settings.options">
+          <ee-google-chart-sample class="ee-google-chart" chart-type="{{ctrl.chartType}}" chart-major-axis-data-type="{{ctrl.domainDataType}}" chart-options="ctrl.chart.options">
           </ee-google-chart-sample>
         </div>
-      </md-content>
-    </md-card>
-  </div>
+      </div>
+    </div>
+  </md-content>
 </div>
