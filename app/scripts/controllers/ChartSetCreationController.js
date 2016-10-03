@@ -12,14 +12,10 @@ angular.module('eagleeye')
     '$state',
     'EagleEyeWebService',
     function ($state, EagleEyeWebService) {
-      var friendlyUrlPrefix = 's-',
-        controller = this;
+      var controller = this,
+        friendlyUrlPrefix = 's-';
 
-      EagleEyeWebService.getCharts().then(function(chartList) {
-        controller.chartList = chartList;
-      });
-
-      this.settings = {
+      this.chartset = {
         title: '',
         description: '',
         friendlyUrl: '',
@@ -30,8 +26,8 @@ angular.module('eagleeye')
       this.selectedCharts = [];
 
       this.filterFunction = function(chart) {
-        return chart.options.title.indexOf(controller.settings.searchKeyword) >= 0 ||
-          chart.description.indexOf(controller.settings.searchKeyword) >= 0;
+        return chart.options.title.indexOf(controller.chartset.searchKeyword) >= 0 ||
+          chart.description.indexOf(controller.chartset.searchKeyword) >= 0;
       }
 
       this.onCheckboxChanged = function(chart) {
@@ -71,8 +67,8 @@ angular.module('eagleeye')
         var friendlyUrl = '',
           chartIds = [];
 
-        if (this.settings.friendlyUrl) {
-          friendlyUrl = friendlyUrlPrefix + this.settings.friendlyUrl;
+        if (this.chartset.friendlyUrl) {
+          friendlyUrl = friendlyUrlPrefix + this.chartset.friendlyUrl;
         }
 
         this.selectedCharts.forEach(function(chart) {
@@ -80,8 +76,8 @@ angular.module('eagleeye')
         });
 
         var data = JSON.stringify({
-          title: this.settings.title,
-          description: this.settings.description,
+          title: this.chartset.title,
+          description: this.chartset.description,
           friendlyUrl: friendlyUrl,
           charts: chartIds
         });
@@ -92,5 +88,17 @@ angular.module('eagleeye')
           });
         });
       };
+
+      function loadChartList() {
+        EagleEyeWebService.getCharts().then(function(chartList) {
+          controller.chartList = chartList;
+        });
+      }
+
+      function init() {
+        loadChartList();
+      }
+
+      init();
     }
   ]);

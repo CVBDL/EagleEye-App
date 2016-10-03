@@ -88,11 +88,11 @@ angular
           controllerAs: 'ctrl',
           parent: 'root'
         })
-        .state('createChartSet', {
+        .state('chartSetCreation', {
           url: '/chart-sets/new',
           templateUrl: 'views/chart-set-creation.html',
           controller: 'ChartSetCreationController',
-          controllerAs: 'chartset',
+          controllerAs: 'ctrl',
           parent: 'root'
         })
         .state('chartSet', {

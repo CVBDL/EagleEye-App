@@ -1,119 +1,119 @@
 <div class="ee-view">
-  <div class="ee-view__content-container">
-    <md-card class="ee-layout--no-margin">
+  <div class="ee-view__content-container ee-content--transparent">
+    <div md-whiteframe="1" class="ee-content">
       <md-toolbar class="ee-toolbar">
         <div class="md-toolbar-tools">
           <h3 class="ee-text-black-primary">Create chart set</h3>
           <span flex></span>
           <md-button class="md-icon-button" aria-label="Save">
             <md-tooltip md-direction="botton">Save</md-tooltip>
-            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="chartset.save()"> save </md-icon>
+            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.save()"> save </md-icon>
           </md-button>
         </div>
       </md-toolbar>
       <md-divider></md-divider>
-      <md-content class="ee-content" layout-padding>
-        <form name="chartSetCreationForm" layout="row">
-          <div flex>
-            <md-input-container class="md-block">
-              <label>Title</label>
-              <input md-maxlength="60" required name="title" ng-model="chartset.settings.title">
-              <div ng-messages="chartSetCreationForm.title.$error" role="alert" md-auto-hide="false">
-                <div ng-message="required">This is required.</div>
-              </div>
-            </md-input-container>
-            <md-input-container class="md-block">
-              <label>Friendly URL</label>
-              <input name="friendlyUrl" ee-friendly-url-validator="chartset" ng-model="chartset.settings.friendlyUrl">
-              <div class="ee-input-hint">A custom chart set domain name. Should be unique or empty.</div>
-              <div ng-messages="chartSetCreationForm.friendlyUrl.$error" role="alert" md-auto-hide="false">
-                <div ng-message="friendlyUrlChecking">Checking database...</div>
-                <div ng-message="friendlyUrlAvailable">The url is already in use</div>
-              </div>
-            </md-input-container>
-            <md-input-container class="md-block">
-              <label>Description</label>
-              <textarea name="description" ng-model="chartset.settings.description" md-maxlength="200" rows="3" md-select-on-focus></textarea>
-              <div ng-messages="chartSetCreationForm.description.$error" role="alert" md-auto-hide="false">
-                <div ng-message="md-maxlength" class="my-message">
-                  Don't use the long version silly...we don't need to be that specific...
+      <div layout-padding>
+        <form name="chartSetCreationForm">
+          <div layout="row">
+            <div flex>
+              <md-input-container class="md-block">
+                <label>Title</label>
+                <input md-maxlength="60" required name="title" ng-model="ctrl.chartset.title">
+                <div ng-messages="chartSetCreationForm.title.$error" role="alert" md-auto-hide="false">
+                  <div ng-message="required">This is required.</div>
                 </div>
-              </div>
-            </md-input-container>
-            <h4>Chart List:</h4>
-            <div class="ee-list">
-            <div class="ee-list__item ee-list__item--narrow"
-                ng-repeat="chart in chartset.selectedCharts track by chart._id">
-              <a href="javascript:;">
-                <div class="ee-list__item__content" layout="row" layout-align="start center">
-                  <div class="ee-list__item__content__col-1 ee-list__item__index ee-text-black-primary" flex="none">
-                    {{$index + 1}}
+              </md-input-container>
+              <md-input-container class="md-block">
+                <label>Friendly URL</label>
+                <input name="friendlyUrl" ee-friendly-url-validator="chartset" ng-model="ctrl.chartset.friendlyUrl">
+                <div class="ee-input-hint">A custom chart set domain name. Should be unique or empty.</div>
+                <div ng-messages="chartSetCreationForm.friendlyUrl.$error" role="alert" md-auto-hide="false">
+                  <div ng-message="friendlyUrlChecking">Checking database...</div>
+                  <div ng-message="friendlyUrlAvailable">The url is already in use</div>
+                </div>
+              </md-input-container>
+              <md-input-container class="md-block">
+                <label>Description</label>
+                <textarea name="description" ng-model="ctrl.chartset.description" md-maxlength="200" rows="3" md-select-on-focus></textarea>
+                <div ng-messages="chartSetCreationForm.description.$error" role="alert" md-auto-hide="false">
+                  <div ng-message="md-maxlength" class="my-message">
+                    Don't use the long version silly...we don't need to be that specific...
                   </div>
-                  <div class="ee-list__item__content__col-2" flex="auto" layout="column" layout-align="space-between start">
-                    <div class="ee-list__item__content__col-2__row-1" flex="auto" layout="row" layout-align="start center">
-                      <h3 class="ee-list__item__title ee-text-black-primary">{{chart.options.title}}</h3>
-                    </div>
-                    <div class="ee-list__item__content__col-2__row-2 ee-text-black-secondary" flex="auto">
-                      <p>{{chart.description}}</p>
-                    </div>
-                  </div>
-                  <div flex="none">
-                      <md-toolbar class="ee-toolbar ee-layout--transparent">
-                        <div class="md-toolbar-tools ee-layout--no-padding">
-                        <md-button class="md-icon-button" aria-label="Move up" ng-click="chartset.moveUp(chart)">
-                          <md-tooltip md-direction="botton">Move up</md-tooltip>
-                          <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> arrow_upward </md-icon>
-                        </md-button>
-                        <md-button class="md-icon-button" aria-label="Move down" ng-click="chartset.moveDown(chart)">
-                          <md-tooltip md-direction="botton">Move down</md-tooltip>
-                          <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> arrow_downward </md-icon>
-                        </md-button>
+                </div>
+              </md-input-container>
+              <h4>Chart List:</h4>
+              <md-content class="ee-list ee-content--transparent">
+                <div class="ee-list__item ee-list__item--narrow" ng-repeat="chart in ctrl.selectedCharts track by chart._id">
+                  <a href="javascript:;">
+                    <div class="ee-list__item__content" layout="row" layout-align="start center">
+                      <div class="ee-list__item__content__col-1 ee-list__item__index ee-text-black-primary" flex="none">
+                        {{$index + 1}}
                       </div>
-                    </md-toolbar>
-                  </div>
+                      <div class="ee-list__item__content__col-2" flex="auto" layout="column" layout-align="space-between start">
+                        <div class="ee-list__item__content__col-2__row-1" flex="auto" layout="row" layout-align="start center">
+                          <h3 class="ee-list__item__title ee-text-black-primary">{{chart.options.title}}</h3>
+                        </div>
+                        <div class="ee-list__item__content__col-2__row-2 ee-text-black-secondary" flex="auto">
+                          <p>{{chart.description}}</p>
+                        </div>
+                      </div>
+                      <div flex="none">
+                        <md-toolbar class="ee-toolbar ee-layout--transparent">
+                          <div class="md-toolbar-tools ee-layout--no-padding">
+                            <md-button class="md-icon-button" aria-label="Move up" ng-click="ctrl.moveUp(chart)">
+                              <md-tooltip md-direction="botton">Move up</md-tooltip>
+                              <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> arrow_upward </md-icon>
+                            </md-button>
+                            <md-button class="md-icon-button" aria-label="Move down" ng-click="ctrl.moveDown(chart)">
+                              <md-tooltip md-direction="botton">Move down</md-tooltip>
+                              <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> arrow_downward </md-icon>
+                            </md-button>
+                          </div>
+                        </md-toolbar>
+                      </div>
+                    </div>
+                  </a>
+                  <md-divider ng-hide="$last"></md-divider>
                 </div>
-              </a>
-              <md-divider ng-hide="$last"></md-divider>
+              </md-content>
+            </div>
+            <div flex="5"></div>
+            <div flex>
+              <md-input-container class="md-block">
+                <md-icon md-font-set="material-icons" class="ee-icon"> search </md-icon>
+                <input ng-model="ctrl.chartset.searchKeyword" type="text" placeholder="Search the chart sets">{{ctrl.filterOptions}}
+              </md-input-container>
+              <md-content class="ee-view__chart-list-container ee-content ee-list">
+                <div class="ee-list__item ee-list__item--narrow" ng-repeat="chart in ctrl.chartList | filter: ctrl.filterFunction track by chart._id">
+                  <a href="javascript:;">
+                    <div class="ee-list__item__content" layout="row" layout-align="start center">
+                      <div class="ee-list__item__content__col-1 ee-list__item__index ee-text-black-primary" flex="none">
+                        {{$index + 1}}
+                      </div>
+                      <div class="ee-list__item__content__col-2" flex="auto" layout="column" layout-align="space-between start">
+                        <div class="ee-list__item__content__col-2__row-1" flex="auto" layout="row" layout-align="start center">
+                          <h3 class="ee-list__item__title ee-text-black-primary">{{chart.options.title}}</h3>
+                        </div>
+                        <div class="ee-list__item__content__col-2__row-2 ee-text-black-secondary" flex="auto">
+                          <p>{{chart.description}}</p>
+                        </div>
+                      </div>
+                      <div flex="none">
+                        <md-toolbar class="ee-toolbar ee-layout--transparent">
+                          <div class="md-toolbar-tools ee-layout--no-padding">
+                            <md-checkbox class="md-secondary ee-layout--no-margin" ng-model="chart.checked" ng-change="ctrl.onCheckboxChanged(chart)" aria-label="{{chart.options.title}}"></md-checkbox>
+                          </div>
+                        </md-toolbar>
+                      </div>
+                    </div>
+                  </a>
+                  <md-divider ng-hide="$last"></md-divider>
+                </div>
+              </md-content>
             </div>
           </div>
-          </div>
-          <div flex="5"></div>
-          <div flex>
-            <md-input-container class="md-block">
-              <md-icon md-font-set="material-icons" class="ee-icon"> search </md-icon>
-              <input ng-model="chartset.settings.searchKeyword" type="text" placeholder="Search the chart sets">{{chartset.filterOptions}}
-            </md-input-container>
-            <md-content class="ee-view__chart-list-container ee-content ee-list">
-              <div class="ee-list__item ee-list__item--narrow"
-                  ng-repeat="chart in chartset.chartList | filter: chartset.filterFunction track by chart._id">
-                <a href="javascript:;">
-                  <div class="ee-list__item__content" layout="row" layout-align="start center">
-                    <div class="ee-list__item__content__col-1 ee-list__item__index ee-text-black-primary" flex="none">
-                      {{$index + 1}}
-                    </div>
-                    <div class="ee-list__item__content__col-2" flex="auto" layout="column" layout-align="space-between start">
-                      <div class="ee-list__item__content__col-2__row-1" flex="auto" layout="row" layout-align="start center">
-                        <h3 class="ee-list__item__title ee-text-black-primary">{{chart.options.title}}</h3>
-                      </div>
-                      <div class="ee-list__item__content__col-2__row-2 ee-text-black-secondary" flex="auto">
-                        <p>{{chart.description}}</p>
-                      </div>
-                    </div>
-                    <div flex="none">
-                      <md-toolbar class="ee-toolbar ee-layout--transparent">
-                        <div class="md-toolbar-tools ee-layout--no-padding">
-                          <md-checkbox class="md-secondary ee-layout--no-margin" ng-model="chart.checked" ng-change="chartset.onCheckboxChanged(chart)" aria-label="{{chart.options.title}}"></md-checkbox>
-                        </div>
-                      </md-toolbar>
-                    </div>
-                  </div>
-                </a>
-                <md-divider ng-hide="$last"></md-divider>
-              </div>
-            </md-content>
-          </div>
         </form>
-      </md-content>
-    </md-card>
+      </div>
+    </div>
   </div>
 </div>
