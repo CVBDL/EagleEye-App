@@ -106,7 +106,7 @@ angular
           url: '/chart-sets/:id/settings',
           templateUrl: 'views/chart-set-settings.html',
           controller: 'ChartSetSettingsController',
-          controllerAs: 'chartset',
+          controllerAs: 'ctrl',
           parent: 'root'
         })
         .state('develop', {

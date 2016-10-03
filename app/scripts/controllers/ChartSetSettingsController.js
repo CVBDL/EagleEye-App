@@ -13,50 +13,27 @@ angular.module('eagleeye')
     '$stateParams',
     '$q',
     'EagleEyeWebService',
-    '$mdDialog',
-    function($state, $stateParams, $q, EagleEyeWebService, $mdDialog) {
+    function($state, $stateParams, $q, EagleEyeWebService) {
       var controller = this,
         id = $stateParams.id,
         friendlyUrlPrefix = 's-';
 
-      this.showingURL = '';
-      this.settings = {
-        searchKeyword: ''
+      this.chartset = {
+        title: '',
+        description: '',
+        friendlyUrl: '',
+        searchKeyword: '',
+        charts: []
       };
+
       this.selectedCharts = [];
 
+      this.showingURL = '';
+
       this.filterFunction = function(chart) {
-        return chart.options.title.indexOf(controller.settings.searchKeyword) >= 0 ||
-          chart.description.indexOf(controller.settings.searchKeyword) >= 0;
-      }
-
-      var promiseChartSet = EagleEyeWebService.getChartSetById(id).then(function(chartSet) {
-        angular.extend(controller.settings, chartSet);
-
-        if (chartSet.friendlyUrl) {
-          controller.showingURL = chartSet.friendlyUrl.substring(2);
-        } else {
-          controller.showingURL = '';
-        }
-      });
-
-      var promiseCharts = EagleEyeWebService.getCharts().then(function(chartList) {
-        controller.chartList = chartList;
-      });
-
-      $q.all([promiseChartSet, promiseCharts]).then(function(data) {
-        if (controller.settings.charts && controller.settings.charts.length > 0 &&
-          controller.chartList && controller.chartList.length > 0) {
-          controller.settings.charts.forEach(function(chartId) {
-            controller.chartList.forEach(function(chart) {
-              if (chart._id === chartId) {
-                chart.checked = true;
-                controller.selectedCharts.push(chart);
-              }
-            });
-          });
-        }
-      });
+        return chart.options.title.indexOf(controller.chartset.searchKeyword) >= 0 ||
+          chart.description.indexOf(controller.chartset.searchKeyword) >= 0;
+      };
 
       this.onCheckboxChanged = function(chart) {
         var index = -1;
@@ -92,12 +69,12 @@ angular.module('eagleeye')
       };
 
       this.save = function() {
-        var id = this.settings._id,
+        var id = this.chartset._id,
           friendlyUrl = '',
           chartIds = [];
 
-        if (this.settings.friendlyUrl) {
-          friendlyUrl = friendlyUrlPrefix + this.settings.friendlyUrl;
+        if (this.chartset.friendlyUrl) {
+          friendlyUrl = friendlyUrlPrefix + this.chartset.friendlyUrl;
         }
 
         this.selectedCharts.forEach(function(chart) {
@@ -105,8 +82,8 @@ angular.module('eagleeye')
         });
 
         var data = JSON.stringify({
-          title: this.settings.title,
-          description: this.settings.description,
+          title: this.chartset.title,
+          description: this.chartset.description,
           friendlyUrl: friendlyUrl,
           charts: chartIds
         });
@@ -115,5 +92,37 @@ angular.module('eagleeye')
           $state.go('chartSets');
         });
       };
+
+      function init() {
+        var promiseChartSet = EagleEyeWebService.getChartSetById(id).then(function(chartSet) {
+          angular.extend(controller.chartset, chartSet);
+
+          if (chartSet.friendlyUrl) {
+            controller.showingURL = chartSet.friendlyUrl.substring(2);
+          } else {
+            controller.showingURL = '';
+          }
+        });
+
+        var promiseCharts = EagleEyeWebService.getCharts().then(function(chartList) {
+          controller.chartList = chartList;
+        });
+
+        $q.all([promiseChartSet, promiseCharts]).then(function(data) {
+          if (controller.chartset.charts && controller.chartset.charts.length > 0 &&
+            controller.chartList && controller.chartList.length > 0) {
+            controller.chartset.charts.forEach(function(chartId) {
+              controller.chartList.forEach(function(chart) {
+                if (chart._id === chartId) {
+                  chart.checked = true;
+                  controller.selectedCharts.push(chart);
+                }
+              });
+            });
+          }
+        });
+      }
+
+      init();
     }
   ]);
