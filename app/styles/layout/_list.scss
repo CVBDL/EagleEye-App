@@ -29,11 +29,11 @@
 
 .ee-list__item__content__col-2__row-1 {
   width: 100%;
-  margin-bottom: $eagleeye-list-item-content-padding;
 }
 
 .ee-list__item__content__col-2__row-2 {
   width: 100%;
+  margin-top: $eagleeye-list-item-content-padding;
 
   p {
     @include text-ellipsis(1, 14px, 20 / 14);
