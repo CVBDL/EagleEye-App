@@ -55,6 +55,7 @@ angular.module('eagleeye')
 
       function init() {
         controller.imageChartBaseUrl = EagleEyeWebService.getStaticServerSideImageBaseUrl();
+        controller.excelTemplateDownloadUrl = EagleEyeWebService.getExcelTemplateDownloadUrl(id);
         controller.loadChart();
       }
 
