@@ -35,7 +35,7 @@
       <div class="ee-view__header-content" layout="row" layout-align="start center">
         <md-content class="ee-content" flex>
           <p>
-            <span class="ee-text-black-primary">Updated:</span> <span class="ee-layout--padding-right">{{ctrl.settings.updatedAt | date: 'medium'}}</span></p>
+            <i class="ee-layout--padding-right">{{ctrl.settings.updatedAt | date: 'medium'}}</i></p>
           <p>{{ctrl.settings.description}}</p>
         </md-content>
         <md-content class="ee-content" flex="none">
@@ -80,7 +80,7 @@
           <md-divider ng-hide="ctrl.viewMode === 'column'"></md-divider>
           <md-card-footer class="ee-chartset-info">
             <p>
-              <span class="ee-text-black-primary">Updated:</span> <span class="ee-layout--padding-right">{{chart.updatedAt | date: 'medium'}}</span></p>
+              <i class="ee-layout--padding-right">{{chart.updatedAt | date: 'medium'}}</i></p>
             <p>{{chart.description}}</p>
           </md-card-footer>
         </md-card>
