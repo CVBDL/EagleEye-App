@@ -37,6 +37,10 @@ angular.module('eagleeye')
         });
       };
 
+      this.createChartSet = function() {
+        $state.go('chartSetCreation');
+      };
+
       function deleteChartSetById(id) {
         EagleEyeWebService.deleteChartSetById(id).then(function() {
           controller.loadChartList();

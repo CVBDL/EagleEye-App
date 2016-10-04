@@ -9,7 +9,7 @@
             <md-tooltip md-direction="botton">Refresh</md-tooltip>
             <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.loadChartList()"> refresh </md-icon>
           </md-button>
-          <md-button class="md-icon-button" aria-label="Create a new chart" ui-sref="chartCreation">
+          <md-button class="md-icon-button" aria-label="Create a new chart" ng-click="ctrl.createChart()">
             <md-tooltip md-direction="botton">Create a new chart</md-tooltip>
             <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> create </md-icon>
           </md-button>
@@ -20,7 +20,7 @@
         <md-progress-circular class="ee-progress-circular" md-diameter="40"></md-progress-circular>
       </div>
       <div layout="row" layout-padding layout-align="center center" ng-if="!ctrl.isLoading && ctrl.chartList.length === 0">
-        <md-button class="md-fab" aria-label="Create a new chart" ui-sref="chartCreation">
+        <md-button class="md-fab" aria-label="Create a new chart" ng-click="ctrl.createChart()">
           <md-icon md-font-set="material-icons"> add </md-icon>
         </md-button>
       </div>
