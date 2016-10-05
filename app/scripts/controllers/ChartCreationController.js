@@ -79,7 +79,7 @@ angular.module('eagleeye')
         savedData.datatable = GoogleChartsService.getChartDataTableSamples(this.selectedChartTypeOption.value.toLowerCase(), this.chart.domainDataType)
 
         EagleEyeWebService.createChart(JSON.stringify(savedData)).then(function(newChart) {
-          $state.go('chart', {
+          $state.go('chartSettings', {
             id: newChart._id
           });
 
