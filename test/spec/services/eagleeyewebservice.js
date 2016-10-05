@@ -29,7 +29,6 @@ describe('Service: EagleEyeWebService', function () {
       'setRootEndpoint',
       'getWebServiceBaseUrl',
       'getStaticServerSideImageBaseUrl',
-      'getExcelTemplateDownloadUrl',
       'getCharts',
       'getChartById',
       'createChart',
@@ -56,18 +55,5 @@ describe('Service: EagleEyeWebService', function () {
     expect(EagleEyeWebService.getWebServiceBaseUrl()).toBe(webServiceBaseUrl);
     expect(EagleEyeWebService.getStaticServerSideImageBaseUrl()).toBe(staticServerSideImageBaseUrl);
   });
-
-  it('should get correct excel template download url', function() {
-    EagleEyeWebService.setRootEndpoint(rootEndpoint);
-
-    expect(EagleEyeWebService.getExcelTemplateDownloadUrl()).toBe(excelTemplateDownloadBaseUrl);
-    expect(EagleEyeWebService.getExcelTemplateDownloadUrl(chartId)).toBe(excelTemplateDownloadUrl);
-  });
-
-  // it('should perform correctly when call fetchServer()', function() {
-  //   EagleEyeWebService.setRootEndpoint(rootEndpoint);
-
-  //   EagleEyeWebService.fetchServer();
-  // });
 
 });

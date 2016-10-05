@@ -28,12 +28,6 @@ angular.module('eagleeye')
         return staticServerSideImageBaseUrl;
       }
 
-      function getExcelTemplateDownloadUrl(id) {
-        id = id || '';
-
-        return webServiceBaseUrl + 'download/excels/' + id;
-      }
-
       function fetchServer(options) {
         return $http(options).then(function(response) {
           return response.data;
@@ -177,7 +171,6 @@ angular.module('eagleeye')
         setRootEndpoint: setRootEndpoint,
         getWebServiceBaseUrl: getWebServiceBaseUrl,
         getStaticServerSideImageBaseUrl: getStaticServerSideImageBaseUrl,
-        getExcelTemplateDownloadUrl: getExcelTemplateDownloadUrl,
         getCharts: getCharts,
         getChartById: getChartById,
         createChart: createChart,

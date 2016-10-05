@@ -63,11 +63,11 @@
                 <md-menu-content width="3">
                   <md-menu-item>
                     <md-button aria-label="Save as pdf" ng-click="ctrl.saveChartSetAsImageOrPdf(1,chart)">
-                      <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.saveChartSetAsImageOrPdf(1,chart)"> picture_as_pdf </md-icon> <span md-menu-align-target>Save as pdf</span></md-button>
+                      <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> picture_as_pdf </md-icon> <span md-menu-align-target>Save as pdf</span></md-button>
                   </md-menu-item>
                   <md-menu-item>
-                    <md-button aria-label="Download data" ng-href="{{ctrl.getExcelTemplateDownloadUrl(chart._id)}}">
-                      <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.saveChartSetAsImageOrPdf(1,chart)"> file_download </md-icon> <span md-menu-align-target>Download data</span></md-button>
+                    <md-button aria-label="Download data" ng-href="{{chart.browserDownloadUrl.excel}}">
+                      <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> file_download </md-icon> <span md-menu-align-target>Download data</span></md-button>
                   </md-menu-item>
                 </md-menu-content>
               </md-menu>

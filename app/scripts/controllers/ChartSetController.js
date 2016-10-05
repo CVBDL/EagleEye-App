@@ -80,10 +80,6 @@ angular.module('eagleeye')
         $state.go('chartSet', { id: chartset._id });
       };
 
-      this.getExcelTemplateDownloadUrl = function(id) {
-        return EagleEyeWebService.getExcelTemplateDownloadUrl(id);
-      };
-
       function init() {
         controller.loadChartSet();
         controller.imageChartBaseUrl = EagleEyeWebService.getStaticServerSideImageBaseUrl();

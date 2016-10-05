@@ -18,7 +18,6 @@ angular.module('eagleeye')
 
       this.chart = {};
       this.isLoading = true;
-      this.excelTemplateDownloadUrl = '';
 
       this.upload = function (file) {
         EagleEyeWebService.uploadFile(file, controller.type, controller.id);
@@ -32,7 +31,6 @@ angular.module('eagleeye')
       }
 
       function init() {
-        controller.excelTemplateDownloadUrl = EagleEyeWebService.getExcelTemplateDownloadUrl(id);
         loadChart();
       }
 
