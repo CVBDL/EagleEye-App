@@ -39,7 +39,11 @@ angular.module('eagleeye')
           controller.chartset.charts.push(chart);
 
         } else {
-          index = controller.chartset.charts.indexOf(chart);
+          controller.chartset.charts.forEach(function(_chart, idx) {
+            if (chart._id === _chart._id) {
+              index = idx;
+            }
+          });
 
           if (index > -1) {
             controller.chartset.charts.splice(index, 1);
