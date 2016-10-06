@@ -1,3 +1,12 @@
+<a name="1.0.0-beta.10"></a>
+# 1.0.0-beta.10 (2016-10-06)
+
+## Features
+
+* Improve UI/UX
+* Refactor
+
+
 <a name="1.0.0-beta.9"></a>
 # 1.0.0-beta.9 (2016-09-29)
 
