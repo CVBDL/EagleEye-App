@@ -15,51 +15,49 @@ angular.module('eagleeye')
       var controller = this,
         friendlyUrlPrefix = 's-';
 
+      this.searchKeyword = '';
       this.chartset = {
         title: '',
         description: '',
         friendlyUrl: '',
-        searchKeyword: '',
         charts: []
       };
 
-      this.selectedCharts = [];
-
       this.filterFunction = function(chart) {
-        return chart.options.title.indexOf(controller.chartset.searchKeyword) >= 0 ||
-          chart.description.indexOf(controller.chartset.searchKeyword) >= 0;
+        return chart.options.title.indexOf(controller.searchKeyword) >= 0 ||
+          chart.description.indexOf(controller.searchKeyword) >= 0;
       }
 
       this.onCheckboxChanged = function(chart) {
         var index = -1;
 
         if (chart.checked) {
-          controller.selectedCharts.push(chart);
+          controller.chartset.charts.push(chart);
 
         } else {
-          index = controller.selectedCharts.indexOf(chart);
+          index = controller.chartset.charts.indexOf(chart);
 
           if (index > -1) {
-            controller.selectedCharts.splice(index, 1);
+            controller.chartset.charts.splice(index, 1);
           }
         }
       };
 
       this.moveUp = function(chart) {
-        var index = controller.selectedCharts.indexOf(chart);
+        var index = controller.chartset.charts.indexOf(chart);
 
         if (index > 0) {
-          controller.selectedCharts.splice(index, 1);
-          controller.selectedCharts.splice(index - 1, 0, chart);
+          controller.chartset.charts.splice(index, 1);
+          controller.chartset.charts.splice(index - 1, 0, chart);
         }
       };
 
       this.moveDown = function(chart) {
-        var index = controller.selectedCharts.indexOf(chart);
+        var index = controller.chartset.charts.indexOf(chart);
 
-        if (index < controller.selectedCharts.length - 1) {
-          controller.selectedCharts.splice(index, 1);
-          controller.selectedCharts.splice(index + 1, 0, chart);
+        if (index < controller.chartset.charts.length - 1) {
+          controller.chartset.charts.splice(index, 1);
+          controller.chartset.charts.splice(index + 1, 0, chart);
         }
       };
 
@@ -71,7 +69,7 @@ angular.module('eagleeye')
           friendlyUrl = friendlyUrlPrefix + this.chartset.friendlyUrl;
         }
 
-        this.selectedCharts.forEach(function(chart) {
+        this.chartset.charts.forEach(function(chart) {
           chartIds.push(chart._id);
         });
 

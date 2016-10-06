@@ -92,19 +92,19 @@ angular.module('eagleeye')
         doc.setFontType("italic");
         doc.text(40, 20, "Provided by EagleEye");
         var allImageArray = new Array();
-        for (var i = 0; i < chartset.charDataArray.length; i++) {
-          if (chartset.charDataArray[i].chartType.indexOf('ImageChart') > -1) {
-            if (chartset.charDataArray[i].image_file_name === undefined) {
+        for (var i = 0; i < chartset.charts.length; i++) {
+          if (chartset.charts[i].chartType.indexOf('ImageChart') > -1) {
+            if (chartset.charts[i].image_file_name === undefined) {
               continue;
             }
-            var dataURL = getBase64FromImage(chartset.charDataArray[i].options.title);
+            var dataURL = getBase64FromImage(chartset.charts[i].options.title);
             doc.addImage(dataURL, 'JPEG', 20, 60);
             doc.setFont("times");
             doc.setFontType("italic");
             doc.text(40, 40, "gg");
             doc.addPage();
           } else {
-            allImageArray.splice(i, 1, chartset.charDataArray[i]);
+            allImageArray.splice(i, 1, chartset.charts[i]);
           }
         }
         var allImageCount = allImageArray.length;
@@ -135,7 +135,7 @@ angular.module('eagleeye')
               doc.addPage();
             }
             if (imageCount >= allImageCount) {
-              doc.save(chartset.settings.title);
+              doc.save(chartset.title);
             }
           });
           var defaultChartOptions = GoogleChartsService.getDefaultChartOptions();

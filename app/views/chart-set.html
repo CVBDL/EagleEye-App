@@ -2,7 +2,7 @@
   <div class="ee-view__wrapper">
     <div class="ee-view__content-container">
       <div class="ee-view__header-content" layout="row" layout-align="start center">
-        <h2 class="ee-text-black-primary">{{ctrl.settings.title}}</h2>
+        <h2 class="ee-text-black-primary">{{ctrl.chartset.title}}</h2>
         <span flex></span>
         <span>
           <md-tooltip md-direction="botton">Auto Refresh</md-tooltip>
@@ -22,7 +22,7 @@
         </md-button>
         <md-button class="md-icon-button" aria-label="Save as pdf">
           <md-tooltip md-direction="botton">Save as pdf</md-tooltip>
-          <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.saveChartSetAsPdf(ctrl)"> picture_as_pdf </md-icon>
+          <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.saveChartSetAsPdf(ctrl.chartset)"> picture_as_pdf </md-icon>
         </md-button>
         <md-button class="md-icon-button" aria-label="Settings" ng-click="ctrl.showShare()">
           <md-tooltip md-direction="botton">Share</md-tooltip>
@@ -35,8 +35,8 @@
       <div class="ee-view__header-content" layout="row" layout-align="start center">
         <md-content class="ee-content" flex>
           <p>
-            <i class="ee-layout--padding-right">{{ctrl.settings.updatedAt | date: 'medium'}}</i></p>
-          <p>{{ctrl.settings.description}}</p>
+            <i class="ee-layout--padding-right">{{ctrl.chartset.updatedAt | date: 'medium'}}</i></p>
+          <p>{{ctrl.chartset.description}}</p>
         </md-content>
         <md-content class="ee-content" flex="none">
           <md-select placeholder="View other chartset" ng-model="ctrl.selectChartSet" md-on-open="ctrl.loadChartSets()" style="min-width: 200px;" ng-change="ctrl.goToChartSet(ctrl.selectChartSet)">
@@ -48,7 +48,7 @@
   </div>
   <div class="ee-view__content-container">
     <md-content class="ee-content ee-content--transparent" layout="row" layout-wrap layout-align="start stretch">
-      <div class="ee-chart-set-chart-wrapper" flex="{{ctrl.viewMode === 'list' ? 100 : 50}}" ng-repeat="chart in ctrl.charDataArray track by chart._id">
+      <div class="ee-chart-set-chart-wrapper" flex="{{ctrl.viewMode === 'list' ? 100 : 50}}" ng-repeat="chart in ctrl.chartset.charts track by chart._id">
         <md-card class="ee-layout--no-margin">
           <md-toolbar class="ee-toolbar">
             <div class="md-toolbar-tools">

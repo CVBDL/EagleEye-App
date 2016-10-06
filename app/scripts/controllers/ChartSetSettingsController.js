@@ -18,53 +18,50 @@ angular.module('eagleeye')
         id = $stateParams.id,
         friendlyUrlPrefix = 's-';
 
+      this.searchKeyword = '';
+      this.showingURL = '';
       this.chartset = {
         title: '',
         description: '',
         friendlyUrl: '',
-        searchKeyword: '',
         charts: []
       };
 
-      this.selectedCharts = [];
-
-      this.showingURL = '';
-
       this.filterFunction = function(chart) {
-        return chart.options.title.indexOf(controller.chartset.searchKeyword) >= 0 ||
-          chart.description.indexOf(controller.chartset.searchKeyword) >= 0;
+        return chart.options.title.indexOf(controller.searchKeyword) >= 0 ||
+          chart.description.indexOf(controller.searchKeyword) >= 0;
       };
 
       this.onCheckboxChanged = function(chart) {
         var index = -1;
 
         if (chart.checked) {
-          controller.selectedCharts.push(chart);
+          controller.chartset.charts.push(chart);
 
         } else {
-          index = controller.selectedCharts.indexOf(chart);
+          index = controller.chartset.charts.indexOf(chart);
 
           if (index > -1) {
-            controller.selectedCharts.splice(index, 1);
+            controller.chartset.charts.splice(index, 1);
           }
         }
       };
 
       this.moveUp = function(chart) {
-        var index = controller.selectedCharts.indexOf(chart);
+        var index = controller.chartset.charts.indexOf(chart);
 
         if (index > 0) {
-          controller.selectedCharts.splice(index, 1);
-          controller.selectedCharts.splice(index - 1, 0, chart);
+          controller.chartset.charts.splice(index, 1);
+          controller.chartset.charts.splice(index - 1, 0, chart);
         }
       };
 
       this.moveDown = function(chart) {
-        var index = controller.selectedCharts.indexOf(chart);
+        var index = controller.chartset.charts.indexOf(chart);
 
-        if (index < controller.selectedCharts.length - 1) {
-          controller.selectedCharts.splice(index, 1);
-          controller.selectedCharts.splice(index + 1, 0, chart);
+        if (index < controller.chartset.charts.length - 1) {
+          controller.chartset.charts.splice(index, 1);
+          controller.chartset.charts.splice(index + 1, 0, chart);
         }
       };
 
@@ -77,7 +74,7 @@ angular.module('eagleeye')
           friendlyUrl = friendlyUrlPrefix + this.chartset.friendlyUrl;
         }
 
-        this.selectedCharts.forEach(function(chart) {
+        this.chartset.charts.forEach(function(chart) {
           chartIds.push(chart._id);
         });
 
@@ -93,33 +90,34 @@ angular.module('eagleeye')
         });
       };
 
-      function init() {
-        var promiseChartSet = EagleEyeWebService.getChartSetById(id).then(function(chartSet) {
-          angular.extend(controller.chartset, chartSet);
+      function loadChartSet() {
+        return EagleEyeWebService.getChartSetById(id).then(function(chartset) {
+          controller.chartset = chartset;
 
-          if (chartSet.friendlyUrl) {
-            controller.showingURL = chartSet.friendlyUrl.substring(2);
+          if (chartset.friendlyUrl) {
+            controller.showingURL = chartset.friendlyUrl.substring(2);
+
           } else {
             controller.showingURL = '';
           }
         });
+      }
 
-        var promiseCharts = EagleEyeWebService.getCharts().then(function(chartList) {
+      function loadCharts() {
+        return EagleEyeWebService.getCharts().then(function(chartList) {
           controller.chartList = chartList;
         });
+      }
 
-        $q.all([promiseChartSet, promiseCharts]).then(function(data) {
-          if (controller.chartset.charts && controller.chartset.charts.length > 0 &&
-            controller.chartList && controller.chartList.length > 0) {
-            controller.chartset.charts.forEach(function(chartId) {
-              controller.chartList.forEach(function(chart) {
-                if (chart._id === chartId) {
-                  chart.checked = true;
-                  controller.selectedCharts.push(chart);
-                }
-              });
+      function init() {
+        $q.all([loadChartSet(), loadCharts()]).then(function() {
+          controller.chartList.forEach(function(chart) {
+            controller.chartset.charts.forEach(function(_chart) {
+              if (chart._id === _chart._id) {
+                chart.checked = true;
+              }
             });
-          }
+          });
         });
       }
 

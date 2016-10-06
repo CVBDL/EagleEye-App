@@ -43,7 +43,7 @@
               </md-input-container>
               <h4>Chart List:</h4>
               <md-content class="ee-list ee-content--transparent">
-                <div class="ee-list__item ee-list__item--narrow" ng-repeat="chart in ctrl.selectedCharts track by chart._id">
+                <div class="ee-list__item ee-list__item--narrow" ng-repeat="chart in ctrl.chartset.charts track by chart._id">
                   <a href="javascript:;">
                     <div class="ee-list__item__content" layout="row" layout-align="start center">
                       <div class="ee-list__item__content__col-1 ee-list__item__index ee-text-black-primary" flex="none">

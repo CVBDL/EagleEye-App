@@ -24,7 +24,6 @@ angular.module('eagleeye')
         delay = 60 * 1000,
         autoRefreshIntervalId;
 
-      this.charDataArray = [];
       this.autoReloadSwitch = false;
       this.imageChartBaseUrl = '';
       this.viewMode = 'list'; // or 'column'
@@ -47,26 +46,14 @@ angular.module('eagleeye')
 
       this.showShare = function() {
         eeShareService.showShareDialog({
-          sharedTitle: this.settings.title,
+          sharedTitle: this.chartset.title,
           sharedLink: $location.absUrl()
         });
       };
 
       this.loadChartSet = function() {
-        controller.charDataArray = [];
-        EagleEyeWebService.getChartSetById(id).then(function(settings) {
-          controller.settings = settings;
-
-          var chartsArray = controller.settings.charts;
-          var chartCount = chartsArray.length == undefined ? 0 : chartsArray.length;
-
-          for (var i = 0; i < chartCount; i++) {
-            (function(i) {
-              EagleEyeWebService.getChartById(chartsArray[i]).then(function(data) {
-                controller.charDataArray[i] = data;
-              });
-            })(i);
-          }
+        EagleEyeWebService.getChartSetById(id).then(function(chartset) {
+          controller.chartset = chartset;
         });
       };
 
