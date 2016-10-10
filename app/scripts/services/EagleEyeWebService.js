@@ -13,15 +13,13 @@ angular.module('eagleeye')
     'Upload',
     function EagleEyeWebService($http, Upload) {
       var webServiceBaseUrl = '',
-        staticServerSideImageBaseUrl = '';
+        staticServerSideImageBaseUrl = '',
+        isRootEndpointInitialized = false;
 
       function setRootEndpoint(url) {
         webServiceBaseUrl            = url + 'api/v1/';
         staticServerSideImageBaseUrl = url + 'uploadChartImages/';
-      }
-
-      function getWebServiceBaseUrl() {
-        return webServiceBaseUrl;
+        isRootEndpointInitialized = true;
       }
 
       function getStaticServerSideImageBaseUrl() {
@@ -29,15 +27,31 @@ angular.module('eagleeye')
       }
 
       function fetchServer(options) {
-        return $http(options).then(function(response) {
-          return response.data;
-        });
+        if (isRootEndpointInitialized) {
+          options.url = webServiceBaseUrl + options.url;
+
+          return $http(options).then(function(response) {
+            return response.data;
+          });
+
+        } else {
+          return $http.get('../config.json').then(function(response) {
+            setRootEndpoint(response.data.root_endpoint);
+
+          }).then(function() {
+            options.url = webServiceBaseUrl + options.url;
+
+            return $http(options).then(function(response) {
+              return response.data;
+            });
+          })
+        }
       }
 
       function getCharts() {
         // https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#list-all-charts
         // GET /api/v1/charts
-        var url = webServiceBaseUrl + 'charts';
+        var url = 'charts';
 
         return fetchServer({
           method: 'GET',
@@ -48,7 +62,7 @@ angular.module('eagleeye')
       function getChartById(id) {
         // https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#get-one-chart
         // GET /api/v1/charts/:_id
-        var url = webServiceBaseUrl + 'charts/' + id;
+        var url = 'charts/' + id;
 
         return fetchServer({
           method: 'GET',
@@ -59,7 +73,7 @@ angular.module('eagleeye')
       function createChart(data) {
         // https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#create-a-new-chart
         // POST /api/v1/charts
-        var url = webServiceBaseUrl + 'charts';
+        var url = 'charts';
 
         return fetchServer({
           method: 'POST',
@@ -71,7 +85,7 @@ angular.module('eagleeye')
       function updateChartById(id, data) {
         // https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#edit-a-chart
         // PUT /api/v1/charts
-        var url = webServiceBaseUrl + 'charts/' + id;
+        var url = 'charts/' + id;
 
         return fetchServer({
           method: 'PUT',
@@ -83,7 +97,7 @@ angular.module('eagleeye')
       function deleteChartById(id) {
         // https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#delete-one-chart
         // DELETE /api/v1/charts
-        var url = webServiceBaseUrl + 'charts/' + id;
+        var url = 'charts/' + id;
 
         return fetchServer({
           method: 'DELETE',
@@ -93,7 +107,7 @@ angular.module('eagleeye')
 
       function getChartSets() {
         // GET /api/v1/chart-sets
-        var url = webServiceBaseUrl + 'chart-sets';
+        var url = 'chart-sets';
 
         return fetchServer({
           method: 'GET',
@@ -103,7 +117,7 @@ angular.module('eagleeye')
 
       function getChartSetById(id) {
         // GET /api/v1/chart-sets/:_id
-        var url = webServiceBaseUrl + 'chart-sets/' + id;
+        var url = 'chart-sets/' + id;
 
         return fetchServer({
           method: 'GET',
@@ -113,7 +127,7 @@ angular.module('eagleeye')
 
       function createChartSet(data) {
         // POST /api/v1/chart-sets
-        var url = webServiceBaseUrl + 'chart-sets';
+        var url = 'chart-sets';
 
         return fetchServer({
           method: 'POST',
@@ -124,7 +138,7 @@ angular.module('eagleeye')
 
       function deleteChartSetById(id) {
         // DELETE /api/v1/chart-sets/:_id
-        var url = webServiceBaseUrl + 'chart-sets/' + id;
+        var url = 'chart-sets/' + id;
 
         return fetchServer({
           method: 'DELETE',
@@ -134,7 +148,7 @@ angular.module('eagleeye')
 
       function updateChartSetById(id, data) {
         // DELETE /api/v1/chart-sets/:_id
-        var url = webServiceBaseUrl + 'chart-sets/' + id;
+        var url = 'chart-sets/' + id;
 
         return fetchServer({
           method: 'PUT',
@@ -147,9 +161,9 @@ angular.module('eagleeye')
         var url = '';
 
         if (type === 'chart') {
-          url = webServiceBaseUrl + 'upload/excels';
+          url = 'upload/excels';
         } else {
-          url = webServiceBaseUrl + 'upload/images';
+          url = 'upload/images';
         }
 
         file.upload = Upload.upload({
@@ -169,7 +183,6 @@ angular.module('eagleeye')
 
       return {
         setRootEndpoint: setRootEndpoint,
-        getWebServiceBaseUrl: getWebServiceBaseUrl,
         getStaticServerSideImageBaseUrl: getStaticServerSideImageBaseUrl,
         getCharts: getCharts,
         getChartById: getChartById,

@@ -25,12 +25,7 @@ angular
           url: '',
           abstract: true,
           template: '<ui-view></ui-view>',
-          controller: 'RootController',
-          resolve: {
-            config: ['$http', function($http) {
-              return $http.get('../config.json');
-            }]
-          }
+          controller: 'RootController'
         })
         .state('home', {
           url: '/home',

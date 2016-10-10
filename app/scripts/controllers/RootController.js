@@ -8,10 +8,4 @@
  * Controller of the eagleeye
  */
 angular.module('eagleeye')
-  .controller('RootController', [
-    'EagleEyeWebService',
-    'config',
-    function (EagleEyeWebService, config) {
-      EagleEyeWebService.setRootEndpoint(config.data.root_endpoint);
-    }
-  ]);
+  .controller('RootController', [ function () { } ]);
