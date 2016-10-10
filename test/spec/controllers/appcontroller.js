@@ -1,18 +1,20 @@
 'use strict';
 
 describe('Controller: AppController', function () {
-
-  // load the controller's module
-  beforeEach(module('eagleeye'));
-
-  var AppController,
+  var $controller,
+    $rootScope,
     $scope,
+    AppController,
     FEEDBACK_EMAIL;
 
-  // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope, _FEEDBACK_EMAIL_) {
+  beforeEach(module('eagleeye'));
+
+  beforeEach(inject(function ($injector) {
+    $controller    = $injector.get('$controller');
+    $rootScope     = $injector.get('$rootScope');
+    FEEDBACK_EMAIL = $injector.get('FEEDBACK_EMAIL');
+
     $scope = $rootScope.$new();
-    FEEDBACK_EMAIL = _FEEDBACK_EMAIL_;
     AppController = $controller('AppController', {
       $scope: $scope,
       FEEDBACK_EMAIL: FEEDBACK_EMAIL

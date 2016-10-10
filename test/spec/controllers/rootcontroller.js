@@ -1,7 +1,13 @@
 'use strict';
 
 describe('Controller: RootController', function() {
-  // load the controller's module
+  var $controller,
+    $rootScope,
+    $state,
+    config,
+    EagleEyeWebService,
+    RootController;
+
   beforeEach(function() {
     module('eagleeye', function($provide) {
       $provide.value('config', {
@@ -12,16 +18,12 @@ describe('Controller: RootController', function() {
     })
   });
 
-  var RootController,
-    $state,
-    EagleEyeWebService,
-    config;
-
-  // Initialize the controller and a mock scope
-  beforeEach(inject(function($controller, $rootScope, _$state_, _EagleEyeWebService_, _config_) {
-    $state = _$state_;
-    EagleEyeWebService = _EagleEyeWebService_;
-    config = _config_;
+  beforeEach(inject(function($injector) {
+    $controller        = $injector.get('$controller');
+    $rootScope         = $injector.get('$rootScope');
+    $state             = $injector.get('$state');
+    config             = $injector.get('config');
+    EagleEyeWebService = $injector.get('EagleEyeWebService');
 
     spyOn(EagleEyeWebService, 'setRootEndpoint');
 

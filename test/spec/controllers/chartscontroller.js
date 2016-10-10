@@ -1,23 +1,32 @@
 'use strict';
 
 describe('Controller: ChartsController', function () {
+  var $controller,
+    $rootScope,
+    $scope,
+    $state,
+    ChartsController,
+    EagleEyeWebService,
+    eeDeleteConfirmationService;
 
-  // load the controller's module
   beforeEach(module('eagleeye'));
 
-  var ChartsController,
-    scope;
+  beforeEach(inject(function ($injector) {
+    $controller = $injector.get('$controller');
+    $rootScope = $injector.get('$rootScope');
+    $state = $injector.get('$state');
+    EagleEyeWebService = $injector.get('EagleEyeWebService');
+    eeDeleteConfirmationService = $injector.get('eeDeleteConfirmationService');
 
-  // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
-    scope = $rootScope.$new();
+    $scope = $rootScope.$new();
     ChartsController = $controller('ChartsController', {
-      $scope: scope
-      // place here mocked dependencies
+      $scope: $scope,
+      EagleEyeWebService: EagleEyeWebService,
+      eeDeleteConfirmationService: eeDeleteConfirmationService
     });
   }));
 
-  // it('should attach a list of awesomeThings to the scope', function () {
-  //   expect(ChartsController.awesomeThings.length).toBe(3);
-  // });
+  it('should init ChartsController correctly', function () {
+    expect(ChartsController).toBeDefined();
+  });
 });

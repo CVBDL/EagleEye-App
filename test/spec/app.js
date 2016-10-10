@@ -1,10 +1,6 @@
 'use strict';
 
 describe('app.js', function () {
-
-  // load the main module
-  beforeEach(module('eagleeye'));
-
   var $injector,
     $state,
     $rootScope,
@@ -12,6 +8,8 @@ describe('app.js', function () {
     $templateCache,
     $location,
     $stateParams;
+
+  beforeEach(module('eagleeye'));
 
   var resolvedConfig = {
     "root_endpoint": "http://127.0.0.1:3000/"

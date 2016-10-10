@@ -1,39 +1,32 @@
 'use strict';
 
 describe('Controller: HomeController', function () {
-
-  // load the controller's module
-  beforeEach(module('eagleeye'));
-
-  var HomeController,
+  var $controller,
     $httpBackend,
     $rootScope,
     $scope,
-    $state;
+    $state,
+    HomeController;
 
   var resolvedConfig = {
     "root_endpoint": "http://127.0.0.1:3000/"
   };
 
+  beforeEach(module('eagleeye'));
+
   beforeEach(inject(function($httpBackend, $templateCache) {
     $httpBackend.when('GET', '../config.json').respond(resolvedConfig);
 
     $templateCache.put('views/home.html', '');
-    $templateCache.put('views/develop.html', '');
   }));
 
-  // Initialize the controller and a mock scope
-  beforeEach(inject(function ($injector, $controller) {
+  beforeEach(inject(function ($injector) {
+    $controller  = $injector.get('$controller');
     $httpBackend = $injector.get('$httpBackend');
-    $rootScope = $injector.get('$rootScope');
-    $state = $injector.get('$state');
+    $rootScope   = $injector.get('$rootScope');
 
     $scope = $rootScope.$new();
-
-    HomeController = $controller('HomeController', {
-      $scope: $scope,
-      $state: $state
-    });
+    HomeController = $controller('HomeController', { $scope: $scope });
   }));
 
   afterEach(function() {
