@@ -1,6 +1,9 @@
 'use strict';
 
-describe('app.js', function () {
+describe('app.js', function() {
+  var chartId = '57837029c66dc1a4570962b6';
+  var chartSetId = '578c8c493164a7304f72a9f3';
+
   var $injector,
     $state,
     $rootScope,
@@ -11,16 +14,7 @@ describe('app.js', function () {
 
   beforeEach(module('eagleeye'));
 
-  var resolvedConfig = {
-    "root_endpoint": "http://127.0.0.1:3000/"
-  };
-
-  var chartId = '57837029c66dc1a4570962b6';
-  var chartSetId = '578c8c493164a7304f72a9f3';
-
   beforeEach(inject(function($httpBackend, $templateCache) {
-    $httpBackend.when('GET', '../config.json').respond(resolvedConfig);
-
     $templateCache.put('views/home.html', '');
     $templateCache.put('views/chart.html', '');
     $templateCache.put('views/charts.html', '');
@@ -33,24 +27,18 @@ describe('app.js', function () {
     $templateCache.put('views/develop.html', '');
   }));
 
-  beforeEach(inject(function (_$injector_) {
+  beforeEach(inject(function(_$injector_, _$httpBackend_, _$location_, _$rootScope_, _$state_, _$stateParams_) {
     $injector = _$injector_;
-
-    $httpBackend = $injector.get('$httpBackend');
-    $location    = $injector.get('$location');
-    $rootScope   = $injector.get('$rootScope');
-    $state       = $injector.get('$state');
-    $stateParams = $injector.get('$stateParams');
+    $httpBackend = _$httpBackend_;
+    $location = _$location_;
+    $rootScope = _$rootScope_;
+    $state = _$state_;
+    $stateParams = _$stateParams_;
   }));
 
   afterEach(function() {
     $httpBackend.verifyNoOutstandingExpectation();
     $httpBackend.verifyNoOutstandingRequest();
-  });
-
-  it('should request config.json when access root state', function() {
-    $httpBackend.expect('GET', '../config.json');
-    $httpBackend.flush();
   });
 
   it('should default to home state', function() {
@@ -59,27 +47,16 @@ describe('app.js', function () {
     var url = '/home';
 
     $location.path(notExistPath);
-    $httpBackend.flush();
 
+    $rootScope.$digest();
     expect($state.current.name).toBe(stateName);
     expect($location.url()).toBe(url);
-  });
-
-  it('should resolve with correct config data', function() {
-    var configPromise = $injector.invoke($state.get('root').resolve.config);
-
-    $httpBackend.flush();
-
-    configPromise.then(function(resolvedValue) {
-      expect(resolvedValue.data).toEqual(resolvedConfig);
-    });
   });
 
   it('should go to home state', function() {
     var stateName = 'home';
     var url = '/home';
 
-    $httpBackend.flush();
     $state.go(stateName);
     $rootScope.$digest();
 
@@ -91,7 +68,6 @@ describe('app.js', function () {
     var stateName = 'charts';
     var url = '/charts';
 
-    $httpBackend.flush();
     $state.go(stateName);
     $rootScope.$digest();
 
@@ -103,7 +79,6 @@ describe('app.js', function () {
     var stateName = 'chartCreation';
     var url = '/charts/new';
 
-    $httpBackend.flush();
     $state.go(stateName);
     $rootScope.$digest();
 
@@ -118,7 +93,6 @@ describe('app.js', function () {
       id: chartId
     };
 
-    $httpBackend.flush();
     $state.go(stateName, stateOptions);
     $rootScope.$digest();
 
@@ -133,7 +107,6 @@ describe('app.js', function () {
       id: chartId
     };
 
-    $httpBackend.flush();
     $state.go(stateName, stateOptions);
     $rootScope.$digest();
 
@@ -146,7 +119,6 @@ describe('app.js', function () {
     var stateName = 'chartSets';
     var url = '/chart-sets';
 
-    $httpBackend.flush();
     $state.go(stateName);
     $rootScope.$digest();
 
@@ -158,7 +130,6 @@ describe('app.js', function () {
     var stateName = 'chartSetCreation';
     var url = '/chart-sets/new';
 
-    $httpBackend.flush();
     $state.go(stateName);
     $rootScope.$digest();
 
@@ -172,7 +143,6 @@ describe('app.js', function () {
       id: chartSetId
     };
 
-    $httpBackend.flush();
     $state.go(stateName, stateOptions);
     $rootScope.$digest();
 
@@ -187,20 +157,18 @@ describe('app.js', function () {
       id: chartSetId
     };
 
-    $httpBackend.flush();
     $state.go(stateName, stateOptions);
     $rootScope.$digest();
 
     expect($state.current.name).toBe(stateName);
     expect($stateParams.id).toBe(stateOptions.id);
-    expect($location.url()).toBe('/chart-sets/' + chartSetId +'/settings');
+    expect($location.url()).toBe('/chart-sets/' + chartSetId + '/settings');
   });
 
   it('should go to develop state', function() {
     var stateName = 'develop';
     var url = '/develop';
 
-    $httpBackend.flush();
     $state.go(stateName);
     $rootScope.$digest();
 

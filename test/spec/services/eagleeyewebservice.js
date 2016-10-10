@@ -27,7 +27,6 @@ describe('Service: EagleEyeWebService', function () {
   it('should export correct interfaces', function() {
     var exports = [
       'setRootEndpoint',
-      'getWebServiceBaseUrl',
       'getStaticServerSideImageBaseUrl',
       'getCharts',
       'getChartById',
@@ -47,12 +46,10 @@ describe('Service: EagleEyeWebService', function () {
   });
 
   it('should set correct root endpoint via setRootEndpoint()', function() {
-    expect(EagleEyeWebService.getWebServiceBaseUrl()).toBe('');
     expect(EagleEyeWebService.getStaticServerSideImageBaseUrl()).toBe('');
 
     EagleEyeWebService.setRootEndpoint(rootEndpoint);
 
-    expect(EagleEyeWebService.getWebServiceBaseUrl()).toBe(webServiceBaseUrl);
     expect(EagleEyeWebService.getStaticServerSideImageBaseUrl()).toBe(staticServerSideImageBaseUrl);
   });
 
