@@ -68,7 +68,6 @@ describe('Controller: ChartController', function () {
     spyOn(EagleEyeWebService, 'getChartById').and.callFake(function() {
       return $q.when(chart);
     });
-    spyOn(EagleEyeWebService, 'getStaticServerSideImageBaseUrl').and.returnValue(imageEndpoint);
   });
 
   beforeEach(function () {
