@@ -1,3 +1,12 @@
+<a name="1.0.0-beta.11"></a>
+# 1.0.0-beta.11 (2016-10-11)
+
+## Features
+
+* Code changes to align platform rest apis' change
+* Refactor
+
+
 <a name="1.0.0-beta.10"></a>
 # 1.0.0-beta.10 (2016-10-06)
 
