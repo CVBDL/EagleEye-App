@@ -43,6 +43,10 @@ module.exports = function(config) {
     // web server port
     port: 8888,
 
+    preprocessors: {
+      'app/scripts/**/*.js': 'coverage'
+    },
+
     // Start these browsers, currently available:
     // - Chrome
     // - ChromeCanary
@@ -58,7 +62,8 @@ module.exports = function(config) {
     // Which plugins to enable
     plugins: [
       'karma-phantomjs-launcher',
-      'karma-jasmine'
+      'karma-jasmine',
+      'karma-coverage'
     ],
 
     // Continuous Integration mode
@@ -77,5 +82,12 @@ module.exports = function(config) {
     // },
     // URL root prevent conflicts with the site root
     // urlRoot: '_karma_'
+
+    reporters: ['coverage', 'progress'],
+
+    coverageReporter: {
+      type: 'html',
+      dir: 'coverage/'
+    }
   });
 };
