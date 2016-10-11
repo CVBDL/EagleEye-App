@@ -20,7 +20,7 @@ angular.module('eagleeye')
       this.isLoading = true;
 
       this.upload = function (file) {
-        EagleEyeWebService.uploadFile(file, controller.type, controller.id);
+        EagleEyeWebService.uploadFile(file, controller.chart.type, controller.id);
       };
 
       function loadChart() {

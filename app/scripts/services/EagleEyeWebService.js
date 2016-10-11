@@ -10,42 +10,34 @@
 angular.module('eagleeye')
   .factory('EagleEyeWebService', [
     '$http',
+    '$q',
     'Upload',
-    function EagleEyeWebService($http, Upload) {
-      var webServiceBaseUrl = '',
-        staticServerSideImageBaseUrl = '',
-        isRootEndpointInitialized = false;
+    function EagleEyeWebService($http, $q, Upload) {
+      var isRootEndpointInitialized = false,
+        rootEndpoint = '';
 
-      function setRootEndpoint(url) {
-        webServiceBaseUrl            = url + 'api/v1/';
-        staticServerSideImageBaseUrl = url + 'uploadChartImages/';
-        isRootEndpointInitialized = true;
-      }
-
-      function getStaticServerSideImageBaseUrl() {
-        return staticServerSideImageBaseUrl;
-      }
-
-      function fetchServer(options) {
+      function getRootEndpoint() {
         if (isRootEndpointInitialized) {
-          options.url = webServiceBaseUrl + options.url;
-
-          return $http(options).then(function(response) {
-            return response.data;
-          });
+          return $q.when(rootEndpoint);
 
         } else {
           return $http.get('../config.json').then(function(response) {
-            setRootEndpoint(response.data.root_endpoint);
+            isRootEndpointInitialized = true;
+            rootEndpoint = response.data.root_endpoint;
 
-          }).then(function() {
-            options.url = webServiceBaseUrl + options.url;
+            return rootEndpoint;
+          });
+        }
+      }
+
+      function fetchServer(options) {
+        return getRootEndpoint().then(function(rootEndpoint) {
+          options.url = rootEndpoint + 'api/v1/' + options.url;
 
             return $http(options).then(function(response) {
               return response.data;
             });
-          })
-        }
+        });
       }
 
       function getCharts() {
@@ -160,30 +152,30 @@ angular.module('eagleeye')
       function uploadFile(file, type, id) {
         var url = '';
 
-        if (type === 'chart') {
-          url = 'upload/excels';
-        } else {
-          url = 'upload/images';
-        }
+        return getRootEndpoint().then(function(rootEndpoint) {
+          if (type === 'chart') {
+            url = rootEndpoint + 'api/v1/upload/excels';
+          } else {
+            url = rootEndpoint + 'api/v1/upload/images';
+          }
 
-        file.upload = Upload.upload({
-          url: url,
-          data: { id: id, file: file }
-        });
+          file.upload = Upload.upload({
+            url: url,
+            data: { id: id, file: file }
+          });
 
-        file.upload.then(undefined, function(response) {
-          if (response.status > 0)
-            alert(response.status + ': ' + response.data);
+          file.upload.then(undefined, function(response) {
+            if (response.status > 0)
+              alert(response.status + ': ' + response.data);
 
-        }, function(evt) {
-          // Math.min is to fix IE which reports 200% sometimes
-          file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+          }, function(evt) {
+            // Math.min is to fix IE which reports 200% sometimes
+            file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+          });
         });
       }
 
       return {
-        setRootEndpoint: setRootEndpoint,
-        getStaticServerSideImageBaseUrl: getStaticServerSideImageBaseUrl,
         getCharts: getCharts,
         getChartById: getChartById,
         createChart: createChart,

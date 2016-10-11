@@ -25,7 +25,6 @@ angular.module('eagleeye')
         autoRefreshIntervalId;
 
       this.autoReloadSwitch = false;
-      this.imageChartBaseUrl = '';
       this.viewMode = 'list'; // or 'column'
       this.saveChartSetAsPdf = eeSaveAsPDFService.saveChartSetAsPdf;
       this.saveChartSetAsImageOrPdf = eeSaveAsPDFService.saveChartSetAsImageOrPdf;
@@ -69,7 +68,6 @@ angular.module('eagleeye')
 
       function init() {
         controller.loadChartSet();
-        controller.imageChartBaseUrl = EagleEyeWebService.getStaticServerSideImageBaseUrl();
       }
 
       init();

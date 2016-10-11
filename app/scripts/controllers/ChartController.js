@@ -25,7 +25,6 @@ angular.module('eagleeye')
 
       this.chart = {};
       this.autoReloadSwitch = false;
-      this.imageChartBaseUrl = '';
 
       this.loadChart = function() {
         EagleEyeWebService.getChartById(id).then(function(data) {
@@ -54,7 +53,6 @@ angular.module('eagleeye')
       };
 
       function init() {
-        controller.imageChartBaseUrl = EagleEyeWebService.getStaticServerSideImageBaseUrl();
         controller.loadChart();
       }
 

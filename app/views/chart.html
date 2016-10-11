@@ -32,7 +32,7 @@
         <ee-google-chart class="ee-google-chart" ng-if="ctrl.chart.chartType!='ImageChart'" chart-type="ctrl.chart.chartType" chart-options="ctrl.chart.options" chart-data-table="ctrl.chart.datatable">
         </ee-google-chart>
         <div ng-if="ctrl.chart.chartType=='ImageChart'" class="ee-image-chart-container">
-          <img ng-src="{{ctrl.chart.image_file_name ? ctrl.imageChartBaseUrl + ctrl.chart.image_file_name : ''}}" />
+          <img ng-src="{{ctrl.chart.browserDownloadUrl.image}}" />
         </div>
       </md-card-content>
       <md-divider></md-divider>

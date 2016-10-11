@@ -78,7 +78,7 @@
             <ee-google-chart class="ee-google-chart" ng-if="chart.chartType!='ImageChart'" chart-type="chart.chartType" chart-options="chart.options" chart-data-table="chart.datatable">
             </ee-google-chart>
             <div ng-if="chart.chartType=='ImageChart'" class="ee-image-chart-container">
-              <img crossOrigin="anonymous" id="{{chart.options.title}}" ng-src="{{chart.image_file_name ? ctrl.imageChartBaseUrl + chart.image_file_name : ''}}" />
+              <img crossOrigin="anonymous" id="{{chart.options.title}}" ng-src="{{chart.browserDownloadUrl.image}}" />
             </div>
           </md-card-content>
           <md-divider ng-hide="ctrl.viewMode === 'column'"></md-divider>
