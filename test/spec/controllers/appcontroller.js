@@ -3,29 +3,33 @@
 describe('Controller: AppController', function () {
   var $controller,
     $rootScope,
-    $scope,
     AppController,
     FEEDBACK_EMAIL;
 
   beforeEach(module('eagleeye'));
 
-  beforeEach(inject(function ($injector) {
-    $controller    = $injector.get('$controller');
-    $rootScope     = $injector.get('$rootScope');
-    FEEDBACK_EMAIL = $injector.get('FEEDBACK_EMAIL');
+  beforeEach(module(function($provide) {
+    $provide.constant('FEEDBACK_EMAIL', 'example@example.com');
+  }));
 
-    $scope = $rootScope.$new();
+  beforeEach(inject(function (_$controller_, _$rootScope_, _FEEDBACK_EMAIL_) {
+    $controller = _$controller_;
+    $rootScope = _$rootScope_;
+    FEEDBACK_EMAIL = _FEEDBACK_EMAIL_;
+  }));
+
+  beforeEach(function() {
     AppController = $controller('AppController', {
-      $scope: $scope,
+      $scope: $rootScope.$new(),
       FEEDBACK_EMAIL: FEEDBACK_EMAIL
     });
-  }));
+  })
 
   it('should init AppController correctly', function() {
     expect(AppController).toBeDefined();
   });
 
   it('should set correct feedback link', function () {
-    expect($scope.feedbackLink).toBe("mailto:"+ FEEDBACK_EMAIL + "?subject=EagleEye+Feedback");
+    expect(AppController.feedbackLink).toBe("mailto:example@example.com?subject=EagleEye+Feedback");
   });
 });

@@ -16,7 +16,7 @@
     <!-- endbuild -->
     <title>EagleEye</title>
   </head>
-  <body ng-app="eagleeye" ng-cloak ng-controller="AppController" class="md-body-1">
+  <body ng-app="eagleeye" ng-cloak ng-controller="AppController as ctrl" class="md-body-1">
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -53,7 +53,7 @@
           </li>
         </ul>
         <div class="ee-header__feedback">
-          <md-button class="md-icon-button" aria-label="Feedback" href="{{feedbackLink}}">
+          <md-button class="md-icon-button" aria-label="Feedback" href="{{ctrl.feedbackLink}}">
             <md-tooltip md-direction="botton">Feedback</md-tooltip>
             <md-icon md-font-set="material-icons" class="ee-icon--white"> feedback </md-icon>
           </md-button>
