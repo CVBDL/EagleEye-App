@@ -22,30 +22,10 @@ describe('Controller: ChartsController', function() {
   // load main module
   beforeEach(module('eagleeye'));
 
-  // reset router
-  beforeEach(module(function ($urlRouterProvider) {
-    $urlRouterProvider.otherwise( function(){ return false; });
-  }));
+  // mock dependent services
+  beforeEach(module(function($provide) {
 
-  // inject services
-  beforeEach(inject(function(_$controller_, _$location_, _$q_, _$rootScope_, _$state_, _$templateCache_, _$httpBackend_, _EagleEyeWebService_, _eeDeleteConfirmationService_) {
-    $controller = _$controller_;
-    $location = _$location_;
-    $q = _$q_;
-    $rootScope = _$rootScope_;
-    $state = _$state_;
-    $templateCache = _$templateCache_;
-    $httpBackend = _$httpBackend_;
-    EagleEyeWebService = _EagleEyeWebService_;
-    eeDeleteConfirmationService = _eeDeleteConfirmationService_;
-  }));
-
-  // mock data
-  beforeEach(inject(function() {
-    $templateCache.put('views/chart-creation.html', '')
-  }));
-
-  beforeEach(function() {
+    // mock data in db
     chartList = [{
       "_id": "57ee0e635d2722401b951c35",
       "description": "",
@@ -98,23 +78,76 @@ describe('Controller: ChartsController', function() {
       "updatedAt": "2016-09-28T02:55:29.789Z"
     }];
 
-    spyOn(EagleEyeWebService, 'getCharts').and.callFake(function() {
-      return $q.when(chartList);
-    });
+    // mock EagleEyeWebService service
+    $provide.factory('EagleEyeWebService', function($q) {
+      var getCharts = jasmine.createSpy('getCharts').and.callFake(function() {
+        return $q.when(chartList);
+      });
 
-    spyOn(EagleEyeWebService, 'deleteChartById').and.callFake(function(id) {
-      var len = chartList.length;
+      var deleteChartById = jasmine.createSpy('deleteChartById').and.callFake(function(id) {
+        var len = chartList.length;
 
-      while (len--) {
-        if (chartList[len]._id === id) {
-          chartList.splice(len, 1);
-          break;
+        while (len--) {
+          if (chartList[len]._id === id) {
+            chartList.splice(len, 1);
+            break;
+          }
         }
-      }
 
-      return $q.when(true);
+        return $q.when(true);
+      });
+
+      return {
+        getCharts: getCharts,
+        deleteChartById: deleteChartById
+      }
     });
-  });
+
+    // mock eeDeleteConfirmationService service
+    $provide.factory('eeDeleteConfirmationService', function($q) {
+      var deferred;
+      var showDeleteConfirmationDialog = jasmine.createSpy('showDeleteConfirmationDialog').and.callFake(function(config) {
+        deferred = $q.defer();
+
+        return deferred.promise;
+      });
+      var resolve = function(value) {
+        deferred.resolve(value);
+      };
+      var reject = function(reason) {
+        deferred.reject(reason);
+      };
+
+      return {
+        showDeleteConfirmationDialog: showDeleteConfirmationDialog,
+        resolve: resolve,
+        reject: reject
+      };
+    });
+  }));
+
+  // reset router
+  beforeEach(module(function ($urlRouterProvider) {
+    $urlRouterProvider.otherwise( function(){ return false; });
+  }));
+
+  // inject services
+  beforeEach(inject(function(_$controller_, _$location_, _$q_, _$rootScope_, _$state_, _$templateCache_, _$httpBackend_, _EagleEyeWebService_, _eeDeleteConfirmationService_) {
+    $controller = _$controller_;
+    $location = _$location_;
+    $q = _$q_;
+    $rootScope = _$rootScope_;
+    $state = _$state_;
+    $templateCache = _$templateCache_;
+    $httpBackend = _$httpBackend_;
+    EagleEyeWebService = _EagleEyeWebService_;
+    eeDeleteConfirmationService = _eeDeleteConfirmationService_;
+  }));
+
+  // mock data
+  beforeEach(inject(function() {
+    $templateCache.put('views/chart-creation.html', '');
+  }));
 
   beforeEach(inject(function() {
     ChartsController = $controller('ChartsController', {
@@ -133,6 +166,7 @@ describe('Controller: ChartsController', function() {
     expect(ChartsController).toBeDefined();
     expect(ChartsController.isLoading).toBe(true);
     expect(ChartsController.chartList).toBeUndefined();
+    expect(EagleEyeWebService.getCharts).toHaveBeenCalled();
 
     // resolve promise
     $rootScope.$digest();
@@ -149,17 +183,17 @@ describe('Controller: ChartsController', function() {
     // change mock data
     chartList = [];
     ChartsController.loadChartList();
+    expect(EagleEyeWebService.getCharts).toHaveBeenCalled();
     $rootScope.$digest();
     expect(ChartsController.isLoading).toBe(false);
     expect(ChartsController.chartList).toEqual([]);
   });
 
   it('should show confirmation popup and delete', function() {
-    var deferred = [$q.defer(), $q.defer()];
     var $event = { stopPropagation: function() {} };
     var id, title;
 
-    spyOn(eeDeleteConfirmationService, 'showDeleteConfirmationDialog').and.returnValues(deferred[0].promise, deferred[1].promise);
+    spyOn($event, 'stopPropagation');
 
     $rootScope.$digest();
     expect(ChartsController.isLoading).toBe(false);
@@ -169,8 +203,9 @@ describe('Controller: ChartsController', function() {
     id = chartList[0]._id;
     title = chartList[0].title;
     ChartsController.showConfirm($event, id, title);
+    expect($event.stopPropagation).toHaveBeenCalled();
     expect(eeDeleteConfirmationService.showDeleteConfirmationDialog).toHaveBeenCalledWith({ title: title });
-    deferred[0].resolve('delete');
+    eeDeleteConfirmationService.resolve('delete');
     $rootScope.$digest();
     expect(EagleEyeWebService.deleteChartById).toHaveBeenCalledWith(id);
     $rootScope.$digest();
@@ -182,8 +217,9 @@ describe('Controller: ChartsController', function() {
     id = chartList[0]._id;
     title = chartList[0].title;
     ChartsController.showConfirm($event, id, title);
+    expect($event.stopPropagation).toHaveBeenCalled();
     expect(eeDeleteConfirmationService.showDeleteConfirmationDialog).toHaveBeenCalledWith({ title: title });
-    deferred[1].resolve('delete');
+    eeDeleteConfirmationService.resolve('delete');
     $rootScope.$digest();
     expect(EagleEyeWebService.deleteChartById).toHaveBeenCalledWith(id);
     $rootScope.$digest();
@@ -193,11 +229,10 @@ describe('Controller: ChartsController', function() {
   });
 
   it('should show confirmation popup and cancel', function() {
-    var deferred = $q.defer();
     var $event = { stopPropagation: function() {} };
     var id, title;
 
-    spyOn(eeDeleteConfirmationService, 'showDeleteConfirmationDialog').and.returnValue(deferred.promise);
+    spyOn($event, 'stopPropagation');
 
     $rootScope.$digest();
     expect(ChartsController.isLoading).toBe(false);
@@ -206,9 +241,10 @@ describe('Controller: ChartsController', function() {
     id = chartList[0]._id;
     title = chartList[0].title;
     ChartsController.showConfirm($event, id, title);
+    expect($event.stopPropagation).toHaveBeenCalled();
     expect(eeDeleteConfirmationService.showDeleteConfirmationDialog).toHaveBeenCalledWith({ title: title });
 
-    deferred.resolve('cancel');
+    eeDeleteConfirmationService.resolve('cancel');
     $rootScope.$digest();
     expect(EagleEyeWebService.deleteChartById).toHaveBeenCalledTimes(0)
     expect(ChartsController.isLoading).toBe(false);
