@@ -1,19 +1,15 @@
 'use strict';
 
-describe('Controller: DevelopController', function () {
+describe('Controller: DevelopController', function() {
+  var DevelopController;
 
-  // load the controller's module
   beforeEach(module('eagleeye'));
 
-  var DevelopController,
-    scope;
-
-  // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
-    scope = $rootScope.$new();
-    DevelopController = $controller('DevelopController', {
-      $scope: scope
-      // place here mocked dependencies
-    });
+  beforeEach(inject(function($controller) {
+    DevelopController = $controller('DevelopController', { });
   }));
+
+  it('should initialize correctly', function() {
+    expect(DevelopController).toBeDefined();
+  });
 });

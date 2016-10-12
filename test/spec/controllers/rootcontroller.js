@@ -5,11 +5,11 @@ describe('Controller: RootController', function() {
 
   beforeEach(module('eagleeye'));
 
-  beforeEach(inject(function($controller, $rootScope) {
+  beforeEach(inject(function($controller) {
     RootController = $controller('RootController', { });
   }));
 
-  it('should init RootController correctly', function() {
+  it('should initialize correctly', function() {
     expect(RootController).toBeDefined();
   });
 });

@@ -5,15 +5,11 @@ describe('Controller: HomeController', function() {
 
   beforeEach(module('eagleeye'));
 
-  beforeEach(inject(function($httpBackend, $templateCache) {
-    $templateCache.put('views/home.html', '');
-  }));
-
   beforeEach(inject(function($controller) {
     HomeController = $controller('HomeController', { });
   }));
 
-  it('should init HomeController correctly', function() {
+  it('should initialize correctly', function() {
     expect(HomeController).toBeDefined();
   });
 });
