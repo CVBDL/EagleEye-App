@@ -47,7 +47,7 @@
                         <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> more_vert </md-icon>
                       </md-button>
                       <md-menu-content width="3">
-                        <md-menu-item>
+                        <md-menu-item ng-hide="chart.chartType === 'ImageChart'">
                           <md-button ui-sref="chartOptions({ id: chart.friendlyUrl || chart._id })">
                             <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> settings </md-icon> <span md-menu-align-target>Options</span></md-button>
                         </md-menu-item>
