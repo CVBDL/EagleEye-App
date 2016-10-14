@@ -17,38 +17,32 @@ angular.module('eagleeye')
 
       this.isLoading = true;
 
-      this.loadChartList = function() {
+      this.loadChartSetList = function() {
         EagleEyeWebService.getChartSets().then(function(chartSetList) {
           controller.isLoading = false;
           controller.chartSetList = chartSetList;
         });
       };
 
-      this.showConfirm = function($event, id, title) {
+      this.onClickDeleteChartSet = function($event, chartset) {
         $event.stopPropagation();
 
-        eeDeleteConfirmationService.showDeleteConfirmationDialog({
-          title: title
-
-        }).then(function(response) {
-          if (response === 'delete') {
-            deleteChartSetById(id);
-          }
-        });
+        eeDeleteConfirmationService
+          .showConfirmDialog({ title: chartset.title })
+          .then(function() {
+            return EagleEyeWebService.deleteChartSetById(chartset._id);
+          })
+          .then(function() {
+            controller.loadChartSetList();
+          });
       };
 
       this.createChartSet = function() {
         $state.go('chartSetCreation');
       };
 
-      function deleteChartSetById(id) {
-        EagleEyeWebService.deleteChartSetById(id).then(function() {
-          controller.loadChartList();
-        });
-      }
-
       function init() {
-        controller.loadChartList();
+        controller.loadChartSetList();
       }
 
       init();

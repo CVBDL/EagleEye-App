@@ -7,7 +7,7 @@
           <span flex></span>
           <md-button class="md-icon-button" aria-label="Refresh">
             <md-tooltip md-direction="botton">Refresh</md-tooltip>
-            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.loadChartList()"> refresh </md-icon>
+            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.loadChartSetList()"> refresh </md-icon>
           </md-button>
           <md-button class="md-icon-button" aria-label="Create a new chart set" ng-click="ctrl.createChartSet()">
             <md-tooltip md-direction="botton">Create a new chart set</md-tooltip>
@@ -52,7 +52,7 @@
                             <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> settings </md-icon> <span md-menu-align-target>Settings</span></md-button>
                         </md-menu-item>
                         <md-menu-item>
-                          <md-button ng-click="ctrl.showConfirm($event, chartset._id, chartset.title)">
+                          <md-button ng-click="ctrl.onClickDeleteChartSet($event, chartset)">
                             <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> delete </md-icon> <span md-menu-align-target>Delete</span></md-button>
                         </md-menu-item>
                       </md-menu-content>

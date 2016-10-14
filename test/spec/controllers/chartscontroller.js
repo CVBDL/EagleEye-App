@@ -17,7 +17,7 @@ describe('Controller: ChartsController', function() {
     eeDeleteConfirmationService;
 
   var ChartsController,
-    loadChartListHandler;
+    $event;
 
   // load main module
   beforeEach(module('eagleeye'));
@@ -106,7 +106,7 @@ describe('Controller: ChartsController', function() {
     // mock eeDeleteConfirmationService service
     $provide.factory('eeDeleteConfirmationService', function($q) {
       var deferred;
-      var showDeleteConfirmationDialog = jasmine.createSpy('showDeleteConfirmationDialog').and.callFake(function(config) {
+      var showConfirmDialog = jasmine.createSpy('showConfirmDialog').and.callFake(function(config) {
         deferred = $q.defer();
 
         return deferred.promise;
@@ -119,11 +119,15 @@ describe('Controller: ChartsController', function() {
       };
 
       return {
-        showDeleteConfirmationDialog: showDeleteConfirmationDialog,
+        showConfirmDialog: showConfirmDialog,
         resolve: resolve,
         reject: reject
       };
     });
+
+    $event = {
+      stopPropagation: jasmine.createSpy('stopPropagation')
+    };
   }));
 
   // reset router
@@ -175,7 +179,7 @@ describe('Controller: ChartsController', function() {
     expect(ChartsController.chartList).toEqual(chartList);
   });
 
-  it('should load charts correctly when calls loadChartList()', function() {
+  it('should be able to load chart list', function() {
     $rootScope.$digest();
     expect(ChartsController.isLoading).toBe(false);
     expect(ChartsController.chartList).toEqual(chartList);
@@ -189,66 +193,52 @@ describe('Controller: ChartsController', function() {
     expect(ChartsController.chartList).toEqual([]);
   });
 
-  it('should show confirmation popup and delete', function() {
-    var $event = { stopPropagation: function() {} };
-    var id, title;
-
-    spyOn($event, 'stopPropagation');
+  it('should stop event propagation when click delete chart', function() {
+    var chart = chartList[0];
 
     $rootScope.$digest();
-    expect(ChartsController.isLoading).toBe(false);
-    expect(ChartsController.chartList).toEqual(chartList);
-
-    // delete one
-    id = chartList[0]._id;
-    title = chartList[0].title;
-    ChartsController.showConfirm($event, id, title);
+    ChartsController.onClickDeleteChart($event, chart);
     expect($event.stopPropagation).toHaveBeenCalled();
-    expect(eeDeleteConfirmationService.showDeleteConfirmationDialog).toHaveBeenCalledWith({ title: title });
-    eeDeleteConfirmationService.resolve('delete');
+  });
+
+  it('should show confirm dialog when click delete chart', function() {
+    var chart = chartList[0];
+
     $rootScope.$digest();
-    expect(EagleEyeWebService.deleteChartById).toHaveBeenCalledWith(id);
+    ChartsController.onClickDeleteChart($event, chart);
+    expect(eeDeleteConfirmationService.showConfirmDialog).toHaveBeenCalledWith({ title: chart.options.title });
+  });
+
+  it('should be able to cancel delete a chart', function() {
+    var chart = chartList[0];
+
+    spyOn(ChartsController, 'loadChartList');
+
+    $rootScope.$digest();
+    ChartsController.onClickDeleteChart($event, chart);
+    eeDeleteConfirmationService.reject();
+    $rootScope.$digest();
+    expect(EagleEyeWebService.deleteChartById).not.toHaveBeenCalled();
+    $rootScope.$digest();
+    expect(ChartsController.loadChartList).not.toHaveBeenCalled();
+  });
+
+  it('should be able to delete a chart', function() {
+    var chart = chartList[0];
+
+    spyOn(ChartsController, 'loadChartList');
+
+    $rootScope.$digest();
+    ChartsController.onClickDeleteChart($event, chart);
+    eeDeleteConfirmationService.resolve();
+    $rootScope.$digest();
+    expect(EagleEyeWebService.deleteChartById).toHaveBeenCalledWith(chart._id);
+    $rootScope.$digest();
+    expect(ChartsController.loadChartList).toHaveBeenCalled();
     $rootScope.$digest();
     expect(ChartsController.isLoading).toBe(false);
     expect(ChartsController.chartList.length).toBe(1);
-    expect(ChartsController.chartList).toEqual(chartList);
-
-    // delete another
-    id = chartList[0]._id;
-    title = chartList[0].title;
-    ChartsController.showConfirm($event, id, title);
-    expect($event.stopPropagation).toHaveBeenCalled();
-    expect(eeDeleteConfirmationService.showDeleteConfirmationDialog).toHaveBeenCalledWith({ title: title });
-    eeDeleteConfirmationService.resolve('delete');
-    $rootScope.$digest();
-    expect(EagleEyeWebService.deleteChartById).toHaveBeenCalledWith(id);
-    $rootScope.$digest();
-    expect(ChartsController.isLoading).toBe(false);
-    expect(ChartsController.chartList.length).toBe(0);
-    expect(ChartsController.chartList).toEqual([]);
-  });
-
-  it('should show confirmation popup and cancel', function() {
-    var $event = { stopPropagation: function() {} };
-    var id, title;
-
-    spyOn($event, 'stopPropagation');
-
-    $rootScope.$digest();
-    expect(ChartsController.isLoading).toBe(false);
-    expect(ChartsController.chartList).toEqual(chartList);
-
-    id = chartList[0]._id;
-    title = chartList[0].title;
-    ChartsController.showConfirm($event, id, title);
-    expect($event.stopPropagation).toHaveBeenCalled();
-    expect(eeDeleteConfirmationService.showDeleteConfirmationDialog).toHaveBeenCalledWith({ title: title });
-
-    eeDeleteConfirmationService.resolve('cancel');
-    $rootScope.$digest();
-    expect(EagleEyeWebService.deleteChartById).toHaveBeenCalledTimes(0)
-    expect(ChartsController.isLoading).toBe(false);
-    expect(ChartsController.chartList).toEqual(chartList);
+    expect(ChartsController.chartList[0]._id).not.toBe(chart._id);
   });
 
   it('should go to chartCreation state', function() {

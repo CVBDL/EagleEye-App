@@ -9,11 +9,12 @@
  */
 angular.module('eagleeye')
   .factory('eeDeleteConfirmationService', [
+    '$q',
     '$mdDialog',
     '$mdMedia',
-    function ($mdDialog, $mdMedia) {
+    function ($q, $mdDialog, $mdMedia) {
 
-      function showDeleteConfirmationDialog(locals) {
+      function showConfirmDialog(locals) {
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
 
         return $mdDialog.show({
@@ -23,11 +24,18 @@ angular.module('eagleeye')
           parent: angular.element(document.body),
           clickOutsideToClose: true,
           fullscreen: useFullScreen
+
+        }).then(function(response) {
+          if (response === 'delete') {
+            return $q.when(response);
+          } else {
+            return $q.reject(response);
+          }
         });
       }
 
       return {
-        showDeleteConfirmationDialog: showDeleteConfirmationDialog
+        showConfirmDialog: showConfirmDialog
       };
     }
   ]);

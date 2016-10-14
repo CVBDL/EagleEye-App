@@ -24,28 +24,22 @@ angular.module('eagleeye')
         });
       };
 
-      this.showConfirm = function($event, id, title) {
+      this.onClickDeleteChart = function($event, chart) {
         $event.stopPropagation();
 
-        eeDeleteConfirmationService.showDeleteConfirmationDialog({
-          title: title
-
-        }).then(function(response) {
-          if (response === 'delete') {
-            deleteChartById(id);
-          }
-        });
+        eeDeleteConfirmationService
+          .showConfirmDialog({ title: chart.options.title })
+          .then(function() {
+            return EagleEyeWebService.deleteChartById(chart._id);
+          })
+          .then(function() {
+            controller.loadChartList();
+          });
       };
 
       this.createChart = function() {
         $state.go('chartCreation');
       };
-
-      function deleteChartById(id) {
-        EagleEyeWebService.deleteChartById(id).then(function() {
-          controller.loadChartList();
-        });
-      }
 
       function init() {
         controller.loadChartList();
