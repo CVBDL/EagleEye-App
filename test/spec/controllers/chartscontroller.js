@@ -132,7 +132,7 @@ describe('Controller: ChartsController', function() {
 
   // reset router
   beforeEach(module(function ($urlRouterProvider) {
-    $urlRouterProvider.otherwise( function(){ return false; });
+    $urlRouterProvider.otherwise(function(){ return false; });
   }));
 
   // inject services
@@ -155,7 +155,7 @@ describe('Controller: ChartsController', function() {
 
   beforeEach(inject(function() {
     ChartsController = $controller('ChartsController', {
-      $scope: $rootScope.$new(),
+      $state: $state,
       EagleEyeWebService: EagleEyeWebService,
       eeDeleteConfirmationService: eeDeleteConfirmationService
     });
@@ -166,7 +166,7 @@ describe('Controller: ChartsController', function() {
     $httpBackend.verifyNoOutstandingRequest();
   });
 
-  it('should initialize correctly', function() {
+  it('should initialize controller correctly', function() {
     expect(ChartsController).toBeDefined();
     expect(ChartsController.isLoading).toBe(true);
     expect(ChartsController.chartList).toBeUndefined();

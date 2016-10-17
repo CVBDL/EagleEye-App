@@ -1,23 +1,145 @@
 'use strict';
 
-describe('Controller: ChartCreationController', function () {
+describe('Controller: ChartCreationController', function() {
+  var $controller,
+    $httpBackend,
+    $mdDialog,
+    $rootScope,
+    $state,
+    $templateCache,
+    GoogleChartsService,
+    EagleEyeWebService;
 
-  // load the controller's module
+  var ChartCreationController;
+
+  // load main module
   beforeEach(module('eagleeye'));
 
-  var ChartCreationController,
-    scope;
+  beforeEach(module(function($provide) {
+    $provide.factory('GoogleChartsService', function() {
+      var chartTypeOptions = [{
+        label: 'Line Chart',
+        value: 'LineChart',
+        construcorName: 'LineChart'
+      }, {
+        label: 'Column Chart',
+        value: 'ColumnChart',
+        construcorName: 'ColumnChart'
+      }, {
+        label: 'Bar Chart',
+        value: 'BarChart',
+        construcorName: 'BarChart'
+      }, {
+        label: 'Combo Chart',
+        value: 'ComboChart',
+        construcorName: 'ComboChart'
+      }, {
+        label: 'Area Chart',
+        value: 'AreaChart',
+        construcorName: 'AreaChart'
+      }, {
+        label: 'Image Chart',
+        value: 'ImageChart',
+        construcorName: ''
+      }];
 
-  // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
-    scope = $rootScope.$new();
-    ChartCreationController = $controller('ChartCreationController', {
-      $scope: scope
-      // place here mocked dependencies
+      var getChartTypeOptions = jasmine.createSpy('getChartTypeOptions').and.callFake(function() {
+        return chartTypeOptions;
+      });
+      var getChartDataTableSamples = jasmine.createSpy('getChartDataTableSamples').and.callFake(function(chartType, axisDataType) {
+        // body
+      });
+
+      return {
+        getChartTypeOptions: getChartTypeOptions,
+        getChartDataTableSamples: getChartDataTableSamples
+      };
     });
   }));
 
-  // it('should attach a list of awesomeThings to the scope', function () {
-  //   expect(ChartCreationController.awesomeThings.length).toBe(3);
-  // });
+  // reset router
+  beforeEach(module(function($urlRouterProvider) {
+    $urlRouterProvider.otherwise(function() {
+      return false;
+    });
+  }));
+
+  // inject services
+  beforeEach(inject(function(_$controller_, _$httpBackend_, _$mdDialog_, _$rootScope_, _$state_, _$templateCache_, _EagleEyeWebService_, _GoogleChartsService_) {
+    $controller = _$controller_;
+    $mdDialog = _$mdDialog_;
+    $rootScope = _$rootScope_;
+    $state = _$state_;
+    $templateCache = _$templateCache_;
+    $httpBackend = _$httpBackend_;
+    EagleEyeWebService = _EagleEyeWebService_;
+    GoogleChartsService = _GoogleChartsService_;
+  }));
+
+  beforeEach(inject(function($controller, $rootScope) {
+    ChartCreationController = $controller('ChartCreationController', {
+      $state: $state,
+      $mdDialog: $mdDialog,
+      GoogleChartsService: GoogleChartsService,
+      EagleEyeWebService: EagleEyeWebService
+    });
+  }));
+
+  afterEach(function() {
+    $httpBackend.verifyNoOutstandingExpectation();
+    $httpBackend.verifyNoOutstandingRequest();
+  });
+
+  it('should initialize controller correctly', function() {
+    expect(ChartCreationController).toBeDefined();
+  });
+
+  it('should initialize chart type options correctly', function() {
+    expect(GoogleChartsService.getChartTypeOptions).toHaveBeenCalled();
+    expect(ChartCreationController.chartTypeOptions).toBe(GoogleChartsService.getChartTypeOptions());
+  });
+
+  it('should initialize selected chart type options correctly', function() {
+    expect(ChartCreationController.selectedChartTypeOption).toBe(ChartCreationController.chartTypeOptions[0]);
+  });
+
+  it('should initialize data models correctly', function() {
+    expect(ChartCreationController.stackOptions).toEqual([{
+      value: true,
+      label: 'Yes'
+    }, {
+      value: false,
+      label: 'No'
+    }]);
+    expect(ChartCreationController.formatOptions).toEqual([{
+      value: 'percent',
+      label: 'Yes'
+    }, {
+      value: '',
+      label: 'No'
+    }]);
+    expect(ChartCreationController.chart).toEqual({
+      description: '',
+      friendlyUrl: '',
+      domainDataType: 'string',
+      options: {
+        title: '',
+        hAxis: {
+          title: '',
+          format: ''
+        },
+        vAxis: {
+          title: '',
+          format: ''
+        },
+        combolines: '',
+        isStacked: 'false',
+        chartArea: {
+          left: '',
+          width: ''
+        }
+      }
+    });
+  });
+
 });
