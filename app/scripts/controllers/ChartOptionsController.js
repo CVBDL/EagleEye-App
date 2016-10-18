@@ -23,22 +23,8 @@ angular.module('eagleeye')
       controller.id = $stateParams.id;
 
       this.chartType = '';
-
-      this.stackOptions = [{
-        value: true,
-        label: 'Yes'
-      }, {
-        value: false,
-        label: 'No'
-      }];
-
-      this.formatOptions = [{
-        value: 'percent',
-        label: 'Yes'
-      }, {
-        value: '',
-        label: 'No'
-      }];
+      this.isStackedOptions = GoogleChartsService.getIsStackedOptions();
+      this.formatStringOptions = GoogleChartsService.getFormatStringOptions();
 
       this.chart = {
         description: '',

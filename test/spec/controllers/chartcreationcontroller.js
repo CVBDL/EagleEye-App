@@ -42,6 +42,21 @@ describe('Controller: ChartCreationController', function() {
         value: 'ImageChart',
         construcorName: ''
       }];
+      var isStackedOptions = [{
+        value: true,
+        label: 'Yes'
+      }, {
+        value: false,
+        label: 'No'
+      }];
+
+      var formatStringOptions = [{
+        value: 'percent',
+        label: 'Yes'
+      }, {
+        value: '',
+        label: 'No'
+      }];
 
       var getChartTypeOptions = jasmine.createSpy('getChartTypeOptions').and.callFake(function() {
         return chartTypeOptions;
@@ -49,10 +64,18 @@ describe('Controller: ChartCreationController', function() {
       var getChartDataTableSamples = jasmine.createSpy('getChartDataTableSamples').and.callFake(function(chartType, axisDataType) {
         // body
       });
+      var getIsStackedOptions = jasmine.createSpy('getIsStackedOptions').and.callFake(function() {
+        return isStackedOptions;
+      });
+      var getFormatStringOptions = jasmine.createSpy('getFormatStringOptions').and.callFake(function() {
+        return formatStringOptions;
+      });
 
       return {
         getChartTypeOptions: getChartTypeOptions,
-        getChartDataTableSamples: getChartDataTableSamples
+        getChartDataTableSamples: getChartDataTableSamples,
+        getIsStackedOptions: getIsStackedOptions,
+        getFormatStringOptions: getFormatStringOptions
       };
     });
   }));
@@ -104,14 +127,14 @@ describe('Controller: ChartCreationController', function() {
   });
 
   it('should initialize data models correctly', function() {
-    expect(ChartCreationController.stackOptions).toEqual([{
+    expect(ChartCreationController.isStackedOptions).toEqual([{
       value: true,
       label: 'Yes'
     }, {
       value: false,
       label: 'No'
     }]);
-    expect(ChartCreationController.formatOptions).toEqual([{
+    expect(ChartCreationController.formatStringOptions).toEqual([{
       value: 'percent',
       label: 'Yes'
     }, {

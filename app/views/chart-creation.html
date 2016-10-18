@@ -46,7 +46,7 @@
             <md-input-container flex>
               <label>Stacked or not</label>
               <md-select ng-model="ctrl.chart.options.isStacked">
-                <md-option ng-value="option.value" ng-repeat="option in ctrl.stackOptions">{{option.label}}</md-option>
+                <md-option ng-value="option.value" ng-repeat="option in ctrl.isStackedOptions">{{option.label}}</md-option>
               </md-select>
             </md-input-container>
           </div>
@@ -58,13 +58,13 @@
             <md-input-container flex>
               <label>Percent on V-axis</label>
               <md-select ng-model="ctrl.chart.options.vAxis.format">
-                <md-option ng-value="option.value" ng-repeat="option in ctrl.formatOptions">{{option.label}}</md-option>
+                <md-option ng-value="option.value" ng-repeat="option in ctrl.formatStringOptions">{{option.label}}</md-option>
               </md-select>
             </md-input-container>
             <md-input-container flex>
               <label>Percent on H-axis</label>
               <md-select ng-model="ctrl.chart.options.hAxis.format">
-                <md-option ng-value="option.value" ng-repeat="option in ctrl.formatOptions">{{option.label}}</md-option>
+                <md-option ng-value="option.value" ng-repeat="option in ctrl.formatStringOptions">{{option.label}}</md-option>
               </md-select>
             </md-input-container>
             <md-input-container flex ng-if="ctrl.selectedChartTypeOption.value === 'ComboChart'">
