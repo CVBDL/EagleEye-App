@@ -1,3 +1,15 @@
+<a name="1.0.0"></a>
+# 1.0.0 (2016-10-19)
+
+## Bug Fixes
+
+* Fixed #43.
+
+## Features
+
+* Refactor and unit tests.
+
+
 <a name="1.0.0-beta.11"></a>
 # 1.0.0-beta.11 (2016-10-11)
 
