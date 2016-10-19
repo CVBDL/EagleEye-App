@@ -3,7 +3,7 @@
     <div md-whiteframe="1" class="ee-content">
       <md-toolbar class="ee-toolbar">
         <div class="md-toolbar-tools">
-          <h2 class="ee-text-black-primary">{{ctrl.chart.options.title}}</h2>
+          <h2 class="ee-text-black-primary">Setting data source for : {{ctrl.chart.options.title}}</h2>
           <span flex></span>
           <md-button class="md-icon-button" aria-label="View chart" ui-sref="chart({ id: ctrl.id })">
             <md-tooltip md-direction="botton">View chart</md-tooltip>
@@ -20,35 +20,56 @@
 
       <!-- Google Chart Types -->
       <div ng-if="!ctrl.isLoading && ctrl.chart.chartType !== 'ImageChart'" layout="row" layout-padding layout-wrap>
-        <div class="ee-card-container" flex="50" flex-xs="100">
-          <md-card class="ee-layout--no-margin">
+        <div class="ee-card-container ee-data-options-card-container" flex="50" flex-xs="100">
+          <md-card class="ee-layout--no-margin" layout-fill>
             <md-card-title>
-              <md-card-title-media class="ee-layout--no-margin">
-                <div class="md-media card-media">
-                  <md-icon md-font-set="material-icons" class="ee-icon"> looks_one </md-icon>
-                </div>
-              </md-card-title-media>
               <md-card-title-text>
-                <span class="md-headline">Download template</span>
-                <span class="md-subhead">Get data points from this chart</span>
+                <span class="md-headline">Option 1: Manually</span>
+                <span class="md-subhead">You could upload the data file (.xsl) to server manually to update the chart's data.</span>
               </md-card-title-text>
             </md-card-title>
             <md-card-actions layout="row" layout-align="end center">
               <md-button class="ee-button--accent" aria-label="file download">
                 <a class="ee-button--accent" ng-href="{{ctrl.chart.browserDownloadUrl.excel}}">Go to Download</a>
               </md-button>
+              <span>&gt;</span>
+              <md-button class="ee-button--accent" ngf-select ng-model="ctrl.excelFile" name="file">Choose File</md-button>
+              <span>&gt;</span>
+              <md-button class="ee-button--accent" aria-label="Submit" ng-click="ctrl.upload(ctrl.excelFile)">Submit</md-button>
+            </md-card-actions>
+            <md-progress-linear ng-show="ctrl.excelFile.progress >= 0" md-mode="determinate" value="ctrl.excelFile.progress"></md-progress-linear>
+            <div>
+              <span ng-show="ctrl.excelFile.progress == 100">Upload Successful</span>
+            </div>
+            <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+          </md-card>
+        </div>
+        <div class="ee-card-container ee-data-options-card-container" flex="50" flex-xs="100">
+          <md-card class="ee-layout--no-margin" layout-fill>
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline">Option 2: Automatically</span>
+                <span class="md-subhead">Or you're able able to schedule a job to update the chart's data automatically. But it requires more effort to configure the job.</span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-actions layout="row" layout-align="end center">
+              <md-button class="ee-button--accent">Schedule job</md-button>
             </md-card-actions>
           </md-card>
         </div>
-        <div class="ee-card-container" flex="50" flex-xs="100">
+      </div>
+
+      <!-- Custom Image Chart Type -->
+      <div ng-if="!ctrl.isLoading && ctrl.chart.chartType === 'ImageChart'" layout="row" layout-padding>
+        <div class="ee-card-container" flex="100">
           <md-card layout-fill class="ee-layout--no-margin">
             <md-card-title>
               <md-card-title-media class="ee-layout--no-margin">
-                <md-icon md-font-set="material-icons" class="ee-icon"> looks_two </md-icon>
+                <md-icon md-font-set="material-icons" class="ee-icon"> looks_one </md-icon>
               </md-card-title-media>
               <md-card-title-text>
-                <span class="md-headline">Upload data</span>
-                <span class="md-subhead">Provide data points for this chart.</span>
+                <span class="md-headline">Upload image</span>
+                <span class="md-subhead">Please select an image to upload.</span>
               </md-card-title-text>
             </md-card-title>
             <md-card-actions layout="row" layout-align="end center">
@@ -64,29 +85,12 @@
         </div>
       </div>
 
-      <!-- Custom Image Chart Type -->
-      <div ng-if="!ctrl.isLoading && ctrl.chart.chartType === 'ImageChart'" layout="row" layout-padding>
-        <div class="ee-card-container" flex="100">
-          <md-card layout-fill class="ee-layout--no-margin">
-            <md-card-title>
-              <md-card-title-media class="ee-layout--no-margin">
-                <md-icon md-font-set="material-icons" class="ee-icon"> looks_one </md-icon>
-              </md-card-title-media>
-              <md-card-title-text>
-                <span class="md-headline">Upload data</span>
-                <span class="md-subhead">Provide data points for this chart.</span>
-              </md-card-title-text>
-            </md-card-title>
-            <md-card-actions layout="row" layout-align="end center">
-              <md-button class="ee-button--accent" ngf-select ng-model="ctrl.excelFile" name="file">Choose File</md-button>
-              <md-button class="ee-button--accent" aria-label="Submit" ng-click="ctrl.upload(ctrl.excelFile)">Submit</md-button>
-            </md-card-actions>
-            <md-progress-linear ng-show="ctrl.excelFile.progress >= 0" md-mode="determinate" value="ctrl.excelFile.progress"></md-progress-linear>
-            <div>
-              <span ng-show="ctrl.excelFile.progress == 100">Upload Successful</span>
-            </div>
-            <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
-          </md-card>
+      <md-divider></md-divider>
+
+      <!-- TODO: Current job lists -->
+      <div ng-if="!ctrl.isLoading && ctrl.chart.chartType !== 'ImageChart'" layout="row" layout-padding>
+        <div flex="100">
+          <h3 class="md-subhead">Current Jobs:</h3>
         </div>
       </div>
 
