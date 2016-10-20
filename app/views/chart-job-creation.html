@@ -1,0 +1,77 @@
+<div class="ee-view">
+  <md-content class="ee-view__content-container ee-content--transparent">
+    <div md-whiteframe="1" class="ee-content">
+      <md-toolbar class="ee-toolbar">
+        <div class="md-toolbar-tools">
+          <h3 class="ee-text-black-primary">Jobs</h3>
+          <span flex></span>
+          <md-button class="md-icon-button" aria-label="Save">
+            <md-tooltip md-direction="botton">Save</md-tooltip>
+            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.save()"> save </md-icon>
+          </md-button>
+        </div>
+      </md-toolbar>
+      <md-divider></md-divider>
+      <div layout-padding>
+        <form name="chartJobCreationForm">
+          <div layout="row">
+            <div flex="100">
+            <md-input-container class="md-block">
+              <md-checkbox ng-model="ctrl.job.enabled" aria-label="Enable the job">Enable the job</md-checkbox>
+            </md-input-container>
+            </div>
+          </div>
+          <div layout="row">
+            <div flex="50">
+              <md-input-container class="md-block">
+                <label>Job name</label>
+                <input md-maxlength="60" required name="name" ng-model="ctrl.job.name">
+                <div ng-messages="chartJobCreationForm.name.$error" role="alert" md-auto-hide="false">
+                  <div ng-message="required">This is required.</div>
+                </div>
+              </md-input-container>
+            </div>
+            <div flex="50">
+              <div layout-padding>
+                <p></p>
+                <p>The name of the job. It's required. It will display in job list.</p>
+              </div>
+            </div>
+          </div>
+          <div layout="row">
+            <div flex="50">
+              <md-input-container class="md-block">
+                <label>Scheduled time</label>
+                <input name="expression" ng-model="ctrl.job.expression">
+              </md-input-container>
+            </div>
+            <div flex="50">
+              <div layout-padding>
+                <p></p>
+                <p>The format of scheduled time is: <i>A B C D E F</i>.</p>
+                <ul>
+                  <li>A: second (0 - 59, OPTIONAL)</li>
+                  <li>B: minute (0 - 59)</li>
+                  <li>C: hour (0 - 23)</li>
+                  <li>D: day of month (1 - 31)</li>
+                  <li>E: month (1 - 12)</li>
+                  <li>F: day of week (0 - 7) (0 or 7 is Sun)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div layout="row">
+            <div flex="100">
+              <md-input-container class="md-block">
+                <label>Command</label>
+                <md-select ng-model="ctrl.job.command" style="width: 50%">
+                  <md-option><em>None</em></md-option>
+                </md-select>
+              </md-input-container>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </md-content>
+</div>
