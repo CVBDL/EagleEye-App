@@ -24,8 +24,7 @@ angular
         .state('root', {
           url: '',
           abstract: true,
-          template: '<ui-view></ui-view>',
-          controller: 'RootController'
+          template: '<ui-view></ui-view>'
         })
         .state('home', {
           url: '/home',
@@ -114,8 +113,6 @@ angular
         .state('develop', {
           url: '/develop',
           templateUrl: 'views/develop.html',
-          controller: 'DevelopController',
-          controllerAs: 'ctrl',
           parent: 'root'
         });
 
