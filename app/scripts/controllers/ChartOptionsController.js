@@ -18,57 +18,65 @@ angular.module('eagleeye')
     'EagleEyeWebService',
     function($scope, $http, $state, $stateParams, $mdDialog, GoogleChartsService, EagleEyeWebService) {
       var controller = this;
-      var friendlyUrlPrefix = 'c-';
 
-      controller.id = $stateParams.id;
-
-      this.chartType = '';
+      this.id = $stateParams.id;
       this.isStackedOptions = GoogleChartsService.getIsStackedOptions();
       this.formatStringOptions = GoogleChartsService.getFormatStringOptions();
+      this.chart = {};
 
-      this.chart = {
-        description: '',
-        friendlyUrl: '',
-        options: {
-          title: '',
-          hAxis: {
-            title: '',
-            format: ''
-          },
-          vAxis: {
-            title: '',
-            format: ''
-          },
-          combolines: '',
-          isStacked: 'false',
-          chartArea: {
-            left: '',
-            width: ''
-          }
-        }
+      /**
+       * @method
+       * @name makeChartPayload
+       *
+       * @description
+       * Prepare the payload PUT to server later, so that we could update the chart.
+       * {@link https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#edit-a-chart}.
+       *
+       * @param {Object} chart The chart object contains user input values.
+       * @returns {Object} The payload JSON object.
+       *
+       * @todo Make the method smaller
+       */
+      this.makeChartPayload = function(chart) {
+        var payload = {};
+
+        // basic fields
+        // =====================================================================
+        payload.description = chart.description || '';
+        payload.friendlyUrl = GoogleChartsService.makeFriendlyUrl('chart', chart.friendlyUrl);
+
+        // configuration options
+        // TODO: create individual functions to make it smaller?
+        // =====================================================================
+        payload.options = {};
+
+        payload.options.title = chart.options.title || '';
+
+        payload.options.hAxis = {};
+        payload.options.hAxis.title = chart.options.hAxis.title || '';
+        payload.options.hAxis.format = chart.options.hAxis.format || '';
+
+        payload.options.vAxis = {};
+        payload.options.vAxis.title = chart.options.vAxis.title || '';
+        payload.options.vAxis.format = chart.options.vAxis.format || '';
+
+        // TODO: only combo chart requires this option
+        payload.options.combolines = chart.options.combolines || '';
+
+        // TODO: only some chart types support this option
+        payload.options.isStacked = chart.options.isStacked || false;
+
+        payload.options.chartArea = GoogleChartsService.makeChartArea(chart.options.chartArea.left, chart.options.chartArea.width);
+
+        return payload;
       };
 
-      this.save = function() {
-        var savedData = angular.copy(this.chart, {}),
-          chartArea = {};
+      this.save = function(chart) {
+        var payload = this.makeChartPayload(chart);
 
-        if (this.chart.friendlyUrl) {
-          savedData.friendlyUrl = friendlyUrlPrefix + this.chart.friendlyUrl;
-        }
-
-        if (this.chart.options.chartArea.left !== '') {
-          chartArea.left = this.chart.options.chartArea.left;
-        }
-
-        if (this.chart.options.chartArea.width !== '') {
-          chartArea.width = this.chart.options.chartArea.width;
-        }
-
-        savedData.options.chartArea = chartArea;
-
-        EagleEyeWebService.updateChartById(controller.id, JSON.stringify(savedData)).then(function() {
+        EagleEyeWebService.updateChartById(chart._id, payload).then(function() {
           $state.go('chart', {
-            id: controller.id
+            id: chart._id
           });
 
         }, function(error) {
@@ -91,13 +99,9 @@ angular.module('eagleeye')
 
       function init() {
         EagleEyeWebService.getChartById(controller.id).then(function(response) {
-          controller.id = response._id;
-          controller.chartType = response.chartType;
-          controller.domainDataType = response.domainDataType;
+          controller.chart = response;
 
-          controller.chart.description = response.description;
-          controller.chart.friendlyUrl = response.friendlyUrl;
-          controller.chart.options     = response.options;
+          // remove prefix
           controller.chart.friendlyUrl = response.friendlyUrl ? response.friendlyUrl.substring(2) : '';
         });
       };

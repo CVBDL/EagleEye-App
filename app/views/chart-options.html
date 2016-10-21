@@ -11,7 +11,7 @@
           </md-button>
           <md-button class="md-icon-button" aria-label="Save">
             <md-tooltip md-direction="botton">Save</md-tooltip>
-            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.save()"> save </md-icon>
+            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.save(ctrl.chart)"> save </md-icon>
           </md-button>
         </div>
       </md-toolbar>
@@ -50,7 +50,7 @@
                 <md-option ng-value="option.value" ng-repeat="option in ctrl.formatStringOptions">{{option.label}}</md-option>
               </md-select>
             </md-input-container>
-            <md-input-container flex ng-if="ctrl.chartType === 'ComboChart'">
+            <md-input-container flex ng-if="ctrl.chart.chartType === 'ComboChart'">
               <label>Combo Lines: Default 1</label>
               <input name="chartCombolines" ng-model="ctrl.chart.options.combolines">
             </md-input-container>
@@ -82,8 +82,8 @@
       <md-divider></md-divider>
       <div layout-padding>
         <div flex="100">
-          <p>Live demo:</p>
-          <ee-google-chart-sample class="ee-google-chart" chart-type="{{ctrl.chartType}}" chart-major-axis-data-type="{{ctrl.domainDataType}}" chart-options="ctrl.chart.options">
+          <p class="md-subhead">Live demo:</p>
+          <ee-google-chart-sample class="ee-google-chart" chart-type="{{ctrl.chart.chartType}}" chart-major-axis-data-type="{{ctrl.chart.domainDataType}}" chart-options="ctrl.chart.options">
           </ee-google-chart-sample>
         </div>
       </div>

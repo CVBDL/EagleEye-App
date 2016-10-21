@@ -35,7 +35,7 @@ angular.module('eagleeye')
           );
         }
 
-        EagleEyeWebService.updateChartById(controller.id, JSON.stringify(settings)).then(function() {
+        EagleEyeWebService.updateChartById(controller.id, settings).then(function() {
           $state.go('chart', {
             id: controller.id
           });
