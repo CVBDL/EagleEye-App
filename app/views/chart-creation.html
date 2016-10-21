@@ -11,7 +11,7 @@
           </md-button>
           <md-button class="md-icon-button" aria-label="Save">
             <md-tooltip md-direction="botton">Save</md-tooltip>
-            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.save()"> save </md-icon>
+            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.save(ctrl.chart)"> save </md-icon>
           </md-button>
         </div>
       </md-toolbar>
@@ -28,8 +28,8 @@
             </md-input-container>
             <md-input-container flex>
               <label>Chart types</label>
-              <md-select ng-model="ctrl.selectedChartTypeOption" ng-model-options="{ trackBy: '$value.value' }">
-                <md-option ng-repeat="chartTypeOption in ctrl.chartTypeOptions" ng-value="{{chartTypeOption}}">
+              <md-select ng-model="ctrl.chart.chartType" >
+                <md-option ng-value="chartTypeOption.value" ng-repeat="chartTypeOption in ctrl.chartTypeOptions">
                   {{chartTypeOption.label}}
                 </md-option>
               </md-select>
@@ -67,7 +67,7 @@
                 <md-option ng-value="option.value" ng-repeat="option in ctrl.formatStringOptions">{{option.label}}</md-option>
               </md-select>
             </md-input-container>
-            <md-input-container flex ng-if="ctrl.selectedChartTypeOption.value === 'ComboChart'">
+            <md-input-container flex ng-if="ctrl.chart.chartType === 'ComboChart'">
               <label>Lines: Default 1</label>
               <input name="chartCombolines" ng-model="ctrl.chart.options.combolines">
             </md-input-container>
@@ -99,7 +99,7 @@
       <md-divider></md-divider>
       <div layout-padding>
         <p>Live demo:</p>
-        <ee-google-chart-sample class="ee-google-chart" chart-type="{{ctrl.selectedChartTypeOption.construcorName}}" chart-major-axis-data-type="{{ctrl.chart.domainDataType}}" chart-options="ctrl.chart.options">
+        <ee-google-chart-sample class="ee-google-chart" chart-type="{{ctrl.chart.chartType}}" chart-major-axis-data-type="{{ctrl.chart.domainDataType}}" chart-options="ctrl.chart.options">
         </ee-google-chart-sample>
       </div>
     </div>

@@ -70,7 +70,7 @@ angular.module('eagleeye')
         return fetchServer({
           method: 'POST',
           url: url,
-          data: data
+          data: JSON.stringify(data)
         });
       }
 

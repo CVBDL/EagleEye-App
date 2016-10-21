@@ -9,30 +9,27 @@
  */
 angular.module('eagleeye')
   .factory('GoogleChartsService', function GoogleChartsService() {
+    var FRIENDLY_URL_PREFIX_CHART = 'c-';
+    var FRIENDLY_URL_PREFIX_CHARTSET = 's-';
+
     var chartTypeOptions = [{
       label: 'Line Chart',
-      value: 'LineChart',
-      construcorName: 'LineChart'
+      value: 'LineChart'
     }, {
       label: 'Column Chart',
-      value: 'ColumnChart',
-      construcorName: 'ColumnChart'
+      value: 'ColumnChart'
     }, {
       label: 'Bar Chart',
-      value: 'BarChart',
-      construcorName: 'BarChart'
+      value: 'BarChart'
     }, {
       label: 'Combo Chart',
-      value: 'ComboChart',
-      construcorName: 'ComboChart'
+      value: 'ComboChart'
     }, {
       label: 'Area Chart',
-      value: 'AreaChart',
-      construcorName: 'AreaChart'
+      value: 'AreaChart'
     }, {
       label: 'Image Chart',
-      value: 'ImageChart',
-      construcorName: ''
+      value: 'ImageChart'
     }];
 
     var dataTableSamples = {
@@ -283,11 +280,88 @@ angular.module('eagleeye')
       label: 'No'
     }];
 
+    /**
+     * @function
+     * @name makeFriendlyUrl
+     *
+     * @description
+     * Property `friendlyUrl` is an unique field for a chart or chart set.
+     * It could be empty or a string.
+     * If the given `friendlyName` is empty, then the final `friendlyUrl` should be ''.
+     * If the given `friendlyName` is not an empty string, then we should add the friendly URL prefix.
+     *
+     * @param {String} type         The friendly url types, could be 'chart' or 'chartset'.
+     * @param {String} friendlyName The friendly name.
+     *
+     * @returns {String|Error} The final `friendlyUrl` string or error.
+     *
+     * @example
+     * this.makeFriendlyUrl('chart', 'defects-count');    // returns 'c-defects-count'
+     * this.makeFriendlyUrl('chartset', 'defects-count'); // returns 's-defects-count'
+     * this.makeFriendlyUrl('foo', 'defects-count');      // returns Error
+     */
+    function makeFriendlyUrl(type, friendlyName) {
+      var prefixes = {
+        chart: FRIENDLY_URL_PREFIX_CHART,
+        chartset: FRIENDLY_URL_PREFIX_CHARTSET
+      };
+
+      if (!friendlyName) return '';
+
+      if (prefixes[type]) {
+        return prefixes[type] + friendlyName;
+
+      } else {
+        throw new Error('The type parameter of makeFriendlyUrl function is not supported.');
+      }
+    }
+
+    /**
+     * @function
+     * @name makeChartArea
+     *
+     * @description
+     *
+     * Generate google chart `chartArea` configuration option.
+     * {@link https://developers.google.com/chart/interactive/docs/gallery/linechart#configuration-options Configuration Options}.
+     *
+     * Note:
+     * Google supports four properties in the `chartArea` option object. They're `left`, `top`, `width` and `height`.
+     * But now in this app, we only support two: `left` and `width`!
+     * And the values format must be a string, containing a number followed by %. For example, '30%'.
+     *
+     * @param {String} left  The left offset space of chart area in percentage.
+     * @param {String} width The width of chart area.
+     *
+     * @returns {Object} The `chartArea` configuration object.
+     *
+     * @example
+     * this.makeChartArea();             // returns {}
+     * this.makeChartArea('', '90%');    // returns { width: '90%' }
+     * this.makeChartArea('10%', '90%'); // returns { left: '10%', width: '90%' }
+     */
+    function makeChartArea(left, width) {
+      var chartArea = {};
+
+      if (left !== '') {
+        chartArea.left = left;
+      }
+
+      if (width !== '') {
+        chartArea.width = width;
+      }
+
+      return chartArea;
+    };
+
     return {
       getChartTypeOptions: function() {
         return chartTypeOptions;
       },
       getChartDataTableSamples: function(chartType, axisDataType) {
+        chartType = chartType.toLowerCase();
+        axisDataType = axisDataType.toLowerCase();
+
         return dataTableSamples[chartType] && dataTableSamples[chartType][axisDataType] ?
           dataTableSamples[chartType][axisDataType] : {};
       },
@@ -299,6 +373,8 @@ angular.module('eagleeye')
       },
       getFormatStringOptions: function() {
         return formatStringOptions;
-      }
+      },
+      makeFriendlyUrl: makeFriendlyUrl,
+      makeChartArea: makeChartArea
     };
   });

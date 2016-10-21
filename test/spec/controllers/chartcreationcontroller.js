@@ -142,6 +142,7 @@ describe('Controller: ChartCreationController', function() {
       label: 'No'
     }]);
     expect(ChartCreationController.chart).toEqual({
+      chartType: 'ColumnChart',
       description: '',
       friendlyUrl: '',
       domainDataType: 'string',
@@ -156,7 +157,7 @@ describe('Controller: ChartCreationController', function() {
           format: ''
         },
         combolines: '',
-        isStacked: 'false',
+        isStacked: false,
         chartArea: {
           left: '',
           width: ''
