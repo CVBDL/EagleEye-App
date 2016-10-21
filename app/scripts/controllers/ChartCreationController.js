@@ -60,22 +60,8 @@ angular.module('eagleeye')
 
         // basic fields
         // =====================================================================
-        // TODO: individual validation funtion required?
-        if (chart.chartType) {
-          payload.chartType = chart.chartType;
-
-        } else {
-          throw new Error('Invalid chart type.');
-        }
-
-        // TODO: individual validation funtion required?
-        if (chart.domainDataType) {
-          payload.domainDataType = chart.domainDataType;
-
-        } else {
-          throw new Error('Invalid chart domain data type.');
-        }
-
+        payload.chartType = chart.chartType;
+        payload.domainDataType = chart.domainDataType;
         payload.description = chart.description || '';
         payload.friendlyUrl = GoogleChartsService.makeFriendlyUrl('chart', chart.friendlyUrl);
 

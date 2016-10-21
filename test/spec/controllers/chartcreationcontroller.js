@@ -193,18 +193,6 @@ describe('Controller: ChartCreationController', function() {
     expect(eeHelpDialogService.showHelp).toHaveBeenCalled();
   });
 
-  it('makeChartPayload should throw error if chart type is invalid', function() {
-    expect(function() { ChartCreationController.makeChartPayload({ chartType: '' }) }).toThrow(new Error('Invalid chart type.'));
-    expect(function() { ChartCreationController.makeChartPayload({ chartType: null }) }).toThrow(new Error('Invalid chart type.'));
-    expect(function() { ChartCreationController.makeChartPayload({ chartType: undefined }) }).toThrow(new Error('Invalid chart type.'));
-  });
-
-  it('makeChartPayload should throw error if chart domain data type is invalid', function() {
-    expect(function() { ChartCreationController.makeChartPayload({ domainDataType: '', chartType: 'LineChart' }) }).toThrow(new Error('Invalid chart domain data type.'));
-    expect(function() { ChartCreationController.makeChartPayload({ domainDataType: null, chartType: 'LineChart' }) }).toThrow(new Error('Invalid chart domain data type.'));
-    expect(function() { ChartCreationController.makeChartPayload({ domainDataType: undefined, chartType: 'LineChart' }) }).toThrow(new Error('Invalid chart domain data type.'));
-  });
-
   it('makeChartPayload should initialize other fields', function() {
     var payload;
     var chart = {
@@ -235,10 +223,8 @@ describe('Controller: ChartCreationController', function() {
       payload = ChartCreationController.makeChartPayload(chart);
     }).not.toThrow();
 
-    expect(GoogleChartsService.makeFriendlyUrl).toHaveBeenCalledWith('chart', chart.friendlyUrl);
-    expect(GoogleChartsService.getChartDataTableSamples).toHaveBeenCalledWith(chart.chartType, chart.domainDataType);
-    expect(GoogleChartsService.makeChartArea).toHaveBeenCalledWith(chart.options.chartArea.left, chart.options.chartArea.width);
-
+    expect(payload.chartType).toBe(chart.chartType);
+    expect(payload.domainDataType).toBe(chart.domainDataType);
     expect(payload.description).toBe(chart.description);
     expect(payload.options.title).toBe(chart.options.title);
     expect(payload.options.hAxis.title).toBe(chart.options.hAxis.title);
@@ -247,6 +233,10 @@ describe('Controller: ChartCreationController', function() {
     expect(payload.options.vAxis.format).toBe(chart.options.vAxis.format);
     expect(payload.options.combolines).toBe(chart.options.combolines);
     expect(payload.options.isStacked).toBe(chart.options.isStacked);
+
+    expect(GoogleChartsService.makeFriendlyUrl).toHaveBeenCalledWith('chart', chart.friendlyUrl);
+    expect(GoogleChartsService.getChartDataTableSamples).toHaveBeenCalledWith(chart.chartType, chart.domainDataType);
+    expect(GoogleChartsService.makeChartArea).toHaveBeenCalledWith(chart.options.chartArea.left, chart.options.chartArea.width);
   });
 
   it('should call save method successfully', function() {
@@ -294,7 +284,7 @@ describe('Controller: ChartCreationController', function() {
     expect($state.go).toHaveBeenCalledWith('chartSettings', { id: 'fakeId' });
   });
 
-  it('should log an error when save successfully', function() {
+  it('should log an error when save fails', function() {
     spyOn(ChartCreationController, 'makeChartPayload').and.returnValue({});
     spyOn(console, 'log');
 
