@@ -19,28 +19,22 @@ describe('Controller: ChartCreationController', function() {
     $provide.factory('GoogleChartsService', function() {
       var chartTypeOptions = [{
         label: 'Line Chart',
-        value: 'LineChart',
-        construcorName: 'LineChart'
+        value: 'LineChart'
       }, {
         label: 'Column Chart',
-        value: 'ColumnChart',
-        construcorName: 'ColumnChart'
+        value: 'ColumnChart'
       }, {
         label: 'Bar Chart',
-        value: 'BarChart',
-        construcorName: 'BarChart'
+        value: 'BarChart'
       }, {
         label: 'Combo Chart',
-        value: 'ComboChart',
-        construcorName: 'ComboChart'
+        value: 'ComboChart'
       }, {
         label: 'Area Chart',
-        value: 'AreaChart',
-        construcorName: 'AreaChart'
+        value: 'AreaChart'
       }, {
         label: 'Image Chart',
-        value: 'ImageChart',
-        construcorName: ''
+        value: 'ImageChart'
       }];
       var isStackedOptions = [{
         value: true,
@@ -120,10 +114,6 @@ describe('Controller: ChartCreationController', function() {
   it('should initialize chart type options correctly', function() {
     expect(GoogleChartsService.getChartTypeOptions).toHaveBeenCalled();
     expect(ChartCreationController.chartTypeOptions).toBe(GoogleChartsService.getChartTypeOptions());
-  });
-
-  it('should initialize selected chart type options correctly', function() {
-    expect(ChartCreationController.selectedChartTypeOption).toBe(ChartCreationController.chartTypeOptions[0]);
   });
 
   it('should initialize data models correctly', function() {

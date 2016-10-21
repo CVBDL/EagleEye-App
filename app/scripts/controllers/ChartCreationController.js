@@ -14,13 +14,9 @@ angular.module('eagleeye')
     'GoogleChartsService',
     'EagleEyeWebService',
     function($state, $mdDialog, GoogleChartsService, EagleEyeWebService) {
-      var friendlyUrlPrefix = 'c-';
-
       this.chartTypeOptions = GoogleChartsService.getChartTypeOptions();
       this.isStackedOptions = GoogleChartsService.getIsStackedOptions();
       this.formatStringOptions = GoogleChartsService.getFormatStringOptions();
-
-      this.selectedChartTypeOption = this.chartTypeOptions[0];
 
       this.chart = {
         chartType: 'ColumnChart',
