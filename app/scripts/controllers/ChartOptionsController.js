@@ -13,10 +13,10 @@ angular.module('eagleeye')
     '$http',
     '$state',
     '$stateParams',
-    '$mdDialog',
     'GoogleChartsService',
     'EagleEyeWebService',
-    function($scope, $http, $state, $stateParams, $mdDialog, GoogleChartsService, EagleEyeWebService) {
+    'eeHelpDialogService',
+    function($scope, $http, $state, $stateParams, GoogleChartsService, EagleEyeWebService, eeHelpDialogService) {
       var controller = this;
 
       this.id = $stateParams.id;
@@ -84,17 +84,8 @@ angular.module('eagleeye')
         });
       };
 
-      this.showHelp = function(ev) {
-        $mdDialog.show({
-          templateUrl: 'scripts/templates/chart-creation-help.tmpl.html',
-          controller: ['$scope', function($scope) {
-            $scope.cancel = function() {
-              $mdDialog.cancel();
-            };
-          }],
-          parent: angular.element(document.body),
-          clickOutsideToClose: true
-        });
+      this.showHelp = function() {
+        eeHelpDialogService.showHelp();
       };
 
       function init() {

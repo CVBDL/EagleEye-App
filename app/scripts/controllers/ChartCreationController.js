@@ -10,10 +10,10 @@
 angular.module('eagleeye')
   .controller('ChartCreationController', [
     '$state',
-    '$mdDialog',
     'GoogleChartsService',
     'EagleEyeWebService',
-    function($state, $mdDialog, GoogleChartsService, EagleEyeWebService) {
+    'eeHelpDialogService',
+    function($state, GoogleChartsService, EagleEyeWebService, eeHelpDialogService) {
       this.chartTypeOptions = GoogleChartsService.getChartTypeOptions();
       this.isStackedOptions = GoogleChartsService.getIsStackedOptions();
       this.formatStringOptions = GoogleChartsService.getFormatStringOptions();
@@ -122,17 +122,8 @@ angular.module('eagleeye')
         });
       };
 
-      this.showHelp = function(ev) {
-        $mdDialog.show({
-          templateUrl: 'scripts/templates/chart-creation-help.tmpl.html',
-          controller: ['$scope', function($scope) {
-            $scope.cancel = function() {
-              $mdDialog.cancel();
-            };
-          }],
-          parent: angular.element(document.body),
-          clickOutsideToClose: true
-        });
+      this.showHelp = function() {
+        eeHelpDialogService.showHelp();
       };
 
     }
