@@ -102,9 +102,6 @@ angular.module('eagleeye')
           $state.go('chartSettings', {
             id: newChart._id
           });
-
-        }, function(error) {
-          console.log(error);
         });
       };
 

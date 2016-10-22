@@ -139,28 +139,31 @@ describe('Controller: ChartCreationController', function() {
     $httpBackend.verifyNoOutstandingRequest();
   });
 
-  it('should initialize controller correctly', function() {
+  it('should be able to create controller', function() {
     expect(ChartCreationController).toBeDefined();
   });
 
-  it('should call GoogleChartsService to initialize options', function() {
+  it('should initialize chart type options', function() {
     expect(GoogleChartsService.getChartTypeOptions).toHaveBeenCalled();
-    expect(GoogleChartsService.getIsStackedOptions).toHaveBeenCalled();
-    expect(GoogleChartsService.getFormatStringOptions).toHaveBeenCalled();
+    expect(ChartCreationController.chartTypeOptions).toBe(GoogleChartsService.getChartTypeOptions());
   });
 
-  it('should initialize options values correctly', function() {
-    expect(ChartCreationController.chartTypeOptions).toBe(GoogleChartsService.getChartTypeOptions());
+  it('should initialize isStacked options', function() {
+    expect(GoogleChartsService.getIsStackedOptions).toHaveBeenCalled();
     expect(ChartCreationController.isStackedOptions).toBe(GoogleChartsService.getIsStackedOptions());
+  });
+
+  it('should initialize format options', function() {
+    expect(GoogleChartsService.getFormatStringOptions).toHaveBeenCalled();
     expect(ChartCreationController.formatStringOptions).toBe(GoogleChartsService.getFormatStringOptions());
   });
 
-  it('should have correct default chart type and domain data type', function() {
+  it('should set default chart type and domain data type', function() {
     expect(ChartCreationController.chart.chartType).toBe('ColumnChart');
     expect(ChartCreationController.chart.domainDataType).toBe('string');
   });
 
-  it('should initialize chart data model correctly', function() {
+  it('should initialize chart data model', function() {
     var chart = {
       chartType: 'ColumnChart',
       domainDataType: 'string',
@@ -193,7 +196,7 @@ describe('Controller: ChartCreationController', function() {
     expect(eeHelpDialogService.showHelp).toHaveBeenCalled();
   });
 
-  it('makeChartPayload should initialize other fields', function() {
+  it('makeChartPayload() should make chart JSON', function() {
     var payload;
     var chart = {
       chartType: 'ColumnChart',
@@ -239,60 +242,33 @@ describe('Controller: ChartCreationController', function() {
     expect(GoogleChartsService.makeChartArea).toHaveBeenCalledWith(chart.options.chartArea.left, chart.options.chartArea.width);
   });
 
-  it('should call save method successfully', function() {
-    spyOn(ChartCreationController, 'makeChartPayload').and.returnValue({});
+  describe('save()', function() {
+    it('should call save method successfully', function() {
+      spyOn(ChartCreationController, 'makeChartPayload').and.returnValue({});
 
-    var payload;
-    var chart = {
-      chartType: 'ColumnChart',
-      domainDataType: 'string',
-      description: 'Description',
-      friendlyUrl: 'friendly-url',
-      options: {
-        title: 'The title',
-        hAxis: {
-          title: 'H title',
-          format: 'percent'
-        },
-        vAxis: {
-          title: 'V title',
-          format: 'percent'
-        },
-        combolines: '2',
-        isStacked: false,
-        chartArea: {
-          left: '10%',
-          width: '90%'
-        }
-      }
-    };
+      var payload;
+      var chart = {
+        chartType: 'ColumnChart',
+        domainDataType: 'string',
+        options: {}
+      };
 
-    ChartCreationController.save(chart);
+      ChartCreationController.save(chart);
 
-    expect(ChartCreationController.makeChartPayload).toHaveBeenCalledWith(chart);
-    expect(EagleEyeWebService.createChart).toHaveBeenCalledWith({});
-  });
+      expect(ChartCreationController.makeChartPayload).toHaveBeenCalledWith(chart);
+      expect(EagleEyeWebService.createChart).toHaveBeenCalledWith({});
+    });
 
-  it('should go to chart settings page when save successfully', function() {
-    spyOn(ChartCreationController, 'makeChartPayload').and.returnValue({});
-    spyOn($state, 'go');
+    it('should go to chart settings page when save successfully', function() {
+      spyOn(ChartCreationController, 'makeChartPayload').and.returnValue({});
+      spyOn($state, 'go');
 
-    ChartCreationController.save({});
-    EagleEyeWebService.resolve({ _id: 'fakeId' });
-    $rootScope.$digest();
+      ChartCreationController.save({});
+      EagleEyeWebService.resolve({ _id: 'fakeId' });
+      $rootScope.$digest();
 
-    expect($state.go).toHaveBeenCalledWith('chartSettings', { id: 'fakeId' });
-  });
-
-  it('should log an error when save fails', function() {
-    spyOn(ChartCreationController, 'makeChartPayload').and.returnValue({});
-    spyOn(console, 'log');
-
-    ChartCreationController.save({});
-    EagleEyeWebService.reject('');
-    $rootScope.$digest();
-
-    expect(console.log).toHaveBeenCalledWith('Rejected.');
+      expect($state.go).toHaveBeenCalledWith('chartSettings', { id: 'fakeId' });
+    });
   });
 
 });
