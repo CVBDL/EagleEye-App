@@ -282,6 +282,43 @@ angular.module('eagleeye')
 
     /**
      * @function
+     * @name validateChartType
+     * @description Validate the given chart type. The chart type must exist in `chartTypeOptions`
+     * @param {String} type The chart type.
+     * @returns {Boolean} Indicate if it's an valid chart type or not.
+     */
+    function validateChartType(type) {
+      var isValid = false,
+        len = chartTypeOptions.length;
+
+      while(len--) {
+        if (chartTypeOptions[len].value === type) {
+          isValid = true;
+          break;
+        }
+      }
+
+      return isValid;
+    }
+
+    /**
+     * @function
+     * @name makeChartType
+     * @description Get a valid chart type value according to input or get an error.
+     * @param {String} type The chart type.
+     * @returns {String|Error} An valid chart type or throw an error.
+     */
+    function makeChartType(type) {
+      if (validateChartType(type)) {
+        return type;
+
+      } else {
+        throw new Error('The chart type: "' + type + '" is invalid.');
+      }
+    }
+
+    /**
+     * @function
      * @name makeFriendlyUrl
      *
      * @description
@@ -374,6 +411,8 @@ angular.module('eagleeye')
       getFormatStringOptions: function() {
         return formatStringOptions;
       },
+      validateChartType: validateChartType,
+      makeChartType: makeChartType,
       makeFriendlyUrl: makeFriendlyUrl,
       makeChartArea: makeChartArea
     };

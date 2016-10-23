@@ -158,8 +158,19 @@ describe('Controller: ChartCreationController', function() {
     expect(ChartCreationController.formatStringOptions).toBe(GoogleChartsService.getFormatStringOptions());
   });
 
-  it('should set default chart type and domain data type', function() {
-    expect(ChartCreationController.chart.chartType).toBe('ColumnChart');
+  it('should initialize chart model object', function() {
+    expect(angular.isObject(ChartCreationController.chart)).toBe(true);
+    expect(angular.isObject(ChartCreationController.chart.options)).toBe(true);
+    expect(angular.isObject(ChartCreationController.chart.options.hAxis)).toBe(true);
+    expect(angular.isObject(ChartCreationController.chart.options.vAxis)).toBe(true);
+    expect(angular.isObject(ChartCreationController.chart.options.chartArea)).toBe(true);
+  });
+
+  it('should set default chart type to column chart', function() {
+    expect(ChartCreationController.chart.domainDataType).toBe('string');
+  });
+
+  it('should set default domain data type to string', function() {
     expect(ChartCreationController.chart.domainDataType).toBe('string');
   });
 

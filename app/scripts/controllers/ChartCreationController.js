@@ -18,28 +18,55 @@ angular.module('eagleeye')
       this.isStackedOptions = GoogleChartsService.getIsStackedOptions();
       this.formatStringOptions = GoogleChartsService.getFormatStringOptions();
 
-      this.chart = {
-        chartType: 'ColumnChart',
-        domainDataType: 'string',
-        description: '',
-        friendlyUrl: '',
-        options: {
-          title: '',
-          hAxis: {
-            title: '',
-            format: ''
-          },
-          vAxis: {
-            title: '',
-            format: ''
-          },
-          combolines: '',
-          isStacked: false,
-          chartArea: {
-            left: '',
-            width: ''
-          }
-        }
+      this.chart = {};
+      // default chart type
+      this.chart.chartType = 'ColumnChart';
+      // default domain data type
+      this.chart.domainDataType = 'string';
+      this.chart.description = '';
+      this.chart.friendlyUrl = '';
+
+      this.chart.options = {};
+      this.chart.options.title = '';
+      this.chart.options.combolines = '';
+      // default isStacked option
+      this.chart.options.isStacked = false;
+      this.chart.options.hAxis = {
+        title: '',
+        format: '' // default to none
+      };
+      this.chart.options.vAxis = {
+        title: '',
+        format: '' // default to none
+      };
+      this.chart.options.chartArea = {
+        left: '',
+        width: ''
+      };
+
+      /**
+       * @method
+       * @name showHelp
+       * @description Show a help popup dialog.
+       */
+      this.showHelp = function() {
+        eeHelpDialogService.showHelp();
+      };
+
+      /**
+       * @method
+       * @name save
+       * @description Prepare new chart payload and save it to backend.
+       * @param {Object} chart The chart data model.
+       */
+      this.save = function(chart) {
+        var payload = this.makeChartPayload(chart);
+
+        EagleEyeWebService.createChart(payload).then(function(newChart) {
+          $state.go('chartSettings', {
+            id: newChart._id
+          });
+        });
       };
 
       /**
@@ -93,20 +120,6 @@ angular.module('eagleeye')
         payload.options.chartArea = GoogleChartsService.makeChartArea(chart.options.chartArea.left, chart.options.chartArea.width);
 
         return payload;
-      };
-
-      this.save = function(chart) {
-        var payload = this.makeChartPayload(chart);
-
-        EagleEyeWebService.createChart(payload).then(function(newChart) {
-          $state.go('chartSettings', {
-            id: newChart._id
-          });
-        });
-      };
-
-      this.showHelp = function() {
-        eeHelpDialogService.showHelp();
       };
 
     }
