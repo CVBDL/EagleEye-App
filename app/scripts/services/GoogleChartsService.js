@@ -533,6 +533,19 @@ angular.module('eagleeye')
 
       /**
        * @method
+       * @name hasIsStackedOption
+       * @description Test if the given chart type has an `isStacked` option.
+       * @param {Object} chartType Chart type.
+       * @returns {Boolean}
+       */
+      self.hasIsStackedOption = function(chartType) {
+        var supportIsStackedChartTypes = ['ColumnChart', 'BarChart', 'ComboChart', 'AreaChart'];
+
+        return (supportIsStackedChartTypes.indexOf(chartType) > -1);
+      };
+
+      /**
+       * @method
        * @name makeConfigurationOptions
        * @description Generate a valid google chart configuration options object.
        * @param {Object} chartType Chart type.
@@ -557,9 +570,8 @@ angular.module('eagleeye')
         }
 
         // isStacked
-        if (chartType === 'ColumnChart' || chartType === 'BarChart' || chartType === 'ComboChart'
-            || chartType === 'AreaChart') {
-          configurationOptions.isStacked = !!options.isStacked;
+        if (self.hasIsStackedOption(chartType)) {
+          configurationOptions.isStacked = options.isStacked;
         }
 
         configurationOptions.chartArea = self.makeChartAreaOptions(options.chartArea.left, options.chartArea.width);

@@ -519,6 +519,20 @@ describe('Service: GoogleChartsService', function() {
     });
   });
 
+  describe('hasIsStackedOption()', function() {
+    it('should return true if given chart type supports isStacked', function() {
+      expect(GoogleChartsService.hasIsStackedOption('ColumnChart')).toBe(true);
+      expect(GoogleChartsService.hasIsStackedOption('BarChart')).toBe(true);
+      expect(GoogleChartsService.hasIsStackedOption('ComboChart')).toBe(true);
+      expect(GoogleChartsService.hasIsStackedOption('AreaChart')).toBe(true);
+    });
+
+    it('should return false if given chart type don not support isStacked', function() {
+      expect(GoogleChartsService.hasIsStackedOption('LineChart')).toBe(false);
+      expect(GoogleChartsService.hasIsStackedOption('ImageChart')).toBe(false);
+    });
+  });
+
   describe('getChartDataTableSamples()', function() {
     it('should return empty object if input chart type or domain data type is invalid', function() {
       expect(GoogleChartsService.getChartDataTableSamples('foo', 'string')).toEqual({});
