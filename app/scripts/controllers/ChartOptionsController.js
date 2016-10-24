@@ -68,7 +68,7 @@ angular.module('eagleeye')
         // TODO: only some chart types support this option
         payload.options.isStacked = chart.options.isStacked || false;
 
-        payload.options.chartArea = GoogleChartsService.makeChartArea(chart.options.chartArea.left, chart.options.chartArea.width);
+        payload.options.chartArea = GoogleChartsService.makeChartAreaOptions(chart.options.chartArea.left, chart.options.chartArea.width);
 
         return payload;
       };

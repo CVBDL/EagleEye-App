@@ -90,10 +90,10 @@ angular.module('eagleeye')
 
         // basic fields
         // =====================================================================
-        payload.chartType = chart.chartType;
-        payload.domainDataType = chart.domainDataType;
+        payload.chartType      = GoogleChartsService.makeChartType(chart.chartType);
+        payload.domainDataType = GoogleChartsService.makeDomainDataType(chart.domainDataType);
+        payload.friendlyUrl    = GoogleChartsService.makeFriendlyUrl('chart', chart.friendlyUrl);
         payload.description = chart.description || '';
-        payload.friendlyUrl = GoogleChartsService.makeFriendlyUrl('chart', chart.friendlyUrl);
 
         // datatable
         // =====================================================================
@@ -120,7 +120,7 @@ angular.module('eagleeye')
         // TODO: only some chart types support this option
         payload.options.isStacked = chart.options.isStacked || false;
 
-        payload.options.chartArea = GoogleChartsService.makeChartArea(chart.options.chartArea.left, chart.options.chartArea.width);
+        payload.options.chartArea = GoogleChartsService.makeChartAreaOptions(chart.options.chartArea.left, chart.options.chartArea.width);
 
         return payload;
       };

@@ -20,43 +20,20 @@ describe('Controller: ChartCreationController', function() {
 
   beforeEach(module(function($provide) {
     $provide.factory('GoogleChartsService', function() {
-      var isStackedOptions = [{
-        value: true,
-        label: 'Yes'
-      }, {
-        value: false,
-        label: 'No'
-      }];
-      var formatStringOptions = [{
-        value: 'percent',
-        label: 'Yes'
-      }, {
-        value: '',
-        label: 'No'
-      }];
-
-      var getChartDataTableSamples = jasmine.createSpy('getChartDataTableSamples').and.callFake(function(chartType, axisDataType) {
-        // body
-      });
-      var getIsStackedOptions = jasmine.createSpy('getIsStackedOptions').and.callFake(function() {
-        return isStackedOptions;
-      });
-      var getFormatStringOptions = jasmine.createSpy('getFormatStringOptions').and.callFake(function() {
-        return formatStringOptions;
-      });
       var makeFriendlyUrl = jasmine.createSpy('makeFriendlyUrl').and.callFake(function(type, url) {
         return '';
       });
       var makeChartArea = jasmine.createSpy('makeChartArea').and.callFake(function(left, width) {
         return {};
       });
+      var getChartDataTableSamples = jasmine.createSpy('getChartDataTableSamples').and.callFake(function(chartType, domainDataType) {
+        return {};
+      });
 
       return {
-        getChartDataTableSamples: getChartDataTableSamples,
-        getIsStackedOptions: getIsStackedOptions,
-        getFormatStringOptions: getFormatStringOptions,
         makeFriendlyUrl: makeFriendlyUrl,
-        makeChartArea: makeChartArea
+        makeChartArea: makeChartArea,
+        getChartDataTableSamples: getChartDataTableSamples
       };
     });
 
@@ -85,9 +62,9 @@ describe('Controller: ChartCreationController', function() {
       };
     });
 
-    $provide.constant('CHART_TYPE_OPTIONS', {});
-    $provide.constant('IS_STACKED_OPTIONS', {});
-    $provide.constant('AXIS_FORMAT_OPTIONS', {});
+    $provide.constant('CHART_TYPE_OPTIONS', { foo: 1 });
+    $provide.constant('IS_STACKED_OPTIONS', { bar: 1 });
+    $provide.constant('AXIS_FORMAT_OPTIONS', { foobar: 1 });
   }));
 
   // reset router
@@ -134,18 +111,18 @@ describe('Controller: ChartCreationController', function() {
   });
 
   it('should initialize chart type options', function() {
-    expect(ChartCreationController.chartTypeOptions).toEqual({});
+    expect(ChartCreationController.chartTypeOptions).toEqual({ foo: 1 });
   });
 
   it('should initialize isStacked options', function() {
-    expect(ChartCreationController.isStackedOptions).toEqual({});
+    expect(ChartCreationController.isStackedOptions).toEqual({ bar: 1 });
   });
 
   it('should initialize format options', function() {
-    expect(ChartCreationController.formatStringOptions).toEqual({});
+    expect(ChartCreationController.formatStringOptions).toEqual({ foobar: 1 });
   });
 
-  it('should initialize chart model object', function() {
+  it('should have required model objects', function() {
     expect(angular.isObject(ChartCreationController.chart)).toBe(true);
     expect(angular.isObject(ChartCreationController.chart.options)).toBe(true);
     expect(angular.isObject(ChartCreationController.chart.options.hAxis)).toBe(true);
@@ -161,32 +138,9 @@ describe('Controller: ChartCreationController', function() {
     expect(ChartCreationController.chart.domainDataType).toBe('string');
   });
 
-  it('should initialize chart data model', function() {
-    var chart = {
-      chartType: 'ColumnChart',
-      domainDataType: 'string',
-      description: '',
-      friendlyUrl: '',
-      options: {
-        title: '',
-        hAxis: {
-          title: '',
-          format: ''
-        },
-        vAxis: {
-          title: '',
-          format: ''
-        },
-        combolines: '',
-        isStacked: false,
-        chartArea: {
-          left: '',
-          width: ''
-        }
-      }
-    };
-
-    expect(ChartCreationController.chart).toEqual(chart);
+  it('should set default axis format', function() {
+    expect(ChartCreationController.chart.options.hAxis.format).toBe('');
+    expect(ChartCreationController.chart.options.vAxis.format).toBe('');
   });
 
   it('should be able to show help dialog', function() {
@@ -194,7 +148,7 @@ describe('Controller: ChartCreationController', function() {
     expect(eeHelpDialogService.showHelp).toHaveBeenCalled();
   });
 
-  it('makeChartPayload() should make chart JSON', function() {
+  xit('makeChartPayload() should make chart JSON', function() {
     var payload;
     var chart = {
       chartType: 'ColumnChart',

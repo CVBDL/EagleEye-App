@@ -2,6 +2,7 @@
 
 describe('Constant:', function() {
   var CHART_TYPE_OPTIONS,
+    DOMAIN_DATA_TYPE,
     IS_STACKED_OPTIONS,
     AXIS_FORMAT_OPTIONS,
     DEFAULT_CHART_OPTIONS,
@@ -11,8 +12,9 @@ describe('Constant:', function() {
 
   beforeEach(module('eagleeye'));
 
-  beforeEach(inject(function (_CHART_TYPE_OPTIONS_, _IS_STACKED_OPTIONS_, _AXIS_FORMAT_OPTIONS_, _DEFAULT_CHART_OPTIONS_, _DATA_TABLE_SAMPLES_, _FRIENDLY_URL_PREFIX_CHART_, _FRIENDLY_URL_PREFIX_CHARTSET_) {
+  beforeEach(inject(function (_CHART_TYPE_OPTIONS_, _DOMAIN_DATA_TYPE_, _IS_STACKED_OPTIONS_, _AXIS_FORMAT_OPTIONS_, _DEFAULT_CHART_OPTIONS_, _DATA_TABLE_SAMPLES_, _FRIENDLY_URL_PREFIX_CHART_, _FRIENDLY_URL_PREFIX_CHARTSET_) {
     CHART_TYPE_OPTIONS = _CHART_TYPE_OPTIONS_;
+    DOMAIN_DATA_TYPE = _DOMAIN_DATA_TYPE_;
     IS_STACKED_OPTIONS = _IS_STACKED_OPTIONS_;
     AXIS_FORMAT_OPTIONS = _AXIS_FORMAT_OPTIONS_;
     DEFAULT_CHART_OPTIONS = _DEFAULT_CHART_OPTIONS_;
@@ -42,6 +44,17 @@ describe('Constant:', function() {
         label: 'Image Chart',
         value: 'ImageChart'
       }]);
+    });
+  });
+
+  describe('DOMAIN_DATA_TYPE', function() {
+    it('should be initialized', function() {
+      expect(DOMAIN_DATA_TYPE).toEqual([
+        'string',
+        'number',
+        'date',
+        'datetime'
+      ]);
     });
   });
 
@@ -351,6 +364,7 @@ describe('Service: GoogleChartsService', function() {
         date: { bar: 2 }
       }
     });
+    $provide.constant('DOMAIN_DATA_TYPE', ['string', 'date']);
   }));
 
   beforeEach(inject(function (_GoogleChartsService_) {
@@ -387,9 +401,37 @@ describe('Service: GoogleChartsService', function() {
     it('should throw an error if input type is an invalid chart type', function() {
       spyOn(GoogleChartsService, 'validateChartType').and.returnValue(false);
       expect(function() {
-        GoogleChartsService.makeChartType('PieChart')
-      }).toThrow(new Error('PieChart is an invalid chart type.'));
-      expect(GoogleChartsService.validateChartType).toHaveBeenCalledWith('PieChart');
+        GoogleChartsService.makeChartType('foo');
+      }).toThrow(new Error('foo is an invalid chart type. Available types are: LineChart, ColumnChart, BarChart, ComboChart, AreaChart and ImageChart.'));
+      expect(GoogleChartsService.validateChartType).toHaveBeenCalledWith('foo');
+    });
+  });
+
+  describe('validateDomainDataType()', function() {
+    it('should return true when input a valid domain data type', function() {
+      expect(GoogleChartsService.validateDomainDataType('string')).toBe(true);
+      expect(GoogleChartsService.validateDomainDataType('date')).toBe(true);
+    });
+
+    it('should return false when input an invalid domain data type', function() {
+      expect(GoogleChartsService.validateDomainDataType('')).toBe(false);
+      expect(GoogleChartsService.validateDomainDataType('foo')).toBe(false);
+    });
+  });
+
+  describe('makeDomainDataType()', function() {
+    it('should return a valid domain data type if input type is valid', function() {
+      spyOn(GoogleChartsService, 'validateDomainDataType').and.returnValue(true);
+      expect(GoogleChartsService.makeDomainDataType('string')).toBe('string');
+      expect(GoogleChartsService.makeDomainDataType('date')).toBe('date');
+    });
+
+    it('should throw an error if input type is an invalid domain data type', function() {
+      spyOn(GoogleChartsService, 'validateDomainDataType').and.returnValue(false);
+      expect(function() {
+        GoogleChartsService.makeDomainDataType('foo');
+      }).toThrow(new Error('foo is an invalid domain data type. Available types are: string, number, date and datetime.'));
+      expect(GoogleChartsService.validateDomainDataType).toHaveBeenCalledWith('foo');
     });
   });
 
@@ -413,21 +455,67 @@ describe('Service: GoogleChartsService', function() {
 
     it('should throw an error if input type is invalid', function() {
       expect(function() {
-        GoogleChartsService.makeFriendlyUrl('anInvalidType', 'foo');
-      }).toThrow(new Error('anInvalidType is an invalid chart type.'));
+        GoogleChartsService.makeFriendlyUrl('foo', 'bar');
+      }).toThrow(new Error('foo is an invalid chart type. Available types are: LineChart, ColumnChart, BarChart, ComboChart, AreaChart and ImageChart.'));
     });
   });
 
-  describe('makeChartArea()', function() {
+  describe('makeChartAreaOptions()', function() {
     it('should return empty object if not passing parameters', function() {
-      expect(GoogleChartsService.makeChartArea()).toEqual({});
+      expect(GoogleChartsService.makeChartAreaOptions()).toEqual({});
     });
 
     it('should return chartArea only contains the provided values', function() {
-      expect(GoogleChartsService.makeChartArea('10%')).toEqual({ left: '10%' });
-      expect(GoogleChartsService.makeChartArea('', '10%')).toEqual({ width: '10%' });
-      expect(GoogleChartsService.makeChartArea(undefined, '10%')).toEqual({ width: '10%' });
-      expect(GoogleChartsService.makeChartArea('10%', '90%')).toEqual({ left: '10%', width: '90%' });
+      expect(GoogleChartsService.makeChartAreaOptions('10%')).toEqual({ left: '10%' });
+      expect(GoogleChartsService.makeChartAreaOptions('', '10%')).toEqual({ width: '10%' });
+      expect(GoogleChartsService.makeChartAreaOptions(undefined, '10%')).toEqual({ width: '10%' });
+      expect(GoogleChartsService.makeChartAreaOptions('10%', '90%')).toEqual({ left: '10%', width: '90%' });
+    });
+  });
+
+  describe('makeAxisOptions()', function() {
+    it('should return null if axisName is invalid', function() {
+      expect(GoogleChartsService.makeAxisOptions('')).toBe(null);
+      expect(GoogleChartsService.makeAxisOptions('foo')).toBe(null);
+    });
+
+    it('should return null if options is not an object', function() {
+      expect(GoogleChartsService.makeAxisOptions('hAxis', '')).toBe(null);
+      expect(GoogleChartsService.makeAxisOptions('vAxis')).toBe(null);
+    });
+
+    it('should return null with valid axisName and empty options object', function() {
+      expect(GoogleChartsService.makeAxisOptions('hAxis', {})).toBe(null);
+      expect(GoogleChartsService.makeAxisOptions('vAxis', {})).toBe(null);
+    });
+
+    it('should return axisOptions with only title field', function() {
+      expect(GoogleChartsService.makeAxisOptions('hAxis', { title: 'foo' })).toEqual({
+        title: 'foo'
+      });
+      expect(GoogleChartsService.makeAxisOptions('vAxis', { title: 'foo' })).toEqual({
+        title: 'foo'
+      });
+    });
+
+    it('should return axisOptions with only format field', function() {
+      expect(GoogleChartsService.makeAxisOptions('hAxis', { format: 'foo' })).toEqual({
+        format: 'foo'
+      });
+      expect(GoogleChartsService.makeAxisOptions('vAxis', { format: 'foo' })).toEqual({
+        format: 'foo'
+      });
+    });
+
+    it('should return axisOptions with both title and format fields', function() {
+      expect(GoogleChartsService.makeAxisOptions('hAxis', { title: 'foo', format: 'bar' })).toEqual({
+        title: 'foo',
+        format: 'bar'
+      });
+      expect(GoogleChartsService.makeAxisOptions('vAxis', { title: 'foo', format: 'bar' })).toEqual({
+        title: 'foo',
+        format: 'bar'
+      });
     });
   });
 

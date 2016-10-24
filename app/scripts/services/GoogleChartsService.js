@@ -29,6 +29,18 @@ angular.module('eagleeye')
 
   /**
    * @ngdoc service
+   * @name DOMAIN_DATA_TYPE
+   * @description Currently supported domain data types.
+   */
+  .constant('DOMAIN_DATA_TYPE', [
+    'string',
+    'number',
+    'date',
+    'datetime'
+  ])
+
+  /**
+   * @ngdoc service
    * @name IS_STACKED_OPTIONS
    *
    * @description
@@ -334,8 +346,9 @@ angular.module('eagleeye')
     'FRIENDLY_URL_PREFIX_CHART',
     'FRIENDLY_URL_PREFIX_CHARTSET',
     'CHART_TYPE_OPTIONS',
+    'DOMAIN_DATA_TYPE',
     'DATA_TABLE_SAMPLES',
-    function GoogleChartsService(FRIENDLY_URL_PREFIX_CHART, FRIENDLY_URL_PREFIX_CHARTSET, CHART_TYPE_OPTIONS, DATA_TABLE_SAMPLES) {
+    function GoogleChartsService(FRIENDLY_URL_PREFIX_CHART, FRIENDLY_URL_PREFIX_CHARTSET, CHART_TYPE_OPTIONS, DOMAIN_DATA_TYPE, DATA_TABLE_SAMPLES) {
       var self = {};
 
       /**
@@ -371,7 +384,45 @@ angular.module('eagleeye')
           return type;
 
         } else {
-          throw new Error(type + ' is an invalid chart type.');
+          throw new Error(type + ' is an invalid chart type. Available types are: LineChart, ColumnChart, BarChart, ComboChart, AreaChart and ImageChart.');
+        }
+      };
+
+
+      /**
+       * @method
+       * @name validateDomainDataType
+       * @description Validate the given data type. The type must exist in `DOMAIN_DATA_TYPE`.
+       * @param {String} type Domain data type.
+       * @returns {Boolean} Indicate if it's an valid domain data type.
+       */
+      self.validateDomainDataType = function(type) {
+        var isValid = false,
+          len = DOMAIN_DATA_TYPE.length;
+
+        while(len--) {
+          if (DOMAIN_DATA_TYPE[len] === type) {
+            isValid = true;
+            break;
+          }
+        }
+
+        return isValid;
+      };
+
+      /**
+       * @method
+       * @name makeDomainDataType
+       * @description Get a valid domain data type value according to input or get an error.
+       * @param {String} type The chart type.
+       * @returns {String|Error} An valid domain data type or throw an error.
+       */
+      self.makeDomainDataType = function(type) {
+        if (self.validateDomainDataType(type)) {
+          return type;
+
+        } else {
+          throw new Error(type + ' is an invalid domain data type. Available types are: string, number, date and datetime.');
         }
       };
 
@@ -407,13 +458,13 @@ angular.module('eagleeye')
           return prefixes[type] + friendlyName;
 
         } else {
-          throw new Error(type + ' is an invalid chart type.');
+          throw new Error(type + ' is an invalid chart type. Available types are: LineChart, ColumnChart, BarChart, ComboChart, AreaChart and ImageChart.');
         }
       };
 
       /**
        * @method
-       * @name makeChartArea
+       * @name makeChartAreaOptions
        *
        * @description
        *
@@ -431,11 +482,11 @@ angular.module('eagleeye')
        * @returns {Object} The `chartArea` configuration object.
        *
        * @example
-       * this.makeChartArea();             // returns {}
-       * this.makeChartArea('', '90%');    // returns { width: '90%' }
-       * this.makeChartArea('10%', '90%'); // returns { left: '10%', width: '90%' }
+       * this.makeChartAreaOptions();             // returns {}
+       * this.makeChartAreaOptions('', '90%');    // returns { width: '90%' }
+       * this.makeChartAreaOptions('10%', '90%'); // returns { left: '10%', width: '90%' }
        */
-      self.makeChartArea = function(left, width) {
+      self.makeChartAreaOptions = function(left, width) {
         var chartArea = {};
 
         if (left) {
@@ -447,6 +498,73 @@ angular.module('eagleeye')
         }
 
         return chartArea;
+      };
+
+      /**
+       * @method
+       * @name makeAxisOptions
+       * @description Generate `hAxis` or `vAxis` configuration options.
+       * @param {String} axisName Axis name, could be 'hAxis' or 'vAxis'.
+       * @param {Object} options The options for given axis.
+       * @returns {Object} `hAxis` or `vAxis` configuration options.
+       */
+      self.makeAxisOptions = function(axisName, options) {
+        var axisOptions = {};
+
+        if (axisName !== 'hAxis' && axisName !== 'vAxis') return null;
+
+        if (angular.isObject(options)) {
+          if (options.title) {
+            axisOptions.title = options.title;
+          }
+
+          if (options.format) {
+            axisOptions.format = options.format;
+          }
+        }
+
+        if (Object.keys(axisOptions).length > 0) {
+          return axisOptions;
+
+        } else {
+          return null;
+        }
+      };
+
+      /**
+       * @method
+       * @name makeConfigurationOptions
+       * @description Generate a valid google chart configuration options object.
+       * @param {Object} chartType Chart type.
+       * @param {Object} options User input chart options.
+       * @returns {Object} Google chart configuration options object.
+       */
+      self.makeConfigurationOptions = function(chartType, options) {
+        var configurationOptions = {};
+
+        // `title`
+        if (options.title) {
+          configurationOptions.title = options.title;
+        }
+
+        // hAxis & vAxis
+        configurationOptions.hAxis = self.makeAxisOptions('hAxis', options.hAxis);
+        configurationOptions.vAxis = self.makeAxisOptions('vAxis', options.vAxis);
+
+        // combolines
+        if (chartType === 'ComboChart') {
+          configurationOptions.combolines = options.combolines;
+        }
+
+        // isStacked
+        if (chartType === 'ColumnChart' || chartType === 'BarChart' || chartType === 'ComboChart'
+            || chartType === 'AreaChart') {
+          configurationOptions.isStacked = !!options.isStacked;
+        }
+
+        configurationOptions.chartArea = self.makeChartAreaOptions(options.chartArea.left, options.chartArea.width);
+
+        return configurationOptions;
       };
 
       /**
