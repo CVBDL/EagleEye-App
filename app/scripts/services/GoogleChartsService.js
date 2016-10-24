@@ -371,7 +371,7 @@ angular.module('eagleeye')
           return type;
 
         } else {
-          throw new Error(type + 'is an invalid chart type.');
+          throw new Error(type + ' is an invalid chart type.');
         }
       };
 
@@ -407,7 +407,7 @@ angular.module('eagleeye')
           return prefixes[type] + friendlyName;
 
         } else {
-          throw new Error('The type parameter of makeFriendlyUrl function is not supported.');
+          throw new Error(type + ' is an invalid chart type.');
         }
       };
 
@@ -438,11 +438,11 @@ angular.module('eagleeye')
       self.makeChartArea = function(left, width) {
         var chartArea = {};
 
-        if (left !== '') {
+        if (left) {
           chartArea.left = left;
         }
 
-        if (width !== '') {
+        if (width) {
           chartArea.width = width;
         }
 
