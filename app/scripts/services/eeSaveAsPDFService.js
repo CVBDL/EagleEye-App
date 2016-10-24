@@ -10,7 +10,8 @@
 angular.module('eagleeye')
   .factory('eeSaveAsPDFService', [
     'GoogleChartsService',
-    function(GoogleChartsService) {
+    'DEFAULT_CHART_OPTIONS',
+    function(GoogleChartsService, DEFAULT_CHART_OPTIONS) {
 
       return {
         SaveImageOrPDF: SaveImageOrPDF,
@@ -33,7 +34,7 @@ angular.module('eagleeye')
           }
         });
 
-        var defaultChartOptions = GoogleChartsService.getDefaultChartOptions();
+        var defaultChartOptions = DEFAULT_CHART_OPTIONS;
         var chartDataTable = new google.visualization.DataTable(angular.copy(chartData.datatable, {}));
         var chartOptions = angular.copy(chartData.options, {});
         if (chartData.chartType.toLowerCase() == "combochart") {
@@ -138,7 +139,7 @@ angular.module('eagleeye')
               doc.save(chartset.title);
             }
           });
-          var defaultChartOptions = GoogleChartsService.getDefaultChartOptions();
+          var defaultChartOptions = DEFAULT_CHART_OPTIONS;
           var chartDataTable = new google.visualization.DataTable(angular.copy(chartData.datatable, {}));
           var chartOptions = angular.copy(chartData.options, {});
           if (chartData.chartType.toLowerCase() == "combochart") {
@@ -201,7 +202,7 @@ angular.module('eagleeye')
               break;
           }
         });
-        var defaultChartOptions = GoogleChartsService.getDefaultChartOptions();
+        var defaultChartOptions = DEFAULT_CHART_OPTIONS;
         var chartDataTable = new google.visualization.DataTable(angular.copy(chartData.datatable, {}));
         var chartOptions = angular.copy(chartData.options, {});
         if (chartData.chartType.toLowerCase() == "combochart") {

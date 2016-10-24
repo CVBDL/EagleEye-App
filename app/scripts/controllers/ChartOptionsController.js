@@ -16,12 +16,14 @@ angular.module('eagleeye')
     'GoogleChartsService',
     'EagleEyeWebService',
     'eeHelpDialogService',
-    function($scope, $http, $state, $stateParams, GoogleChartsService, EagleEyeWebService, eeHelpDialogService) {
+    'IS_STACKED_OPTIONS',
+    'AXIS_FORMAT_OPTIONS',
+    function($scope, $http, $state, $stateParams, GoogleChartsService, EagleEyeWebService, eeHelpDialogService, IS_STACKED_OPTIONS, AXIS_FORMAT_OPTIONS) {
       var controller = this;
 
       this.id = $stateParams.id;
-      this.isStackedOptions = GoogleChartsService.getIsStackedOptions();
-      this.formatStringOptions = GoogleChartsService.getFormatStringOptions();
+      this.isStackedOptions = IS_STACKED_OPTIONS;
+      this.formatStringOptions = AXIS_FORMAT_OPTIONS;
       this.chart = {};
 
       /**

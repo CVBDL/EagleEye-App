@@ -12,8 +12,8 @@ angular.module('eagleeye')
     '$timeout',
     '$window',
     'GoogleChartsService',
-    function($rootScope, $timeout, $window, GoogleChartsService) {
-      var defaultChartOptions = GoogleChartsService.getDefaultChartOptions();
+    'DEFAULT_CHART_OPTIONS',
+    function($rootScope, $timeout, $window, GoogleChartsService, DEFAULT_CHART_OPTIONS) {
 
       return {
         template: '<div layout="row" layout-sm="column" layout-align="center center"><md-progress-circular class="ee-progress-circular" md-diameter="40"></md-progress-circular></div>',
@@ -40,7 +40,7 @@ angular.module('eagleeye')
 
             var chart = new google.visualization[scope.chartType](chartNode);
             var chartDataTable = new google.visualization.DataTable(angular.copy(scope.chartDataTable, {}));
-            var chartOptions = angular.merge({}, defaultChartOptions[scope.chartType.toLowerCase()], angular.copy(scope.chartOptions, {}));
+            var chartOptions = angular.merge({}, DEFAULT_CHART_OPTIONS[scope.chartType.toLowerCase()], angular.copy(scope.chartOptions, {}));
 
             if (scope.chartType.toLowerCase() == "combochart") {
 

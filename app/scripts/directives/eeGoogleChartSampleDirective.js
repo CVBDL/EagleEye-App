@@ -9,8 +9,9 @@
 angular.module('eagleeye')
   .directive('eeGoogleChartSample', [
     'GoogleChartsService',
-    function (GoogleChartsService) {
-      var chartTypeOptions = GoogleChartsService.getChartTypeOptions();
+    'CHART_TYPE_OPTIONS',
+    function (GoogleChartsService, CHART_TYPE_OPTIONS) {
+      var chartTypeOptions = CHART_TYPE_OPTIONS;
       var selectedChartTypeOption = chartTypeOptions[0];
 
       return {

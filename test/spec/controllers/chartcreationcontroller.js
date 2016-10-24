@@ -8,7 +8,10 @@ describe('Controller: ChartCreationController', function() {
     $templateCache,
     GoogleChartsService,
     EagleEyeWebService,
-    eeHelpDialogService;
+    eeHelpDialogService,
+    CHART_TYPE_OPTIONS,
+    IS_STACKED_OPTIONS,
+    AXIS_FORMAT_OPTIONS;
 
   var ChartCreationController;
 
@@ -17,25 +20,6 @@ describe('Controller: ChartCreationController', function() {
 
   beforeEach(module(function($provide) {
     $provide.factory('GoogleChartsService', function() {
-      var chartTypeOptions = [{
-        label: 'Line Chart',
-        value: 'LineChart'
-      }, {
-        label: 'Column Chart',
-        value: 'ColumnChart'
-      }, {
-        label: 'Bar Chart',
-        value: 'BarChart'
-      }, {
-        label: 'Combo Chart',
-        value: 'ComboChart'
-      }, {
-        label: 'Area Chart',
-        value: 'AreaChart'
-      }, {
-        label: 'Image Chart',
-        value: 'ImageChart'
-      }];
       var isStackedOptions = [{
         value: true,
         label: 'Yes'
@@ -51,9 +35,6 @@ describe('Controller: ChartCreationController', function() {
         label: 'No'
       }];
 
-      var getChartTypeOptions = jasmine.createSpy('getChartTypeOptions').and.callFake(function() {
-        return chartTypeOptions;
-      });
       var getChartDataTableSamples = jasmine.createSpy('getChartDataTableSamples').and.callFake(function(chartType, axisDataType) {
         // body
       });
@@ -71,7 +52,6 @@ describe('Controller: ChartCreationController', function() {
       });
 
       return {
-        getChartTypeOptions: getChartTypeOptions,
         getChartDataTableSamples: getChartDataTableSamples,
         getIsStackedOptions: getIsStackedOptions,
         getFormatStringOptions: getFormatStringOptions,
@@ -104,6 +84,10 @@ describe('Controller: ChartCreationController', function() {
         showHelp: jasmine.createSpy('showHelp')
       };
     });
+
+    $provide.constant('CHART_TYPE_OPTIONS', {});
+    $provide.constant('IS_STACKED_OPTIONS', {});
+    $provide.constant('AXIS_FORMAT_OPTIONS', {});
   }));
 
   // reset router
@@ -114,7 +98,7 @@ describe('Controller: ChartCreationController', function() {
   }));
 
   // inject services
-  beforeEach(inject(function(_$controller_, _$httpBackend_, _$rootScope_, _$state_, _$templateCache_, _EagleEyeWebService_, _GoogleChartsService_, _eeHelpDialogService_) {
+  beforeEach(inject(function(_$controller_, _$httpBackend_, _$rootScope_, _$state_, _$templateCache_, _EagleEyeWebService_, _GoogleChartsService_, _eeHelpDialogService_, _CHART_TYPE_OPTIONS_, _IS_STACKED_OPTIONS_, _AXIS_FORMAT_OPTIONS_) {
     $controller = _$controller_;
     $rootScope = _$rootScope_;
     $state = _$state_;
@@ -123,6 +107,9 @@ describe('Controller: ChartCreationController', function() {
     EagleEyeWebService = _EagleEyeWebService_;
     GoogleChartsService = _GoogleChartsService_;
     eeHelpDialogService = _eeHelpDialogService_;
+    CHART_TYPE_OPTIONS = _CHART_TYPE_OPTIONS_;
+    IS_STACKED_OPTIONS = _IS_STACKED_OPTIONS_;
+    AXIS_FORMAT_OPTIONS = _AXIS_FORMAT_OPTIONS_;
   }));
 
   beforeEach(inject(function($controller, $rootScope) {
@@ -130,7 +117,10 @@ describe('Controller: ChartCreationController', function() {
       $state: $state,
       GoogleChartsService: GoogleChartsService,
       EagleEyeWebService: EagleEyeWebService,
-      eeHelpDialogService: eeHelpDialogService
+      eeHelpDialogService: eeHelpDialogService,
+      CHART_TYPE_OPTIONS: CHART_TYPE_OPTIONS,
+      IS_STACKED_OPTIONS: IS_STACKED_OPTIONS,
+      AXIS_FORMAT_OPTIONS: AXIS_FORMAT_OPTIONS
     });
   }));
 
@@ -144,18 +134,15 @@ describe('Controller: ChartCreationController', function() {
   });
 
   it('should initialize chart type options', function() {
-    expect(GoogleChartsService.getChartTypeOptions).toHaveBeenCalled();
-    expect(ChartCreationController.chartTypeOptions).toBe(GoogleChartsService.getChartTypeOptions());
+    expect(ChartCreationController.chartTypeOptions).toEqual({});
   });
 
   it('should initialize isStacked options', function() {
-    expect(GoogleChartsService.getIsStackedOptions).toHaveBeenCalled();
-    expect(ChartCreationController.isStackedOptions).toBe(GoogleChartsService.getIsStackedOptions());
+    expect(ChartCreationController.isStackedOptions).toEqual({});
   });
 
   it('should initialize format options', function() {
-    expect(GoogleChartsService.getFormatStringOptions).toHaveBeenCalled();
-    expect(ChartCreationController.formatStringOptions).toBe(GoogleChartsService.getFormatStringOptions());
+    expect(ChartCreationController.formatStringOptions).toEqual({});
   });
 
   it('should initialize chart model object', function() {

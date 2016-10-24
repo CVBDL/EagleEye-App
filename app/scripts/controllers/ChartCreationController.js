@@ -13,10 +13,13 @@ angular.module('eagleeye')
     'GoogleChartsService',
     'EagleEyeWebService',
     'eeHelpDialogService',
-    function($state, GoogleChartsService, EagleEyeWebService, eeHelpDialogService) {
-      this.chartTypeOptions = GoogleChartsService.getChartTypeOptions();
-      this.isStackedOptions = GoogleChartsService.getIsStackedOptions();
-      this.formatStringOptions = GoogleChartsService.getFormatStringOptions();
+    'CHART_TYPE_OPTIONS',
+    'IS_STACKED_OPTIONS',
+    'AXIS_FORMAT_OPTIONS',
+    function($state, GoogleChartsService, EagleEyeWebService, eeHelpDialogService, CHART_TYPE_OPTIONS, IS_STACKED_OPTIONS, AXIS_FORMAT_OPTIONS) {
+      this.chartTypeOptions = CHART_TYPE_OPTIONS;
+      this.isStackedOptions = IS_STACKED_OPTIONS;
+      this.formatStringOptions = AXIS_FORMAT_OPTIONS;
 
       this.chart = {};
       // default chart type
