@@ -16,7 +16,7 @@ angular.module('eagleeye')
     function($state, GoogleChartsService, EagleEyeWebService, eeHelpDialogService, CHART_TYPE_OPTIONS, IS_STACKED_OPTIONS, AXIS_FORMAT_OPTIONS) {
       this.chartTypeOptions = CHART_TYPE_OPTIONS;
       this.isStackedOptions = IS_STACKED_OPTIONS;
-      this.formatStringOptions = AXIS_FORMAT_OPTIONS;
+      this.axisFormatOptions = AXIS_FORMAT_OPTIONS;
 
       this.chart = {};
       // default chart type
@@ -55,22 +55,6 @@ angular.module('eagleeye')
 
       /**
        * @method
-       * @name save
-       * @description Save the new chart to server.
-       * @param {Object} chart The chart data model.
-       */
-      this.save = function(chart) {
-        var payload = this.makeChartPayload(chart);
-
-        EagleEyeWebService.createChart(payload).then(function(newChart) {
-          $state.go('chartSettings', {
-            id: newChart._id
-          });
-        });
-      };
-
-      /**
-       * @method
        * @name makeChartPayload
        *
        * @description
@@ -91,6 +75,22 @@ angular.module('eagleeye')
         payload.options = GoogleChartsService.makeConfigurationOptions(chart.chartType, chart.options);
 
         return payload;
+      };
+
+      /**
+       * @method
+       * @name save
+       * @description Save the new chart to server.
+       * @param {Object} chart The chart data model.
+       */
+      this.save = function(chart) {
+        var payload = this.makeChartPayload(chart);
+
+        EagleEyeWebService.createChart(payload).then(function(newChart) {
+          $state.go('chartSettings', {
+            id: newChart._id
+          });
+        });
       };
     }
   ]);

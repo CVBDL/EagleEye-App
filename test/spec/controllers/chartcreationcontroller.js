@@ -46,21 +46,18 @@ describe('Controller: ChartCreationController', function() {
     });
 
     $provide.factory('EagleEyeWebService', function($q) {
-      var deferred = $q.defer();
-      var createChart = jasmine.createSpy('createChart').and.callFake(function(payload) {
-        deferred = $q.defer();
+      var qCreateChart;
 
-        return deferred.promise;
+      var createChart = jasmine.createSpy('createChart').and.callFake(function(payload) {
+        qCreateChart = $q.defer();
+
+        return qCreateChart.promise;
       });
 
       return {
         createChart: createChart,
-        resolve: function(value) {
-          deferred.resolve(value);
-        },
-        reject: function() {
-          deferred.reject('Rejected.');
-        }
+        resolveCreateChart: function(value) { qCreateChart.resolve(value); },
+        rejectCreateChart: function(reason) { qCreateChart.reject(reason); }
       };
     });
 
@@ -127,7 +124,7 @@ describe('Controller: ChartCreationController', function() {
   });
 
   it('should initialize format options', function() {
-    expect(ChartCreationController.formatStringOptions).toEqual({ foobar: 1 });
+    expect(ChartCreationController.axisFormatOptions).toEqual({ foobar: 1 });
   });
 
   it('should have required model objects', function() {
@@ -229,7 +226,7 @@ describe('Controller: ChartCreationController', function() {
 
       expect(EagleEyeWebService.createChart).toHaveBeenCalledWith(chart);
 
-      EagleEyeWebService.resolve({ _id: 'id' });
+      EagleEyeWebService.resolveCreateChart({ _id: 'id' });
       $rootScope.$digest();
 
       expect($state.go).toHaveBeenCalledWith('chartSettings', { id: 'id' });
@@ -242,7 +239,7 @@ describe('Controller: ChartCreationController', function() {
 
       expect(EagleEyeWebService.createChart).toHaveBeenCalledWith(chart);
 
-      EagleEyeWebService.reject();
+      EagleEyeWebService.rejectCreateChart();
       $rootScope.$digest();
 
       expect($state.go).not.toHaveBeenCalled();

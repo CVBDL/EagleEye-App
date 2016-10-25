@@ -9,8 +9,6 @@
  */
 angular.module('eagleeye')
   .controller('ChartOptionsController', [
-    '$scope',
-    '$http',
     '$state',
     '$stateParams',
     'GoogleChartsService',
@@ -18,13 +16,35 @@ angular.module('eagleeye')
     'eeHelpDialogService',
     'IS_STACKED_OPTIONS',
     'AXIS_FORMAT_OPTIONS',
-    function($scope, $http, $state, $stateParams, GoogleChartsService, EagleEyeWebService, eeHelpDialogService, IS_STACKED_OPTIONS, AXIS_FORMAT_OPTIONS) {
+    function($state, $stateParams, GoogleChartsService, EagleEyeWebService, eeHelpDialogService, IS_STACKED_OPTIONS, AXIS_FORMAT_OPTIONS) {
       var controller = this;
 
       this.id = $stateParams.id;
+
       this.isStackedOptions = IS_STACKED_OPTIONS;
-      this.formatStringOptions = AXIS_FORMAT_OPTIONS;
+      this.axisFormatOptions = AXIS_FORMAT_OPTIONS;
+
       this.chart = {};
+
+      /**
+       * @method
+       * @name makeDisplayFriendlyUrl
+       * @description We need to remove friendly url prefix 'c-' when display on the page.
+       * @param {String} friendlyUrl
+       * @returns {String}
+       */
+      this.makeDisplayFriendlyUrl = function(friendlyUrl) {
+        return (angular.isString(friendlyUrl) && friendlyUrl) ? friendlyUrl.substring(2) : '';
+      };
+
+      /**
+       * @method
+       * @name showHelp
+       * @description Show an help dialog.
+       */
+      this.showHelp = function() {
+        eeHelpDialogService.showHelp();
+      };
 
       /**
        * @method
@@ -42,37 +62,19 @@ angular.module('eagleeye')
       this.makeChartPayload = function(chart) {
         var payload = {};
 
-        // basic fields
-        // =====================================================================
         payload.description = chart.description || '';
         payload.friendlyUrl = GoogleChartsService.makeFriendlyUrl('chart', chart.friendlyUrl);
-
-        // configuration options
-        // TODO: create individual functions to make it smaller?
-        // =====================================================================
-        payload.options = {};
-
-        payload.options.title = chart.options.title || '';
-
-        payload.options.hAxis = {};
-        payload.options.hAxis.title = chart.options.hAxis.title || '';
-        payload.options.hAxis.format = chart.options.hAxis.format || '';
-
-        payload.options.vAxis = {};
-        payload.options.vAxis.title = chart.options.vAxis.title || '';
-        payload.options.vAxis.format = chart.options.vAxis.format || '';
-
-        // TODO: only combo chart requires this option
-        payload.options.combolines = chart.options.combolines || '';
-
-        // TODO: only some chart types support this option
-        payload.options.isStacked = chart.options.isStacked || false;
-
-        payload.options.chartArea = GoogleChartsService.makeChartAreaOptions(chart.options.chartArea.left, chart.options.chartArea.width);
+        payload.options = GoogleChartsService.makeConfigurationOptions(chart.chartType, chart.options);
 
         return payload;
       };
 
+      /**
+       * @method
+       * @name save
+       * @description Save the chart updates.
+       * @param {Object} chart The chart data model.
+       */
       this.save = function(chart) {
         var payload = this.makeChartPayload(chart);
 
@@ -80,25 +82,21 @@ angular.module('eagleeye')
           $state.go('chart', {
             id: chart._id
           });
-
-        }, function(error) {
-          console.log(error);
         });
       };
 
-      this.showHelp = function() {
-        eeHelpDialogService.showHelp();
-      };
-
-      function init() {
+      /**
+       * @method
+       * @name init
+       * @description Initialize this controller
+       */
+      this.init = function() {
         EagleEyeWebService.getChartById(controller.id).then(function(response) {
           controller.chart = response;
-
-          // remove prefix
-          controller.chart.friendlyUrl = response.friendlyUrl ? response.friendlyUrl.substring(2) : '';
+          controller.chart.friendlyUrl = controller.makeDisplayFriendlyUrl(response.friendlyUrl);
         });
       };
 
-      init();
+      this.init();
     }
   ]);
