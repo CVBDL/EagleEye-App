@@ -3,9 +3,6 @@
 /**
  * @ngdoc function
  * @name eagleeye.controller:ChartCreationController
- * @description
- * # ChartCreationController
- * Controller of the eagleeye
  */
 angular.module('eagleeye')
   .controller('ChartCreationController', [
@@ -36,11 +33,11 @@ angular.module('eagleeye')
       this.chart.options.isStacked = false;
       this.chart.options.hAxis = {
         title: '',
-        format: '' // default to none
+        format: '' // default value
       };
       this.chart.options.vAxis = {
         title: '',
-        format: '' // default to none
+        format: '' // default value
       };
       this.chart.options.chartArea = {
         left: '',
@@ -50,7 +47,7 @@ angular.module('eagleeye')
       /**
        * @method
        * @name showHelp
-       * @description Show a help popup dialog.
+       * @description Show an help dialog.
        */
       this.showHelp = function() {
         eeHelpDialogService.showHelp();
@@ -59,7 +56,7 @@ angular.module('eagleeye')
       /**
        * @method
        * @name save
-       * @description Prepare new chart payload and save it to backend.
+       * @description Save the new chart to server.
        * @param {Object} chart The chart data model.
        */
       this.save = function(chart) {
@@ -80,50 +77,20 @@ angular.module('eagleeye')
        * Prepare the payload POST to server later, so that we could create a new chart.
        * {@link https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#create-a-chart}.
        *
-       * @param {Object} chart The chart object contains user input values.
-       * @returns {Object} The payload JSON object.
-       *
-       * @todo Make the method smaller
+       * @param {Object} chart The chart data model.
+       * @returns {Object} The payload object.
        */
       this.makeChartPayload = function(chart) {
         var payload = {};
 
-        // basic fields
-        // =====================================================================
-        payload.chartType      = GoogleChartsService.makeChartType(chart.chartType);
-        payload.domainDataType = GoogleChartsService.makeDomainDataType(chart.domainDataType);
-        payload.friendlyUrl    = GoogleChartsService.makeFriendlyUrl('chart', chart.friendlyUrl);
         payload.description = chart.description || '';
-
-        // datatable
-        // =====================================================================
+        payload.chartType = GoogleChartsService.makeChartType(chart.chartType);
+        payload.friendlyUrl = GoogleChartsService.makeFriendlyUrl('chart', chart.friendlyUrl);
+        payload.domainDataType = GoogleChartsService.makeDomainDataType(chart.domainDataType);
         payload.datatable = GoogleChartsService.getChartDataTableSamples(chart.chartType, chart.domainDataType);
-
-        // configuration options
-        // TODO: create individual functions to make it smaller?
-        // =====================================================================
-        payload.options = {};
-
-        payload.options.title = chart.options.title || '';
-
-        payload.options.hAxis = {};
-        payload.options.hAxis.title = chart.options.hAxis.title || '';
-        payload.options.hAxis.format = chart.options.hAxis.format || '';
-
-        payload.options.vAxis = {};
-        payload.options.vAxis.title = chart.options.vAxis.title || '';
-        payload.options.vAxis.format = chart.options.vAxis.format || '';
-
-        // TODO: only combo chart requires this option
-        payload.options.combolines = chart.options.combolines || '';
-
-        // TODO: only some chart types support this option
-        payload.options.isStacked = chart.options.isStacked || false;
-
-        payload.options.chartArea = GoogleChartsService.makeChartAreaOptions(chart.options.chartArea.left, chart.options.chartArea.width);
+        payload.options = GoogleChartsService.makeConfigurationOptions(chart.chartType, chart.options);
 
         return payload;
       };
-
     }
   ]);

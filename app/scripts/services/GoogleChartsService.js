@@ -569,19 +569,19 @@ angular.module('eagleeye')
           configurationOptions.title = options.title;
         }
 
-        // hAxis & vAxis
+        // `hAxis` & `vAxis`
         configurationOptions.hAxis = self.makeAxisOptions(options.hAxis);
         configurationOptions.vAxis = self.makeAxisOptions(options.vAxis);
 
-        // chartArea
+        // `chartArea`
         configurationOptions.chartArea = self.makeChartAreaOptions(options.chartArea);
 
-        // combolines
+        // `combolines`
         if (self.hasComboLinesOption(chartType)) {
           configurationOptions.combolines = options.combolines;
         }
 
-        // isStacked
+        // `isStacked`
         if (self.hasIsStackedOption(chartType)) {
           configurationOptions.isStacked = options.isStacked;
         }

@@ -20,20 +20,28 @@ describe('Controller: ChartCreationController', function() {
 
   beforeEach(module(function($provide) {
     $provide.factory('GoogleChartsService', function() {
-      var makeFriendlyUrl = jasmine.createSpy('makeFriendlyUrl').and.callFake(function(type, url) {
-        return '';
+      var makeChartType = jasmine.createSpy('makeChartType').and.callFake(function(chartType) {
+        return 'LineChart';
       });
-      var makeChartArea = jasmine.createSpy('makeChartArea').and.callFake(function(left, width) {
-        return {};
+      var makeDomainDataType = jasmine.createSpy('makeDomainDataType').and.callFake(function(domainDataType) {
+        return 'string';
+      });
+      var makeFriendlyUrl = jasmine.createSpy('makeFriendlyUrl').and.callFake(function(type, url) {
+        return 'c-friendly-url';
       });
       var getChartDataTableSamples = jasmine.createSpy('getChartDataTableSamples').and.callFake(function(chartType, domainDataType) {
         return {};
       });
+      var makeConfigurationOptions = jasmine.createSpy('makeConfigurationOptions').and.callFake(function(chartType, options) {
+        return {};
+      });
 
       return {
+        makeChartType: makeChartType,
+        makeDomainDataType: makeDomainDataType,
         makeFriendlyUrl: makeFriendlyUrl,
-        makeChartArea: makeChartArea,
-        getChartDataTableSamples: getChartDataTableSamples
+        getChartDataTableSamples: getChartDataTableSamples,
+        makeConfigurationOptions: makeConfigurationOptions,
       };
     });
 
@@ -148,78 +156,96 @@ describe('Controller: ChartCreationController', function() {
     expect(eeHelpDialogService.showHelp).toHaveBeenCalled();
   });
 
-  xit('makeChartPayload() should make chart JSON', function() {
-    var payload;
-    var chart = {
-      chartType: 'ColumnChart',
-      domainDataType: 'string',
-      description: 'Description',
-      friendlyUrl: 'friendly-url',
-      options: {
-        title: 'The title',
-        hAxis: {
-          title: 'H title',
-          format: 'percent'
-        },
-        vAxis: {
-          title: 'V title',
-          format: 'percent'
-        },
-        combolines: '2',
-        isStacked: false,
-        chartArea: {
-          left: '10%',
-          width: '90%'
-        }
-      }
-    };
+  describe('makeChartPayload()', function() {
+    var chart,
+      payload;
 
-    expect(function() {
+    beforeEach(function() {
+      chart = {
+        chartType: 'LineChart',
+        description: 'foo',
+        domainDataType: 'string',
+        friendlyUrl: 'friendly-url',
+        datatable: {},
+        options: {}
+      };
+
       payload = ChartCreationController.makeChartPayload(chart);
-    }).not.toThrow();
+    });
 
-    expect(payload.chartType).toBe(chart.chartType);
-    expect(payload.domainDataType).toBe(chart.domainDataType);
-    expect(payload.description).toBe(chart.description);
-    expect(payload.options.title).toBe(chart.options.title);
-    expect(payload.options.hAxis.title).toBe(chart.options.hAxis.title);
-    expect(payload.options.hAxis.format).toBe(chart.options.hAxis.format);
-    expect(payload.options.vAxis.title).toBe(chart.options.vAxis.title);
-    expect(payload.options.vAxis.format).toBe(chart.options.vAxis.format);
-    expect(payload.options.combolines).toBe(chart.options.combolines);
-    expect(payload.options.isStacked).toBe(chart.options.isStacked);
+    it('makeChartPayload() should return a payload object', function() {
+      expect(typeof payload).toBe('object');
+      expect(payload).not.toBe(null);
+    });
 
-    expect(GoogleChartsService.makeFriendlyUrl).toHaveBeenCalledWith('chart', chart.friendlyUrl);
-    expect(GoogleChartsService.getChartDataTableSamples).toHaveBeenCalledWith(chart.chartType, chart.domainDataType);
-    expect(GoogleChartsService.makeChartArea).toHaveBeenCalledWith(chart.options.chartArea.left, chart.options.chartArea.width);
+    it('makeChartPayload() should make chart description payload', function() {
+      expect(payload.description).toBe('foo');
+    });
+
+    it('makeChartPayload() should make chart type payload', function() {
+      expect(GoogleChartsService.makeChartType).toHaveBeenCalledWith('LineChart');
+      expect(payload.chartType).toBe('LineChart');
+    });
+
+    it('makeChartPayload() should make friendlyUrl payload', function() {
+      expect(GoogleChartsService.makeFriendlyUrl).toHaveBeenCalledWith('chart', 'friendly-url');
+      expect(payload.friendlyUrl).toBe('c-friendly-url');
+    });
+
+    it('makeChartPayload() should make domainDataType payload', function() {
+      expect(GoogleChartsService.makeDomainDataType).toHaveBeenCalledWith('string');
+      expect(payload.domainDataType).toBe('string');
+    });
+
+    it('makeChartPayload() should make datatable payload', function() {
+      expect(GoogleChartsService.getChartDataTableSamples).toHaveBeenCalledWith('LineChart', 'string');
+      expect(payload.datatable).toEqual({});
+    });
+
+    it('makeChartPayload() should make options payload', function() {
+      expect(GoogleChartsService.makeConfigurationOptions).toHaveBeenCalledWith('LineChart', {});
+      expect(payload.options).toEqual({});
+    });
   });
 
   describe('save()', function() {
-    it('should call save method successfully', function() {
+    beforeEach(function() {
       spyOn(ChartCreationController, 'makeChartPayload').and.returnValue({});
+      spyOn($state, 'go');
+    });
 
-      var payload;
-      var chart = {
-        chartType: 'ColumnChart',
-        domainDataType: 'string',
-        options: {}
-      };
+    it('should make chart payload first', function() {
+      var chart = {};
 
       ChartCreationController.save(chart);
 
       expect(ChartCreationController.makeChartPayload).toHaveBeenCalledWith(chart);
-      expect(EagleEyeWebService.createChart).toHaveBeenCalledWith({});
     });
 
-    it('should go to chart settings page when save successfully', function() {
-      spyOn(ChartCreationController, 'makeChartPayload').and.returnValue({});
-      spyOn($state, 'go');
+    it('should go to chart settings page when create successfully', function() {
+      var chart = {};
 
-      ChartCreationController.save({});
-      EagleEyeWebService.resolve({ _id: 'fakeId' });
+      ChartCreationController.save(chart);
+
+      expect(EagleEyeWebService.createChart).toHaveBeenCalledWith(chart);
+
+      EagleEyeWebService.resolve({ _id: 'id' });
       $rootScope.$digest();
 
-      expect($state.go).toHaveBeenCalledWith('chartSettings', { id: 'fakeId' });
+      expect($state.go).toHaveBeenCalledWith('chartSettings', { id: 'id' });
+    });
+
+    it('should not go to chart settings page when create successfully', function() {
+      var chart = {};
+
+      ChartCreationController.save(chart);
+
+      expect(EagleEyeWebService.createChart).toHaveBeenCalledWith(chart);
+
+      EagleEyeWebService.reject();
+      $rootScope.$digest();
+
+      expect($state.go).not.toHaveBeenCalled();
     });
   });
 
