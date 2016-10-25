@@ -476,25 +476,26 @@ angular.module('eagleeye')
        * But now in this app, we only support two: `left` and `width`!
        * And the values format must be a string, containing a number followed by %. For example, '30%'.
        *
-       * @param {String} left  The left offset space of chart area in percentage.
-       * @param {String} width The width of chart area.
+       * @param {Object} options Input chart area option.
        *
-       * @returns {Object} The `chartArea` configuration object.
+       * @returns {Object} The `chartArea` configuration option object.
        *
        * @example
        * this.makeChartAreaOptions();             // returns {}
-       * this.makeChartAreaOptions('', '90%');    // returns { width: '90%' }
-       * this.makeChartAreaOptions('10%', '90%'); // returns { left: '10%', width: '90%' }
+       * this.makeChartAreaOptions({ left: '', width: '90%' });    // returns { width: '90%' }
+       * this.makeChartAreaOptions({ left: '10%', width: '90%' }); // returns { left: '10%', width: '90%' }
        */
-      self.makeChartAreaOptions = function(left, width) {
+      self.makeChartAreaOptions = function(options) {
         var chartArea = {};
 
-        if (left) {
-          chartArea.left = left;
-        }
+        if (angular.isObject(options)) {
+          if (options.left) {
+            chartArea.left = options.left;
+          }
 
-        if (width) {
-          chartArea.width = width;
+          if (options.width) {
+            chartArea.width = options.width;
+          }
         }
 
         return chartArea;
@@ -503,45 +504,50 @@ angular.module('eagleeye')
       /**
        * @method
        * @name makeAxisOptions
-       * @description Generate `hAxis` or `vAxis` configuration options.
-       * @param {String} axisName Axis name, could be 'hAxis' or 'vAxis'.
-       * @param {Object} options The options for given axis.
-       * @returns {Object} `hAxis` or `vAxis` configuration options.
+       * @description Generate google charts `hAxis` or `vAxis` configuration option.
+       * @param {Object} options Input axis options.
+       * @returns {Object} `hAxis` or `vAxis` configuration option objects.
        */
-      self.makeAxisOptions = function(axisName, options) {
-        var axisOptions = {};
-
-        if (axisName !== 'hAxis' && axisName !== 'vAxis') return null;
+      self.makeAxisOptions = function(options) {
+        var axis = {};
 
         if (angular.isObject(options)) {
           if (options.title) {
-            axisOptions.title = options.title;
+            axis.title = options.title;
           }
 
           if (options.format) {
-            axisOptions.format = options.format;
+            axis.format = options.format;
           }
         }
 
-        if (Object.keys(axisOptions).length > 0) {
-          return axisOptions;
-
-        } else {
-          return null;
-        }
+        return axis;
       };
 
       /**
        * @method
        * @name hasIsStackedOption
-       * @description Test if the given chart type has an `isStacked` option.
-       * @param {Object} chartType Chart type.
+       * @description Check if the given chart type has an `isStacked` option.
+       * @param {Object} chartType Google chart type.
        * @returns {Boolean}
        */
       self.hasIsStackedOption = function(chartType) {
-        var supportIsStackedChartTypes = ['ColumnChart', 'BarChart', 'ComboChart', 'AreaChart'];
+        var supportedList = ['ColumnChart', 'BarChart', 'ComboChart', 'AreaChart'];
 
-        return (supportIsStackedChartTypes.indexOf(chartType) > -1);
+        return (supportedList.indexOf(chartType) > -1);
+      };
+
+      /**
+       * @method
+       * @name hasComboLinesOption
+       * @description Check support `combolines` option or not. Only ComboChart support it.
+       * @param {Object} chartType Google chart type.
+       * @returns {Boolean}
+       */
+      self.hasComboLinesOption = function(chartType) {
+        var supportedList = ['ComboChart'];
+
+        return (supportedList.indexOf(chartType) > -1);
       };
 
       /**
@@ -561,11 +567,14 @@ angular.module('eagleeye')
         }
 
         // hAxis & vAxis
-        configurationOptions.hAxis = self.makeAxisOptions('hAxis', options.hAxis);
-        configurationOptions.vAxis = self.makeAxisOptions('vAxis', options.vAxis);
+        configurationOptions.hAxis = self.makeAxisOptions(options.hAxis);
+        configurationOptions.vAxis = self.makeAxisOptions(options.vAxis);
+
+        // chartArea
+        configurationOptions.chartArea = self.makeChartAreaOptions(options.chartArea);
 
         // combolines
-        if (chartType === 'ComboChart') {
+        if (self.hasComboLinesOption(chartType)) {
           configurationOptions.combolines = options.combolines;
         }
 
@@ -573,8 +582,6 @@ angular.module('eagleeye')
         if (self.hasIsStackedOption(chartType)) {
           configurationOptions.isStacked = options.isStacked;
         }
-
-        configurationOptions.chartArea = self.makeChartAreaOptions(options.chartArea.left, options.chartArea.width);
 
         return configurationOptions;
       };

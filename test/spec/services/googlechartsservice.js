@@ -463,56 +463,52 @@ describe('Service: GoogleChartsService', function() {
   describe('makeChartAreaOptions()', function() {
     it('should return empty object if not passing parameters', function() {
       expect(GoogleChartsService.makeChartAreaOptions()).toEqual({});
+      expect(GoogleChartsService.makeChartAreaOptions('')).toEqual({});
     });
 
     it('should return chartArea only contains the provided values', function() {
-      expect(GoogleChartsService.makeChartAreaOptions('10%')).toEqual({ left: '10%' });
-      expect(GoogleChartsService.makeChartAreaOptions('', '10%')).toEqual({ width: '10%' });
-      expect(GoogleChartsService.makeChartAreaOptions(undefined, '10%')).toEqual({ width: '10%' });
-      expect(GoogleChartsService.makeChartAreaOptions('10%', '90%')).toEqual({ left: '10%', width: '90%' });
+      expect(GoogleChartsService.makeChartAreaOptions({})).toEqual({});
+      expect(GoogleChartsService.makeChartAreaOptions({ left: '10%' })).toEqual({ left: '10%' });
+      expect(GoogleChartsService.makeChartAreaOptions({ width: '10%' })).toEqual({ width: '10%' });
+      expect(GoogleChartsService.makeChartAreaOptions({ left: '', width: '10%' })).toEqual({ width: '10%' });
+      expect(GoogleChartsService.makeChartAreaOptions({ left: '10%', width: '90%' })).toEqual({ left: '10%', width: '90%' });
     });
   });
 
   describe('makeAxisOptions()', function() {
-    it('should return null if axisName is invalid', function() {
-      expect(GoogleChartsService.makeAxisOptions('')).toBe(null);
-      expect(GoogleChartsService.makeAxisOptions('foo')).toBe(null);
+    it('should return {} if options is not an object', function() {
+      expect(GoogleChartsService.makeAxisOptions('')).toEqual({});
+      expect(GoogleChartsService.makeAxisOptions()).toEqual({});
     });
 
-    it('should return null if options is not an object', function() {
-      expect(GoogleChartsService.makeAxisOptions('hAxis', '')).toBe(null);
-      expect(GoogleChartsService.makeAxisOptions('vAxis')).toBe(null);
-    });
-
-    it('should return null with valid axisName and empty options object', function() {
-      expect(GoogleChartsService.makeAxisOptions('hAxis', {})).toBe(null);
-      expect(GoogleChartsService.makeAxisOptions('vAxis', {})).toBe(null);
+    it('should return {} with an empty options object', function() {
+      expect(GoogleChartsService.makeAxisOptions({})).toEqual({});
     });
 
     it('should return axisOptions with only title field', function() {
-      expect(GoogleChartsService.makeAxisOptions('hAxis', { title: 'foo' })).toEqual({
+      expect(GoogleChartsService.makeAxisOptions({ title: 'foo' })).toEqual({
         title: 'foo'
       });
-      expect(GoogleChartsService.makeAxisOptions('vAxis', { title: 'foo' })).toEqual({
+      expect(GoogleChartsService.makeAxisOptions({ title: 'foo' })).toEqual({
         title: 'foo'
       });
     });
 
     it('should return axisOptions with only format field', function() {
-      expect(GoogleChartsService.makeAxisOptions('hAxis', { format: 'foo' })).toEqual({
+      expect(GoogleChartsService.makeAxisOptions({ format: 'foo' })).toEqual({
         format: 'foo'
       });
-      expect(GoogleChartsService.makeAxisOptions('vAxis', { format: 'foo' })).toEqual({
+      expect(GoogleChartsService.makeAxisOptions({ format: 'foo' })).toEqual({
         format: 'foo'
       });
     });
 
     it('should return axisOptions with both title and format fields', function() {
-      expect(GoogleChartsService.makeAxisOptions('hAxis', { title: 'foo', format: 'bar' })).toEqual({
+      expect(GoogleChartsService.makeAxisOptions({ title: 'foo', format: 'bar' })).toEqual({
         title: 'foo',
         format: 'bar'
       });
-      expect(GoogleChartsService.makeAxisOptions('vAxis', { title: 'foo', format: 'bar' })).toEqual({
+      expect(GoogleChartsService.makeAxisOptions({ title: 'foo', format: 'bar' })).toEqual({
         title: 'foo',
         format: 'bar'
       });
@@ -530,6 +526,21 @@ describe('Service: GoogleChartsService', function() {
     it('should return false if given chart type don not support isStacked', function() {
       expect(GoogleChartsService.hasIsStackedOption('LineChart')).toBe(false);
       expect(GoogleChartsService.hasIsStackedOption('ImageChart')).toBe(false);
+    });
+  });
+
+  describe('hasComboLinesOption()', function() {
+    it('should return true if given chart type supports combolines', function() {
+      expect(GoogleChartsService.hasComboLinesOption('ComboChart')).toBe(true);
+    });
+
+    it('should return false if given chart type don not support combolines', function() {
+      expect(GoogleChartsService.hasComboLinesOption('LineChart')).toBe(false);
+      expect(GoogleChartsService.hasComboLinesOption('ImageChart')).toBe(false);
+      expect(GoogleChartsService.hasComboLinesOption('ColumnChart')).toBe(false);
+      expect(GoogleChartsService.hasComboLinesOption('BarChart')).toBe(false);
+      expect(GoogleChartsService.hasComboLinesOption('AreaChart')).toBe(false);
+      expect(GoogleChartsService.hasComboLinesOption('')).toBe(false);
     });
   });
 
