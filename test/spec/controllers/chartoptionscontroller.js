@@ -6,7 +6,6 @@ describe('Controller: ChartOptionsController', function() {
     $rootScope,
     $state,
     $stateParams,
-    $templateCache,
     GoogleChartsService,
     EagleEyeWebService,
     eeHelpDialogService,
@@ -103,12 +102,11 @@ describe('Controller: ChartOptionsController', function() {
   }));
 
   // inject services
-  beforeEach(inject(function(_$controller_, _$httpBackend_, _$rootScope_, _$state_, _$stateParams_, _$templateCache_, _EagleEyeWebService_, _GoogleChartsService_, _eeHelpDialogService_, _IS_STACKED_OPTIONS_, _AXIS_FORMAT_OPTIONS_) {
+  beforeEach(inject(function(_$controller_, _$httpBackend_, _$rootScope_, _$state_, _$stateParams_, _EagleEyeWebService_, _GoogleChartsService_, _eeHelpDialogService_, _IS_STACKED_OPTIONS_, _AXIS_FORMAT_OPTIONS_) {
     $controller = _$controller_;
     $rootScope = _$rootScope_;
     $state = _$state_;
     $stateParams = _$stateParams_;
-    $templateCache = _$templateCache_;
     $httpBackend = _$httpBackend_;
     EagleEyeWebService = _EagleEyeWebService_;
     GoogleChartsService = _GoogleChartsService_;
@@ -143,6 +141,7 @@ describe('Controller: ChartOptionsController', function() {
     expect(ChartOptionsController.isStackedOptions).toEqual({ bar: 1 });
     expect(ChartOptionsController.axisFormatOptions).toEqual({ foobar: 1 });
     expect(ChartOptionsController.chart).toBeDefined();
+    expect(EagleEyeWebService.getChartById).toHaveBeenCalledWith('id');
   });
 
   describe('init()', function() {

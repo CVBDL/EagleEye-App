@@ -7,7 +7,7 @@
           <span flex></span>
           <md-button class="md-icon-button" aria-label="Save">
             <md-tooltip md-direction="botton">Save</md-tooltip>
-            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.save()"> save </md-icon>
+            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.save(ctrl.chartOptionsString)"> save </md-icon>
           </md-button>
         </div>
       </md-toolbar>
@@ -17,7 +17,7 @@
           <div layout="row">
             <md-input-container flex>
               <label>Input full settings here</label>
-              <textarea ng-model="ctrl.settings" rows="10" md-select-on-focus></textarea>
+              <textarea ng-model="ctrl.chartOptionsString" rows="10" md-select-on-focus></textarea>
             </md-input-container>
           </div>
         </form>

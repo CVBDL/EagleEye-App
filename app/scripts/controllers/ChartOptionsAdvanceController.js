@@ -3,55 +3,56 @@
 /**
  * @ngdoc function
  * @name eagleeye.controller:ChartOptionsAdvanceController
- * @description
- * # ChartOptionsAdvanceController
- * Controller of the eagleeye
  */
 angular.module('eagleeye')
   .controller('ChartOptionsAdvanceController', [
-    '$scope',
     '$state',
     '$stateParams',
-    '$mdDialog',
+    '$window',
     'EagleEyeWebService',
-    function($scope, $state, $stateParams, $mdDialog, EagleEyeWebService) {
+    function($state, $stateParams, $window, EagleEyeWebService) {
       var controller = this;
 
-      controller.id = $stateParams.id;
+      this.id = $stateParams.id;
+      this.chartOptionsString = '';
+      this.title = '';
 
-      this.settings = '';
-
-      this.save = function() {
+      /**
+       * @method
+       * @name save
+       * @description Save the chart updates.
+       * @param {String} chartOptionsString The chart data model JSON string format.
+       */
+      this.save = function(chartOptionsString) {
         try {
-          var settings = JSON.parse(controller.settings);
+          var payload = JSON.parse(chartOptionsString);
         } catch (e) {
-          $mdDialog.show(
-            $mdDialog.alert()
-            .parent(angular.element(document.body))
-            .clickOutsideToClose(true)
-            .title('Validation failed')
-            .textContent('Input options are not a valid JSON string.')
-            .ok('Got it!')
-          );
+          $window.alert('JSON syntax error!');
+          return;
         }
 
-        EagleEyeWebService.updateChartById(controller.id, settings).then(function() {
+        EagleEyeWebService.updateChartById(controller.id, payload).then(function() {
           $state.go('chart', {
             id: controller.id
           });
-
-        }, function(error) {
-          console.log(error);
         });
       };
 
-      function init() {
+      /**
+       * @method
+       * @name init
+       * @description Initialize this controller
+       */
+      this.init = function() {
         EagleEyeWebService.getChartById(controller.id).then(function(response) {
           controller.id = response._id;
           controller.title = response.options.title;
+          controller.chartOptionsString = JSON.stringify({
+            options: response.options
+          });
         });
       };
 
-      init();
+      this.init();
     }
   ]);

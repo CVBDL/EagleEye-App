@@ -3,9 +3,6 @@
 /**
  * @ngdoc function
  * @name eagleeye.controller:ChartOptionsController
- * @description
- * # ChartOptionsController
- * Controller of the eagleeye
  */
 angular.module('eagleeye')
   .controller('ChartOptionsController', [
