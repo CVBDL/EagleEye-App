@@ -543,6 +543,7 @@ angular.module('eagleeye')
        * @description Check support `combolines` option or not. Only ComboChart support it.
        * @param {Object} chartType Google chart type.
        * @returns {Boolean}
+       * @todo The standard option is `series`'s `type`.
        */
       self.hasComboLinesOption = function(chartType) {
         var supportedList = ['ComboChart'];
@@ -560,6 +561,8 @@ angular.module('eagleeye')
        */
       self.makeConfigurationOptions = function(chartType, options) {
         var configurationOptions = {};
+
+        if (!self.validateChartType(chartType)) return configurationOptions;
 
         // `title`
         if (options.title) {

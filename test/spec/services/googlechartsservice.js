@@ -544,6 +544,94 @@ describe('Service: GoogleChartsService', function() {
     });
   });
 
+  describe('makeConfigurationOptions()', function() {
+    it ('should return {} if chart type is invalid', function() {
+      spyOn(GoogleChartsService, 'validateChartType').and.returnValue(false);
+      expect(GoogleChartsService.makeConfigurationOptions('foo', { bar: 'bar' })).toEqual({});
+      expect(GoogleChartsService.validateChartType).toHaveBeenCalledWith('foo');
+    });
+
+    describe('with a valid chart type,', function() {
+      beforeEach(function() {
+        spyOn(GoogleChartsService, 'validateChartType').and.returnValue(true);
+        spyOn(GoogleChartsService, 'makeAxisOptions').and.returnValue({});
+        spyOn(GoogleChartsService, 'makeChartAreaOptions').and.returnValue({});
+        spyOn(GoogleChartsService, 'hasComboLinesOption').and.returnValue(false);
+        spyOn(GoogleChartsService, 'hasIsStackedOption').and.returnValue(false);
+      });
+
+      it('should return options contains title field if title provided', function() {
+        expect(GoogleChartsService.makeConfigurationOptions('foo', { title: 'bar' }).title).toBe('bar');
+      });
+
+      it('should return options contains hAxis and vAxis fields', function() {
+        var opts = GoogleChartsService.makeConfigurationOptions('foo', {
+          hAxis: { foo: 'foo' },
+          vAxis: { bar: 'bar' }
+        });
+
+        expect(GoogleChartsService.makeAxisOptions).toHaveBeenCalledWith({ foo: 'foo' });
+        expect(GoogleChartsService.makeAxisOptions).toHaveBeenCalledWith({ bar: 'bar' });
+        expect(GoogleChartsService.makeAxisOptions).toHaveBeenCalledTimes(2);
+        expect(opts.hAxis).toEqual({});
+        expect(opts.vAxis).toEqual({});
+      });
+
+      it('should return options contains chartArea field', function() {
+        var opts = GoogleChartsService.makeConfigurationOptions('foo', {
+          chartArea: { foo: 'foo' }
+        });
+
+        expect(GoogleChartsService.makeChartAreaOptions).toHaveBeenCalledWith({ foo: 'foo' });
+        expect(opts.chartArea).toEqual({});
+      });
+
+      it('should return options contains combolines field if supported', function() {
+        GoogleChartsService.hasComboLinesOption.and.returnValue(true);
+
+        var opts = GoogleChartsService.makeConfigurationOptions('foo', {
+          combolines: 1
+        });
+
+        expect(GoogleChartsService.hasComboLinesOption).toHaveBeenCalledWith('foo');
+        expect(opts.combolines).toBe(1);
+      });
+
+      it('should return options without combolines field if not supported', function() {
+        GoogleChartsService.hasComboLinesOption.and.returnValue(false);
+
+        var opts = GoogleChartsService.makeConfigurationOptions('foo', {
+          combolines: 1
+        });
+
+        expect(GoogleChartsService.hasComboLinesOption).toHaveBeenCalledWith('foo');
+        expect(opts.combolines).not.toBeDefined();
+      });
+
+      it('should return options contains isStacked field if supported', function() {
+        GoogleChartsService.hasIsStackedOption.and.returnValue(true);
+
+        var opts = GoogleChartsService.makeConfigurationOptions('foo', {
+          isStacked: true
+        });
+
+        expect(GoogleChartsService.hasIsStackedOption).toHaveBeenCalledWith('foo');
+        expect(opts.isStacked).toBe(true);
+      });
+
+      it('should return options without isStacked field if not supported', function() {
+        GoogleChartsService.hasIsStackedOption.and.returnValue(false);
+
+        var opts = GoogleChartsService.makeConfigurationOptions('foo', {
+          isStacked: true
+        });
+
+        expect(GoogleChartsService.hasIsStackedOption).toHaveBeenCalledWith('foo');
+        expect(opts.isStacked).not.toBeDefined();
+      });
+    });
+  });
+
   describe('getChartDataTableSamples()', function() {
     it('should return empty object if input chart type or domain data type is invalid', function() {
       expect(GoogleChartsService.getChartDataTableSamples('foo', 'string')).toEqual({});
