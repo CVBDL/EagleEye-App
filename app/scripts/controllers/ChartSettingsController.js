@@ -3,37 +3,49 @@
 /**
  * @ngdoc function
  * @name eagleeye.controller:ChartSettingsController
- * @description
- * # ChartSettingsController
- * Controller of the eagleeye
  */
 angular.module('eagleeye')
   .controller('ChartSettingsController', [
-    '$state',
     '$stateParams',
     'EagleEyeWebService',
-    function ($state, $stateParams, EagleEyeWebService) {
-      var controller = this,
-        id = controller.id = $stateParams.id;
+    function ($stateParams, EagleEyeWebService) {
+      var controller = this;
 
+      this.id = $stateParams.id;
       this.chart = {};
-      this.isLoading = true;
 
+      /**
+       * @method
+       * @name upload
+       * @description Call EagleEyeWebService service to update chart data file.
+       * @param {Object} file File object.
+       */
       this.upload = function (file) {
-        EagleEyeWebService.uploadFile(file, controller.chart.type, controller.id);
+        EagleEyeWebService.uploadFile(file, this.chart.type, this.id);
       };
 
-      function loadChart() {
+      /**
+       * @method
+       * @name loadChart
+       * @description Call EagleEyeWebService service to load the chart data.
+       * @param {String} id The chart's id or friendlyUrl.
+       */
+      this.loadChart = function(id) {
         EagleEyeWebService.getChartById(id).then(function(data) {
-          controller.isLoading = false;
           controller.chart = data;
         });
-      }
+      };
 
-      function init() {
-        loadChart();
-      }
+      /**
+       * @method
+       * @name init
+       * @description Initialize this controller
+       * @this ChartController
+       */
+      this.init = function() {
+        this.loadChart(this.id);
+      };
 
-      init();
+      this.init();
     }
   ]);

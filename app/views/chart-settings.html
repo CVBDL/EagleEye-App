@@ -13,13 +13,8 @@
       </md-toolbar>
       <md-divider></md-divider>
 
-      <!-- Loading Indicator -->
-      <div ng-if="ctrl.isLoading" layout="row" layout-padding layout-align="center center">
-        <md-progress-circular class="ee-progress-circular" md-diameter="40"></md-progress-circular>
-      </div>
-
       <!-- Google Chart Types -->
-      <div ng-if="!ctrl.isLoading && ctrl.chart.chartType !== 'ImageChart'" layout="row" layout-padding layout-wrap>
+      <div ng-if="ctrl.chart.chartType !== 'ImageChart'" layout="row" layout-padding layout-wrap>
         <div class="ee-card-container ee-data-options-card-container" flex="50" flex-xs="100">
           <md-card class="ee-layout--no-margin" layout-fill>
             <md-card-title>
@@ -60,7 +55,7 @@
       </div>
 
       <!-- Custom Image Chart Type -->
-      <div ng-if="!ctrl.isLoading && ctrl.chart.chartType === 'ImageChart'" layout="row" layout-padding>
+      <div ng-if="ctrl.chart.chartType === 'ImageChart'" layout="row" layout-padding>
         <div class="ee-card-container" flex="100">
           <md-card layout-fill class="ee-layout--no-margin">
             <md-card-title>
@@ -88,7 +83,7 @@
       <md-divider></md-divider>
 
       <!-- TODO: Current job lists -->
-      <div ng-if="!ctrl.isLoading && ctrl.chart.chartType !== 'ImageChart'" layout="row" layout-padding>
+      <div ng-if="ctrl.chart.chartType !== 'ImageChart'" layout="row" layout-padding>
         <div flex="100">
           <h3 class="md-subhead">Current Jobs:</h3>
         </div>
