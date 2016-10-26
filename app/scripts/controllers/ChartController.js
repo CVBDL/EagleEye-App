@@ -18,7 +18,7 @@ angular.module('eagleeye')
       this.id = $stateParams.id;
       this.autoReloadChartPromise = null;
       this.isAutoReloadSwitchOn = false;
-      this.delay = 2 * 1000;
+      this.delay = 10 * 1000;
       this.chart = {};
 
       /**
@@ -106,9 +106,10 @@ angular.module('eagleeye')
        * @method
        * @name init
        * @description Initialize this controller
+       * @this ChartController
        */
       this.init = function() {
-        controller.loadChart(this.id);
+        this.loadChart(this.id);
       };
 
       this.init();
