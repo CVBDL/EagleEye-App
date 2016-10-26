@@ -5,11 +5,11 @@
         <h2 class="ee-text-black-primary">{{ctrl.chartset.title}}</h2>
         <span flex></span>
         <span>
-          <md-tooltip md-direction="botton">Auto Refresh</md-tooltip>
-          <md-switch class="ee-auto-refresh-label ee-switch" ng-class="{ 'ee-auto-refresh-disabled': !chart.autoReloadSwitch }" aria-label="Auto Refresh" ng-model="ctrl.autoReloadSwitch" ng-change="ctrl.toggleAutoReloadChartSet()">auto</md-switch>
+          <md-tooltip md-direction="botton">Auto Reload</md-tooltip>
+          <md-switch class="ee-auto-refresh-label ee-switch" ng-class="{ 'ee-auto-refresh-disabled': !chart.autoReloadSwitch }" aria-label="Auto Reload" ng-model="ctrl.autoReloadSwitch" ng-change="ctrl.toggleAutoReloadChartSet()">auto</md-switch>
         </span>
-        <md-button class="md-icon-button" aria-label="Refresh">
-          <md-tooltip md-direction="botton">Refresh</md-tooltip>
+        <md-button class="md-icon-button" aria-label="Reload">
+          <md-tooltip md-direction="botton">Reload</md-tooltip>
           <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.loadChartSet()"> refresh </md-icon>
         </md-button>
         <md-button class="md-icon-button" aria-label="Switch to column view" ng-if="ctrl.viewMode === 'list'">

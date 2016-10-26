@@ -3,59 +3,114 @@
 /**
  * @ngdoc function
  * @name eagleeye.controller:ChartController
- * @description
- * # ChartController
- * Controller of the eagleeye
  */
 angular.module('eagleeye')
   .controller('ChartController', [
-    '$state',
     '$stateParams',
     '$location',
     '$interval',
     'EagleEyeWebService',
-    'GoogleChartsService',
     'eeShareService',
     'eeSaveAsPDFService',
-    function($state, $stateParams, $location, $interval, EagleEyeWebService, GoogleChartsService, eeShareService, eeSaveAsPDFService) {
-      var controller = this,
-        id = $stateParams.id,
-        delay = 60 * 1000,
-        autoRefreshIntervalId;
+    function($stateParams, $location, $interval, EagleEyeWebService, eeShareService, eeSaveAsPDFService) {
+      var controller = this;
 
+      this.id = $stateParams.id;
+      this.autoReloadChartPromise = null;
+      this.isAutoReloadSwitchOn = false;
+      this.delay = 2 * 1000;
       this.chart = {};
-      this.autoReloadSwitch = false;
 
-      this.loadChart = function() {
+      /**
+       * @method
+       * @name loadChart
+       * @description Call EagleEyeWebService service to load the chart data.
+       * @param {String} id The chart's id or friendlyUrl.
+       */
+      this.loadChart = function(id) {
         EagleEyeWebService.getChartById(id).then(function(data) {
           controller.chart = data;
         });
       };
 
-      this.toggleAutoReloadChart = function() {
-        if (this.autoReloadSwitch) {
-          autoRefreshIntervalId = $interval(this.loadChart, delay);
+      /**
+       * @method
+       * @name onAutoReloadSwitchChange
+       * @description
+       * When the auto reload switch on page is changed by user, we should start or stop auto reload.
+       * @param {Boolean} isAutoReloadSwitchOn Indicate the switch is on or off.
+       * @this ChartController
+       */
+      this.onAutoReloadSwitchChange = function(isAutoReloadSwitchOn) {
+        if (!angular.isDefined(isAutoReloadSwitchOn)) return;
+
+        if (isAutoReloadSwitchOn) {
+          this.startAutoReloadChart();
 
         } else {
-          $interval.cancel(autoRefreshIntervalId);
+          this.stopAutoReloadChart();
         }
       };
 
-      this.showShare = function() {
+      /**
+       * @method
+       * @name startAutoReloadChart
+       * @description
+       * Start to reload chart data automatically and periodically.
+       * It'll make use of `delay` property on this controller and assign the returned promise to
+       * controller's `autoReloadChartPromise` property.
+       * @this ChartController
+       */
+      this.startAutoReloadChart = function() {
+        this.autoReloadChartPromise = $interval(function() {
+          controller.loadChart(controller.id);
+        }, this.delay);
+      };
+
+      /**
+       * @method
+       * @name stopAutoReloadChart
+       * @description Stop to reload chart data automatically and periodically.
+       * @returns {Boolean} Returns `true` if it was successfully stopped.
+       * @this ChartController
+       */
+      this.stopAutoReloadChart = function() {
+        return $interval.cancel(this.autoReloadChartPromise);
+      };
+
+      /**
+       * @method
+       * @name showShare
+       * @description Show an sharing dialog.
+       * @param {String} title The chart's title property.
+       */
+      this.showShare = function(title) {
         eeShareService.showShareDialog({
-          sharedTitle: this.chart.options.title,
+          sharedTitle: title,
           sharedLink: $location.absUrl()
         });
       };
 
+      /**
+       * @method
+       * @name SaveImageOrPDF
+       * @description Save chart as PDF file.
+       * @param {Number} fileType 0 for image, 1 for PDF.
+       * @param {Object} chart The chart data.
+       */
       this.SaveImageOrPDF = function(fileType, chart) {
         eeSaveAsPDFService.SaveImageOrPDF(fileType, chart);
       };
 
-      function init() {
-        controller.loadChart();
-      }
+      /**
+       * @method
+       * @name init
+       * @description Initialize this controller
+       */
+      this.init = function() {
+        controller.loadChart(this.id);
+      };
 
-      init();
+      this.init();
     }
   ]);

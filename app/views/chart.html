@@ -6,12 +6,12 @@
           <h2 class="ee-text-black-primary">{{ctrl.chart.options.title}}</h2>
           <span flex></span>
           <span ng-hide="ctrl.chart.chartType ==='ImageChart'">
-            <md-tooltip md-direction="botton">Auto Refresh</md-tooltip>
-            <md-switch class="ee-auto-refresh-label ee-switch" ng-class="{ 'ee-auto-refresh-disabled': !ctrl.autoReloadSwitch }" aria-label="Auto Refresh" ng-model="ctrl.autoReloadSwitch" ng-change="ctrl.toggleAutoReloadChart()">auto</md-switch>
+            <md-tooltip md-direction="botton">Auto Reload</md-tooltip>
+            <md-switch class="ee-auto-refresh-label ee-switch" ng-class="{ 'ee-auto-refresh-disabled': !ctrl.isAutoReloadSwitchOn }" aria-label="Auto Reload" ng-model="ctrl.isAutoReloadSwitchOn" ng-change="ctrl.onAutoReloadSwitchChange(ctrl.isAutoReloadSwitchOn)">auto</md-switch>
           </span>
-          <md-button class="md-icon-button" aria-label="Refresh" ng-hide="ctrl.chart.chartType ==='ImageChart'">
-            <md-tooltip md-direction="botton">Refresh</md-tooltip>
-            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.loadChart()"> refresh </md-icon>
+          <md-button class="md-icon-button" aria-label="Reload" ng-hide="ctrl.chart.chartType ==='ImageChart'">
+            <md-tooltip md-direction="botton">Reload</md-tooltip>
+            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.loadChart(ctrl.id)"> refresh </md-icon>
           </md-button>
           <md-button class="md-icon-button" aria-label="Save as pdf" ng-hide="ctrl.chart.chartType ==='ImageChart'">
             <md-tooltip md-direction="botton">Save as PDF</md-tooltip>
@@ -21,7 +21,7 @@
             <md-tooltip md-direction="botton">Download data</md-tooltip>
             <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> file_download </md-icon>
           </md-button>
-          <md-button class="md-icon-button" aria-label="Share" ng-click="ctrl.showShare()">
+          <md-button class="md-icon-button" aria-label="Share" ng-click="ctrl.showShare(ctrl.chart.options.title)">
             <md-tooltip md-direction="botton">Share</md-tooltip>
             <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> shared </md-icon>
           </md-button>
