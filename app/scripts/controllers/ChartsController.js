@@ -3,9 +3,6 @@
 /**
  * @ngdoc function
  * @name eagleeye.controller:ChartsController
- * @description
- * # ChartsController
- * Controller of the eagleeye
  */
 angular.module('eagleeye')
   .controller('ChartsController', [
@@ -15,8 +12,14 @@ angular.module('eagleeye')
     function($state, EagleEyeWebService, eeDeleteConfirmationService) {
       var controller = this;
 
+      /** @default true */
       this.isLoading = true;
 
+      /**
+       * @method
+       * @name loadChartList
+       * @description Load chart list then set loading status and update model
+       */
       this.loadChartList = function() {
         EagleEyeWebService.getCharts().then(function(chartList) {
           controller.isLoading = false;
@@ -24,6 +27,16 @@ angular.module('eagleeye')
         });
       };
 
+      /**
+       * @method
+       * @name onClickDeleteChart
+       *
+       * @description
+       * Delete chart button on click handler.
+       * It'll show a delete comfirmation dialog. User need confirm delete or not.
+       * If cancel delete, then do nothing.
+       * If ok to delete, delete the chart and reload chart list.
+       */
       this.onClickDeleteChart = function($event, chart) {
         $event.stopPropagation();
 
@@ -37,14 +50,22 @@ angular.module('eagleeye')
           });
       };
 
+      /**
+       * @method
+       * @name createChart
+       */
       this.createChart = function() {
         $state.go('chartCreation');
       };
 
-      function init() {
-        controller.loadChartList();
-      }
+      /**
+       * @method
+       * @name init
+       */
+      this.init = function() {
+        this.loadChartList();
+      };
 
-      init();
+      this.init();
     }
   ]);

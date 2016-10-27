@@ -249,4 +249,12 @@ describe('Controller: ChartsController', function() {
     expect($location.url()).toBe('/charts/new');
   });
 
+  it('should be able to load chart list when called init()', function() {
+    spyOn(ChartsController, 'loadChartList');
+
+    $rootScope.$digest();
+    ChartsController.init();
+    expect(ChartsController.loadChartList).toHaveBeenCalled();
+  });
+
 });
