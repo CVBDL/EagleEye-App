@@ -21,7 +21,7 @@ angular.module('eagleeye')
        * @method
        * @name save
        * @description Save the chart updates.
-       * @param {String} chartOptionsString The chart data model JSON string format.
+       * @param {string} chartOptionsString The chart data model JSON string format.
        */
       this.save = function(chartOptionsString) {
         try {

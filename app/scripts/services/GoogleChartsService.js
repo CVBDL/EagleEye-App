@@ -355,8 +355,8 @@ angular.module('eagleeye')
        * @method
        * @name validateChartType
        * @description Validate the given chart type. The chart type must exist in `CHART_TYPE_OPTIONS`
-       * @param {String} type The chart type.
-       * @returns {Boolean} Indicate if it's an valid chart type or not.
+       * @param {string} type The chart type.
+       * @returns {boolean} Indicate if it's an valid chart type or not.
        */
       self.validateChartType = function(type) {
         var isValid = false,
@@ -376,8 +376,8 @@ angular.module('eagleeye')
        * @method
        * @name makeChartType
        * @description Get a valid chart type value according to input or get an error.
-       * @param {String} type The chart type.
-       * @returns {String|Error} An valid chart type or throw an error.
+       * @param {string} type The chart type.
+       * @returns {string|Error} An valid chart type or throw an error.
        */
       self.makeChartType = function(type) {
         if (self.validateChartType(type)) {
@@ -393,8 +393,8 @@ angular.module('eagleeye')
        * @method
        * @name validateDomainDataType
        * @description Validate the given data type. The type must exist in `DOMAIN_DATA_TYPE`.
-       * @param {String} type Domain data type.
-       * @returns {Boolean} Indicate if it's an valid domain data type.
+       * @param {string} type Domain data type.
+       * @returns {boolean} Indicate if it's an valid domain data type.
        */
       self.validateDomainDataType = function(type) {
         var isValid = false,
@@ -414,8 +414,8 @@ angular.module('eagleeye')
        * @method
        * @name makeDomainDataType
        * @description Get a valid domain data type value according to input or get an error.
-       * @param {String} type The chart type.
-       * @returns {String|Error} An valid domain data type or throw an error.
+       * @param {string} type The chart type.
+       * @returns {string|Error} An valid domain data type or throw an error.
        */
       self.makeDomainDataType = function(type) {
         if (self.validateDomainDataType(type)) {
@@ -436,8 +436,8 @@ angular.module('eagleeye')
        * If the given `friendlyName` is empty, then the final `friendlyUrl` should be ''.
        * If the given `friendlyName` is not an empty string, then we should add the friendly URL prefix.
        *
-       * @param {String} type         The friendly url types, could be 'chart' or 'chartset'.
-       * @param {String} friendlyName The friendly name.
+       * @param {string} type         The friendly url types, could be 'chart' or 'chartset'.
+       * @param {string} friendlyName The friendly name.
        *
        * @returns {String|Error} The final `friendlyUrl` string or error.
        *
@@ -529,7 +529,7 @@ angular.module('eagleeye')
        * @name hasIsStackedOption
        * @description Check if the given chart type has an `isStacked` option.
        * @param {Object} chartType Google chart type.
-       * @returns {Boolean}
+       * @returns {boolean}
        */
       self.hasIsStackedOption = function(chartType) {
         var supportedList = ['ColumnChart', 'BarChart', 'ComboChart', 'AreaChart'];
@@ -542,7 +542,7 @@ angular.module('eagleeye')
        * @name hasComboLinesOption
        * @description Check support `combolines` option or not. Only ComboChart support it.
        * @param {Object} chartType Google chart type.
-       * @returns {Boolean}
+       * @returns {boolean}
        * @todo The standard option is `series`'s `type`.
        */
       self.hasComboLinesOption = function(chartType) {
@@ -596,8 +596,8 @@ angular.module('eagleeye')
        * @description
        * According to chart type and domain axis data type, it'll provide a sample data table for demo.
        *
-       * @param {String} chartType      Chart type, like 'LineChart'.
-       * @param {String} domainDataType Domain data type, like 'string'.
+       * @param {string} chartType      Chart type, like 'LineChart'.
+       * @param {string} domainDataType Domain data type, like 'string'.
        *
        * @returns {Object} The sample data table.
        */

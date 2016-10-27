@@ -3,9 +3,6 @@
 /**
  * @ngdoc function
  * @name eagleeye.controller:DeletedialogcontrollerCtrl
- * @description
- * # DeletedialogcontrollerCtrl
- * Controller of the eagleeye
  */
 angular.module('eagleeye')
   .controller('DeleteDialogController', [

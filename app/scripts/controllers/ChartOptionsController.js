@@ -27,8 +27,8 @@ angular.module('eagleeye')
        * @method
        * @name makeDisplayFriendlyUrl
        * @description We need to remove friendly url prefix 'c-' when display on the page.
-       * @param {String} friendlyUrl
-       * @returns {String}
+       * @param {string} friendlyUrl
+       * @returns {string}
        */
       this.makeDisplayFriendlyUrl = function(friendlyUrl) {
         return (angular.isString(friendlyUrl) && friendlyUrl) ? friendlyUrl.substring(2) : '';

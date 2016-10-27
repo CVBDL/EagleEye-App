@@ -25,7 +25,7 @@ angular.module('eagleeye')
        * @method
        * @name loadChart
        * @description Call EagleEyeWebService service to load the chart data.
-       * @param {String} id The chart's id or friendlyUrl.
+       * @param {string} id The chart's id or friendlyUrl.
        */
       this.loadChart = function(id) {
         EagleEyeWebService.getChartById(id).then(function(data) {
@@ -38,7 +38,7 @@ angular.module('eagleeye')
        * @name onAutoReloadSwitchChange
        * @description
        * When the auto reload switch on page is changed by user, we should start or stop auto reload.
-       * @param {Boolean} isAutoReloadSwitchOn Indicate the switch is on or off.
+       * @param {boolean} isAutoReloadSwitchOn Indicate the switch is on or off.
        * @this ChartController
        */
       this.onAutoReloadSwitchChange = function(isAutoReloadSwitchOn) {
@@ -71,7 +71,7 @@ angular.module('eagleeye')
        * @method
        * @name stopAutoReloadChart
        * @description Stop to reload chart data automatically and periodically.
-       * @returns {Boolean} Returns `true` if it was successfully stopped.
+       * @returns {boolean} Returns `true` if it was successfully stopped.
        * @this ChartController
        */
       this.stopAutoReloadChart = function() {
@@ -82,7 +82,7 @@ angular.module('eagleeye')
        * @method
        * @name showShare
        * @description Show an sharing dialog.
-       * @param {String} title The chart's title property.
+       * @param {string} title The chart's title property.
        */
       this.showShare = function(title) {
         eeShareService.showShareDialog({
@@ -95,7 +95,7 @@ angular.module('eagleeye')
        * @method
        * @name SaveImageOrPDF
        * @description Save chart as PDF file.
-       * @param {Number} fileType 0 for image, 1 for PDF.
+       * @param {number} fileType 0 for image, 1 for PDF.
        * @param {Object} chart The chart data.
        */
       this.SaveImageOrPDF = function(fileType, chart) {

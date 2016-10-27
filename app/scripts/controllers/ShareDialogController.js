@@ -3,9 +3,6 @@
 /**
  * @ngdoc function
  * @name eagleeye.controller:ShareDialogController
- * @description
- * # ShareDialogController
- * Controller of the eagleeye
  */
 angular.module('eagleeye')
   .controller('ShareDialogController', [
