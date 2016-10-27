@@ -15,8 +15,7 @@ angular.module('eagleeye')
     'eeShareService',
     'eeSaveAsPDFService',
     function($location, $rootScope, $state, $stateParams, $interval, EagleEyeWebService, eeShareService, eeSaveAsPDFService) {
-      var controller = this,
-        autoRefreshIntervalId;
+      var controller = this;
 
       this.id = $stateParams.id;
 
@@ -34,6 +33,9 @@ angular.module('eagleeye')
 
       this.saveChartSetAsPdf = eeSaveAsPDFService.saveChartSetAsPdf;
       this.saveChartSetAsImageOrPdf = eeSaveAsPDFService.saveChartSetAsImageOrPdf;
+
+      this.chartset = {};
+      this.chartSetList = [];
 
       /**
        * @method
