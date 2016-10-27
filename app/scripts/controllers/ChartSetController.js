@@ -3,73 +3,150 @@
 /**
  * @ngdoc function
  * @name eagleeye.controller:ChartSetController
- * @description
- * # ChartSetController
- * Controller of the eagleeye
  */
 angular.module('eagleeye')
   .controller('ChartSetController', [
+    '$location',
     '$rootScope',
     '$state',
     '$stateParams',
-    '$location',
     '$interval',
     'EagleEyeWebService',
     'eeShareService',
     'eeSaveAsPDFService',
-    'GoogleChartsService',
-    function($rootScope, $state, $stateParams, $location, $interval, EagleEyeWebService, eeShareService, eeSaveAsPDFService, GoogleChartsService) {
+    function($location, $rootScope, $state, $stateParams, $interval, EagleEyeWebService, eeShareService, eeSaveAsPDFService) {
       var controller = this,
-        id = $stateParams.id,
-        delay = 60 * 1000,
         autoRefreshIntervalId;
 
-      this.autoReloadSwitch = false;
-      this.viewMode = 'list'; // or 'column'
+      this.id = $stateParams.id;
+
+      /** @constant {number} */
+      this.DELAY = 60 * 1000;
+
+      /** @default 'list' */
+      this.viewMode = 'list';
+
+      /** @default false */
+      this.isAutoReloadSwitchOn = false;
+
+      /** @default null */
+      this.autoReloadChartSetPromise = null;
+
       this.saveChartSetAsPdf = eeSaveAsPDFService.saveChartSetAsPdf;
       this.saveChartSetAsImageOrPdf = eeSaveAsPDFService.saveChartSetAsImageOrPdf;
 
-      this.switchViewMode = function(mode) {
-        this.viewMode = mode;
-        $rootScope.$emit('ee.googlechart.redraw');
-      };
-
-      this.toggleAutoReloadChartSet = function() {
-        if (this.autoReloadSwitch) {
-          autoRefreshIntervalId = $interval(this.loadChartSet, delay);
-
-        } else {
-          $interval.cancel(autoRefreshIntervalId);
-        }
-      };
-
-      this.showShare = function() {
-        eeShareService.showShareDialog({
-          sharedTitle: this.chartset.title,
-          sharedLink: $location.absUrl()
-        });
-      };
-
-      this.loadChartSet = function() {
+      /**
+       * @method
+       * @name loadChartSet
+       * @description Call EagleEyeWebService service to load the chart set data.
+       * @param {string} id The chart set's id or friendlyUrl.
+       */
+      this.loadChartSet = function(id) {
         EagleEyeWebService.getChartSetById(id).then(function(chartset) {
           controller.chartset = chartset;
         });
       };
 
+      /**
+       * @method
+       * @name loadChartSets
+       * @description Call EagleEyeWebService service to load the chart set list.
+       */
       this.loadChartSets = function() {
         EagleEyeWebService.getChartSets().then(function(chartSetList) {
           controller.chartSetList = chartSetList;
         });
       };
 
-      this.goToChartSet = function(chartset) {
-        $state.go('chartSet', { id: chartset._id });
+      /**
+       * @method
+       * @name setViewMode
+       * @description Call EagleEyeWebService service to load the chart set list.
+       * @param {string} mode The charts display mode, could be 'list' or 'column'.
+       */
+      this.setViewMode = function(mode) {
+        if (mode !== 'list' && mode !== 'column') return;
+
+        this.viewMode = mode;
+        $rootScope.$emit('ee.googlechart.redraw');
       };
 
-      function init() {
-        controller.loadChartSet();
-      }
+      /**
+       * @method
+       * @name onAutoReloadSwitchChange
+       * @description
+       * When the auto reload switch on page is changed by user, we should start or stop auto reload.
+       * @param {boolean} isAutoReloadSwitchOn Indicate the switch is on or off.
+       * @this ChartSetController
+       */
+      this.onAutoReloadSwitchChange = function(isAutoReloadSwitchOn) {
+        if (!angular.isDefined(isAutoReloadSwitchOn)) return;
 
-      init();
+        if (isAutoReloadSwitchOn) {
+          this.startAutoReloadChartSet();
+
+        } else {
+          this.stopAutoReloadChartSet();
+        }
+      };
+
+      /**
+       * @method
+       * @name startAutoReloadChartSet
+       * @description
+       * Start to reload chart set data automatically and periodically.
+       * It'll make use of `DELAY` property on this controller and assign the returned promise to
+       * controller's `autoReloadChartSetPromise` property.
+       * @this ChartSetController
+       */
+      this.startAutoReloadChartSet = function() {
+        this.autoReloadChartSetPromise = $interval(function() {
+          controller.loadChartSet(controller.id);
+        }, this.DELAY);
+      };
+
+      /**
+       * @method
+       * @name stopAutoReloadChartSet
+       * @description Stop to reload chart set data automatically and periodically.
+       * @returns {boolean} Returns `true` if it was successfully stopped.
+       * @this ChartSetController
+       */
+      this.stopAutoReloadChartSet = function() {
+        return $interval.cancel(this.autoReloadChartSetPromise);
+      };
+
+      /**
+       * @method
+       * @name showShare
+       * @description Show an sharing dialog.
+       * @param {string} title The chart set's title property.
+       */
+      this.showShare = function(title) {
+        eeShareService.showShareDialog({
+          sharedTitle: title,
+          sharedLink: $location.absUrl()
+        });
+      };
+
+      /**
+       * @method
+       * @name goToChartSet
+       * @param {string} id The id of the chart set.
+       */
+      this.goToChartSet = function(id) {
+        $state.go('chartSet', { id: id });
+      };
+
+      /**
+       * @method
+       * @name init
+       * @this ChartSetController
+       */
+      this.init = function() {
+        this.loadChartSet(this.id);
+      };
+
+      this.init();
     }
   ]);

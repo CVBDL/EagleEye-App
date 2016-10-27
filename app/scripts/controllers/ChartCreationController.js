@@ -19,18 +19,23 @@ angular.module('eagleeye')
       this.axisFormatOptions = AXIS_FORMAT_OPTIONS;
 
       this.chart = {};
-      // default chart type
+
+      /** @default 'ColumnChart' */
       this.chart.chartType = 'ColumnChart';
-      // default domain data type
+
+      /** @default 'string' */
       this.chart.domainDataType = 'string';
+
       this.chart.description = '';
       this.chart.friendlyUrl = '';
 
       this.chart.options = {};
       this.chart.options.title = '';
       this.chart.options.combolines = '';
-      // default isStacked option
+
+      /** @default false */
       this.chart.options.isStacked = false;
+
       this.chart.options.hAxis = {
         title: '',
         format: '' // default value

@@ -6,29 +6,29 @@
         <span flex></span>
         <span>
           <md-tooltip md-direction="botton">Auto Reload</md-tooltip>
-          <md-switch class="ee-auto-refresh-label ee-switch" ng-class="{ 'ee-auto-refresh-disabled': !chart.autoReloadSwitch }" aria-label="Auto Reload" ng-model="ctrl.autoReloadSwitch" ng-change="ctrl.toggleAutoReloadChartSet()">auto</md-switch>
+          <md-switch class="ee-auto-refresh-label ee-switch" ng-class="{ 'ee-auto-refresh-disabled': !ctrl.isAutoReloadSwitchOn }" aria-label="Auto Reload" ng-model="ctrl.isAutoReloadSwitchOn" ng-change="ctrl.onAutoReloadSwitchChange(ctrl.isAutoReloadSwitchOn)">auto</md-switch>
         </span>
         <md-button class="md-icon-button" aria-label="Reload">
           <md-tooltip md-direction="botton">Reload</md-tooltip>
-          <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.loadChartSet()"> refresh </md-icon>
+          <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.loadChartSet(ctrl.id)"> refresh </md-icon>
         </md-button>
         <md-button class="md-icon-button" aria-label="Switch to column view" ng-if="ctrl.viewMode === 'list'">
           <md-tooltip md-direction="botton">Switch to column view</md-tooltip>
-          <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.switchViewMode('column')"> view_column </md-icon>
+          <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.setViewMode('column')"> view_column </md-icon>
         </md-button>
         <md-button class="md-icon-button" aria-label="Switch to list view" ng-if="ctrl.viewMode === 'column'">
           <md-tooltip md-direction="botton">Switch to list view</md-tooltip>
-          <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.switchViewMode('list')"> list </md-icon>
+          <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.setViewMode('list')"> list </md-icon>
         </md-button>
         <md-button class="md-icon-button" aria-label="Save as pdf">
           <md-tooltip md-direction="botton">Save as pdf</md-tooltip>
           <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.saveChartSetAsPdf(ctrl.chartset)"> picture_as_pdf </md-icon>
         </md-button>
-        <md-button class="md-icon-button" aria-label="Settings" ng-click="ctrl.showShare()">
+        <md-button class="md-icon-button" aria-label="Settings" ng-click="ctrl.showShare(ctrl.chartset.title)">
           <md-tooltip md-direction="botton">Share</md-tooltip>
           <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> shared </md-icon>
         </md-button>
-        <md-select ng-show="ctrl.viewMode === 'column'" placeholder="View other chartset" ng-model="ctrl.selectChartSet" md-on-open="ctrl.loadChartSets()" style="min-width: 200px;" ng-change="ctrl.goToChartSet(ctrl.selectChartSet)">
+        <md-select ng-show="ctrl.viewMode === 'column'" placeholder="View other chartset" ng-model="ctrl.selectChartSet" md-on-open="ctrl.loadChartSets()" style="min-width: 200px;" ng-change="ctrl.goToChartSet(ctrl.selectChartSet._id)">
           <md-option ng-value="set" ng-repeat="set in ctrl.chartSetList">{{set.title}}</md-option>
         </md-select>
       </div>
@@ -39,7 +39,7 @@
           <p>{{ctrl.chartset.description}}</p>
         </md-content>
         <md-content class="ee-content" flex="none">
-          <md-select placeholder="View other chartset" ng-model="ctrl.selectChartSet" md-on-open="ctrl.loadChartSets()" style="min-width: 200px;" ng-change="ctrl.goToChartSet(ctrl.selectChartSet)">
+          <md-select placeholder="View other chartset" ng-model="ctrl.selectChartSet" md-on-open="ctrl.loadChartSets()" style="min-width: 200px;" ng-change="ctrl.goToChartSet(ctrl.selectChartSet._id)">
             <md-option ng-value="set" ng-repeat="set in ctrl.chartSetList">{{set.title}}</md-option>
           </md-select>
         </md-content>

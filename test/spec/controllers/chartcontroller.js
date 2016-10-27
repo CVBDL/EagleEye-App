@@ -90,11 +90,14 @@ describe('Controller: ChartController', function () {
     expect(ChartController).toBeDefined();
   });
 
+  it('should set DELAY constant value', function() {
+    expect(ChartController.DELAY).toBe(60 * 1000);
+  });
+
   it('should initialize data models', function() {
     expect(ChartController.id).toBe('id');
     expect(ChartController.autoReloadChartPromise).toBe(null);
     expect(ChartController.isAutoReloadSwitchOn).toBe(false);
-    expect(ChartController.delay).toBe(10 * 1000);
     expect(ChartController.chart).toBeDefined();
   });
 
@@ -154,7 +157,7 @@ describe('Controller: ChartController', function () {
   it('should register an interval task with startAutoReloadChart()', function() {
     spyOn(ChartController, 'loadChart');
     ChartController.id = 'id';
-    ChartController.delay = 1000;
+    ChartController.DELAY = 1000;
     ChartController.startAutoReloadChart();
     expect(ChartController.autoReloadChartPromise.then).toBeDefined();
     $interval.flush(1000);
@@ -164,7 +167,7 @@ describe('Controller: ChartController', function () {
   it('should stop an interval task with stopAutoReloadChart()', function() {
     spyOn(ChartController, 'loadChart');
     spyOn($interval, 'cancel').and.callThrough();
-    ChartController.delay = 1000;
+    ChartController.DELAY = 1000;
     ChartController.startAutoReloadChart();
     expect(ChartController.autoReloadChartPromise.then).toBeDefined();
     $interval.flush(1000);

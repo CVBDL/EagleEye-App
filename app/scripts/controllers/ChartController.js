@@ -16,9 +16,16 @@ angular.module('eagleeye')
       var controller = this;
 
       this.id = $stateParams.id;
-      this.autoReloadChartPromise = null;
+
+      /** @constant {number} */
+      this.DELAY = 60 * 1000;
+
+      /** @default false */
       this.isAutoReloadSwitchOn = false;
-      this.delay = 10 * 1000;
+
+      /** @default null */
+      this.autoReloadChartPromise = null;
+
       this.chart = {};
 
       /**
@@ -57,14 +64,14 @@ angular.module('eagleeye')
        * @name startAutoReloadChart
        * @description
        * Start to reload chart data automatically and periodically.
-       * It'll make use of `delay` property on this controller and assign the returned promise to
+       * It'll make use of `DELAY` property on this controller and assign the returned promise to
        * controller's `autoReloadChartPromise` property.
        * @this ChartController
        */
       this.startAutoReloadChart = function() {
         this.autoReloadChartPromise = $interval(function() {
           controller.loadChart(controller.id);
-        }, this.delay);
+        }, this.DELAY);
       };
 
       /**
@@ -105,7 +112,6 @@ angular.module('eagleeye')
       /**
        * @method
        * @name init
-       * @description Initialize this controller
        * @this ChartController
        */
       this.init = function() {
