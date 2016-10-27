@@ -17,6 +17,7 @@ describe('Controller: ChartOptionsController', function() {
   // load main module
   beforeEach(module('eagleeye'));
 
+  // mock dependent services
   beforeEach(module(function($provide) {
     $provide.factory('GoogleChartsService', function() {
       var makeChartType = jasmine.createSpy('makeChartType').and.callFake(function(chartType) {
@@ -95,10 +96,8 @@ describe('Controller: ChartOptionsController', function() {
   }));
 
   // reset router
-  beforeEach(module(function($urlRouterProvider) {
-    $urlRouterProvider.otherwise(function() {
-      return false;
-    });
+  beforeEach(module(function ($urlRouterProvider) {
+    $urlRouterProvider.otherwise(function() { return false; });
   }));
 
   // inject services

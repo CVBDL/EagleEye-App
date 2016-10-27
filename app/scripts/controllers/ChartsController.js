@@ -61,6 +61,7 @@ angular.module('eagleeye')
       /**
        * @method
        * @name init
+       * @this ChartsController
        */
       this.init = function() {
         this.loadChartList();

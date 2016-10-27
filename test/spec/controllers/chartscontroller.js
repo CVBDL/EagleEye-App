@@ -1,156 +1,77 @@
 'use strict';
 
 describe('Controller: ChartsController', function() {
-  var rootEndpoint = 'http://127.0.0.1:3000/',
-    chartsEndpoint = 'http://127.0.0.1:3000/api/v1/charts',
-    deleteChartEndpoint = 'http://127.0.0.1:3000/api/v1/charts/id',
-    chartList = [];
-
   var $controller,
-    $location,
+    $httpBackend,
     $q,
     $rootScope,
     $state,
-    $templateCache,
-    $httpBackend,
     EagleEyeWebService,
     eeDeleteConfirmationService;
 
-  var ChartsController,
-    $event;
+  var ChartsController;
 
   // load main module
   beforeEach(module('eagleeye'));
 
   // mock dependent services
   beforeEach(module(function($provide) {
-
-    // mock data in db
-    chartList = [{
-      "_id": "57ee0e635d2722401b951c35",
-      "description": "",
-      "domainDataType": "string",
-      "options": {
-        "title": "Image",
-        "hAxis": {},
-        "vAxis": {},
-        "combolines": "",
-        "isStacked": false,
-        "chartArea": {}
-      },
-      "chartType": "ImageChart",
-      "datatable": {},
-      "type": "ImageChart",
-      "image_file_name": "IC_763393rs34HDxVFhQs1OF5fUIFDJxn.png",
-      "browserDownloadUrl": {
-        "excel": null
-      },
-      "createdAt": "2016-09-30T07:04:03.534Z",
-      "updatedAt": "2016-09-30T07:04:23.430Z"
-    }, {
-      "_id": "57eb31215d2722401b951c32",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit,",
-      "chartType": "LineChart",
-      "domainDataType": "number",
-      "options": {
-        "title": "A very very cool pagination test case",
-        "hAxis": {
-          "title": "",
-          "format": ""
-        },
-        "vAxis": {
-          "title": "",
-          "format": ""
-        },
-        "combolines": "",
-        "isStacked": false,
-        "chartArea": {
-          "left": "",
-          "width": ""
-        }
-      },
-      "datatable": {},
-      "type": "chart",
-      "browserDownloadUrl": {
-        "excel": "http://127.0.0.1:3000/api/v1/download/excels/57eb31215d2722401b951c32"
-      },
-      "createdAt": "2016-09-28T02:55:29.789Z",
-      "updatedAt": "2016-09-28T02:55:29.789Z"
-    }];
-
-    // mock EagleEyeWebService service
     $provide.factory('EagleEyeWebService', function($q) {
+      var qGetCharts,
+        qDeleteChartById;
+
       var getCharts = jasmine.createSpy('getCharts').and.callFake(function() {
-        return $q.when(chartList);
+        qGetCharts = $q.defer();
+
+        return qGetCharts.promise;
       });
+      var deleteChartById = jasmine.createSpy('deleteChartById').and.callFake(function(chartId) {
+        qDeleteChartById = $q.defer();
 
-      var deleteChartById = jasmine.createSpy('deleteChartById').and.callFake(function(id) {
-        var len = chartList.length;
-
-        while (len--) {
-          if (chartList[len]._id === id) {
-            chartList.splice(len, 1);
-            break;
-          }
-        }
-
-        return $q.when(true);
+        return qDeleteChartById.promise;
       });
 
       return {
         getCharts: getCharts,
-        deleteChartById: deleteChartById
-      }
+        resolveGetCharts: function(value) { qGetCharts.resolve(value); },
+        rejectGetCharts: function(reason) { qGetCharts.reject(reason); },
+        deleteChartById: deleteChartById,
+        resolveDeleteChartById: function(value) { qDeleteChartById.resolve(value); },
+        rejectDeleteChartById: function(reason) { qDeleteChartById.reject(reason); }
+      };
     });
 
-    // mock eeDeleteConfirmationService service
     $provide.factory('eeDeleteConfirmationService', function($q) {
-      var deferred;
-      var showConfirmDialog = jasmine.createSpy('showConfirmDialog').and.callFake(function(config) {
-        deferred = $q.defer();
+      var qShowConfirmDialog;
 
-        return deferred.promise;
+      var showConfirmDialog = jasmine.createSpy('showConfirmDialog').and.callFake(function(config) {
+        qShowConfirmDialog = $q.defer();
+
+        return qShowConfirmDialog.promise;
       });
-      var resolve = function(value) {
-        deferred.resolve(value);
-      };
-      var reject = function(reason) {
-        deferred.reject(reason);
-      };
 
       return {
         showConfirmDialog: showConfirmDialog,
-        resolve: resolve,
-        reject: reject
+        resolveShowConfirmDialog: function(value) { qShowConfirmDialog.resolve(value); },
+        rejectShowConfirmDialog: function(reason) { qShowConfirmDialog.reject(reason); }
       };
     });
-
-    $event = {
-      stopPropagation: jasmine.createSpy('stopPropagation')
-    };
   }));
 
   // reset router
   beforeEach(module(function ($urlRouterProvider) {
-    $urlRouterProvider.otherwise(function(){ return false; });
+    $urlRouterProvider.otherwise(function() { return false; });
   }));
 
   // inject services
-  beforeEach(inject(function(_$controller_, _$location_, _$q_, _$rootScope_, _$state_, _$templateCache_, _$httpBackend_, _EagleEyeWebService_, _eeDeleteConfirmationService_) {
+  beforeEach(inject(function(_$controller_, _$q_, _$rootScope_, _$state_, _$httpBackend_, _EagleEyeWebService_, _eeDeleteConfirmationService_) {
     $controller = _$controller_;
-    $location = _$location_;
     $q = _$q_;
     $rootScope = _$rootScope_;
     $state = _$state_;
-    $templateCache = _$templateCache_;
     $httpBackend = _$httpBackend_;
     EagleEyeWebService = _EagleEyeWebService_;
     eeDeleteConfirmationService = _eeDeleteConfirmationService_;
-  }));
-
-  // mock data
-  beforeEach(inject(function() {
-    $templateCache.put('views/chart-creation.html', '');
   }));
 
   beforeEach(inject(function() {
@@ -166,95 +87,103 @@ describe('Controller: ChartsController', function() {
     $httpBackend.verifyNoOutstandingRequest();
   });
 
-  it('should initialize controller correctly', function() {
+  it('should be able to create controller', function() {
     expect(ChartsController).toBeDefined();
-    expect(ChartsController.isLoading).toBe(true);
-    expect(ChartsController.chartList).toBeUndefined();
-    expect(EagleEyeWebService.getCharts).toHaveBeenCalled();
-
-    // resolve promise
-    $rootScope.$digest();
-
-    expect(ChartsController.isLoading).toBe(false);
-    expect(ChartsController.chartList).toEqual(chartList);
   });
 
-  it('should be able to load chart list', function() {
-    $rootScope.$digest();
-    expect(ChartsController.isLoading).toBe(false);
-    expect(ChartsController.chartList).toEqual(chartList);
+  it('should set default isLoading model', function() {
+    expect(ChartsController.isLoading).toBe(true);
+  });
 
-    // change mock data
-    chartList = [];
-    ChartsController.loadChartList();
+  it('should call init() to initialize controller', function() {
     expect(EagleEyeWebService.getCharts).toHaveBeenCalled();
+    EagleEyeWebService.resolveGetCharts([]);
     $rootScope.$digest();
     expect(ChartsController.isLoading).toBe(false);
     expect(ChartsController.chartList).toEqual([]);
   });
 
-  it('should stop event propagation when click delete chart', function() {
-    var chart = chartList[0];
-
-    $rootScope.$digest();
-    ChartsController.onClickDeleteChart($event, chart);
-    expect($event.stopPropagation).toHaveBeenCalled();
+  describe('init()', function() {
+    it('should call loadChartList() to fetch charts', function() {
+      ChartsController.init();
+      expect(EagleEyeWebService.getCharts).toHaveBeenCalled();
+    });
   });
 
-  it('should show confirm dialog when click delete chart', function() {
-    var chart = chartList[0];
+  describe('loadChartList()', function() {
+    it('should call EagleEyeWebService service to fetch charts from server', function() {
+      ChartsController.loadChartList();
+      expect(EagleEyeWebService.getCharts).toHaveBeenCalled();
+    });
 
-    $rootScope.$digest();
-    ChartsController.onClickDeleteChart($event, chart);
-    expect(eeDeleteConfirmationService.showConfirmDialog).toHaveBeenCalledWith({ title: chart.options.title });
+    it('should set isLoading to false and refresh chartList after fetching charts', function() {
+      ChartsController.loadChartList();
+      expect(EagleEyeWebService.getCharts).toHaveBeenCalled();
+      EagleEyeWebService.resolveGetCharts([]);
+      $rootScope.$digest();
+      expect(ChartsController.isLoading).toBe(false);
+      expect(ChartsController.chartList).toEqual([]);
+    });
   });
 
-  it('should be able to cancel delete a chart', function() {
-    var chart = chartList[0];
+  describe('onClickDeleteChart()', function() {
+    var $event,
+      chart;
 
-    spyOn(ChartsController, 'loadChartList');
+    beforeEach(function() {
+      spyOn(ChartsController, 'loadChartList');
 
-    $rootScope.$digest();
-    ChartsController.onClickDeleteChart($event, chart);
-    eeDeleteConfirmationService.reject();
-    $rootScope.$digest();
-    expect(EagleEyeWebService.deleteChartById).not.toHaveBeenCalled();
-    $rootScope.$digest();
-    expect(ChartsController.loadChartList).not.toHaveBeenCalled();
+      $event = {
+        stopPropagation: jasmine.createSpy('stopPropagation')
+      };
+
+      chart = {
+        _id: 'id',
+        options: { title: 'title' }
+      }
+    });
+
+    it('should stop default event propagation', function() {
+      ChartsController.onClickDeleteChart($event, chart);
+      expect($event.stopPropagation).toHaveBeenCalled();
+    });
+
+    it('should show confirm dialog before delete', function() {
+      ChartsController.onClickDeleteChart($event, chart);
+      expect(eeDeleteConfirmationService.showConfirmDialog).toHaveBeenCalledWith({ title: 'title' });
+    });
+
+    it('should cancel delete if user click cancel', function() {
+      ChartsController.onClickDeleteChart($event, chart);
+      eeDeleteConfirmationService.rejectShowConfirmDialog();
+      $rootScope.$digest();
+      expect(EagleEyeWebService.deleteChartById).not.toHaveBeenCalled();
+      expect(ChartsController.loadChartList).not.toHaveBeenCalled();
+    });
+
+    it('should delete the chart if user click ok', function() {
+      ChartsController.onClickDeleteChart($event, chart);
+      eeDeleteConfirmationService.resolveShowConfirmDialog();
+      $rootScope.$digest();
+      expect(EagleEyeWebService.deleteChartById).toHaveBeenCalledWith('id');
+    });
+
+    it('should refresh chart list after delete a chart', function() {
+      ChartsController.onClickDeleteChart($event, chart);
+      eeDeleteConfirmationService.resolveShowConfirmDialog();
+      $rootScope.$digest();
+      EagleEyeWebService.resolveDeleteChartById();
+      $rootScope.$digest();
+      expect(ChartsController.loadChartList).toHaveBeenCalled();
+    });
   });
 
-  it('should be able to delete a chart', function() {
-    var chart = chartList[0];
+  describe('createChart()', function() {
+    it('should go to chartCreation state', function() {
+      spyOn($state, 'go');
 
-    spyOn(ChartsController, 'loadChartList');
-
-    $rootScope.$digest();
-    ChartsController.onClickDeleteChart($event, chart);
-    eeDeleteConfirmationService.resolve();
-    $rootScope.$digest();
-    expect(EagleEyeWebService.deleteChartById).toHaveBeenCalledWith(chart._id);
-    $rootScope.$digest();
-    expect(ChartsController.loadChartList).toHaveBeenCalled();
-    $rootScope.$digest();
-    expect(ChartsController.isLoading).toBe(false);
-    expect(ChartsController.chartList.length).toBe(1);
-    expect(ChartsController.chartList[0]._id).not.toBe(chart._id);
+      ChartsController.createChart();
+      expect($state.go).toHaveBeenCalledWith('chartCreation');
+    });
   });
-
-  it('should go to chartCreation state', function() {
-    $rootScope.$digest();
-    ChartsController.createChart();
-    $rootScope.$digest();
-    expect($state.current.name).toBe('chartCreation');
-    expect($location.url()).toBe('/charts/new');
-  });
-
-  it('should be able to load chart list when called init()', function() {
-    spyOn(ChartsController, 'loadChartList');
-
-    $rootScope.$digest();
-    ChartsController.init();
-    expect(ChartsController.loadChartList).toHaveBeenCalled();
-  });
-
 });

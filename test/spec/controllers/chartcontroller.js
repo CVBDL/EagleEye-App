@@ -14,8 +14,10 @@ describe('Controller: ChartController', function () {
 
   var ChartController;
 
+  // load main module
   beforeEach(module('eagleeye'));
 
+  // mock dependent services
   beforeEach(module(function($provide) {
     $provide.factory('EagleEyeWebService', function($q) {
       var qGetChartById;
@@ -52,7 +54,7 @@ describe('Controller: ChartController', function () {
 
   // reset router
   beforeEach(module(function ($urlRouterProvider) {
-    $urlRouterProvider.otherwise( function(){ return false; });
+    $urlRouterProvider.otherwise(function() { return false; });
   }));
 
   beforeEach(inject(function (_$controller_, _$q_, _$rootScope_, _$stateParams_, _$httpBackend_, _$location_, _$interval_, _EagleEyeWebService_, _eeShareService_, _eeSaveAsPDFService_) {
