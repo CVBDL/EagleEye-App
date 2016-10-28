@@ -1,5 +1,29 @@
 'use strict';
 
+describe('Constant:', function() {
+  var FRIENDLY_URL_PREFIX_CHART,
+    FRIENDLY_URL_PREFIX_CHARTSET;
+
+  beforeEach(module('eagleeye'));
+
+  beforeEach(inject(function (_FRIENDLY_URL_PREFIX_CHART_, _FRIENDLY_URL_PREFIX_CHARTSET_) {
+    FRIENDLY_URL_PREFIX_CHART = _FRIENDLY_URL_PREFIX_CHART_;
+    FRIENDLY_URL_PREFIX_CHARTSET = _FRIENDLY_URL_PREFIX_CHARTSET_;
+  }));
+
+  describe('FRIENDLY_URL_PREFIX_CHART', function() {
+    it('should be initialized', function() {
+      expect(FRIENDLY_URL_PREFIX_CHART).toBe('c-');
+    });
+  });
+
+  describe('FRIENDLY_URL_PREFIX_CHARTSET', function() {
+    it('should be initialized', function() {
+      expect(FRIENDLY_URL_PREFIX_CHARTSET).toBe('s-');
+    });
+  });
+});
+
 describe('Service: EagleEyeWebService', function () {
 
   var chartId                      = '57837029c66dc1a4570962b6';

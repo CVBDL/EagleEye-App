@@ -6,21 +6,17 @@ describe('Constant:', function() {
     IS_STACKED_OPTIONS,
     AXIS_FORMAT_OPTIONS,
     DEFAULT_CHART_OPTIONS,
-    DATA_TABLE_SAMPLES,
-    FRIENDLY_URL_PREFIX_CHART,
-    FRIENDLY_URL_PREFIX_CHARTSET;
+    DATA_TABLE_SAMPLES;
 
   beforeEach(module('eagleeye'));
 
-  beforeEach(inject(function (_CHART_TYPE_OPTIONS_, _DOMAIN_DATA_TYPE_, _IS_STACKED_OPTIONS_, _AXIS_FORMAT_OPTIONS_, _DEFAULT_CHART_OPTIONS_, _DATA_TABLE_SAMPLES_, _FRIENDLY_URL_PREFIX_CHART_, _FRIENDLY_URL_PREFIX_CHARTSET_) {
+  beforeEach(inject(function (_CHART_TYPE_OPTIONS_, _DOMAIN_DATA_TYPE_, _IS_STACKED_OPTIONS_, _AXIS_FORMAT_OPTIONS_, _DEFAULT_CHART_OPTIONS_, _DATA_TABLE_SAMPLES_) {
     CHART_TYPE_OPTIONS = _CHART_TYPE_OPTIONS_;
     DOMAIN_DATA_TYPE = _DOMAIN_DATA_TYPE_;
     IS_STACKED_OPTIONS = _IS_STACKED_OPTIONS_;
     AXIS_FORMAT_OPTIONS = _AXIS_FORMAT_OPTIONS_;
     DEFAULT_CHART_OPTIONS = _DEFAULT_CHART_OPTIONS_;
     DATA_TABLE_SAMPLES = _DATA_TABLE_SAMPLES_;
-    FRIENDLY_URL_PREFIX_CHART = _FRIENDLY_URL_PREFIX_CHART_;
-    FRIENDLY_URL_PREFIX_CHARTSET = _FRIENDLY_URL_PREFIX_CHARTSET_;
   }));
 
   describe('CHART_TYPE_OPTIONS', function() {
@@ -319,18 +315,6 @@ describe('Constant:', function() {
           datetime: { "cols": [{ "id": "", "label": "Time of Day", "pattern": "", "type": "datetime" }, { "id": "", "label": "Motivation Level", "pattern": "", "type": "number" }, { "id": "", "label": "Effect Level", "pattern": "", "type": "number" }], "rows": [{ "c": [{ "v": "Date(2015, 0, 1)" }, { "v": 5 }, { "v": 5 }] }, { "c": [{ "v": "Date(2015, 0, 1, 0, 30, 0)" }, { "v": 5.1 }, { "v": 4.9 }] }, { "c": [{ "v": "Date(2015, 0, 1, 1, 0, 0)" }, { "v": 6.2 }, { "v": 5 }] }, { "c": [{ "v": "Date(2015, 0, 1, 2, 0, 0)" }, { "v": 7 }, { "v": 5 }] }, { "c": [{ "v": "Date(2015, 0, 1, 3, 0, 0)" }, { "v": 6.4 }, { "v": 5 }] }, { "c": [{ "v": "Date(2015, 0, 1, 4, 0, 0)" }, { "v": 3 }, { "v": 3 }] }, { "c": [{ "v": "Date(2015, 0, 1, 5, 0, 0)" }, { "v": 4 }, { "v": 3 }] }, { "c": [{ "v": "Date(2015, 0, 1, 6, 0, 0)" }, { "v": 4.2 }, { "v": 3 }] }, { "c": [{ "v": "Date(2015, 0, 1, 7, 0, 0)" }, { "v": 1 }, { "v": 1 }] }, { "c": [{ "v": "Date(2015, 0, 1, 8, 0, 0)" }, { "v": 2.7 }, { "v": 3 }] }, { "c": [{ "v": "Date(2015, 0, 1, 9, 0, 0)" }, { "v": 3.9 }, { "v": 5 }] }, { "c": [{ "v": "Date(2015, 0, 1, 10, 0, 0)" }, { "v": 3.8 }, { "v": 9 }] }, { "c": [{ "v": "Date(2015, 0, 1, 11, 0, 0)" }, { "v": 5 }, { "v": 9 }] }, { "c": [{ "v": "Date(2015, 0, 1, 12, 0, 0)" }, { "v": 6.2 }, { "v": 9 }] }, { "c": [{ "v": "Date(2015, 0, 1, 13, 0, 0)" }, { "v": 7.8 }, { "v": 9 }] }, { "c": [{ "v": "Date(2015, 0, 1, 14, 0, 0)" }, { "v": 9.1 }, { "v": 9 }] }, { "c": [{ "v": "Date(2015, 0, 1, 15, 0, 0)" }, { "v": 8 }, { "v": 8 }] }, { "c": [{ "v": "Date(2015, 0, 1, 16, 0, 0)" }, { "v": 6.8 }, { "v": 8 }] }, { "c": [{ "v": "Date(2015, 0, 1, 17, 0, 0)" }, { "v": 7.2 }, { "v": 7 }] }, { "c": [{ "v": "Date(2015, 0, 1, 18, 0, 0)" }, { "v": 4 }, { "v": 7 }] }, { "c": [{ "v": "Date(2015, 0, 1, 19, 0, 0)" }, { "v": 5.9 }, { "v": 6 }] }, { "c": [{ "v": "Date(2015, 0, 1, 20, 0, 0)" }, { "v": 6.3 }, { "v": 6 }] }, { "c": [{ "v": "Date(2015, 0, 1, 21, 0, 0)" }, { "v": 6 }, { "v": 6 }] }, { "c": [{ "v": "Date(2015, 0, 1, 22, 0, 0)" }, { "v": 3 }, { "v": 5 }] }, { "c": [{ "v": "Date(2015, 0, 1, 23, 0, 0)" }, { "v": 2.2 }, { "v": 3 }] }, { "c": [{ "v": "Date(2015, 0, 2)" }, { "v": 2.4 }, { "v": 1 }] }] }
         }
       });
-    });
-  });
-
-  describe('FRIENDLY_URL_PREFIX_CHART', function() {
-    it('should be initialized', function() {
-      expect(FRIENDLY_URL_PREFIX_CHART).toBe('c-');
-    });
-  });
-
-  describe('FRIENDLY_URL_PREFIX_CHARTSET', function() {
-    it('should be initialized', function() {
-      expect(FRIENDLY_URL_PREFIX_CHARTSET).toBe('s-');
     });
   });
 });

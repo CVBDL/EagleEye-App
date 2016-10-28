@@ -16,87 +16,155 @@ angular.module('eagleeye')
         friendlyUrlPrefix = 's-';
 
       this.searchKeyword = '';
-      this.chartset = {
-        title: '',
-        description: '',
-        friendlyUrl: '',
-        charts: []
-      };
 
+      this.chartset = {};
+
+      this.chartset.title = '';
+      this.chartset.description = '';
+      this.chartset.friendlyUrl = '';
+      this.chartset.charts = [];
+
+      /**
+       * @method
+       * @name filterFunction
+       * @description Check if a chart matches the current search condition.
+       * @param {Object} chart The chart data object.
+       * @returns {boolean} `true` for match this filter.
+       */
       this.filterFunction = function(chart) {
         return chart.options.title.indexOf(controller.searchKeyword) >= 0 ||
           chart.description.indexOf(controller.searchKeyword) >= 0;
-      }
+      };
 
-      this.onCheckboxChanged = function(chart) {
+      /**
+       * @method
+       * @name onChartCheckedStatusChange
+       * @description Event handler of check or uncheck a chart in the list.
+       * @param {Object} chart The chart data object.
+       */
+      this.onChartCheckedStatusChange = function(chart) {
         var index = -1;
 
         if (chart.checked) {
-          controller.chartset.charts.push(chart);
+          this.chartset.charts.push(chart);
 
         } else {
-          index = controller.chartset.charts.indexOf(chart);
+          index = this.chartset.charts.indexOf(chart);
 
           if (index > -1) {
-            controller.chartset.charts.splice(index, 1);
+            this.chartset.charts.splice(index, 1);
           }
         }
       };
 
+      /**
+       * @method
+       * @name moveUp
+       * @description Change chart order one level up.
+       * @param {Object} chart The chart data object.
+       */
       this.moveUp = function(chart) {
-        var index = controller.chartset.charts.indexOf(chart);
+        var index = this.chartset.charts.indexOf(chart);
 
         if (index > 0) {
-          controller.chartset.charts.splice(index, 1);
-          controller.chartset.charts.splice(index - 1, 0, chart);
+          this.chartset.charts.splice(index, 1);
+          this.chartset.charts.splice(index - 1, 0, chart);
         }
       };
 
+      /**
+       * @method
+       * @name moveDown
+       * @description Change chart order one level down.
+       * @param {Object} chart The chart data object.
+       */
       this.moveDown = function(chart) {
-        var index = controller.chartset.charts.indexOf(chart);
+        var index = this.chartset.charts.indexOf(chart);
 
-        if (index < controller.chartset.charts.length - 1) {
-          controller.chartset.charts.splice(index, 1);
-          controller.chartset.charts.splice(index + 1, 0, chart);
+        if (index < this.chartset.charts.length - 1) {
+          this.chartset.charts.splice(index, 1);
+          this.chartset.charts.splice(index + 1, 0, chart);
         }
       };
 
-      this.save = function() {
-        var friendlyUrl = '',
-          chartIds = [];
+      /**
+       * @method
+       * @name makeChartsList
+       * @description Generate the current selected charts' `_id` property.
+       * @param {Array} charts A charts list.
+       * @returns {Array} List of given charts' `_id`.
+       */
+      this.makeChartsList = function(charts) {
+        var chartIdList = [];
 
-        if (this.chartset.friendlyUrl) {
-          friendlyUrl = friendlyUrlPrefix + this.chartset.friendlyUrl;
-        }
-
-        this.chartset.charts.forEach(function(chart) {
-          chartIds.push(chart._id);
+        charts.forEach(function(chart) {
+          chartIdList.push(chart._id);
         });
 
-        var data = JSON.stringify({
-          title: this.chartset.title,
-          description: this.chartset.description,
-          friendlyUrl: friendlyUrl,
-          charts: chartIds
-        });
+        return chartIdList;
+      };
 
-        EagleEyeWebService.createChartSet(data).then(function(newChartSet) {
+      /**
+       * @method
+       * @name makeChartSetPayload
+       *
+       * @description
+       * Prepare the payload POST to server later, so that we could create a new chart set.
+       * {@link https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#create-a-chart-set}.
+       *
+       * @param {Object} chartset The chart data model.
+       * @returns {Object} The payload object.
+       */
+      this.makeChartSetPayload = function(chartset) {
+        var payload = {};
+
+        payload.title = chartset.title || '';
+        payload.description = chartset.description || '';
+        payload.friendlyUrl = EagleEyeWebService.makeFriendlyUrl('chartset', chartset.friendlyUrl);
+        payload.charts = this.makeChartsList(chartset.charts);
+
+        return payload;
+      };
+
+      /**
+       * @method
+       * @name save
+       *
+       * @description
+       * Prepare the payload POST to server later, so that we could create a new chart set.
+       * {@link https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#create-a-chart-set}.
+       *
+       * @param {Object} chartset The chart data model.
+       */
+      this.save = function(chartset) {
+        var payload = this.makeChartSetPayload(chartset);
+
+        EagleEyeWebService.createChartSet(payload).then(function(newChartSet) {
           $state.go('chartSet', {
             id: newChartSet._id
           });
         });
       };
 
-      function loadChartList() {
+      /**
+       * @method
+       * @name loadChartList
+       * @description Fetch the chart list.
+       */
+      this.loadChartList = function() {
         EagleEyeWebService.getCharts().then(function(chartList) {
           controller.chartList = chartList;
         });
-      }
+      };
 
-      function init() {
-        loadChartList();
-      }
+      /**
+       * @method
+       * @name init
+       */
+      this.init = function() {
+        this.loadChartList();
+      };
 
-      init();
+      this.init();
     }
   ]);

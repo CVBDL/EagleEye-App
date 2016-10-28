@@ -60,7 +60,7 @@ angular.module('eagleeye')
         var payload = {};
 
         payload.description = chart.description || '';
-        payload.friendlyUrl = GoogleChartsService.makeFriendlyUrl('chart', chart.friendlyUrl);
+        payload.friendlyUrl = EagleEyeWebService.makeFriendlyUrl('chart', chart.friendlyUrl);
         payload.options = GoogleChartsService.makeConfigurationOptions(chart.chartType, chart.options);
 
         return payload;

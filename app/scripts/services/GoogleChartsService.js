@@ -317,28 +317,6 @@ angular.module('eagleeye')
 
   /**
    * @ngdoc service
-   * @name FRIENDLY_URL_PREFIX_CHART
-   *
-   * @description
-   * The prefix of chart `friendlyUrl` property.
-   * `friendlyUrl` is unique and could be empty ''.
-   * We need it to distinguish `_id` and `friendlyUrl`.
-   */
-  .constant('FRIENDLY_URL_PREFIX_CHART', 'c-')
-
-  /**
-   * @ngdoc service
-   * @name FRIENDLY_URL_PREFIX_CHARTSET
-   *
-   * @description
-   * The prefix of chart set `friendlyUrl` property.
-   * `friendlyUrl` is unique and could be empty ''.
-   * We need it to distinguish `_id` and `friendlyUrl`.
-   */
-  .constant('FRIENDLY_URL_PREFIX_CHARTSET', 's-')
-
-  /**
-   * @ngdoc service
    * @name GoogleChartsService
    * @description Common google charts utilities.
    */

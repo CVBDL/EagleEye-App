@@ -8,15 +8,42 @@
  * Factory in the eagleeye.
  */
 angular.module('eagleeye')
+
+  /**
+   * @ngdoc service
+   * @name FRIENDLY_URL_PREFIX_CHART
+   *
+   * @description
+   * The prefix of chart `friendlyUrl` property.
+   * `friendlyUrl` is unique and could be empty ''.
+   * We need it to distinguish `_id` and `friendlyUrl`.
+   */
+  .constant('FRIENDLY_URL_PREFIX_CHART', 'c-')
+
+  /**
+   * @ngdoc service
+   * @name FRIENDLY_URL_PREFIX_CHARTSET
+   *
+   * @description
+   * The prefix of chart set `friendlyUrl` property.
+   * `friendlyUrl` is unique and could be empty ''.
+   * We need it to distinguish `_id` and `friendlyUrl`.
+   */
+  .constant('FRIENDLY_URL_PREFIX_CHARTSET', 's-')
+
   .factory('EagleEyeWebService', [
     '$http',
     '$q',
     'Upload',
-    function EagleEyeWebService($http, $q, Upload) {
+    'FRIENDLY_URL_PREFIX_CHART',
+    'FRIENDLY_URL_PREFIX_CHARTSET',
+    function EagleEyeWebService($http, $q, Upload, FRIENDLY_URL_PREFIX_CHART, FRIENDLY_URL_PREFIX_CHARTSET) {
+      var self = {};
+
       var isRootEndpointInitialized = false,
         rootEndpoint = '';
 
-      function getRootEndpoint() {
+      self.getRootEndpoint = function() {
         if (isRootEndpointInitialized) {
           return $q.when(rootEndpoint);
 
@@ -28,131 +55,131 @@ angular.module('eagleeye')
             return rootEndpoint;
           });
         }
-      }
+      };
 
-      function fetchServer(options) {
-        return getRootEndpoint().then(function(rootEndpoint) {
+      self.fetchServer = function(options) {
+        return self.getRootEndpoint().then(function(rootEndpoint) {
           options.url = rootEndpoint + 'api/v1/' + options.url;
 
             return $http(options).then(function(response) {
               return response.data;
             });
         });
-      }
+      };
 
-      function getCharts() {
+      self.getCharts = function() {
         // https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#list-all-charts
         // GET /api/v1/charts
         var url = 'charts';
 
-        return fetchServer({
+        return self.fetchServer({
           method: 'GET',
           url: url
         });
-      }
+      };
 
-      function getChartById(id) {
+      self.getChartById = function(id) {
         // https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#get-one-chart
         // GET /api/v1/charts/:_id
         var url = 'charts/' + id;
 
-        return fetchServer({
+        return self.fetchServer({
           method: 'GET',
           url: url
         });
-      }
+      };
 
-      function createChart(data) {
+      self.createChart = function(data) {
         // https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#create-a-new-chart
         // POST /api/v1/charts
         var url = 'charts';
 
-        return fetchServer({
+        return self.fetchServer({
           method: 'POST',
           url: url,
           data: JSON.stringify(data)
         });
-      }
+      };
 
-      function updateChartById(id, data) {
+      self.updateChartById = function(id, data) {
         // https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#edit-a-chart
         // PUT /api/v1/charts
         var url = 'charts/' + id;
 
-        return fetchServer({
+        return self.fetchServer({
           method: 'PUT',
           url: url,
           data: JSON.stringify(data)
         });
-      }
+      };
 
-      function deleteChartById(id) {
+      self.deleteChartById = function(id) {
         // https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#delete-one-chart
         // DELETE /api/v1/charts
         var url = 'charts/' + id;
 
-        return fetchServer({
+        return self.fetchServer({
           method: 'DELETE',
           url: url
         });
-      }
+      };
 
-      function getChartSets() {
+      self.getChartSets = function() {
         // GET /api/v1/chart-sets
         var url = 'chart-sets';
 
-        return fetchServer({
+        return self.fetchServer({
           method: 'GET',
           url: url
         });
-      }
+      };
 
-      function getChartSetById(id) {
+      self.getChartSetById = function(id) {
         // GET /api/v1/chart-sets/:_id
         var url = 'chart-sets/' + id;
 
-        return fetchServer({
+        return self.fetchServer({
           method: 'GET',
           url: url
         });
-      }
+      };
 
-      function createChartSet(data) {
+      self.createChartSet = function(data) {
         // POST /api/v1/chart-sets
         var url = 'chart-sets';
 
-        return fetchServer({
+        return self.fetchServer({
           method: 'POST',
           url: url,
-          data: data
+          data: JSON.stringify(data)
         });
-      }
+      };
 
-      function deleteChartSetById(id) {
+      self.deleteChartSetById = function(id) {
         // DELETE /api/v1/chart-sets/:_id
         var url = 'chart-sets/' + id;
 
-        return fetchServer({
+        return self.fetchServer({
           method: 'DELETE',
           url: url
         });
-      }
+      };
 
-      function updateChartSetById(id, data) {
+      self.updateChartSetById = function(id, data) {
         // DELETE /api/v1/chart-sets/:_id
         var url = 'chart-sets/' + id;
 
-        return fetchServer({
+        return self.fetchServer({
           method: 'PUT',
           url: url,
           data: data
         });
-      }
+      };
 
-      function uploadFile(file, type, id) {
+      self.uploadFile = function(file, type, id) {
         var url = '';
 
-        return getRootEndpoint().then(function(rootEndpoint) {
+        return self.getRootEndpoint().then(function(rootEndpoint) {
           if (type === 'chart') {
             url = rootEndpoint + 'api/v1/upload/excels';
           } else {
@@ -173,20 +200,44 @@ angular.module('eagleeye')
             file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
           });
         });
-      }
-
-      return {
-        getCharts: getCharts,
-        getChartById: getChartById,
-        createChart: createChart,
-        updateChartById: updateChartById,
-        getChartSets: getChartSets,
-        getChartSetById: getChartSetById,
-        createChartSet: createChartSet,
-        deleteChartById: deleteChartById,
-        deleteChartSetById: deleteChartSetById,
-        updateChartSetById: updateChartSetById,
-        uploadFile: uploadFile
       };
+
+      /**
+       * @method
+       * @name makeFriendlyUrl
+       *
+       * @description
+       * Property `friendlyUrl` is an unique field for a chart or chart set.
+       * It could be empty or a string.
+       * If the given `friendlyName` is empty, then the final `friendlyUrl` should be ''.
+       * If the given `friendlyName` is not an empty string, then we should add the friendly URL prefix.
+       *
+       * @param {string} type         The friendly url types, could be 'chart' or 'chartset'.
+       * @param {string} friendlyName The friendly name.
+       *
+       * @returns {String|Error} The final `friendlyUrl` string or error.
+       *
+       * @example
+       * this.makeFriendlyUrl('chart', 'defects-count');    // returns 'c-defects-count'
+       * this.makeFriendlyUrl('chartset', 'defects-count'); // returns 's-defects-count'
+       * this.makeFriendlyUrl('foo', 'defects-count');      // returns Error
+       */
+      self.makeFriendlyUrl = function(type, friendlyName) {
+        var prefixes = {
+          chart: FRIENDLY_URL_PREFIX_CHART,
+          chartset: FRIENDLY_URL_PREFIX_CHARTSET
+        };
+
+        if (!friendlyName) return '';
+
+        if (prefixes[type]) {
+          return prefixes[type] + friendlyName;
+
+        } else {
+          throw new Error(type + ' is an invalid chart type. Available types are: LineChart, ColumnChart, BarChart, ComboChart, AreaChart and ImageChart.');
+        }
+      };
+
+      return self;
     }
   ]);

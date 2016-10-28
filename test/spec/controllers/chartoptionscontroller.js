@@ -26,9 +26,6 @@ describe('Controller: ChartOptionsController', function() {
       var makeDomainDataType = jasmine.createSpy('makeDomainDataType').and.callFake(function(domainDataType) {
         return 'string';
       });
-      var makeFriendlyUrl = jasmine.createSpy('makeFriendlyUrl').and.callFake(function(type, url) {
-        return 'c-friendly-url';
-      });
       var getChartDataTableSamples = jasmine.createSpy('getChartDataTableSamples').and.callFake(function(chartType, domainDataType) {
         return {};
       });
@@ -39,7 +36,6 @@ describe('Controller: ChartOptionsController', function() {
       return {
         makeChartType: makeChartType,
         makeDomainDataType: makeDomainDataType,
-        makeFriendlyUrl: makeFriendlyUrl,
         getChartDataTableSamples: getChartDataTableSamples,
         makeConfigurationOptions: makeConfigurationOptions,
       };
@@ -65,6 +61,9 @@ describe('Controller: ChartOptionsController', function() {
 
         return qUpdateChartById.promise;
       });
+      var makeFriendlyUrl = jasmine.createSpy('makeFriendlyUrl').and.callFake(function(type, url) {
+        return 'c-friendly-url';
+      });
 
       return {
         createChart: createChart,
@@ -75,7 +74,8 @@ describe('Controller: ChartOptionsController', function() {
         rejectGetChartById: function(reason) { qGetChartById.reject(reason); },
         updateChartById: updateChartById,
         resolveUpdateChartById: function(value) { qUpdateChartById.resolve(value); },
-        rejectUpdateChartById: function(reason) { qUpdateChartById.reject(reason); }
+        rejectUpdateChartById: function(reason) { qUpdateChartById.reject(reason); },
+        makeFriendlyUrl: makeFriendlyUrl
       };
     });
 
@@ -205,7 +205,7 @@ describe('Controller: ChartOptionsController', function() {
     });
 
     it('makeChartPayload() should make friendlyUrl payload', function() {
-      expect(GoogleChartsService.makeFriendlyUrl).toHaveBeenCalledWith('chart', 'friendly-url');
+      expect(EagleEyeWebService.makeFriendlyUrl).toHaveBeenCalledWith('chart', 'friendly-url');
       expect(payload.friendlyUrl).toBe('c-friendly-url');
     });
 

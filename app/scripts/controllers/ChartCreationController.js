@@ -74,7 +74,7 @@ angular.module('eagleeye')
 
         payload.description = chart.description || '';
         payload.chartType = GoogleChartsService.makeChartType(chart.chartType);
-        payload.friendlyUrl = GoogleChartsService.makeFriendlyUrl('chart', chart.friendlyUrl);
+        payload.friendlyUrl = EagleEyeWebService.makeFriendlyUrl('chart', chart.friendlyUrl);
         payload.domainDataType = GoogleChartsService.makeDomainDataType(chart.domainDataType);
         payload.datatable = GoogleChartsService.getChartDataTableSamples(chart.chartType, chart.domainDataType);
         payload.options = GoogleChartsService.makeConfigurationOptions(chart.chartType, chart.options);
