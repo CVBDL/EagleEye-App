@@ -1,12 +1,13 @@
 'use strict';
 
-describe('Controller: DeleteDialogController', function () {
+describe('Controller: ShareDialogController', function () {
   var $controller,
     $httpBackend,
     $mdDialog,
-    title;
+    sharedTitle,
+    sharedLink;
 
-  var DeleteDialogController;
+  var ShareDialogController;
 
   // load main module
   beforeEach(module('eagleeye'));
@@ -15,12 +16,12 @@ describe('Controller: DeleteDialogController', function () {
   beforeEach(module(function($provide) {
     $provide.factory('$mdDialog', function() {
       return {
-        cancel: jasmine.createSpy('cancel'),
-        hide: jasmine.createSpy('hide')
+        cancel: jasmine.createSpy('cancel')
       };
     });
 
-    $provide.value('title', 'title');
+    $provide.value('sharedTitle', 'title');
+    $provide.value('sharedLink', 'http://example.com');
   }));
 
   // reset router
@@ -29,17 +30,19 @@ describe('Controller: DeleteDialogController', function () {
   }));
 
   // inject services
-  beforeEach(inject(function(_$controller_, _$httpBackend_, _$mdDialog_, _title_) {
+  beforeEach(inject(function(_$controller_, _$httpBackend_, _$mdDialog_, _sharedTitle_, _sharedLink_) {
     $controller = _$controller_;
     $httpBackend = _$httpBackend_;
     $mdDialog = _$mdDialog_;
-    title = _title_;
+    sharedTitle = _sharedTitle_;
+    sharedLink = _sharedLink_;
   }));
 
   beforeEach(inject(function ($controller) {
-    DeleteDialogController = $controller('DeleteDialogController', {
+    ShareDialogController = $controller('ShareDialogController', {
       $mdDialog: $mdDialog,
-      title: title
+      sharedTitle: sharedTitle,
+      sharedLink: sharedLink
     });
   }));
 
@@ -49,20 +52,16 @@ describe('Controller: DeleteDialogController', function () {
   });
 
   it('should be able to create controller', function() {
-    expect(DeleteDialogController).toBeDefined();
+    expect(ShareDialogController).toBeDefined();
   });
 
-  it('should set title model', function() {
-    expect(DeleteDialogController.title).toBe('title');
+  it('should set mailTemplate model', function() {
+    var link = 'mailto:?subject=Share: title&body=http://example.com%0d Shared from EagleEye';
+    expect(ShareDialogController.mailTemplate).toBe(link);
   });
 
   it('should be able to cancel the delete action', function() {
-    DeleteDialogController.cancel();
-    expect($mdDialog.cancel).toHaveBeenCalledWith('cancel');
-  });
-
-  it('should be able to do the delete action', function() {
-    DeleteDialogController.delete();
-    expect($mdDialog.hide).toHaveBeenCalledWith('delete');
+    ShareDialogController.cancel();
+    expect($mdDialog.cancel).toHaveBeenCalled();
   });
 });

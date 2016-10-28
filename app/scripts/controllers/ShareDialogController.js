@@ -6,15 +6,21 @@
  */
 angular.module('eagleeye')
   .controller('ShareDialogController', [
-    '$scope',
     '$mdDialog',
     'sharedTitle',
     'sharedLink',
-    function($scope, $mdDialog, sharedTitle, sharedLink) {
-      $scope.mailTemplate =
+    function($mdDialog, sharedTitle, sharedLink) {
+
+      /** @type {string} */
+      this.mailTemplate =
         'mailto:?subject=Share: ' + sharedTitle + '&body=' + sharedLink + '%0d Shared from EagleEye';
 
-      $scope.cancel = function() {
+      /**
+       * @method
+       * @name cancel
+       * @description Close dialog.
+       */
+      this.cancel = function() {
         $mdDialog.cancel();
       };
     }

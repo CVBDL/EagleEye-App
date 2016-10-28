@@ -18,7 +18,7 @@ angular.module('eagleeye')
 
         $mdDialog.show({
           locals: locals,
-          controller: 'ShareDialogController',
+          controller: 'ShareDialogController as ctrl',
           templateUrl: 'scripts/templates/share.tmpl.html',
           parent: angular.element(document.body),
           clickOutsideToClose: true,
