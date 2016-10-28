@@ -175,5 +175,20 @@ describe('app.js', function() {
     expect($state.current.name).toBe(stateName);
     expect($location.url()).toBe(url);
   });
+});
 
+
+describe('Constant service', function () {
+  var FEEDBACK_EMAIL;
+
+  beforeEach(module('eagleeye'));
+
+  beforeEach(inject(function (_FEEDBACK_EMAIL_) {
+    FEEDBACK_EMAIL = _FEEDBACK_EMAIL_;
+  }));
+
+  it('should set correct FEEDBACK_EMAIL', function() {
+    expect(FEEDBACK_EMAIL).toBeDefined();
+    expect(FEEDBACK_EMAIL).not.toBe('');
+  });
 });
