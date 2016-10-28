@@ -3,15 +3,16 @@
 /**
  * @ngdoc service
  * @name eagleeye.eeHelpDialogService
- * @description
- * # eeHelpDialogService
- * Factory in the eagleeye.
  */
 angular.module('eagleeye')
   .factory('eeHelpDialogService', [
     '$mdDialog',
     function eeHelpDialogService($mdDialog) {
-
+      /**
+       * @function
+       * @name showHelp
+       * @description Show an help dialog.
+       */
       function showHelp() {
         $mdDialog.show({
           templateUrl: 'scripts/templates/chart-creation-help.tmpl.html',
