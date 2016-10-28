@@ -12,7 +12,12 @@ angular.module('eagleeye')
     '$mdDialog',
     '$mdMedia',
     function ($mdDialog, $mdMedia) {
-
+      /**
+       * @function
+       * @name showShareDialog
+       * @description Show a share dialog.
+       * @param {Object} Custom data object.
+       */
       function showShareDialog(locals) {
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
 

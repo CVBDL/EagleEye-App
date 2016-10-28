@@ -10,7 +10,6 @@ angular.module('eagleeye')
     '$mdDialog',
     '$mdMedia',
     function ($q, $mdDialog, $mdMedia) {
-
       /**
        * @function
        * @name showConfirmDialog
