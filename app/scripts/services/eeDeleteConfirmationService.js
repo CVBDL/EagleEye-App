@@ -19,7 +19,7 @@ angular.module('eagleeye')
 
         return $mdDialog.show({
           locals: locals,
-          controller: 'DeleteDialogController',
+          controller: 'DeleteDialogController as ctrl',
           templateUrl: 'scripts/templates/delete.tmpl.html',
           parent: angular.element(document.body),
           clickOutsideToClose: true,
