@@ -506,10 +506,8 @@ angular.module('eagleeye')
 
         if (!self.validateChartType(chartType)) return configurationOptions;
 
-        // `title`
-        if (options.title) {
-          configurationOptions.title = options.title;
-        }
+
+        configurationOptions.title = options.title || '';
 
         // `hAxis` & `vAxis`
         configurationOptions.hAxis = self.makeAxisOptions(options.hAxis);

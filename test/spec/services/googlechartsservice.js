@@ -536,6 +536,10 @@ describe('Service: GoogleChartsService', function() {
         expect(GoogleChartsService.makeConfigurationOptions('foo', { title: 'bar' }).title).toBe('bar');
       });
 
+      it('should return options contains empty title if title not provided', function() {
+        expect(GoogleChartsService.makeConfigurationOptions('foo', {}).title).toBe('');
+      });
+
       it('should return options contains hAxis and vAxis fields', function() {
         var opts = GoogleChartsService.makeConfigurationOptions('foo', {
           hAxis: { foo: 'foo' },

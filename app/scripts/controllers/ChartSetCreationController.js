@@ -12,8 +12,7 @@ angular.module('eagleeye')
     '$state',
     'EagleEyeWebService',
     function ($state, EagleEyeWebService) {
-      var controller = this,
-        friendlyUrlPrefix = 's-';
+      var controller = this;
 
       this.searchKeyword = '';
 

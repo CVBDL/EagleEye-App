@@ -16,7 +16,7 @@ describe('Controller: ChartSetController', function () {
   var ChartSetController;
 
   // load main module
-  beforeEach(module('eagleeye'))
+  beforeEach(module('eagleeye'));
 
   // mock dependent services
   beforeEach(module(function($provide) {

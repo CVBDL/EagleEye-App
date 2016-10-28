@@ -5,7 +5,6 @@ describe('Controller: ChartCreationController', function() {
     $httpBackend,
     $rootScope,
     $state,
-    $templateCache,
     GoogleChartsService,
     EagleEyeWebService,
     eeHelpDialogService,
@@ -57,7 +56,7 @@ describe('Controller: ChartCreationController', function() {
         createChart: createChart,
         resolveCreateChart: function(value) { qCreateChart.resolve(value); },
         rejectCreateChart: function(reason) { qCreateChart.reject(reason); },
-        makeFriendlyUrl: makeFriendlyUrl,
+        makeFriendlyUrl: makeFriendlyUrl
       };
     });
 
@@ -78,11 +77,10 @@ describe('Controller: ChartCreationController', function() {
   }));
 
   // inject services
-  beforeEach(inject(function(_$controller_, _$httpBackend_, _$rootScope_, _$state_, _$templateCache_, _EagleEyeWebService_, _GoogleChartsService_, _eeHelpDialogService_, _CHART_TYPE_OPTIONS_, _IS_STACKED_OPTIONS_, _AXIS_FORMAT_OPTIONS_) {
+  beforeEach(inject(function(_$controller_, _$httpBackend_, _$rootScope_, _$state_, _EagleEyeWebService_, _GoogleChartsService_, _eeHelpDialogService_, _CHART_TYPE_OPTIONS_, _IS_STACKED_OPTIONS_, _AXIS_FORMAT_OPTIONS_) {
     $controller = _$controller_;
     $rootScope = _$rootScope_;
     $state = _$state_;
-    $templateCache = _$templateCache_;
     $httpBackend = _$httpBackend_;
     EagleEyeWebService = _EagleEyeWebService_;
     GoogleChartsService = _GoogleChartsService_;
@@ -92,7 +90,7 @@ describe('Controller: ChartCreationController', function() {
     AXIS_FORMAT_OPTIONS = _AXIS_FORMAT_OPTIONS_;
   }));
 
-  beforeEach(inject(function($controller, $rootScope) {
+  beforeEach(inject(function() {
     ChartCreationController = $controller('ChartCreationController', {
       $state: $state,
       GoogleChartsService: GoogleChartsService,
