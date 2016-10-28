@@ -1,23 +1,68 @@
 'use strict';
 
 describe('Controller: DeleteDialogController', function () {
+  var $controller,
+    $httpBackend,
+    $mdDialog,
+    title;
 
-  // load the controller's module
+  var DeleteDialogController;
+
+  // load main module
   beforeEach(module('eagleeye'));
 
-  var DeleteDialogController,
-    scope;
+  // mock dependent services
+  beforeEach(module(function($provide) {
+    $provide.factory('$mdDialog', function() {
+      return {
+        cancel: jasmine.createSpy('cancel'),
+        hide: jasmine.createSpy('hide')
+      };
+    });
 
-  // Initialize the controller and a mock scope
+    $provide.value('title', 'title');
+  }));
+
+  // reset router
+  beforeEach(module(function ($urlRouterProvider) {
+    $urlRouterProvider.otherwise(function() { return false; });
+  }));
+
+  // inject services
+  beforeEach(inject(function(_$controller_, _$httpBackend_, _$mdDialog_, _title_) {
+    $controller = _$controller_;
+    $httpBackend = _$httpBackend_;
+    $mdDialog = _$mdDialog_;
+    title = _title_;
+  }));
+
   beforeEach(inject(function ($controller, $rootScope) {
-    scope = $rootScope.$new();
     DeleteDialogController = $controller('DeleteDialogController', {
-      $scope: scope
-      // place here mocked dependencies
+      $mdDialog: $mdDialog,
+      title: title
     });
   }));
 
-  // it('should attach a list of awesomeThings to the scope', function () {
-  //   expect(DeleteDialogController.awesomeThings.length).toBe(3);
-  // });
+  afterEach(function() {
+    $httpBackend.verifyNoOutstandingExpectation();
+    $httpBackend.verifyNoOutstandingRequest();
+  });
+
+  it('should be able to create controller', function() {
+    expect(DeleteDialogController).toBeDefined();
+  });
+
+  it('should set title model', function() {
+    expect(DeleteDialogController.title).toBe('title');
+  });
+
+  it('should be able to cancel the delete action', function() {
+    DeleteDialogController.cancel();
+    expect($mdDialog.cancel).toHaveBeenCalledWith('cancel');
+  });
+
+  it('should be able to do the delete action', function() {
+    DeleteDialogController.delete();
+    expect($mdDialog.hide).toHaveBeenCalledWith('delete');
+  });
 });

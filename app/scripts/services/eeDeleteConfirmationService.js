@@ -3,9 +3,6 @@
 /**
  * @ngdoc service
  * @name eagleeye.eeDeleteConfirmationService
- * @description
- * # eeDeleteConfirmationService
- * Factory in the eagleeye.
  */
 angular.module('eagleeye')
   .factory('eeDeleteConfirmationService', [
@@ -14,6 +11,13 @@ angular.module('eagleeye')
     '$mdMedia',
     function ($q, $mdDialog, $mdMedia) {
 
+      /**
+       * @function
+       * @name showConfirmDialog
+       * @description Show a confirmation dialog and reponse base on user action.
+       * @param {Object} Custom data object.
+       * @returns {Promise}
+       */
       function showConfirmDialog(locals) {
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
 
