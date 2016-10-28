@@ -432,31 +432,6 @@ describe('Service: GoogleChartsService', function() {
     });
   });
 
-  describe('makeFriendlyUrl()', function() {
-    it('should return empty string if not pass friendlyName parameter or passing empty string', function() {
-      expect(GoogleChartsService.makeFriendlyUrl('', '')).toBe('');
-      expect(function() {
-        GoogleChartsService.makeFriendlyUrl('', '');
-      }).not.toThrow();
-
-      expect(GoogleChartsService.makeFriendlyUrl('')).toBe('');
-      expect(function() {
-        GoogleChartsService.makeFriendlyUrl('');
-      }).not.toThrow();
-    });
-
-    it('should return friendly url with prefix if input type is valid', function() {
-      expect(GoogleChartsService.makeFriendlyUrl('chart', 'foo')).toBe('c-foo');
-      expect(GoogleChartsService.makeFriendlyUrl('chartset', 'foo')).toBe('s-foo');
-    });
-
-    it('should throw an error if input type is invalid', function() {
-      expect(function() {
-        GoogleChartsService.makeFriendlyUrl('foo', 'bar');
-      }).toThrow(new Error('foo is an invalid chart type. Available types are: LineChart, ColumnChart, BarChart, ComboChart, AreaChart and ImageChart.'));
-    });
-  });
-
   describe('makeChartAreaOptions()', function() {
     it('should return empty object if not passing parameters', function() {
       expect(GoogleChartsService.makeChartAreaOptions()).toEqual({});

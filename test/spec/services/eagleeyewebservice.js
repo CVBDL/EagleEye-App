@@ -67,4 +67,28 @@ describe('Service: EagleEyeWebService', function () {
     });
   });
 
+  describe('makeFriendlyUrl()', function() {
+    it('should return empty string if not pass friendlyName parameter or passing empty string', function() {
+      expect(EagleEyeWebService.makeFriendlyUrl('', '')).toBe('');
+      expect(function() {
+        EagleEyeWebService.makeFriendlyUrl('', '');
+      }).not.toThrow();
+
+      expect(EagleEyeWebService.makeFriendlyUrl('')).toBe('');
+      expect(function() {
+        EagleEyeWebService.makeFriendlyUrl('');
+      }).not.toThrow();
+    });
+
+    it('should return friendly url with prefix if input type is valid', function() {
+      expect(EagleEyeWebService.makeFriendlyUrl('chart', 'foo')).toBe('c-foo');
+      expect(EagleEyeWebService.makeFriendlyUrl('chartset', 'foo')).toBe('s-foo');
+    });
+
+    it('should throw an error if input type is invalid', function() {
+      expect(function() {
+        EagleEyeWebService.makeFriendlyUrl('foo', 'bar');
+      }).toThrow(new Error('foo is an invalid chart type. Available types are: LineChart, ColumnChart, BarChart, ComboChart, AreaChart and ImageChart.'));
+    });
+  });
 });
