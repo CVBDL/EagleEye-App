@@ -73,10 +73,8 @@ describe('Controller: ChartCreationController', function() {
   }));
 
   // reset router
-  beforeEach(module(function($urlRouterProvider) {
-    $urlRouterProvider.otherwise(function() {
-      return false;
-    });
+  beforeEach(module(function ($urlRouterProvider) {
+    $urlRouterProvider.otherwise(function() { return false; });
   }));
 
   // inject services

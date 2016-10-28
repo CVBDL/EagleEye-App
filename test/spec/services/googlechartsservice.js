@@ -337,6 +337,8 @@ describe('Constant:', function() {
 
 
 describe('Service: GoogleChartsService', function() {
+  var $httpBackend;
+
   var GoogleChartsService;
 
   beforeEach(module('eagleeye'));
@@ -367,9 +369,20 @@ describe('Service: GoogleChartsService', function() {
     $provide.constant('DOMAIN_DATA_TYPE', ['string', 'date']);
   }));
 
-  beforeEach(inject(function (_GoogleChartsService_) {
+  // reset router
+  beforeEach(module(function ($urlRouterProvider) {
+    $urlRouterProvider.otherwise(function() { return false; });
+  }));
+
+  beforeEach(inject(function (_$httpBackend_, _GoogleChartsService_) {
+    $httpBackend = _$httpBackend_;
     GoogleChartsService = _GoogleChartsService_;
   }));
+
+  afterEach(function() {
+    $httpBackend.verifyNoOutstandingExpectation();
+    $httpBackend.verifyNoOutstandingRequest();
+  });
 
   it('should be able to create this service', function() {
     expect(!!GoogleChartsService).toBe(true);
