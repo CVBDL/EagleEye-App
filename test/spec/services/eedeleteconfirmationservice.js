@@ -57,6 +57,11 @@ describe('Service: eeDeleteConfirmationService', function () {
   });
 
   describe('showConfirmDialog()', function() {
+    beforeEach(function() {
+      spyOn($q, 'when');
+      spyOn($q, 'reject');
+    });
+
     it('should show confirmation dialog', function() {
       eeDeleteConfirmationService.showConfirmDialog({});
       expect($mdDialog.show).toHaveBeenCalledWith({
@@ -70,9 +75,6 @@ describe('Service: eeDeleteConfirmationService', function () {
     });
 
     it('should resolve the confirmation if response "delete"', function() {
-      spyOn($q, 'when');
-      spyOn($q, 'reject');
-
       eeDeleteConfirmationService.showConfirmDialog({});
       $mdDialog.resolveShow('delete');
       $rootScope.$digest();
@@ -81,9 +83,6 @@ describe('Service: eeDeleteConfirmationService', function () {
     });
 
     it('should reject the confirmation if response other than "delete"', function() {
-      spyOn($q, 'when');
-      spyOn($q, 'reject');
-
       eeDeleteConfirmationService.showConfirmDialog({});
       $mdDialog.resolveShow('cancel');
       $rootScope.$digest();
@@ -92,9 +91,6 @@ describe('Service: eeDeleteConfirmationService', function () {
     });
 
     it('should do nothing if confirmation is rejected', function() {
-      spyOn($q, 'when');
-      spyOn($q, 'reject');
-
       eeDeleteConfirmationService.showConfirmDialog({});
       $mdDialog.rejectShow('reject');
       $rootScope.$digest();
