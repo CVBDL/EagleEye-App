@@ -14,33 +14,11 @@ describe('Controller: ChartSetsController', function () {
   // load main module
   beforeEach(module('eagleeye'));
 
+  // load EagleEyeWebService mock module
+  beforeEach(module('EagleEyeWebServiceMock'));
+
   // mock dependent services
   beforeEach(module(function($provide) {
-    $provide.factory('EagleEyeWebService', function($q) {
-      var qGetChartSets,
-        qDeleteChartSetById;
-
-      var getChartSets = jasmine.createSpy('getChartSets').and.callFake(function() {
-        qGetChartSets = $q.defer();
-
-        return qGetChartSets.promise;
-      });
-      var deleteChartSetById = jasmine.createSpy('deleteChartSetById').and.callFake(function(chartId) {
-        qDeleteChartSetById = $q.defer();
-
-        return qDeleteChartSetById.promise;
-      });
-
-      return {
-        getChartSets: getChartSets,
-        resolveGetChartSets: function(value) { qGetChartSets.resolve(value); },
-        rejectGetChartSets: function(reason) { qGetChartSets.reject(reason); },
-        deleteChartSetById: deleteChartSetById,
-        resolveDeleteChartSetById: function(value) { qDeleteChartSetById.resolve(value); },
-        rejectDeleteChartSetById: function(reason) { qDeleteChartSetById.reject(reason); }
-      };
-    });
-
     $provide.factory('eeDeleteConfirmationService', function($q) {
       var qShowConfirmDialog;
 

@@ -2,34 +2,48 @@
 
 describe('Controller: AppController', function () {
   var $controller,
-    $rootScope,
-    AppController,
+    $httpBackend,
     FEEDBACK_EMAIL;
 
+  var AppController;
+
+  // load main module
   beforeEach(module('eagleeye'));
 
+  // mock dependent services
   beforeEach(module(function($provide) {
     $provide.constant('FEEDBACK_EMAIL', 'example@example.com');
   }));
 
-  beforeEach(inject(function (_$controller_, _$rootScope_, _FEEDBACK_EMAIL_) {
+  // reset router
+  beforeEach(module(function ($urlRouterProvider) {
+    $urlRouterProvider.otherwise(function() { return false; });
+  }));
+
+  beforeEach(inject(function (_$controller_, _$httpBackend_, _FEEDBACK_EMAIL_) {
     $controller = _$controller_;
-    $rootScope = _$rootScope_;
+    $httpBackend = _$httpBackend_;
     FEEDBACK_EMAIL = _FEEDBACK_EMAIL_;
   }));
 
   beforeEach(function() {
     AppController = $controller('AppController', {
-      $scope: $rootScope.$new(),
       FEEDBACK_EMAIL: FEEDBACK_EMAIL
     });
-  })
+  });
 
-  it('should init AppController correctly', function() {
+  afterEach(function() {
+    $httpBackend.verifyNoOutstandingExpectation();
+    $httpBackend.verifyNoOutstandingRequest();
+  });
+
+  it('should be able to create controller', function() {
     expect(AppController).toBeDefined();
   });
 
-  it('should set correct feedback link', function () {
-    expect(AppController.feedbackLink).toBe("mailto:example@example.com?subject=EagleEye+Feedback");
+  it('should set `feedbackLink` model', function () {
+    var feedbackLink = 'mailto:example@example.com?subject=EagleEye+Feedback';
+
+    expect(AppController.feedbackLink).toBe(feedbackLink);
   });
 });

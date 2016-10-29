@@ -17,6 +17,9 @@ describe('Controller: ChartOptionsController', function() {
   // load main module
   beforeEach(module('eagleeye'));
 
+  // load EagleEyeWebService mock module
+  beforeEach(module('EagleEyeWebServiceMock'));
+
   // mock dependent services
   beforeEach(module(function($provide) {
     $provide.factory('GoogleChartsService', function() {
@@ -38,44 +41,6 @@ describe('Controller: ChartOptionsController', function() {
         makeDomainDataType: makeDomainDataType,
         getChartDataTableSamples: getChartDataTableSamples,
         makeConfigurationOptions: makeConfigurationOptions,
-      };
-    });
-
-    $provide.factory('EagleEyeWebService', function($q) {
-      var qCreateChart,
-        qGetChartById,
-        qUpdateChartById;
-
-      var createChart = jasmine.createSpy('createChart').and.callFake(function(payload) {
-        qCreateChart = $q.defer();
-
-        return qCreateChart.promise;
-      });
-      var getChartById = jasmine.createSpy('getChartById').and.callFake(function(chartId) {
-        qGetChartById = $q.defer();
-
-        return qGetChartById.promise;
-      });
-      var updateChartById = jasmine.createSpy('updateChartById').and.callFake(function(chartId) {
-        qUpdateChartById = $q.defer();
-
-        return qUpdateChartById.promise;
-      });
-      var makeFriendlyUrl = jasmine.createSpy('makeFriendlyUrl').and.callFake(function(type, url) {
-        return 'c-friendly-url';
-      });
-
-      return {
-        createChart: createChart,
-        resolveCreateChart: function(value) { qCreateChart.resolve(value); },
-        rejectCreateChart: function(reason) { qCreateChart.reject(reason); },
-        getChartById: getChartById,
-        resolveGetChartById: function(value) { qGetChartById.resolve(value); },
-        rejectGetChartById: function(reason) { qGetChartById.reject(reason); },
-        updateChartById: updateChartById,
-        resolveUpdateChartById: function(value) { qUpdateChartById.resolve(value); },
-        rejectUpdateChartById: function(reason) { qUpdateChartById.reject(reason); },
-        makeFriendlyUrl: makeFriendlyUrl
       };
     });
 
@@ -206,7 +171,7 @@ describe('Controller: ChartOptionsController', function() {
 
     it('makeChartPayload() should make friendlyUrl payload', function() {
       expect(EagleEyeWebService.makeFriendlyUrl).toHaveBeenCalledWith('chart', 'friendly-url');
-      expect(payload.friendlyUrl).toBe('c-friendly-url');
+      expect(payload.friendlyUrl).toBe('x-friendly-url');
     });
 
     it('makeChartPayload() should make options payload', function() {

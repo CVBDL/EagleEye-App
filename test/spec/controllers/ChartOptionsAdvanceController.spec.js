@@ -14,6 +14,10 @@ describe('Controller: ChartOptionsAdvanceController', function() {
   // load main module
   beforeEach(module('eagleeye'));
 
+  // load EagleEyeWebService mock module
+  beforeEach(module('EagleEyeWebServiceMock'));
+
+  // mock dependent services
   beforeEach(module(function($provide) {
     $provide.factory('GoogleChartsService', function() {
       var makeChartType = jasmine.createSpy('makeChartType').and.callFake(function(chartType) {
@@ -38,31 +42,6 @@ describe('Controller: ChartOptionsAdvanceController', function() {
         makeFriendlyUrl: makeFriendlyUrl,
         getChartDataTableSamples: getChartDataTableSamples,
         makeConfigurationOptions: makeConfigurationOptions,
-      };
-    });
-
-    $provide.factory('EagleEyeWebService', function($q) {
-      var qGetChartById,
-        qUpdateChartById;
-
-      var getChartById = jasmine.createSpy('getChartById').and.callFake(function(chartId) {
-        qGetChartById = $q.defer();
-
-        return qGetChartById.promise;
-      });
-      var updateChartById = jasmine.createSpy('updateChartById').and.callFake(function(chartId) {
-        qUpdateChartById = $q.defer();
-
-        return qUpdateChartById.promise;
-      });
-
-      return {
-        getChartById: getChartById,
-        resolveGetChartById: function(value) { qGetChartById.resolve(value); },
-        rejectGetChartById: function(reason) { qGetChartById.reject(reason); },
-        updateChartById: updateChartById,
-        resolveUpdateChartById: function(value) { qUpdateChartById.resolve(value); },
-        rejectUpdateChartById: function(reason) { qUpdateChartById.reject(reason); }
       };
     });
 

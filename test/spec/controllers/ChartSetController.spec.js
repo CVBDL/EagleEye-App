@@ -18,33 +18,11 @@ describe('Controller: ChartSetController', function () {
   // load main module
   beforeEach(module('eagleeye'));
 
+  // load EagleEyeWebService mock module
+  beforeEach(module('EagleEyeWebServiceMock'));
+
   // mock dependent services
   beforeEach(module(function($provide) {
-    $provide.factory('EagleEyeWebService', function($q) {
-      var qGetChartSetById,
-        qGetChartSets;
-
-      var getChartSetById = jasmine.createSpy('getChartSetById').and.callFake(function(chartId) {
-        qGetChartSetById = $q.defer();
-
-        return qGetChartSetById.promise;
-      });
-      var getChartSets = jasmine.createSpy('getChartSets').and.callFake(function(chartId) {
-        qGetChartSets = $q.defer();
-
-        return qGetChartSets.promise;
-      });
-
-      return {
-        getChartSetById: getChartSetById,
-        resolveGetChartSetById: function(value) { qGetChartSetById.resolve(value); },
-        rejectGetChartSetById: function(reason) { qGetChartSetById.reject(reason); },
-        getChartSets: getChartSets,
-        resolveGetChartSets: function(value) { qGetChartSets.resolve(value); },
-        rejectGetChartSets: function(reason) { qGetChartSets.reject(reason); }
-      };
-    });
-
     $provide.factory('eeShareService', function() {
       return {
         showShareDialog: jasmine.createSpy('showShareDialog')

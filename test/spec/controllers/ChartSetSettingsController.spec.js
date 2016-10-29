@@ -14,46 +14,11 @@ describe('Controller: ChartSetSettingsController', function () {
   // load main module
   beforeEach(module('eagleeye'));
 
+  // load EagleEyeWebService mock module
+  beforeEach(module('EagleEyeWebServiceMock'));
+
   // mock dependent services
   beforeEach(module(function($provide) {
-    $provide.factory('EagleEyeWebService', function($q) {
-      var qGetCharts,
-        qGetChartSetById,
-        qUpdateChartSetById;
-
-      var getCharts = jasmine.createSpy('getCharts').and.callFake(function() {
-        qGetCharts = $q.defer();
-
-        return qGetCharts.promise;
-      });
-      var getChartSetById = jasmine.createSpy('getChartSetById').and.callFake(function(id) {
-        qGetChartSetById = $q.defer();
-
-        return qGetChartSetById.promise;
-      });
-      var updateChartSetById = jasmine.createSpy('updateChartSetById').and.callFake(function(id) {
-        qUpdateChartSetById = $q.defer();
-
-        return qUpdateChartSetById.promise;
-      });
-      var makeFriendlyUrl = jasmine.createSpy('makeFriendlyUrl').and.callFake(function(type, url) {
-        return 's-friendly-url';
-      });
-
-      return {
-        getCharts: getCharts,
-        resolveGetCharts: function(value) { qGetCharts.resolve(value); },
-        rejectGetCharts: function(reason) { qGetCharts.reject(reason); },
-        getChartSetById: getChartSetById,
-        resolveGetChartSetById: function(value) { qGetChartSetById.resolve(value); },
-        rejectGetChartSetById: function(reason) { qGetChartSetById.reject(reason); },
-        updateChartSetById: updateChartSetById,
-        resolveUpdateChartSetById: function(value) { qUpdateChartSetById.resolve(value); },
-        rejectUpdateChartSetById: function(reason) { qUpdateChartSetById.reject(reason); },
-        makeFriendlyUrl: makeFriendlyUrl
-      };
-    });
-
     $provide.factory('$stateParams', function() {
       return { id: 'id' };
     });

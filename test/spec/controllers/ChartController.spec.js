@@ -17,24 +17,11 @@ describe('Controller: ChartController', function () {
   // load main module
   beforeEach(module('eagleeye'));
 
+  // load EagleEyeWebService mock module
+  beforeEach(module('EagleEyeWebServiceMock'));
+
   // mock dependent services
   beforeEach(module(function($provide) {
-    $provide.factory('EagleEyeWebService', function($q) {
-      var qGetChartById;
-
-      var getChartById = jasmine.createSpy('getChartById').and.callFake(function(chartId) {
-        qGetChartById = $q.defer();
-
-        return qGetChartById.promise;
-      });
-
-      return {
-        getChartById: getChartById,
-        resolveGetChartById: function(value) { qGetChartById.resolve(value); },
-        rejectGetChartById: function(reason) { qGetChartById.reject(reason); }
-      };
-    });
-
     $provide.factory('eeShareService', function() {
       return {
         showShareDialog: jasmine.createSpy('showShareDialog')

@@ -13,37 +13,8 @@ describe('Controller: ChartSetCreationController', function () {
   // load main module
   beforeEach(module('eagleeye'));
 
-  // mock dependent services
-  beforeEach(module(function($provide) {
-    $provide.factory('EagleEyeWebService', function($q) {
-      var qGetCharts,
-        qCreateChartSet;
-
-      var getCharts = jasmine.createSpy('getCharts').and.callFake(function() {
-        qGetCharts = $q.defer();
-
-        return qGetCharts.promise;
-      });
-      var createChartSet = jasmine.createSpy('createChartSet').and.callFake(function(payload) {
-        qCreateChartSet = $q.defer();
-
-        return qCreateChartSet.promise;
-      });
-      var makeFriendlyUrl = jasmine.createSpy('makeFriendlyUrl').and.callFake(function(type, url) {
-        return 'c-friendly-url';
-      });
-
-      return {
-        getCharts: getCharts,
-        resolveGetCharts: function(value) { qGetCharts.resolve(value); },
-        rejectGetCharts: function(reason) { qGetCharts.reject(reason); },
-        createChartSet: createChartSet,
-        resolveCreateCharSett: function(value) { qCreateChartSet.resolve(value); },
-        rejectCreateChartSet: function(reason) { qCreateChartSet.reject(reason); },
-        makeFriendlyUrl: makeFriendlyUrl
-      };
-    });
-  }));
+  // load EagleEyeWebService mock module
+  beforeEach(module('EagleEyeWebServiceMock'));
 
   // reset router
   beforeEach(module(function ($urlRouterProvider) {
