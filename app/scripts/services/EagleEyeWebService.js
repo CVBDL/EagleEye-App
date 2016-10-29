@@ -172,7 +172,7 @@ angular.module('eagleeye')
         return self.fetchServer({
           method: 'PUT',
           url: url,
-          data: data
+          data: JSON.stringify(data)
         });
       };
 

@@ -7,7 +7,7 @@
           <span flex></span>
           <md-button class="md-icon-button" aria-label="Save">
             <md-tooltip md-direction="botton">Save</md-tooltip>
-            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.save()"> save </md-icon>
+            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.save(ctrl.chartset)"> save </md-icon>
           </md-button>
         </div>
       </md-toolbar>
@@ -101,7 +101,7 @@
                       <div flex="none">
                         <md-toolbar class="ee-toolbar ee-layout--transparent">
                           <div class="md-toolbar-tools ee-layout--no-padding">
-                            <md-checkbox class="md-secondary ee-layout--no-margin" ng-model="chart.checked" ng-change="ctrl.onCheckboxChanged(chart)" aria-label="{{chart.options.title}}"></md-checkbox>
+                            <md-checkbox class="md-secondary ee-layout--no-margin" ng-model="chart.checked" ng-change="ctrl.onChartCheckedStatusChange(chart)" aria-label="{{chart.options.title}}"></md-checkbox>
                           </div>
                         </md-toolbar>
                       </div>
