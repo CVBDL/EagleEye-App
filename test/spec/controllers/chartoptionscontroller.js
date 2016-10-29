@@ -103,10 +103,10 @@ describe('Controller: ChartOptionsController', function() {
   // inject services
   beforeEach(inject(function(_$controller_, _$httpBackend_, _$rootScope_, _$state_, _$stateParams_, _EagleEyeWebService_, _GoogleChartsService_, _eeHelpDialogService_, _IS_STACKED_OPTIONS_, _AXIS_FORMAT_OPTIONS_) {
     $controller = _$controller_;
+    $httpBackend = _$httpBackend_;
     $rootScope = _$rootScope_;
     $state = _$state_;
     $stateParams = _$stateParams_;
-    $httpBackend = _$httpBackend_;
     EagleEyeWebService = _EagleEyeWebService_;
     GoogleChartsService = _GoogleChartsService_;
     eeHelpDialogService = _eeHelpDialogService_;

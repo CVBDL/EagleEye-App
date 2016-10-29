@@ -152,7 +152,7 @@ angular.module('eagleeye')
        * @param {Object} chartset The chart data model.
        */
       this.save = function(chartset) {
-        var id = this.chartset._id,
+        var id = chartset._id,
           payload = this.makeChartSetPayload(chartset);
 
         EagleEyeWebService.updateChartSetById(id, payload).then(function() {
