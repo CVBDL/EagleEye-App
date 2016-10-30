@@ -25,7 +25,7 @@ angular.module('eagleeye')
        * @param {Object} options.locals An object containing key/value pairs. The keys will be used as names of values to inject into the controller.
        * @param {function|string} options.controller The controller to associate with the dialog.
        * @param {string} options.templateUrl The url of a template that will be used as the content of the dialog.
-       * $returns {promise} A promise that can be resolved with `$mdDialog.hide()` or rejected with `$mdDialog.cancel()`.
+       * @returns {promise} A promise that can be resolved with `$mdDialog.hide()` or rejected with `$mdDialog.cancel()`.
        */
       self.show = function(options) {
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
@@ -45,7 +45,7 @@ angular.module('eagleeye')
        * @name eagleeye.EEDialogService#showShare
        * @description Show dialog for sharing.
        * @param {Object} locals An object containing key/value pairs. The keys will be used as names of values to inject into the controller.
-       * $returns {promise} A promise that can be resolved with `$mdDialog.hide()` or rejected with `$mdDialog.cancel()`.
+       * @returns {promise} A promise that can be resolved with `$mdDialog.hide()` or rejected with `$mdDialog.cancel()`.
        */
       self.showSharing = function(locals) {
         return self.show({
@@ -60,7 +60,7 @@ angular.module('eagleeye')
        * @name eagleeye.EEDialogService#showChartCreationHelping
        * @description Show dialog for helping chart creation.
        * @param {Object} locals An object containing key/value pairs. The keys will be used as names of values to inject into the controller.
-       * $returns {promise} A promise that can be resolved with `$mdDialog.hide()` or rejected with `$mdDialog.cancel()`.
+       * @returns {promise} A promise that can be resolved with `$mdDialog.hide()` or rejected with `$mdDialog.cancel()`.
        */
       self.showChartCreationHelping = function(locals) {
         return self.show({
@@ -79,7 +79,7 @@ angular.module('eagleeye')
        * @name eagleeye.EEDialogService#showDeleteConfirmation
        * @description Show dialog for confirming delete action.
        * @param {Object} locals An object containing key/value pairs. The keys will be used as names of values to inject into the controller.
-       * $returns {promise}
+       * @returns {promise}
        */
       self.showDeleteConfirmation = function(locals) {
         return self.show({
