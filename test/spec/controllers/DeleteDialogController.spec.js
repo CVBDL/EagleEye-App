@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Controller: DeleteDialogController', function () {
+describe('Controller: DeleteDialogController', function() {
   var $controller,
     $httpBackend,
     $mdDialog,

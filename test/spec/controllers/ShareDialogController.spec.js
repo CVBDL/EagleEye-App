@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Controller: ShareDialogController', function () {
+describe('Controller: ShareDialogController', function() {
   var $controller,
     $httpBackend,
     $mdDialog,

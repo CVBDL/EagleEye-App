@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Controller: ChartSetCreationController', function () {
+describe('Controller: ChartSetCreationController', function() {
   var $controller,
     $q,
     $rootScope,

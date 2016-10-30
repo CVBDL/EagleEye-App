@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Controller: ChartController', function () {
+describe('Controller: ChartController', function() {
   var $controller,
     $q,
     $rootScope,
@@ -9,7 +9,7 @@ describe('Controller: ChartController', function () {
     $location,
     $interval,
     EagleEyeWebService,
-    ShareService,
+    EEDialogService,
     SaveAsPDFService;
 
   var ChartController;
@@ -20,14 +20,11 @@ describe('Controller: ChartController', function () {
   // load EagleEyeWebService mock module
   beforeEach(module('EagleEyeWebServiceMock'));
 
+  // load EagleEyeWebService mock module
+  beforeEach(module('EEDialogServiceMock'));
+
   // mock dependent services
   beforeEach(module(function($provide) {
-    $provide.factory('ShareService', function() {
-      return {
-        showShareDialog: jasmine.createSpy('showShareDialog')
-      };
-    });
-
     $provide.factory('SaveAsPDFService', function() {
       return {
         SaveImageOrPDF: jasmine.createSpy('SaveImageOrPDF')
@@ -44,7 +41,7 @@ describe('Controller: ChartController', function () {
     $urlRouterProvider.otherwise(function() { return false; });
   }));
 
-  beforeEach(inject(function (_$controller_, _$q_, _$rootScope_, _$stateParams_, _$httpBackend_, _$location_, _$interval_, _EagleEyeWebService_, _ShareService_, _SaveAsPDFService_) {
+  beforeEach(inject(function (_$controller_, _$q_, _$rootScope_, _$stateParams_, _$httpBackend_, _$location_, _$interval_, _EagleEyeWebService_, _EEDialogService_, _SaveAsPDFService_) {
     $controller = _$controller_;
     $q = _$q_;
     $rootScope = _$rootScope_;
@@ -53,17 +50,17 @@ describe('Controller: ChartController', function () {
     $location = _$location_;
     $interval = _$interval_;
     EagleEyeWebService = _EagleEyeWebService_;
-    ShareService = _ShareService_;
+    EEDialogService = _EEDialogService_;
     SaveAsPDFService = _SaveAsPDFService_;
   }));
 
-  beforeEach(function () {
+  beforeEach(function() {
     ChartController = $controller('ChartController', {
       $stateParams: $stateParams,
       $location: $location,
       $interval: $interval,
       EagleEyeWebService: EagleEyeWebService,
-      ShareService: ShareService,
+      EEDialogService: EEDialogService,
       SaveAsPDFService: SaveAsPDFService
     });
   });
@@ -165,7 +162,7 @@ describe('Controller: ChartController', function () {
   it('should show share dialog when calls showShare()', function() {
     spyOn($location, 'absUrl').and.returnValue('eagleeye');
     ChartController.showShare('title');
-    expect(ShareService.showShareDialog).toHaveBeenCalledWith({
+    expect(EEDialogService.showSharing).toHaveBeenCalledWith({
       sharedTitle: 'title',
       sharedLink: 'eagleeye'
     });

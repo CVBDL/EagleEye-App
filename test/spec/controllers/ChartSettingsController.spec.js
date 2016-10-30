@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Controller: ChartSettingsController', function () {
+describe('Controller: ChartSettingsController', function() {
   var $controller,
     $q,
     $rootScope,
@@ -37,7 +37,7 @@ describe('Controller: ChartSettingsController', function () {
     EagleEyeWebService = _EagleEyeWebService_;
   }));
 
-  beforeEach(function () {
+  beforeEach(function() {
     ChartSettingsController = $controller('ChartSettingsController', {
       $stateParams: $stateParams,
       EagleEyeWebService: EagleEyeWebService

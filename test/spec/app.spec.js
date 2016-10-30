@@ -178,7 +178,7 @@ describe('app.js', function() {
 });
 
 
-describe('Constant service', function () {
+describe('Constant service', function() {
   var FEEDBACK_EMAIL;
 
   beforeEach(module('eagleeye'));

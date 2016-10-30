@@ -12,9 +12,9 @@ angular.module('eagleeye')
     '$stateParams',
     '$interval',
     'EagleEyeWebService',
-    'ShareService',
+    'EEDialogService',
     'SaveAsPDFService',
-    function($location, $rootScope, $state, $stateParams, $interval, EagleEyeWebService, ShareService, SaveAsPDFService) {
+    function($location, $rootScope, $state, $stateParams, $interval, EagleEyeWebService, EEDialogService, SaveAsPDFService) {
       var controller = this;
 
       this.id = $stateParams.id;
@@ -125,7 +125,7 @@ angular.module('eagleeye')
        * @param {string} title The chart set's title property.
        */
       this.showShare = function(title) {
-        ShareService.showShareDialog({
+        EEDialogService.showSharing({
           sharedTitle: title,
           sharedLink: $location.absUrl()
         });

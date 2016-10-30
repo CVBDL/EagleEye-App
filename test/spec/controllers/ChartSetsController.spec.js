@@ -1,13 +1,13 @@
 'use strict';
 
-describe('Controller: ChartSetsController', function () {
+describe('Controller: ChartSetsController', function() {
   var $controller,
     $httpBackend,
     $q,
     $rootScope,
     $state,
     EagleEyeWebService,
-    DeleteConfirmationService;
+    EEDialogService;
 
   var ChartSetsController;
 
@@ -17,24 +17,8 @@ describe('Controller: ChartSetsController', function () {
   // load EagleEyeWebService mock module
   beforeEach(module('EagleEyeWebServiceMock'));
 
-  // mock dependent services
-  beforeEach(module(function($provide) {
-    $provide.factory('DeleteConfirmationService', function($q) {
-      var qShowConfirmDialog;
-
-      var showConfirmDialog = jasmine.createSpy('showConfirmDialog').and.callFake(function(config) {
-        qShowConfirmDialog = $q.defer();
-
-        return qShowConfirmDialog.promise;
-      });
-
-      return {
-        showConfirmDialog: showConfirmDialog,
-        resolveShowConfirmDialog: function(value) { qShowConfirmDialog.resolve(value); },
-        rejectShowConfirmDialog: function(reason) { qShowConfirmDialog.reject(reason); }
-      };
-    });
-  }));
+  // load EEDialogService mock module
+  beforeEach(module('EEDialogServiceMock'));
 
   // reset router
   beforeEach(module(function($urlRouterProvider) {
@@ -42,21 +26,21 @@ describe('Controller: ChartSetsController', function () {
   }));
 
   // inject services
-  beforeEach(inject(function(_$controller_, _$q_, _$rootScope_, _$state_, _$httpBackend_, _EagleEyeWebService_, _DeleteConfirmationService_) {
+  beforeEach(inject(function(_$controller_, _$q_, _$rootScope_, _$state_, _$httpBackend_, _EagleEyeWebService_, _EEDialogService_) {
     $controller = _$controller_;
     $q = _$q_;
     $rootScope = _$rootScope_;
     $state = _$state_;
     $httpBackend = _$httpBackend_;
     EagleEyeWebService = _EagleEyeWebService_;
-    DeleteConfirmationService = _DeleteConfirmationService_;
+    EEDialogService = _EEDialogService_;
   }));
 
   beforeEach(inject(function() {
     ChartSetsController = $controller('ChartSetsController', {
       $state: $state,
       EagleEyeWebService: EagleEyeWebService,
-      DeleteConfirmationService: DeleteConfirmationService
+      EEDialogService: EEDialogService
     });
   }));
 
@@ -128,12 +112,12 @@ describe('Controller: ChartSetsController', function () {
 
     it('should show confirm dialog before delete', function() {
       ChartSetsController.onClickDeleteChartSet($event, chartset);
-      expect(DeleteConfirmationService.showConfirmDialog).toHaveBeenCalledWith({ title: 'title' });
+      expect(EEDialogService.showDeleteConfirmation).toHaveBeenCalledWith({ title: 'title' });
     });
 
     it('should cancel delete if user click cancel', function() {
       ChartSetsController.onClickDeleteChartSet($event, chartset);
-      DeleteConfirmationService.rejectShowConfirmDialog();
+      EEDialogService.rejectShowDeleteConfirmation();
       $rootScope.$digest();
       expect(EagleEyeWebService.deleteChartSetById).not.toHaveBeenCalled();
       expect(ChartSetsController.loadChartSetList).not.toHaveBeenCalled();
@@ -141,14 +125,14 @@ describe('Controller: ChartSetsController', function () {
 
     it('should delete the chart if user click ok', function() {
       ChartSetsController.onClickDeleteChartSet($event, chartset);
-      DeleteConfirmationService.resolveShowConfirmDialog();
+      EEDialogService.resolveShowDeleteConfirmation();
       $rootScope.$digest();
       expect(EagleEyeWebService.deleteChartSetById).toHaveBeenCalledWith('id');
     });
 
     it('should refresh chart list after delete a chart', function() {
       ChartSetsController.onClickDeleteChartSet($event, chartset);
-      DeleteConfirmationService.resolveShowConfirmDialog();
+      EEDialogService.resolveShowDeleteConfirmation();
       $rootScope.$digest();
       EagleEyeWebService.resolveDeleteChartSetById();
       $rootScope.$digest();

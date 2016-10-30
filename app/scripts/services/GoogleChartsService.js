@@ -326,15 +326,12 @@ angular.module('eagleeye')
   /**
    * @ngdoc service
    * @name eagleeye.GoogleChartsService
-   *
-   * @description
-   * Exports a set of helper methods for generating google charts.
-   *
    * @requires eagleeye.FRIENDLY_URL_PREFIX_CHART
    * @requires eagleeye.FRIENDLY_URL_PREFIX_CHARTSET
    * @requires eagleeye.CHART_TYPE_OPTIONS
    * @requires eagleeye.DOMAIN_DATA_TYPE
    * @requires eagleeye.DATA_TABLE_SAMPLES
+   * @description Exports a set of helper methods for generating google charts.
    */
   .factory('GoogleChartsService', [
     'FRIENDLY_URL_PREFIX_CHART',

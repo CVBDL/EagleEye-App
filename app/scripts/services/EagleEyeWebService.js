@@ -27,12 +27,12 @@ angular.module('eagleeye')
   /**
    * @ngdoc service
    * @name eagleeye.EagleEyeWebService
-   * @description Communicating with EagleEye-Platform rest APIs.
    * @requires $http
    * @requires $q
    * @requires ngFileUpload.Upload
    * @requires eagleeye.FRIENDLY_URL_PREFIX_CHART
    * @requires eagleeye.FRIENDLY_URL_PREFIX_CHARTSET
+   * @description Communicating with EagleEye-Platform rest APIs.
    */
   .factory('EagleEyeWebService', [
     '$http',

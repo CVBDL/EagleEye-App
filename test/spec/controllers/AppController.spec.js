@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Controller: AppController', function () {
+describe('Controller: AppController', function() {
   var $controller,
     $httpBackend,
     FEEDBACK_EMAIL;
@@ -41,7 +41,7 @@ describe('Controller: AppController', function () {
     expect(AppController).toBeDefined();
   });
 
-  it('should set `feedbackLink` model', function () {
+  it('should set `feedbackLink` model', function() {
     var feedbackLink = 'mailto:example@example.com?subject=EagleEye+Feedback';
 
     expect(AppController.feedbackLink).toBe(feedbackLink);

@@ -7,7 +7,7 @@ describe('Controller: ChartCreationController', function() {
     $state,
     GoogleChartsService,
     EagleEyeWebService,
-    HelpDialogService,
+    EEDialogService,
     CHART_TYPE_OPTIONS,
     IS_STACKED_OPTIONS,
     AXIS_FORMAT_OPTIONS;
@@ -23,14 +23,11 @@ describe('Controller: ChartCreationController', function() {
   // load GoogleChartsService mock module
   beforeEach(module('GoogleChartsServiceMock'));
 
+  // load EEDialogService mock module
+  beforeEach(module('EEDialogServiceMock'));
+
   // mock dependent services
   beforeEach(module(function($provide) {
-    $provide.factory('HelpDialogService', function() {
-      return {
-        showHelp: jasmine.createSpy('showHelp')
-      };
-    });
-
     $provide.constant('CHART_TYPE_OPTIONS', { foo: 1 });
     $provide.constant('IS_STACKED_OPTIONS', { bar: 1 });
     $provide.constant('AXIS_FORMAT_OPTIONS', { foobar: 1 });
@@ -42,14 +39,14 @@ describe('Controller: ChartCreationController', function() {
   }));
 
   // inject services
-  beforeEach(inject(function(_$controller_, _$httpBackend_, _$rootScope_, _$state_, _EagleEyeWebService_, _GoogleChartsService_, _HelpDialogService_, _CHART_TYPE_OPTIONS_, _IS_STACKED_OPTIONS_, _AXIS_FORMAT_OPTIONS_) {
+  beforeEach(inject(function(_$controller_, _$httpBackend_, _$rootScope_, _$state_, _EagleEyeWebService_, _GoogleChartsService_, _EEDialogService_, _CHART_TYPE_OPTIONS_, _IS_STACKED_OPTIONS_, _AXIS_FORMAT_OPTIONS_) {
     $controller = _$controller_;
     $rootScope = _$rootScope_;
     $state = _$state_;
     $httpBackend = _$httpBackend_;
     EagleEyeWebService = _EagleEyeWebService_;
     GoogleChartsService = _GoogleChartsService_;
-    HelpDialogService = _HelpDialogService_;
+    EEDialogService = _EEDialogService_;
     CHART_TYPE_OPTIONS = _CHART_TYPE_OPTIONS_;
     IS_STACKED_OPTIONS = _IS_STACKED_OPTIONS_;
     AXIS_FORMAT_OPTIONS = _AXIS_FORMAT_OPTIONS_;
@@ -60,7 +57,7 @@ describe('Controller: ChartCreationController', function() {
       $state: $state,
       GoogleChartsService: GoogleChartsService,
       EagleEyeWebService: EagleEyeWebService,
-      HelpDialogService: HelpDialogService,
+      EEDialogService: EEDialogService,
       CHART_TYPE_OPTIONS: CHART_TYPE_OPTIONS,
       IS_STACKED_OPTIONS: IS_STACKED_OPTIONS,
       AXIS_FORMAT_OPTIONS: AXIS_FORMAT_OPTIONS
@@ -111,7 +108,7 @@ describe('Controller: ChartCreationController', function() {
 
   it('should be able to show help dialog', function() {
     ChartCreationController.showHelp();
-    expect(HelpDialogService.showHelp).toHaveBeenCalled();
+    expect(EEDialogService.showChartCreationHelping).toHaveBeenCalled();
   });
 
   describe('makeChartPayload()', function() {

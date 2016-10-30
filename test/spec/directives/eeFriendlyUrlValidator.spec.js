@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Directive: eeFriendlyUrlValidator', function () {
+describe('Directive: eeFriendlyUrlValidator', function() {
 
   // load the directive's module
   beforeEach(module('eagleeye'));

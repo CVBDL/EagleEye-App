@@ -7,13 +7,13 @@
 angular.module('eagleeye')
   .controller('ChartCreationController', [
     '$state',
+    'EEDialogService',
     'GoogleChartsService',
     'EagleEyeWebService',
-    'HelpDialogService',
     'CHART_TYPE_OPTIONS',
     'IS_STACKED_OPTIONS',
     'AXIS_FORMAT_OPTIONS',
-    function($state, GoogleChartsService, EagleEyeWebService, HelpDialogService, CHART_TYPE_OPTIONS, IS_STACKED_OPTIONS, AXIS_FORMAT_OPTIONS) {
+    function($state, EEDialogService, GoogleChartsService, EagleEyeWebService, CHART_TYPE_OPTIONS, IS_STACKED_OPTIONS, AXIS_FORMAT_OPTIONS) {
       this.chartTypeOptions = CHART_TYPE_OPTIONS;
       this.isStackedOptions = IS_STACKED_OPTIONS;
       this.axisFormatOptions = AXIS_FORMAT_OPTIONS;
@@ -55,7 +55,7 @@ angular.module('eagleeye')
        * @description Show an help dialog.
        */
       this.showHelp = function() {
-        HelpDialogService.showHelp();
+        EEDialogService.showChartCreationHelping();
       };
 
       /**

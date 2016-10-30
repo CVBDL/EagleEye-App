@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Controller: ChartSetSettingsController', function () {
+describe('Controller: ChartSetSettingsController', function() {
   var $controller,
     $httpBackend,
     $q,

@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Directive: eeGoogleChartSample', function () {
+describe('Directive: eeGoogleChartSample', function() {
 
   // load the directive's module
   beforeEach(module('eagleeye'));

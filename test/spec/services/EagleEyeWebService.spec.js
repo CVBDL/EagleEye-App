@@ -24,7 +24,7 @@ describe('Constant:', function() {
   });
 });
 
-describe('Service: EagleEyeWebService', function () {
+describe('Service: EagleEyeWebService', function() {
 
   var chartId                      = '57837029c66dc1a4570962b6';
   var rootEndpoint                 = 'http://8.8.8.8:6666/';

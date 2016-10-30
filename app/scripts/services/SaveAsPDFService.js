@@ -3,9 +3,9 @@
 /**
  * @ngdoc service
  * @name eagleeye.SaveAsPDFService
- * @description Generate pdf or image.
  * @requires eagleeye.GoogleChartsService
  * @requires eagleeye.DEFAULT_CHART_OPTIONS
+ * @description Generate pdf or image.
  */
 angular.module('eagleeye')
   .factory('SaveAsPDFService', [

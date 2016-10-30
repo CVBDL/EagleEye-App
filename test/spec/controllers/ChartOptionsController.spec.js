@@ -8,7 +8,7 @@ describe('Controller: ChartOptionsController', function() {
     $stateParams,
     GoogleChartsService,
     EagleEyeWebService,
-    HelpDialogService,
+    EEDialogService,
     IS_STACKED_OPTIONS,
     AXIS_FORMAT_OPTIONS;
 
@@ -23,14 +23,11 @@ describe('Controller: ChartOptionsController', function() {
   // load GoogleChartsService mock module
   beforeEach(module('GoogleChartsServiceMock'));
 
+  // load EEDialogService mock module
+  beforeEach(module('EEDialogServiceMock'));
+
   // mock dependent services
   beforeEach(module(function($provide) {
-    $provide.factory('HelpDialogService', function() {
-      return {
-        showHelp: jasmine.createSpy('showHelp')
-      };
-    });
-
     $provide.factory('$stateParams', function() {
       return {
         id: 'id'
@@ -47,7 +44,7 @@ describe('Controller: ChartOptionsController', function() {
   }));
 
   // inject services
-  beforeEach(inject(function(_$controller_, _$httpBackend_, _$rootScope_, _$state_, _$stateParams_, _EagleEyeWebService_, _GoogleChartsService_, _HelpDialogService_, _IS_STACKED_OPTIONS_, _AXIS_FORMAT_OPTIONS_) {
+  beforeEach(inject(function(_$controller_, _$httpBackend_, _$rootScope_, _$state_, _$stateParams_, _EagleEyeWebService_, _GoogleChartsService_, _EEDialogService_, _IS_STACKED_OPTIONS_, _AXIS_FORMAT_OPTIONS_) {
     $controller = _$controller_;
     $httpBackend = _$httpBackend_;
     $rootScope = _$rootScope_;
@@ -55,7 +52,7 @@ describe('Controller: ChartOptionsController', function() {
     $stateParams = _$stateParams_;
     EagleEyeWebService = _EagleEyeWebService_;
     GoogleChartsService = _GoogleChartsService_;
-    HelpDialogService = _HelpDialogService_;
+    EEDialogService = _EEDialogService_;
     IS_STACKED_OPTIONS = _IS_STACKED_OPTIONS_;
     AXIS_FORMAT_OPTIONS = _AXIS_FORMAT_OPTIONS_;
   }));
@@ -66,7 +63,7 @@ describe('Controller: ChartOptionsController', function() {
       $stateParams: $stateParams,
       GoogleChartsService: GoogleChartsService,
       EagleEyeWebService: EagleEyeWebService,
-      HelpDialogService: HelpDialogService,
+      EEDialogService: EEDialogService,
       IS_STACKED_OPTIONS: IS_STACKED_OPTIONS,
       AXIS_FORMAT_OPTIONS: AXIS_FORMAT_OPTIONS
     });
@@ -123,7 +120,7 @@ describe('Controller: ChartOptionsController', function() {
 
   it('should be able to show help dialog', function() {
     ChartOptionsController.showHelp();
-    expect(HelpDialogService.showHelp).toHaveBeenCalled();
+    expect(EEDialogService.showChartCreationHelping).toHaveBeenCalled();
   });
 
   describe('makeChartPayload()', function() {
