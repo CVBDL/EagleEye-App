@@ -2,22 +2,32 @@
 
 /**
  * @ngdoc service
- * @name eagleeye.eeDeleteConfirmationService
+ * @name eagleeye.DeleteConfirmationService
+ * @description
+ *
+ * Show a confirmation dialog with 'DELETE' and 'CANCEL' options.
+ * Returns the response when user make a choice.
+ *
+ * @requires $q
+ * @requires ngMaterial.$mdDialog
+ * @requires ngMaterial.$mdMedia
  */
 angular.module('eagleeye')
-  .factory('eeDeleteConfirmationService', [
+  .factory('DeleteConfirmationService', [
     '$q',
     '$mdDialog',
     '$mdMedia',
     function ($q, $mdDialog, $mdMedia) {
+      var self = {};
+
       /**
-       * @function
-       * @name showConfirmDialog
+       * @method
+       * @name eagleeye.DeleteConfirmationService#showConfirmDialog
        * @description Show a confirmation dialog and reponse base on user action.
        * @param {Object} Custom data object.
        * @returns {Promise}
        */
-      function showConfirmDialog(locals) {
+      self.showConfirmDialog = function(locals) {
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
 
         return $mdDialog.show({
@@ -35,10 +45,8 @@ angular.module('eagleeye')
             return $q.reject(response);
           }
         });
-      }
-
-      return {
-        showConfirmDialog: showConfirmDialog
       };
+
+      return self;
     }
   ]);

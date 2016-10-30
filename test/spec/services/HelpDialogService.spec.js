@@ -1,10 +1,10 @@
 'use strict';
 
-describe('Service: eeHelpDialogService', function () {
+describe('Service: HelpDialogService', function () {
   var $httpBackend,
     $mdDialog;
 
-  var eeHelpDialogService;
+  var HelpDialogService;
 
   beforeEach(module('eagleeye'));
 
@@ -27,14 +27,14 @@ describe('Service: eeHelpDialogService', function () {
   }));
 
   // reset router
-  beforeEach(module(function ($urlRouterProvider) {
+  beforeEach(module(function($urlRouterProvider) {
     $urlRouterProvider.otherwise(function() { return false; });
   }));
 
-  beforeEach(inject(function (_$httpBackend_, _$mdDialog_, _eeHelpDialogService_) {
+  beforeEach(inject(function (_$httpBackend_, _$mdDialog_, _HelpDialogService_) {
     $httpBackend = _$httpBackend_;
     $mdDialog = _$mdDialog_;
-    eeHelpDialogService = _eeHelpDialogService_;
+    HelpDialogService = _HelpDialogService_;
   }));
 
   afterEach(function() {
@@ -43,11 +43,11 @@ describe('Service: eeHelpDialogService', function () {
   });
 
   it('should be able to create this service', function() {
-    expect(!!eeHelpDialogService).toBe(true);
+    expect(!!HelpDialogService).toBe(true);
   });
 
   it('should show help dialog', function() {
-    eeHelpDialogService.showHelp();
+    HelpDialogService.showHelp();
     expect($mdDialog.show).toHaveBeenCalled();
   });
 });

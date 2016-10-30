@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc service
- * @name eagleeye.eeSaveAsPDFService
- * @description
- * # eeSaveAsPDFService
- * Factory in the eagleeye.
+ * @name eagleeye.SaveAsPDFService
+ * @description Generate pdf or image.
+ * @requires eagleeye.GoogleChartsService
+ * @requires eagleeye.DEFAULT_CHART_OPTIONS
  */
 angular.module('eagleeye')
-  .factory('eeSaveAsPDFService', [
+  .factory('SaveAsPDFService', [
     'GoogleChartsService',
     'DEFAULT_CHART_OPTIONS',
     function(GoogleChartsService, DEFAULT_CHART_OPTIONS) {

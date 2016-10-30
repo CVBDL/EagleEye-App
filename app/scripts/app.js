@@ -1,12 +1,11 @@
 'use strict';
 
 /**
- * @ngdoc overview
+ * @ngdoc module
  * @name eagleeye
  * @description
- * `eagleeye` module.
- *
- * Main module of the application.
+ * The main module of EagleEye-App project.
+ * All of the controllers, directives and services are exposed via this module.
  */
 angular
   .module('eagleeye', [
@@ -18,8 +17,7 @@ angular
   .config([
     '$stateProvider',
     '$urlRouterProvider',
-    'GoogleChartsServiceProvider',
-    function($stateProvider, $urlRouterProvider, GoogleChartsServiceProvider) {
+    function($stateProvider, $urlRouterProvider) {
       $stateProvider
         .state('root', {
           url: '',

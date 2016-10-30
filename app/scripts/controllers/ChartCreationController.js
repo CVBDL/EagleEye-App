@@ -9,11 +9,11 @@ angular.module('eagleeye')
     '$state',
     'GoogleChartsService',
     'EagleEyeWebService',
-    'eeHelpDialogService',
+    'HelpDialogService',
     'CHART_TYPE_OPTIONS',
     'IS_STACKED_OPTIONS',
     'AXIS_FORMAT_OPTIONS',
-    function($state, GoogleChartsService, EagleEyeWebService, eeHelpDialogService, CHART_TYPE_OPTIONS, IS_STACKED_OPTIONS, AXIS_FORMAT_OPTIONS) {
+    function($state, GoogleChartsService, EagleEyeWebService, HelpDialogService, CHART_TYPE_OPTIONS, IS_STACKED_OPTIONS, AXIS_FORMAT_OPTIONS) {
       this.chartTypeOptions = CHART_TYPE_OPTIONS;
       this.isStackedOptions = IS_STACKED_OPTIONS;
       this.axisFormatOptions = AXIS_FORMAT_OPTIONS;
@@ -55,7 +55,7 @@ angular.module('eagleeye')
        * @description Show an help dialog.
        */
       this.showHelp = function() {
-        eeHelpDialogService.showHelp();
+        HelpDialogService.showHelp();
       };
 
       /**

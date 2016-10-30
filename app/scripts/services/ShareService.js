@@ -2,23 +2,25 @@
 
 /**
  * @ngdoc service
- * @name eagleeye.eeShareService
- * @description
- * # eeShareService
- * Factory in the eagleeye.
+ * @name eagleeye.ShareService
+ * @description Sharing charts or chart sets.
+ * @requires ngMaterial.$mdDialog
+ * @requires ngMaterial.$mdMedia
  */
 angular.module('eagleeye')
-  .factory('eeShareService', [
+  .factory('ShareService', [
     '$mdDialog',
     '$mdMedia',
     function ($mdDialog, $mdMedia) {
+      var self = {};
+
       /**
-       * @function
-       * @name showShareDialog
+       * @method
+       * @name eagleeye.ShareService#showShareDialog
        * @description Show a share dialog.
        * @param {Object} Custom data object.
        */
-      function showShareDialog(locals) {
+      self.showShareDialog = function(locals) {
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
 
         $mdDialog.show({
@@ -29,10 +31,8 @@ angular.module('eagleeye')
           clickOutsideToClose: true,
           fullscreen: useFullScreen
         });
-      }
-
-      return {
-        showShareDialog: showShareDialog
       };
+
+      return self
     }
   ]);

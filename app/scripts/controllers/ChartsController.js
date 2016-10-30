@@ -8,8 +8,8 @@ angular.module('eagleeye')
   .controller('ChartsController', [
     '$state',
     'EagleEyeWebService',
-    'eeDeleteConfirmationService',
-    function($state, EagleEyeWebService, eeDeleteConfirmationService) {
+    'DeleteConfirmationService',
+    function($state, EagleEyeWebService, DeleteConfirmationService) {
       var controller = this;
 
       /** @default true */
@@ -40,7 +40,7 @@ angular.module('eagleeye')
       this.onClickDeleteChart = function($event, chart) {
         $event.stopPropagation();
 
-        eeDeleteConfirmationService
+        DeleteConfirmationService
           .showConfirmDialog({ title: chart.options.title })
           .then(function() {
             return EagleEyeWebService.deleteChartById(chart._id);

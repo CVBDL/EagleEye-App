@@ -2,18 +2,22 @@
 
 /**
  * @ngdoc service
- * @name eagleeye.eeHelpDialogService
+ * @name eagleeye.HelpDialogService
+ * @description Display helping messages.
+ * @requires ngMaterial.$mdDialog
  */
 angular.module('eagleeye')
-  .factory('eeHelpDialogService', [
+  .factory('HelpDialogService', [
     '$mdDialog',
-    function eeHelpDialogService($mdDialog) {
+    function HelpDialogService($mdDialog) {
+      var self = {};
+
       /**
-       * @function
-       * @name showHelp
+       * @method
+       * @name eagleeye.HelpDialogService#showHelp
        * @description Show an help dialog.
        */
-      function showHelp() {
+      self.showHelp = function() {
         $mdDialog.show({
           templateUrl: 'scripts/templates/chart-creation-help.tmpl.html',
           controller: ['$scope', function($scope) {
@@ -24,10 +28,8 @@ angular.module('eagleeye')
           parent: angular.element(document.body),
           clickOutsideToClose: true
         });
-      }
-
-      return {
-        showHelp: showHelp
       };
+
+      return self;
     }
   ]);

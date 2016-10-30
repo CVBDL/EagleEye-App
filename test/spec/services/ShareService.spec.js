@@ -1,12 +1,12 @@
 'use strict';
 
-describe('Service: eeShareService', function () {
+describe('Service: ShareService', function () {
   var $httpBackend,
     $mdDialog,
     $q,
     $rootScope;
 
-  var eeShareService;
+  var ShareService;
 
   beforeEach(module('eagleeye'));
 
@@ -35,16 +35,16 @@ describe('Service: eeShareService', function () {
   }));
 
   // reset router
-  beforeEach(module(function ($urlRouterProvider) {
+  beforeEach(module(function($urlRouterProvider) {
     $urlRouterProvider.otherwise(function() { return false; });
   }));
 
-  beforeEach(inject(function (_$httpBackend_, _$mdDialog_, _$q_, _$rootScope_, _eeShareService_) {
+  beforeEach(inject(function (_$httpBackend_, _$mdDialog_, _$q_, _$rootScope_, _ShareService_) {
     $httpBackend = _$httpBackend_;
     $mdDialog = _$mdDialog_;
     $q = _$q_;
     $rootScope = _$rootScope_;
-    eeShareService = _eeShareService_;
+    ShareService = _ShareService_;
   }));
 
   afterEach(function() {
@@ -53,11 +53,11 @@ describe('Service: eeShareService', function () {
   });
 
   it('should be able to create this service', function() {
-    expect(!!eeShareService).toBe(true);
+    expect(!!ShareService).toBe(true);
   });
 
   it('should show confirmation dialog', function() {
-    eeShareService.showShareDialog({});
+    ShareService.showShareDialog({});
     expect($mdDialog.show).toHaveBeenCalledWith({
       locals: {},
       controller: 'ShareDialogController as ctrl',

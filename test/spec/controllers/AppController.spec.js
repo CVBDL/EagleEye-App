@@ -16,7 +16,7 @@ describe('Controller: AppController', function () {
   }));
 
   // reset router
-  beforeEach(module(function ($urlRouterProvider) {
+  beforeEach(module(function($urlRouterProvider) {
     $urlRouterProvider.otherwise(function() { return false; });
   }));
 

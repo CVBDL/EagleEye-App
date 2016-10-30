@@ -4,7 +4,7 @@ angular.module('eagleeye')
 
   /**
    * @ngdoc service
-   * @name CHART_TYPE_OPTIONS
+   * @name eagleeye.CHART_TYPE_OPTIONS
    * @description All of the currently supported chart types.
    */
   .constant('CHART_TYPE_OPTIONS', [{
@@ -29,7 +29,7 @@ angular.module('eagleeye')
 
   /**
    * @ngdoc service
-   * @name DOMAIN_DATA_TYPE
+   * @name eagleeye.DOMAIN_DATA_TYPE
    * @description Currently supported domain data types.
    */
   .constant('DOMAIN_DATA_TYPE', [
@@ -41,7 +41,7 @@ angular.module('eagleeye')
 
   /**
    * @ngdoc service
-   * @name IS_STACKED_OPTIONS
+   * @name eagleeye.IS_STACKED_OPTIONS
    *
    * @description
    * Google charts' `isStacked` option.
@@ -57,7 +57,7 @@ angular.module('eagleeye')
 
   /**
    * @ngdoc service
-   * @name AXIS_FORMAT_OPTIONS
+   * @name eagleeye.AXIS_FORMAT_OPTIONS
    *
    * @description
    * Google charts' `hAxis.format` or `vAxis.format` options.
@@ -77,7 +77,7 @@ angular.module('eagleeye')
 
   /**
    * @ngdoc service
-   * @name DEFAULT_CHART_OPTIONS
+   * @name eagleeye.DEFAULT_CHART_OPTIONS
    *
    * @description
    * Default google chart configuration options
@@ -282,6 +282,14 @@ angular.module('eagleeye')
     }
   })
 
+  /**
+   * @ngdoc service
+   * @name eagleeye.DATA_TABLE_SAMPLES
+   *
+   * @description
+   * Google charts data table samples。
+   * {@link https://developers.google.com/chart/interactive/docs/datatables_dataviews DataTables and DataViews}
+   */
   .constant('DATA_TABLE_SAMPLES', {
     linechart: {
       string: { "cols": [{ "label": "City", "type": "string" }, { "label": "2010 Population", "type": "number" }, { "label": "2000 Population", "type": "number" }], "rows": [{ "c": [{ "v": "New York City, NY" }, { "v": 8175000 }, { "v": 8008000 }] }, { "c": [{ "v": "Los Angeles, CA" }, { "v": 3792000 }, { "v": 3694000 }] }, { "c": [{ "v": "Chicago, IL" }, { "v": 2695000 }, { "v": 2896000 }] }, { "c": [{ "v": "Houston, TX" }, { "v": 2099000 }, { "v": 1953000 }] }, { "c": [{ "v": "Philadelphia, PA" }, { "v": 1526000 }, { "v": 1517000 }] }] },
@@ -317,8 +325,16 @@ angular.module('eagleeye')
 
   /**
    * @ngdoc service
-   * @name GoogleChartsService
-   * @description Common google charts utilities.
+   * @name eagleeye.GoogleChartsService
+   *
+   * @description
+   * Exports a set of helper methods for generating google charts.
+   *
+   * @requires eagleeye.FRIENDLY_URL_PREFIX_CHART
+   * @requires eagleeye.FRIENDLY_URL_PREFIX_CHARTSET
+   * @requires eagleeye.CHART_TYPE_OPTIONS
+   * @requires eagleeye.DOMAIN_DATA_TYPE
+   * @requires eagleeye.DATA_TABLE_SAMPLES
    */
   .factory('GoogleChartsService', [
     'FRIENDLY_URL_PREFIX_CHART',
@@ -331,7 +347,7 @@ angular.module('eagleeye')
 
       /**
        * @method
-       * @name validateChartType
+       * @name eagleeye.GoogleChartsService#validateChartType
        * @description Validate the given chart type. The chart type must exist in `CHART_TYPE_OPTIONS`
        * @param {string} type The chart type.
        * @returns {boolean} Indicate if it's an valid chart type or not.
@@ -352,7 +368,7 @@ angular.module('eagleeye')
 
       /**
        * @method
-       * @name makeChartType
+       * @name eagleeye.GoogleChartsService#makeChartType
        * @description Get a valid chart type value according to input or get an error.
        * @param {string} type The chart type.
        * @returns {string|Error} An valid chart type or throw an error.
@@ -368,7 +384,7 @@ angular.module('eagleeye')
 
       /**
        * @method
-       * @name validateDomainDataType
+       * @name eagleeye.GoogleChartsService#validateDomainDataType
        * @description Validate the given data type. The type must exist in `DOMAIN_DATA_TYPE`.
        * @param {string} type Domain data type.
        * @returns {boolean} Indicate if it's an valid domain data type.
@@ -389,7 +405,7 @@ angular.module('eagleeye')
 
       /**
        * @method
-       * @name makeDomainDataType
+       * @name eagleeye.GoogleChartsService#makeDomainDataType
        * @description Get a valid domain data type value according to input or get an error.
        * @param {string} type The chart type.
        * @returns {string|Error} An valid domain data type or throw an error.
@@ -405,7 +421,7 @@ angular.module('eagleeye')
 
       /**
        * @method
-       * @name makeChartAreaOptions
+       * @name eagleeye.GoogleChartsService#makeChartAreaOptions
        *
        * @description
        *
@@ -422,7 +438,7 @@ angular.module('eagleeye')
        * @returns {Object} The `chartArea` configuration option object.
        *
        * @example
-       * this.makeChartAreaOptions();             // returns {}
+       * this.makeChartAreaOptions();                              // returns {}
        * this.makeChartAreaOptions({ left: '', width: '90%' });    // returns { width: '90%' }
        * this.makeChartAreaOptions({ left: '10%', width: '90%' }); // returns { left: '10%', width: '90%' }
        */
@@ -444,7 +460,7 @@ angular.module('eagleeye')
 
       /**
        * @method
-       * @name makeAxisOptions
+       * @name eagleeye.GoogleChartsService#makeAxisOptions
        * @description Generate google charts `hAxis` or `vAxis` configuration option.
        * @param {Object} options Input axis options.
        * @returns {Object} `hAxis` or `vAxis` configuration option objects.
@@ -467,7 +483,7 @@ angular.module('eagleeye')
 
       /**
        * @method
-       * @name hasIsStackedOption
+       * @name eagleeye.GoogleChartsService#hasIsStackedOption
        * @description Check if the given chart type has an `isStacked` option.
        * @param {Object} chartType Google chart type.
        * @returns {boolean}
@@ -480,7 +496,7 @@ angular.module('eagleeye')
 
       /**
        * @method
-       * @name hasComboLinesOption
+       * @name eagleeye.GoogleChartsService#hasComboLinesOption
        * @description Check support `combolines` option or not. Only ComboChart support it.
        * @param {Object} chartType Google chart type.
        * @returns {boolean}
@@ -494,7 +510,7 @@ angular.module('eagleeye')
 
       /**
        * @method
-       * @name makeConfigurationOptions
+       * @name eagleeye.GoogleChartsService#makeConfigurationOptions
        * @description Generate a valid google chart configuration options object.
        * @param {Object} chartType Chart type.
        * @param {Object} options User input chart options.
@@ -530,7 +546,7 @@ angular.module('eagleeye')
 
       /**
        * @method
-       * @name getChartDataTableSamples
+       * @name eagleeye.GoogleChartsService#getChartDataTableSamples
        *
        * @description
        * According to chart type and domain axis data type, it'll provide a sample data table for demo.

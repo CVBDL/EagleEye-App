@@ -1,12 +1,12 @@
 'use strict';
 
-describe('Service: eeDeleteConfirmationService', function () {
+describe('Service: DeleteConfirmationService', function () {
   var $httpBackend,
     $mdDialog,
     $q,
     $rootScope;
 
-  var eeDeleteConfirmationService;
+  var DeleteConfirmationService;
 
   beforeEach(module('eagleeye'));
 
@@ -35,16 +35,16 @@ describe('Service: eeDeleteConfirmationService', function () {
   }));
 
   // reset router
-  beforeEach(module(function ($urlRouterProvider) {
+  beforeEach(module(function($urlRouterProvider) {
     $urlRouterProvider.otherwise(function() { return false; });
   }));
 
-  beforeEach(inject(function (_$httpBackend_, _$mdDialog_, _$q_, _$rootScope_, _eeDeleteConfirmationService_) {
+  beforeEach(inject(function (_$httpBackend_, _$mdDialog_, _$q_, _$rootScope_, _DeleteConfirmationService_) {
     $httpBackend = _$httpBackend_;
     $mdDialog = _$mdDialog_;
     $q = _$q_;
     $rootScope = _$rootScope_;
-    eeDeleteConfirmationService = _eeDeleteConfirmationService_;
+    DeleteConfirmationService = _DeleteConfirmationService_;
   }));
 
   afterEach(function() {
@@ -53,7 +53,7 @@ describe('Service: eeDeleteConfirmationService', function () {
   });
 
   it('should be able to create this service', function() {
-    expect(!!eeDeleteConfirmationService).toBe(true);
+    expect(!!DeleteConfirmationService).toBe(true);
   });
 
   describe('showConfirmDialog()', function() {
@@ -63,7 +63,7 @@ describe('Service: eeDeleteConfirmationService', function () {
     });
 
     it('should show confirmation dialog', function() {
-      eeDeleteConfirmationService.showConfirmDialog({});
+      DeleteConfirmationService.showConfirmDialog({});
       expect($mdDialog.show).toHaveBeenCalledWith({
         locals: {},
         controller: 'DeleteDialogController as ctrl',
@@ -75,7 +75,7 @@ describe('Service: eeDeleteConfirmationService', function () {
     });
 
     it('should resolve the confirmation if response "delete"', function() {
-      eeDeleteConfirmationService.showConfirmDialog({});
+      DeleteConfirmationService.showConfirmDialog({});
       $mdDialog.resolveShow('delete');
       $rootScope.$digest();
       expect($q.when).toHaveBeenCalledWith('delete');
@@ -83,7 +83,7 @@ describe('Service: eeDeleteConfirmationService', function () {
     });
 
     it('should reject the confirmation if response other than "delete"', function() {
-      eeDeleteConfirmationService.showConfirmDialog({});
+      DeleteConfirmationService.showConfirmDialog({});
       $mdDialog.resolveShow('cancel');
       $rootScope.$digest();
       expect($q.when).not.toHaveBeenCalled();
@@ -91,7 +91,7 @@ describe('Service: eeDeleteConfirmationService', function () {
     });
 
     it('should do nothing if confirmation is rejected', function() {
-      eeDeleteConfirmationService.showConfirmDialog({});
+      DeleteConfirmationService.showConfirmDialog({});
       $mdDialog.rejectShow('reject');
       $rootScope.$digest();
       expect($q.when).not.toHaveBeenCalled();

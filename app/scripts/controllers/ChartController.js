@@ -10,9 +10,9 @@ angular.module('eagleeye')
     '$location',
     '$interval',
     'EagleEyeWebService',
-    'eeShareService',
-    'eeSaveAsPDFService',
-    function($stateParams, $location, $interval, EagleEyeWebService, eeShareService, eeSaveAsPDFService) {
+    'ShareService',
+    'SaveAsPDFService',
+    function($stateParams, $location, $interval, EagleEyeWebService, ShareService, SaveAsPDFService) {
       var controller = this;
 
       this.id = $stateParams.id;
@@ -92,7 +92,7 @@ angular.module('eagleeye')
        * @param {string} title The chart's title property.
        */
       this.showShare = function(title) {
-        eeShareService.showShareDialog({
+        ShareService.showShareDialog({
           sharedTitle: title,
           sharedLink: $location.absUrl()
         });
@@ -106,7 +106,7 @@ angular.module('eagleeye')
        * @param {Object} chart The chart data.
        */
       this.SaveImageOrPDF = function(fileType, chart) {
-        eeSaveAsPDFService.SaveImageOrPDF(fileType, chart);
+        SaveAsPDFService.SaveImageOrPDF(fileType, chart);
       };
 
       /**

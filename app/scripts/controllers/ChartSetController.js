@@ -12,9 +12,9 @@ angular.module('eagleeye')
     '$stateParams',
     '$interval',
     'EagleEyeWebService',
-    'eeShareService',
-    'eeSaveAsPDFService',
-    function($location, $rootScope, $state, $stateParams, $interval, EagleEyeWebService, eeShareService, eeSaveAsPDFService) {
+    'ShareService',
+    'SaveAsPDFService',
+    function($location, $rootScope, $state, $stateParams, $interval, EagleEyeWebService, ShareService, SaveAsPDFService) {
       var controller = this;
 
       this.id = $stateParams.id;
@@ -31,8 +31,8 @@ angular.module('eagleeye')
       /** @default null */
       this.autoReloadChartSetPromise = null;
 
-      this.saveChartSetAsPdf = eeSaveAsPDFService.saveChartSetAsPdf;
-      this.saveChartSetAsImageOrPdf = eeSaveAsPDFService.saveChartSetAsImageOrPdf;
+      this.saveChartSetAsPdf = SaveAsPDFService.saveChartSetAsPdf;
+      this.saveChartSetAsImageOrPdf = SaveAsPDFService.saveChartSetAsImageOrPdf;
 
       this.chartset = {};
       this.chartSetList = [];
@@ -125,7 +125,7 @@ angular.module('eagleeye')
        * @param {string} title The chart set's title property.
        */
       this.showShare = function(title) {
-        eeShareService.showShareDialog({
+        ShareService.showShareDialog({
           sharedTitle: title,
           sharedLink: $location.absUrl()
         });

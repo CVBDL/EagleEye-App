@@ -10,10 +10,10 @@ angular.module('eagleeye')
     '$stateParams',
     'GoogleChartsService',
     'EagleEyeWebService',
-    'eeHelpDialogService',
+    'HelpDialogService',
     'IS_STACKED_OPTIONS',
     'AXIS_FORMAT_OPTIONS',
-    function($state, $stateParams, GoogleChartsService, EagleEyeWebService, eeHelpDialogService, IS_STACKED_OPTIONS, AXIS_FORMAT_OPTIONS) {
+    function($state, $stateParams, GoogleChartsService, EagleEyeWebService, HelpDialogService, IS_STACKED_OPTIONS, AXIS_FORMAT_OPTIONS) {
       var controller = this;
 
       this.id = $stateParams.id;
@@ -40,7 +40,7 @@ angular.module('eagleeye')
        * @description Show an help dialog.
        */
       this.showHelp = function() {
-        eeHelpDialogService.showHelp();
+        HelpDialogService.showHelp();
       };
 
       /**

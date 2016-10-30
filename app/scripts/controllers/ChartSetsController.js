@@ -8,8 +8,8 @@ angular.module('eagleeye')
   .controller('ChartSetsController', [
     '$state',
     'EagleEyeWebService',
-    'eeDeleteConfirmationService',
-    function($state, EagleEyeWebService, eeDeleteConfirmationService) {
+    'DeleteConfirmationService',
+    function($state, EagleEyeWebService, DeleteConfirmationService) {
       var controller = this;
 
       /** @default true */
@@ -40,7 +40,7 @@ angular.module('eagleeye')
       this.onClickDeleteChartSet = function($event, chartset) {
         $event.stopPropagation();
 
-        eeDeleteConfirmationService
+        DeleteConfirmationService
           .showConfirmDialog({ title: chartset.title })
           .then(function() {
             return EagleEyeWebService.deleteChartSetById(chartset._id);

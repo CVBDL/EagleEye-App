@@ -1,17 +1,10 @@
 'use strict';
 
-/**
- * @ngdoc service
- * @name eagleeye.EagleEyeWebService
- * @description
- * # EagleEyeWebService
- * Factory in the eagleeye.
- */
 angular.module('eagleeye')
 
   /**
    * @ngdoc service
-   * @name FRIENDLY_URL_PREFIX_CHART
+   * @name eagleeye.FRIENDLY_URL_PREFIX_CHART
    *
    * @description
    * The prefix of chart `friendlyUrl` property.
@@ -22,7 +15,7 @@ angular.module('eagleeye')
 
   /**
    * @ngdoc service
-   * @name FRIENDLY_URL_PREFIX_CHARTSET
+   * @name eagleeye.FRIENDLY_URL_PREFIX_CHARTSET
    *
    * @description
    * The prefix of chart set `friendlyUrl` property.
@@ -31,6 +24,16 @@ angular.module('eagleeye')
    */
   .constant('FRIENDLY_URL_PREFIX_CHARTSET', 's-')
 
+  /**
+   * @ngdoc service
+   * @name eagleeye.EagleEyeWebService
+   * @description Communicating with EagleEye-Platform rest APIs.
+   * @requires $http
+   * @requires $q
+   * @requires ngFileUpload.Upload
+   * @requires eagleeye.FRIENDLY_URL_PREFIX_CHART
+   * @requires eagleeye.FRIENDLY_URL_PREFIX_CHARTSET
+   */
   .factory('EagleEyeWebService', [
     '$http',
     '$q',
@@ -204,7 +207,7 @@ angular.module('eagleeye')
 
       /**
        * @method
-       * @name makeFriendlyUrl
+       * @name eagleeye.EagleEyeWebService#makeFriendlyUrl
        *
        * @description
        * Property `friendlyUrl` is an unique field for a chart or chart set.

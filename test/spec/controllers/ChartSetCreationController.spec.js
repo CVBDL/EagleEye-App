@@ -17,7 +17,7 @@ describe('Controller: ChartSetCreationController', function () {
   beforeEach(module('EagleEyeWebServiceMock'));
 
   // reset router
-  beforeEach(module(function ($urlRouterProvider) {
+  beforeEach(module(function($urlRouterProvider) {
     $urlRouterProvider.otherwise(function() { return false; });
   }));
 
