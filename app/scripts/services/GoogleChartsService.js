@@ -366,7 +366,6 @@ angular.module('eagleeye')
         }
       };
 
-
       /**
        * @method
        * @name validateDomainDataType

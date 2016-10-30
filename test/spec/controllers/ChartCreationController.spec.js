@@ -20,30 +20,11 @@ describe('Controller: ChartCreationController', function() {
   // load EagleEyeWebService mock module
   beforeEach(module('EagleEyeWebServiceMock'));
 
+  // load GoogleChartsService mock module
+  beforeEach(module('GoogleChartsServiceMock'));
+
   // mock dependent services
   beforeEach(module(function($provide) {
-    $provide.factory('GoogleChartsService', function() {
-      var makeChartType = jasmine.createSpy('makeChartType').and.callFake(function(chartType) {
-        return 'LineChart';
-      });
-      var makeDomainDataType = jasmine.createSpy('makeDomainDataType').and.callFake(function(domainDataType) {
-        return 'string';
-      });
-      var getChartDataTableSamples = jasmine.createSpy('getChartDataTableSamples').and.callFake(function(chartType, domainDataType) {
-        return {};
-      });
-      var makeConfigurationOptions = jasmine.createSpy('makeConfigurationOptions').and.callFake(function(chartType, options) {
-        return {};
-      });
-
-      return {
-        makeChartType: makeChartType,
-        makeDomainDataType: makeDomainDataType,
-        getChartDataTableSamples: getChartDataTableSamples,
-        makeConfigurationOptions: makeConfigurationOptions,
-      };
-    });
-
     $provide.factory('eeHelpDialogService', function() {
       return {
         showHelp: jasmine.createSpy('showHelp')
@@ -150,36 +131,39 @@ describe('Controller: ChartCreationController', function() {
       payload = ChartCreationController.makeChartPayload(chart);
     });
 
-    it('makeChartPayload() should return a payload object', function() {
+    it('should return a payload object', function() {
       expect(typeof payload).toBe('object');
       expect(payload).not.toBe(null);
     });
 
-    it('makeChartPayload() should make chart description payload', function() {
+    it('should make chart description payload', function() {
       expect(payload.description).toBe('foo');
     });
 
-    it('makeChartPayload() should make chart type payload', function() {
+    it('should make chart type payload', function() {
       expect(GoogleChartsService.makeChartType).toHaveBeenCalledWith('LineChart');
       expect(payload.chartType).toBe('LineChart');
     });
 
-    it('makeChartPayload() should make friendlyUrl payload', function() {
+    it('should make friendlyUrl payload', function() {
       expect(EagleEyeWebService.makeFriendlyUrl).toHaveBeenCalledWith('chart', 'friendly-url');
       expect(payload.friendlyUrl).toBe('x-friendly-url');
     });
 
-    it('makeChartPayload() should make domainDataType payload', function() {
+    it('should make domainDataType payload', function() {
       expect(GoogleChartsService.makeDomainDataType).toHaveBeenCalledWith('string');
       expect(payload.domainDataType).toBe('string');
     });
 
-    it('makeChartPayload() should make datatable payload', function() {
+    it('should make datatable payload', function() {
       expect(GoogleChartsService.getChartDataTableSamples).toHaveBeenCalledWith('LineChart', 'string');
-      expect(payload.datatable).toEqual({});
+      expect(payload.datatable).toEqual({
+        "cols": [{}],
+        "rows": [{}]
+      });
     });
 
-    it('makeChartPayload() should make options payload', function() {
+    it('should make options payload', function() {
       expect(GoogleChartsService.makeConfigurationOptions).toHaveBeenCalledWith('LineChart', {});
       expect(payload.options).toEqual({});
     });

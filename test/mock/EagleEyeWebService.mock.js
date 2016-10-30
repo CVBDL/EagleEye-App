@@ -11,17 +11,17 @@ angular.module('EagleEyeWebServiceMock', [])
       qDeleteChartSetById,
       qUpdateChartSetById;
 
-    var getChartById = jasmine.createSpy('getChartById').and.callFake(function(chartId) {
+    var getChartById = jasmine.createSpy('getChartById').and.callFake(function() {
       qGetChartById = $q.defer();
 
       return qGetChartById.promise;
     });
-    var createChart = jasmine.createSpy('createChart').and.callFake(function(payload) {
+    var createChart = jasmine.createSpy('createChart').and.callFake(function() {
       qCreateChart = $q.defer();
 
       return qCreateChart.promise;
     });
-    var updateChartById = jasmine.createSpy('updateChartById').and.callFake(function(chartId) {
+    var updateChartById = jasmine.createSpy('updateChartById').and.callFake(function() {
       qUpdateChartById = $q.defer();
 
       return qUpdateChartById.promise;
@@ -31,37 +31,37 @@ angular.module('EagleEyeWebServiceMock', [])
 
       return qGetCharts.promise;
     });
-    var deleteChartById = jasmine.createSpy('deleteChartById').and.callFake(function(chartId) {
+    var deleteChartById = jasmine.createSpy('deleteChartById').and.callFake(function() {
       qDeleteChartById = $q.defer();
 
       return qDeleteChartById.promise;
     });
-    var getChartSetById = jasmine.createSpy('getChartSetById').and.callFake(function(chartId) {
+    var getChartSetById = jasmine.createSpy('getChartSetById').and.callFake(function() {
       qGetChartSetById = $q.defer();
 
       return qGetChartSetById.promise;
     });
-    var getChartSets = jasmine.createSpy('getChartSets').and.callFake(function(chartId) {
+    var getChartSets = jasmine.createSpy('getChartSets').and.callFake(function() {
       qGetChartSets = $q.defer();
 
       return qGetChartSets.promise;
     });
-    var createChartSet = jasmine.createSpy('createChartSet').and.callFake(function(payload) {
+    var createChartSet = jasmine.createSpy('createChartSet').and.callFake(function() {
       qCreateChartSet = $q.defer();
 
       return qCreateChartSet.promise;
     });
-    var deleteChartSetById = jasmine.createSpy('deleteChartSetById').and.callFake(function(chartId) {
+    var deleteChartSetById = jasmine.createSpy('deleteChartSetById').and.callFake(function() {
       qDeleteChartSetById = $q.defer();
 
       return qDeleteChartSetById.promise;
     });
-    var updateChartSetById = jasmine.createSpy('updateChartSetById').and.callFake(function(id) {
+    var updateChartSetById = jasmine.createSpy('updateChartSetById').and.callFake(function() {
       qUpdateChartSetById = $q.defer();
 
       return qUpdateChartSetById.promise;
     });
-    var makeFriendlyUrl = jasmine.createSpy('makeFriendlyUrl').and.callFake(function(type, url) {
+    var makeFriendlyUrl = jasmine.createSpy('makeFriendlyUrl').and.callFake(function() {
       return 'x-friendly-url';
     });
     var uploadFile = jasmine.createSpy('uploadFile');

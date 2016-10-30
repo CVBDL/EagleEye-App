@@ -17,34 +17,11 @@ describe('Controller: ChartOptionsAdvanceController', function() {
   // load EagleEyeWebService mock module
   beforeEach(module('EagleEyeWebServiceMock'));
 
+  // load GoogleChartsService mock module
+  beforeEach(module('GoogleChartsServiceMock'));
+
   // mock dependent services
   beforeEach(module(function($provide) {
-    $provide.factory('GoogleChartsService', function() {
-      var makeChartType = jasmine.createSpy('makeChartType').and.callFake(function(chartType) {
-        return 'LineChart';
-      });
-      var makeDomainDataType = jasmine.createSpy('makeDomainDataType').and.callFake(function(domainDataType) {
-        return 'string';
-      });
-      var makeFriendlyUrl = jasmine.createSpy('makeFriendlyUrl').and.callFake(function(type, url) {
-        return 'c-friendly-url';
-      });
-      var getChartDataTableSamples = jasmine.createSpy('getChartDataTableSamples').and.callFake(function(chartType, domainDataType) {
-        return {};
-      });
-      var makeConfigurationOptions = jasmine.createSpy('makeConfigurationOptions').and.callFake(function(chartType, options) {
-        return {};
-      });
-
-      return {
-        makeChartType: makeChartType,
-        makeDomainDataType: makeDomainDataType,
-        makeFriendlyUrl: makeFriendlyUrl,
-        getChartDataTableSamples: getChartDataTableSamples,
-        makeConfigurationOptions: makeConfigurationOptions,
-      };
-    });
-
     $provide.factory('$stateParams', function() {
       return {
         id: 'id'
