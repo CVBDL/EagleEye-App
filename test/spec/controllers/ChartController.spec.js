@@ -74,42 +74,66 @@ describe('Controller: ChartController', function() {
     expect(ChartController).toBeDefined();
   });
 
-  it('should set DELAY constant value', function() {
+  it('should initialize `id` model', function() {
+    expect(ChartController.id).toBe('id');
+  });
+
+  it('should initialize `DELAY` model to one minute', function() {
     expect(ChartController.DELAY).toBe(60 * 1000);
   });
 
-  it('should initialize data models', function() {
-    expect(ChartController.id).toBe('id');
-    expect(ChartController.autoReloadChartPromise).toBe(null);
+  it('should initialize `isAutoReloadSwitchOn` model to false', function() {
     expect(ChartController.isAutoReloadSwitchOn).toBe(false);
-    expect(ChartController.chart).toBeDefined();
   });
 
-  it('should call init() to initialize controller', function() {
-    expect(EagleEyeWebService.getChartById).toHaveBeenCalledWith('id');
+  it('should initialize `autoReloadChartPromise` model to null', function() {
+    expect(ChartController.autoReloadChartPromise).toBeNull();
+  });
+
+  it('should initialize `chart` model', function() {
+    expect(ChartController.chart).not.toBeNull();
+    expect(typeof ChartController.chart).toBe('object');
+  });
+
+  it('should call init() to setup `chart` model when controller is created', function() {
+    var chart = { foo: 'foo'};
+
+    EagleEyeWebService.chart = {};
+
+    EagleEyeWebService.resolveGetChartById(chart);
+    $rootScope.$digest();
+
+    expect(ChartController.chart).toEqual(chart);
   });
 
   describe('init()', function() {
     it('should call loadChart() to get chart info', function() {
       spyOn(ChartController, 'loadChart');
       ChartController.id = 'id';
+
       ChartController.init();
+
       expect(ChartController.loadChart).toHaveBeenCalledWith('id');
     });
   });
 
   describe('loadChart()', function() {
-    it('should call EagleEyeWebService to fetch chart data', function() {
+    it('should make use of EagleEyeWebService to fetch chart data', function() {
       ChartController.loadChart('id');
+
       expect(EagleEyeWebService.getChartById).toHaveBeenCalledWith('id');
     });
 
-    it('should set controller chart model after fetching chart', function() {
+    it('should set `chart` model after fetching chart', function() {
+      var chart = { foo: 'foo'};
+
+      ChartController.chart = {};
+
       ChartController.loadChart('id');
-      expect(EagleEyeWebService.getChartById).toHaveBeenCalledWith('id');
-      EagleEyeWebService.resolveGetChartById({ id: 'id' });
+      EagleEyeWebService.resolveGetChartById(chart);
       $rootScope.$digest();
-      expect(ChartController.chart).toEqual({ id: 'id' });
+
+      expect(ChartController.chart).toEqual(chart);
     });
   });
 
@@ -119,57 +143,108 @@ describe('Controller: ChartController', function() {
       spyOn(ChartController, 'stopAutoReloadChart');
     });
 
-    it('should return if none parameter passed in', function() {
-      expect(ChartController.onAutoReloadSwitchChange()).not.toBeDefined();
+    it('should return directly if not passing `isAutoReloadSwitchOn` param', function() {
+      ChartController.onAutoReloadSwitchChange();
+
       expect(ChartController.startAutoReloadChart).not.toHaveBeenCalled();
       expect(ChartController.stopAutoReloadChart).not.toHaveBeenCalled();
     });
 
-    it('should start auto reload if passing isAutoReloadSwitchOn = true', function() {
+    it('should call `startAutoReloadChart()` to start interval if passing isAutoReloadSwitchOn = true', function() {
       ChartController.onAutoReloadSwitchChange(true);
+
       expect(ChartController.startAutoReloadChart).toHaveBeenCalled();
       expect(ChartController.stopAutoReloadChart).not.toHaveBeenCalled();
     });
 
-    it('should stop auto reload if passing isAutoReloadSwitchOn = false', function() {
+    it('should call `stopAutoReloadChart()` to cancel interval if passing isAutoReloadSwitchOn = false', function() {
       ChartController.onAutoReloadSwitchChange(false);
+
       expect(ChartController.startAutoReloadChart).not.toHaveBeenCalled();
       expect(ChartController.stopAutoReloadChart).toHaveBeenCalled();
     });
   });
 
-  it('should register an interval task with startAutoReloadChart()', function() {
-    spyOn(ChartController, 'loadChart');
-    ChartController.id = 'id';
-    ChartController.DELAY = 1000;
-    ChartController.startAutoReloadChart();
-    expect(ChartController.autoReloadChartPromise.then).toBeDefined();
-    $interval.flush(1000);
-    expect(ChartController.loadChart).toHaveBeenCalledWith('id');
-  });
+  describe('startAutoReloadChart()', function() {
+    it('should return a promise which will be notified on each iteration', function() {
+      ChartController.autoReloadChartPromise = null;
 
-  it('should stop an interval task with stopAutoReloadChart()', function() {
-    spyOn(ChartController, 'loadChart');
-    spyOn($interval, 'cancel').and.callThrough();
-    ChartController.DELAY = 1000;
-    ChartController.startAutoReloadChart();
-    expect(ChartController.autoReloadChartPromise.then).toBeDefined();
-    $interval.flush(1000);
-    expect(ChartController.stopAutoReloadChart()).toBe(true);
-    expect($interval.cancel).toHaveBeenCalledWith(ChartController.autoReloadChartPromise);
-  });
+      ChartController.startAutoReloadChart();
 
-  it('should show share dialog when calls showShare()', function() {
-    spyOn($location, 'absUrl').and.returnValue('eagleeye');
-    ChartController.showShare('title');
-    expect(EEDialogService.showSharing).toHaveBeenCalledWith({
-      sharedTitle: 'title',
-      sharedLink: 'eagleeye'
+      expect(typeof ChartController.autoReloadChartPromise.then).toBe('function');
+    });
+
+    it('should trigger reload chart every second', function() {
+      spyOn(ChartController, 'loadChart');
+      ChartController.DELAY = 1000;
+      ChartController.id = 'id';
+
+      ChartController.startAutoReloadChart();
+      $interval.flush(1000);
+
+      expect(ChartController.loadChart).toHaveBeenCalledWith('id');
+
+      $interval.flush(1000);
+
+      expect(ChartController.loadChart).toHaveBeenCalledWith('id');
+      expect(ChartController.loadChart).toHaveBeenCalledTimes(2);
     });
   });
 
-  it('should be able to save chart as PDF', function() {
-    ChartController.SaveImageOrPDF(0, {});
-    expect(SaveAsPDFService.SaveImageOrPDF).toHaveBeenCalledWith(0, {});
+  describe('stopAutoReloadChart()', function() {
+    it('should call cancel the interval task via `autoReloadChartPromise`', function() {
+      var mockPromise = { then: function() {} };
+
+      spyOn($interval, 'cancel').and.callThrough();
+      ChartController.autoReloadChartPromise = mockPromise;
+
+      ChartController.stopAutoReloadChart();
+
+      expect($interval.cancel).toHaveBeenCalledWith(mockPromise);
+    });
+
+    it('should return false if the task is not successfully cancelled', function() {
+      var result;
+
+      ChartController.autoReloadChartPromise = null;
+
+      result = ChartController.stopAutoReloadChart();
+
+      expect(result).toBe(false);
+    });
+
+    it('should return true if the task is successfully cancelled', function() {
+      var result;
+
+      spyOn(ChartController, 'loadChart');
+      ChartController.DELAY = 1000;
+      ChartController.startAutoReloadChart();
+      $interval.flush(1000);
+
+      result = ChartController.stopAutoReloadChart();
+
+      expect(result).toBe(true);
+    });
+  });
+
+  describe('showShare()', function() {
+    it('should use EEDialogService to show a sharing dialog', function() {
+      spyOn($location, 'absUrl').and.returnValue('eagleeye');
+
+      ChartController.showShare('title');
+
+      expect(EEDialogService.showSharing).toHaveBeenCalledWith({
+        sharedTitle: 'title',
+        sharedLink: 'eagleeye'
+      });
+    });
+  });
+
+  describe('SaveImageOrPDF()', function() {
+    it('should use SaveAsPDFService to save chart as PDF', function() {
+      ChartController.SaveImageOrPDF(0, {});
+
+      expect(SaveAsPDFService.SaveImageOrPDF).toHaveBeenCalledWith(0, {});
+    });
   });
 });
