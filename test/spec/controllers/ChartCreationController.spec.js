@@ -73,42 +73,58 @@ describe('Controller: ChartCreationController', function() {
     expect(ChartCreationController).toBeDefined();
   });
 
-  it('should initialize chart type options', function() {
+  it('should initialize `chartTypeOptions` model', function() {
     expect(ChartCreationController.chartTypeOptions).toEqual({ foo: 1 });
   });
 
-  it('should initialize isStacked options', function() {
+  it('should initialize `isStackedOptions` model', function() {
     expect(ChartCreationController.isStackedOptions).toEqual({ bar: 1 });
   });
 
-  it('should initialize format options', function() {
+  it('should initialize `axisFormatOptions` model', function() {
     expect(ChartCreationController.axisFormatOptions).toEqual({ foobar: 1 });
   });
 
-  it('should have required model objects', function() {
+  it('should initialize `chart` model', function() {
     expect(angular.isObject(ChartCreationController.chart)).toBe(true);
+    expect(ChartCreationController.chart.chartType).toBeDefined();
+    expect(ChartCreationController.chart.domainDataType).toBeDefined();
+    expect(ChartCreationController.chart.description).toBeDefined();
+    expect(ChartCreationController.chart.friendlyUrl).toBeDefined();
     expect(angular.isObject(ChartCreationController.chart.options)).toBe(true);
+    expect(ChartCreationController.chart.options.title).toBeDefined();
+    expect(ChartCreationController.chart.options.combolines).toBeDefined();
+    expect(ChartCreationController.chart.options.isStacked).toBeDefined();
     expect(angular.isObject(ChartCreationController.chart.options.hAxis)).toBe(true);
+    expect(ChartCreationController.chart.options.hAxis.title).toBeDefined();
+    expect(ChartCreationController.chart.options.hAxis.format).toBeDefined();
     expect(angular.isObject(ChartCreationController.chart.options.vAxis)).toBe(true);
+    expect(ChartCreationController.chart.options.vAxis.title).toBeDefined();
+    expect(ChartCreationController.chart.options.vAxis.format).toBeDefined();
     expect(angular.isObject(ChartCreationController.chart.options.chartArea)).toBe(true);
+    expect(ChartCreationController.chart.options.chartArea.left).toBeDefined();
+    expect(ChartCreationController.chart.options.chartArea.width).toBeDefined();
   });
 
-  it('should set default chart type to column chart', function() {
+  it('should set default chart type to "ColumnChart"', function() {
+    expect(ChartCreationController.chart.chartType).toBe('ColumnChart');
+  });
+
+  it('should set default domain data type to "string"', function() {
     expect(ChartCreationController.chart.domainDataType).toBe('string');
   });
 
-  it('should set default domain data type to string', function() {
-    expect(ChartCreationController.chart.domainDataType).toBe('string');
-  });
-
-  it('should set default axis format', function() {
+  it('should set default axis format to ""', function() {
     expect(ChartCreationController.chart.options.hAxis.format).toBe('');
     expect(ChartCreationController.chart.options.vAxis.format).toBe('');
   });
 
-  it('should be able to show help dialog', function() {
-    ChartCreationController.showHelp();
-    expect(EEDialogService.showChartCreationHelping).toHaveBeenCalled();
+  describe('showHelp()', function() {
+    it('should use EEDialogService to show help dialog', function() {
+      ChartCreationController.showHelp();
+
+      expect(EEDialogService.showChartCreationHelping).toHaveBeenCalled();
+    });
   });
 
   describe('makeChartPayload()', function() {
@@ -128,9 +144,9 @@ describe('Controller: ChartCreationController', function() {
       payload = ChartCreationController.makeChartPayload(chart);
     });
 
-    it('should return a payload object', function() {
+    it('should return an object of generated payload', function() {
       expect(typeof payload).toBe('object');
-      expect(payload).not.toBe(null);
+      expect(payload).not.toBeNull();
     });
 
     it('should make chart description payload', function() {
