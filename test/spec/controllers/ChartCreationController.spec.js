@@ -2,7 +2,9 @@
 
 describe('Controller: ChartCreationController', function() {
   var $controller,
+    $http,
     $httpBackend,
+    $q,
     $rootScope,
     $state,
     GoogleChartsService,
@@ -10,28 +12,16 @@ describe('Controller: ChartCreationController', function() {
     EEDialogService,
     CHART_TYPE_OPTIONS,
     IS_STACKED_OPTIONS,
-    AXIS_FORMAT_OPTIONS;
+    AXIS_FORMAT_OPTIONS,
+    DATA_TABLE_SAMPLES;
 
   var ChartCreationController;
 
   // load main module
   beforeEach(module('eagleeye'));
 
-  // load EagleEyeWebService mock module
-  beforeEach(module('EagleEyeWebServiceMock'));
-
-  // load GoogleChartsService mock module
-  beforeEach(module('GoogleChartsServiceMock'));
-
   // load EEDialogService mock module
   beforeEach(module('EEDialogServiceMock'));
-
-  // mock dependent services
-  beforeEach(module(function($provide) {
-    $provide.constant('CHART_TYPE_OPTIONS', { foo: 1 });
-    $provide.constant('IS_STACKED_OPTIONS', { bar: 1 });
-    $provide.constant('AXIS_FORMAT_OPTIONS', { foobar: 1 });
-  }));
 
   // reset router
   beforeEach(module(function($urlRouterProvider) {
@@ -39,17 +29,20 @@ describe('Controller: ChartCreationController', function() {
   }));
 
   // inject services
-  beforeEach(inject(function(_$controller_, _$httpBackend_, _$rootScope_, _$state_, _EagleEyeWebService_, _GoogleChartsService_, _EEDialogService_, _CHART_TYPE_OPTIONS_, _IS_STACKED_OPTIONS_, _AXIS_FORMAT_OPTIONS_) {
+  beforeEach(inject(function(_$controller_, _$http_, _$httpBackend_, _$q_, _$rootScope_, _$state_, _EagleEyeWebService_, _GoogleChartsService_, _EEDialogService_, _CHART_TYPE_OPTIONS_, _IS_STACKED_OPTIONS_, _AXIS_FORMAT_OPTIONS_, _DATA_TABLE_SAMPLES_) {
     $controller = _$controller_;
+    $http = _$http_;
     $rootScope = _$rootScope_;
     $state = _$state_;
     $httpBackend = _$httpBackend_;
+    $q = _$q_;
     EagleEyeWebService = _EagleEyeWebService_;
     GoogleChartsService = _GoogleChartsService_;
     EEDialogService = _EEDialogService_;
     CHART_TYPE_OPTIONS = _CHART_TYPE_OPTIONS_;
     IS_STACKED_OPTIONS = _IS_STACKED_OPTIONS_;
     AXIS_FORMAT_OPTIONS = _AXIS_FORMAT_OPTIONS_;
+    DATA_TABLE_SAMPLES = _DATA_TABLE_SAMPLES_;
   }));
 
   beforeEach(inject(function() {
@@ -74,15 +67,15 @@ describe('Controller: ChartCreationController', function() {
   });
 
   it('should initialize `chartTypeOptions` model', function() {
-    expect(ChartCreationController.chartTypeOptions).toEqual({ foo: 1 });
+    expect(ChartCreationController.chartTypeOptions).toBe(CHART_TYPE_OPTIONS);
   });
 
   it('should initialize `isStackedOptions` model', function() {
-    expect(ChartCreationController.isStackedOptions).toEqual({ bar: 1 });
+    expect(ChartCreationController.isStackedOptions).toBe(IS_STACKED_OPTIONS);
   });
 
   it('should initialize `axisFormatOptions` model', function() {
-    expect(ChartCreationController.axisFormatOptions).toEqual({ foobar: 1 });
+    expect(ChartCreationController.axisFormatOptions).toBe(AXIS_FORMAT_OPTIONS);
   });
 
   it('should initialize `chart` model', function() {
@@ -128,99 +121,149 @@ describe('Controller: ChartCreationController', function() {
   });
 
   describe('makeChartPayload()', function() {
-    var chart,
-      payload;
+    var chartA,
+      chartB,
+      payloadA,
+      payloadB;
 
     beforeEach(function() {
-      chart = {
+      chartA = {
         chartType: 'LineChart',
         description: 'foo',
         domainDataType: 'string',
         friendlyUrl: 'friendly-url',
-        datatable: {},
-        options: {}
+        options: {
+          title: 'title',
+          hAxis: {
+            title: 'title',
+            format: ''
+          },
+          vAxis: {
+            title: '',
+            format: 'percent'
+          },
+          chartArea: {
+            left: '20%',
+            width: '50%'
+          }
+        }
       };
 
-      payload = ChartCreationController.makeChartPayload(chart);
+      payloadA = ChartCreationController.makeChartPayload(chartA);
+
+      chartB = {
+        chartType: 'BarChart',
+        description: '',
+        domainDataType: 'date',
+        friendlyUrl: '',
+        options: {
+          isStacked: false
+        }
+      };
+
+      payloadB = ChartCreationController.makeChartPayload(chartB);
     });
 
     it('should return an object of generated payload', function() {
-      expect(typeof payload).toBe('object');
-      expect(payload).not.toBeNull();
+      expect(typeof payloadA).toBe('object');
+      expect(payloadA).not.toBeNull();
+      expect(typeof payloadB).toBe('object');
+      expect(payloadB).not.toBeNull();
     });
 
-    it('should make chart description payload', function() {
-      expect(payload.description).toBe('foo');
+    it('should contain generated `description` in returned payload', function() {
+      expect(payloadA.description).toBe('foo');
+      expect(payloadB.description).toBe('');
     });
 
-    it('should make chart type payload', function() {
-      expect(GoogleChartsService.makeChartType).toHaveBeenCalledWith('LineChart');
-      expect(payload.chartType).toBe('LineChart');
+    it('should contain generated `chartType` in returned payload', function() {
+      expect(payloadA.chartType).toBe('LineChart');
+      expect(payloadB.chartType).toBe('BarChart');
     });
 
-    it('should make friendlyUrl payload', function() {
-      expect(EagleEyeWebService.makeFriendlyUrl).toHaveBeenCalledWith('chart', 'friendly-url');
-      expect(payload.friendlyUrl).toBe('x-friendly-url');
+    it('should contain generated `friendlyUrl` in returned payload', function() {
+      expect(payloadA.friendlyUrl).toBe('c-friendly-url');
+      expect(payloadB.friendlyUrl).toBe('');
     });
 
-    it('should make domainDataType payload', function() {
-      expect(GoogleChartsService.makeDomainDataType).toHaveBeenCalledWith('string');
-      expect(payload.domainDataType).toBe('string');
+    it('should contain generated `domainDataType` in returned payload', function() {
+      expect(payloadA.domainDataType).toBe('string');
+      expect(payloadB.domainDataType).toBe('date');
     });
 
     it('should make datatable payload', function() {
-      expect(GoogleChartsService.getChartDataTableSamples).toHaveBeenCalledWith('LineChart', 'string');
-      expect(payload.datatable).toEqual({
-        "cols": [{}],
-        "rows": [{}]
-      });
+      expect(payloadA.datatable).toBe(DATA_TABLE_SAMPLES.linechart.string);
+      expect(payloadB.datatable).toBe(DATA_TABLE_SAMPLES.barchart.date);
     });
 
     it('should make options payload', function() {
-      expect(GoogleChartsService.makeConfigurationOptions).toHaveBeenCalledWith('LineChart', {});
-      expect(payload.options).toEqual({});
+      expect(payloadA.options).toEqual({
+        title: 'title',
+        hAxis: {
+          title: 'title'
+        },
+        vAxis: {
+          format: 'percent'
+        },
+        chartArea: {
+          left: '20%',
+          width: '50%'
+        }
+      });
+      expect(payloadB.options).toEqual({
+        title: '',
+        hAxis: {},
+        vAxis: {},
+        chartArea: {},
+        isStacked: false
+      });
     });
   });
 
   describe('save()', function() {
+    var createChartEndpoint = '/api/v1/charts';
+
     beforeEach(function() {
+      $httpBackend.when('POST', '/api/v1/charts').respond({ _id: 'id' });
+
       spyOn(ChartCreationController, 'makeChartPayload').and.returnValue({});
       spyOn($state, 'go');
+      spyOn(EagleEyeWebService, 'createChart').and.callFake(function(payload) {
+        return $http({
+          method: 'POST',
+          url: createChartEndpoint,
+          data: JSON.stringify(payload)
+        });
+      });
     });
 
-    it('should make chart payload first', function() {
+    it('should make a POST request to server for creating chart', function() {
       var chart = {};
 
       ChartCreationController.save(chart);
 
-      expect(ChartCreationController.makeChartPayload).toHaveBeenCalledWith(chart);
+      $httpBackend.expectPOST(createChartEndpoint, {});
+      $httpBackend.flush();
     });
 
-    it('should go to chart settings page when create successfully', function() {
-      var chart = {};
+    it('should POST the chart payload to server', function() {
+      var chart = { foo: 'foo' };
+
+      ChartCreationController.makeChartPayload.and.returnValue(chart);
 
       ChartCreationController.save(chart);
 
-      expect(EagleEyeWebService.createChart).toHaveBeenCalledWith(chart);
+      $httpBackend.expectPOST(createChartEndpoint, chart);
+      $httpBackend.flush();
+    });
 
-      EagleEyeWebService.resolveCreateChart({ _id: 'id' });
+    it('should navigate to chart setting page after creating successfully', function() {
+      EagleEyeWebService.createChart.and.returnValue($q.when({ _id: 'id' }));
+
+      ChartCreationController.save({});
       $rootScope.$digest();
 
       expect($state.go).toHaveBeenCalledWith('chartSettings', { id: 'id' });
     });
-
-    it('should not go to chart settings page when create successfully', function() {
-      var chart = {};
-
-      ChartCreationController.save(chart);
-
-      expect(EagleEyeWebService.createChart).toHaveBeenCalledWith(chart);
-
-      EagleEyeWebService.rejectCreateChart();
-      $rootScope.$digest();
-
-      expect($state.go).not.toHaveBeenCalled();
-    });
   });
-
 });
