@@ -9,7 +9,10 @@ describe('Controller: ChartSetSettingsController', function() {
     $stateParams,
     EagleEyeWebService;
 
-  var ChartSetSettingsController;
+  var ChartSetSettingsController,
+    getChartsRequestHandler,
+    getChartSetByIdRequestHandler,
+    updateChartSetByIdRequestHandler;
 
   // load main module
   beforeEach(module('eagleeye'));
@@ -20,7 +23,7 @@ describe('Controller: ChartSetSettingsController', function() {
   // mock dependent services
   beforeEach(module(function($provide) {
     $provide.factory('$stateParams', function() {
-      return { id: 'id' };
+      return { id: '1' };
     });
   }));
 
@@ -40,6 +43,12 @@ describe('Controller: ChartSetSettingsController', function() {
     EagleEyeWebService = _EagleEyeWebService_;
   }));
 
+  beforeEach(function() {
+    getChartsRequestHandler = $httpBackend.when('GET', '/api/v1/charts').respond([]);
+    getChartSetByIdRequestHandler = $httpBackend.when('GET', '/api/v1/chart-sets/1').respond({});
+    updateChartSetByIdRequestHandler = $httpBackend.when('PUT', '/api/v1/chart-sets/1').respond({});
+  });
+
   beforeEach(inject(function($controller, $rootScope) {
     ChartSetSettingsController = $controller('ChartSetSettingsController', {
       $state: $state,
@@ -56,263 +65,362 @@ describe('Controller: ChartSetSettingsController', function() {
 
   it('should be able to create controller', function() {
     expect(ChartSetSettingsController).toBeDefined();
+    $httpBackend.flush();
   });
 
-  it('should initialize search box data model', function() {
-    expect(ChartSetSettingsController.searchKeyword).toBeDefined();
-  });
+  describe('on initialize', function() {
 
-  it('should initialize chart set data model', function() {
-    expect(ChartSetSettingsController.chartset).toBeDefined();
-    expect(typeof ChartSetSettingsController.chartset).toBe('object');
-    expect(ChartSetSettingsController.chartset.title).toBe('');
-    expect(ChartSetSettingsController.chartset.description).toBe('');
-    expect(ChartSetSettingsController.chartset.friendlyUrl).toBe('');
-    expect(ChartSetSettingsController.chartset.charts).toEqual([]);
-  });
-
-  it('should load chart set and charts when bootstrap', function() {
-    expect(EagleEyeWebService.getChartSetById).toHaveBeenCalledWith('id');
-    expect(EagleEyeWebService.getCharts).toHaveBeenCalled();
-  });
-
-  describe('makeDisplayFriendlyUrl()', function() {
-    it('should return empty string if input friendlyUrl is not a string', function() {
-      expect(ChartSetSettingsController.makeDisplayFriendlyUrl()).toBe('');
-      expect(ChartSetSettingsController.makeDisplayFriendlyUrl({})).toBe('');
+    afterEach(function() {
+      $httpBackend.flush();
     });
 
-    it('should return empty string if input friendlyUrl is an empty string', function() {
-      expect(ChartSetSettingsController.makeDisplayFriendlyUrl('')).toBe('');
+    it('should initialize `id` model', function() {
+      expect(ChartSetSettingsController.id).toBe('1');
     });
 
-    it('should remove prefix for displaying friendly url', function() {
-      expect(ChartSetSettingsController.makeDisplayFriendlyUrl('s-url')).toBe('url');
-    });
-  });
-
-  describe('filterFunction()', function() {
-    it('should return true if chart title contains the keyword.', function() {
-      ChartSetSettingsController.searchKeyword = 'foo';
-
-      var result = ChartSetSettingsController.filterFunction({
-        description: '',
-        options: { title: 'title contains foo' }
-      });
-
-      expect(result).toBe(true);
+    it('should initialize `searchKeyword` model', function() {
+      expect(ChartSetSettingsController.searchKeyword).toBe('');
     });
 
-    it('should return true if chart description contains the keyword.', function() {
-      ChartSetSettingsController.searchKeyword = 'foo';
-
-      var result = ChartSetSettingsController.filterFunction({
-        description: 'description contains foo',
-        options: { title: '' }
-      });
-
-      expect(result).toBe(true);
-    });
-
-    it('should return true if chart title and description contain the keyword.', function() {
-      ChartSetSettingsController.searchKeyword = 'foo';
-
-      var result = ChartSetSettingsController.filterFunction({
-        description: 'description contains foo',
-        options: { title: 'title contains foo' }
-      });
-
-      expect(result).toBe(true);
-    });
-
-    it('should return false if chart title and description not contain the keyword.', function() {
-      ChartSetSettingsController.searchKeyword = 'foo';
-
-      var result = ChartSetSettingsController.filterFunction({
-        description: '',
-        options: { title: '' }
-      });
-
-      expect(result).toBe(false);
-    });
-  });
-
-  describe('onChartCheckedStatusChange', function() {
-    beforeEach(function() {
-      ChartSetSettingsController.chartset.charts = [{ id: 1, checked: true }];
-    });
-
-    it('should add the chart to list the chart is checked', function() {
-      var chart = { id: 2, checked: true };
-
-      ChartSetSettingsController.onChartCheckedStatusChange(chart);
-      expect(ChartSetSettingsController.chartset.charts).toEqual([{
-        id: 1,
-        checked: true
-      }, {
-        id: 2,
-        checked: true
-      }]);
-    });
-
-    it('should remove the chart from list the chart is unchecked', function() {
-      var chart = { id: 1, checked: false };
-
-      ChartSetSettingsController.onChartCheckedStatusChange(chart);
+    it('should initialize `chartset` model', function() {
+      expect(ChartSetSettingsController.chartset).toBeDefined();
+      expect(typeof ChartSetSettingsController.chartset).toBe('object');
+      expect(ChartSetSettingsController.chartset.title).toBe('');
+      expect(ChartSetSettingsController.chartset.description).toBe('');
+      expect(ChartSetSettingsController.chartset.friendlyUrl).toBe('');
       expect(ChartSetSettingsController.chartset.charts).toEqual([]);
     });
   });
 
-  describe('moveUp', function() {
-    var firstChart,
-      secondChart,
-      thirdChart;
+  describe('on bootstrap', function() {
 
-    beforeEach(function() {
-      firstChart = { id: 1 };
-      secondChart = { id: 2 };
-      thirdChart = { id: 3 };
-      ChartSetSettingsController.chartset.charts = [firstChart, secondChart, thirdChart];
+    it('should make a GET request to fetch chart set using `$stateParams.id`', function() {
+      $httpBackend.expect('GET', '/api/v1/chart-sets/1');
+      $httpBackend.flush();
     });
 
-    it('should not change order if the chart to move is already the first one', function() {
-      ChartSetSettingsController.moveUp(firstChart);
-      expect(ChartSetSettingsController.chartset.charts).toEqual([firstChart, secondChart, thirdChart]);
+    it('should make a GET request to fetch all charts', function() {
+      $httpBackend.expect('GET', '/api/v1/charts');
+      $httpBackend.flush();
     });
 
-    it('should move up one level to be the first one', function() {
-      ChartSetSettingsController.moveUp(secondChart);
-      expect(ChartSetSettingsController.chartset.charts).toEqual([secondChart, firstChart, thirdChart]);
-    });
+    it('should mark `checked` to true if a chart is in `chartset.charts` ', function() {
+      var chartset = {
+        charts: [
+          { _id: '2', bar: 'bar' },
+          { _id: '3', foobar: 'foobar' }
+        ]
+      };
+      var charts = [
+        { _id: '1', foo: 'foo' },
+        { _id: '2', bar: 'bar' },
+        { _id: '3', foobar: 'foobar' }
+      ];
+      var updatedCharts = [
+        { _id: '1', foo: 'foo' },
+        { _id: '2', checked: true, bar: 'bar' },
+        { _id: '3', checked: true, foobar: 'foobar' }
+      ];
 
-    it('should move up one level normally', function() {
-      ChartSetSettingsController.moveUp(thirdChart);
-      expect(ChartSetSettingsController.chartset.charts).toEqual([firstChart, thirdChart, secondChart]);
-    });
-  });
+      ChartSetSettingsController.chartList = [];
+      ChartSetSettingsController.chartset = {};
 
-  describe('moveDown', function() {
-    var firstChart,
-      secondChart,
-      thirdChart;
+      getChartSetByIdRequestHandler.respond(chartset);
+      getChartsRequestHandler.respond(charts);
+      $httpBackend.flush();
 
-    beforeEach(function() {
-      firstChart = { id: 1 };
-      secondChart = { id: 2 };
-      thirdChart = { id: 3 };
-      ChartSetSettingsController.chartset.charts = [firstChart, secondChart, thirdChart];
-    });
-
-    it('should not change order if the chart to move is already the last one', function() {
-      ChartSetSettingsController.moveDown(thirdChart);
-      expect(ChartSetSettingsController.chartset.charts).toEqual([firstChart, secondChart, thirdChart]);
-    });
-
-    it('should move down one level to be the last one', function() {
-      ChartSetSettingsController.moveDown(secondChart);
-      expect(ChartSetSettingsController.chartset.charts).toEqual([firstChart, thirdChart, secondChart]);
-    });
-
-    it('should move down one level normally', function() {
-      ChartSetSettingsController.moveDown(firstChart);
-      expect(ChartSetSettingsController.chartset.charts).toEqual([secondChart, firstChart, thirdChart]);
+      expect(ChartSetSettingsController.chartList).toEqual(updatedCharts);
     });
   });
 
-  describe('makeChartsList', function() {
-    it('should return empty array if given empty charts array', function() {
-      expect(ChartSetSettingsController.makeChartsList([])).toEqual([]);
-    });
+  describe('on runtime', function() {
 
-    it('should return array with chart _id property', function() {
-      var charts = [{ _id: 'foo' }, { _id: 'bar' }];
-
-      expect(ChartSetSettingsController.makeChartsList(charts)).toEqual(['foo', 'bar']);
-    });
-  });
-
-  describe('makeChartSetPayload', function() {
     beforeEach(function() {
-      spyOn(ChartSetSettingsController, 'makeChartsList').and.returnValue([]);
+      $httpBackend.flush();
     });
 
-    it('should return payload always contains title and description fields', function() {
-      var payload;
-
-      payload = ChartSetSettingsController.makeChartSetPayload({});
-      expect(payload.title).toBeDefined();
-      expect(payload.description).toBeDefined();
-      expect(payload.friendlyUrl).toBeDefined();
-      expect(payload.charts).toBeDefined();
-    });
-
-    it('should call makeFriendlyUrl()', function() {
-      ChartSetSettingsController.makeChartSetPayload({ friendlyUrl: 'foo' });
-      expect(EagleEyeWebService.makeFriendlyUrl).toHaveBeenCalledWith('chartset', 'foo');
-    });
-
-    it('should call makeChartsList()', function() {
-      ChartSetSettingsController.makeChartSetPayload({ charts: [] });
-      expect(ChartSetSettingsController.makeChartsList).toHaveBeenCalledWith([]);
-    });
-  });
-
-  describe('save()', function() {
-    beforeEach(function() {
-      spyOn(ChartSetSettingsController, 'makeChartSetPayload').and.callFake(function() {
-        return { name: 'payload' };
+    describe('makeDisplayFriendlyUrl()', function() {
+      it('should return empty string if input friendlyUrl is not a string', function() {
+        expect(ChartSetSettingsController.makeDisplayFriendlyUrl()).toBe('');
+        expect(ChartSetSettingsController.makeDisplayFriendlyUrl({})).toBe('');
       });
 
-      spyOn($state, 'go');
+      it('should return empty string if input friendlyUrl is an empty string', function() {
+        expect(ChartSetSettingsController.makeDisplayFriendlyUrl('')).toBe('');
+      });
+
+      it('should remove prefix for displaying friendly url', function() {
+        expect(ChartSetSettingsController.makeDisplayFriendlyUrl('s-url')).toBe('url');
+      });
     });
 
-    it('should call makeChartSetPayload() to make payload', function() {
-      var chart = { _id: 'id' };
-      ChartSetSettingsController.save(chart);
-      expect(ChartSetSettingsController.makeChartSetPayload).toHaveBeenCalledWith(chart);
+    describe('filterFunction()', function() {
+      it('should return true if chart title contains the keyword.', function() {
+        ChartSetSettingsController.searchKeyword = 'foo';
+
+        var result = ChartSetSettingsController.filterFunction({
+          description: '',
+          options: { title: 'title contains foo' }
+        });
+
+        expect(result).toBe(true);
+      });
+
+      it('should return true if chart description contains the keyword.', function() {
+        ChartSetSettingsController.searchKeyword = 'foo';
+
+        var result = ChartSetSettingsController.filterFunction({
+          description: 'description contains foo',
+          options: { title: '' }
+        });
+
+        expect(result).toBe(true);
+      });
+
+      it('should return true if chart title and description contain the keyword.', function() {
+        ChartSetSettingsController.searchKeyword = 'foo';
+
+        var result = ChartSetSettingsController.filterFunction({
+          description: 'description contains foo',
+          options: { title: 'title contains foo' }
+        });
+
+        expect(result).toBe(true);
+      });
+
+      it('should return false if chart title and description not contain the keyword.', function() {
+        ChartSetSettingsController.searchKeyword = 'foo';
+
+        var result = ChartSetSettingsController.filterFunction({
+          description: '',
+          options: { title: '' }
+        });
+
+        expect(result).toBe(false);
+      });
     });
 
-    it('should call EagleEyeWebService with payload to create chart set', function() {
-      var chart = { _id: 'id' };
-      ChartSetSettingsController.save(chart);
-      expect(EagleEyeWebService.updateChartSetById).toHaveBeenCalledWith('id', { name: 'payload' });
+    describe('onChartCheckedStatusChange', function() {
+      beforeEach(function() {
+        ChartSetSettingsController.chartset.charts = [{ id: 1, checked: true }];
+      });
+
+      it('should add the chart to list the chart is checked', function() {
+        var chart = { id: 2, checked: true };
+
+        ChartSetSettingsController.onChartCheckedStatusChange(chart);
+        expect(ChartSetSettingsController.chartset.charts).toEqual([{
+          id: 1,
+          checked: true
+        }, {
+          id: 2,
+          checked: true
+        }]);
+      });
+
+      it('should remove the chart from list the chart is unchecked', function() {
+        var chart = { id: 1, checked: false };
+
+        ChartSetSettingsController.onChartCheckedStatusChange(chart);
+        expect(ChartSetSettingsController.chartset.charts).toEqual([]);
+      });
     });
 
-    it('should to to chartSet state after creating chart set', function() {
-      var chart = { _id: 'id' };
-      ChartSetSettingsController.save(chart);
-      EagleEyeWebService.resolveUpdateChartSetById({ _id: '_id' });
-      $rootScope.$digest();
-      expect($state.go).toHaveBeenCalledWith('chartSets');
-    });
-  });
+    describe('moveUp', function() {
+      var firstChart,
+        secondChart,
+        thirdChart;
 
-  describe('loadChartList()', function() {
-    it('should call EagleEyeWebService to fetch charts', function() {
-      ChartSetSettingsController.loadChartList();
-      expect(EagleEyeWebService.getCharts).toHaveBeenCalled();
+      beforeEach(function() {
+        firstChart = { id: 1 };
+        secondChart = { id: 2 };
+        thirdChart = { id: 3 };
+        ChartSetSettingsController.chartset.charts = [firstChart, secondChart, thirdChart];
+      });
+
+      it('should not change order if the chart to move is already the first one', function() {
+        ChartSetSettingsController.moveUp(firstChart);
+        expect(ChartSetSettingsController.chartset.charts).toEqual([firstChart, secondChart, thirdChart]);
+      });
+
+      it('should move up one level to be the first one', function() {
+        ChartSetSettingsController.moveUp(secondChart);
+        expect(ChartSetSettingsController.chartset.charts).toEqual([secondChart, firstChart, thirdChart]);
+      });
+
+      it('should move up one level normally', function() {
+        ChartSetSettingsController.moveUp(thirdChart);
+        expect(ChartSetSettingsController.chartset.charts).toEqual([firstChart, thirdChart, secondChart]);
+      });
     });
 
-    it('should refresh charts in controller', function() {
-      ChartSetSettingsController.loadChartList();
-      EagleEyeWebService.resolveGetCharts([{ id: 1 }]);
-      $rootScope.$digest();
-      expect(ChartSetSettingsController.chartList).toEqual([{ id: 1 }]);
-    });
-  });
+    describe('moveDown', function() {
+      var firstChart,
+        secondChart,
+        thirdChart;
 
-  describe('loadChartSet()', function() {
-    it('should call EagleEyeWebService to fetch chart set data', function() {
-      ChartSetSettingsController.loadChartSet('id');
-      expect(EagleEyeWebService.getChartSetById).toHaveBeenCalledWith('id');
+      beforeEach(function() {
+        firstChart = { id: 1 };
+        secondChart = { id: 2 };
+        thirdChart = { id: 3 };
+        ChartSetSettingsController.chartset.charts = [firstChart, secondChart, thirdChart];
+      });
+
+      it('should not change order if the chart to move is already the last one', function() {
+        ChartSetSettingsController.moveDown(thirdChart);
+        expect(ChartSetSettingsController.chartset.charts).toEqual([firstChart, secondChart, thirdChart]);
+      });
+
+      it('should move down one level to be the last one', function() {
+        ChartSetSettingsController.moveDown(secondChart);
+        expect(ChartSetSettingsController.chartset.charts).toEqual([firstChart, thirdChart, secondChart]);
+      });
+
+      it('should move down one level normally', function() {
+        ChartSetSettingsController.moveDown(firstChart);
+        expect(ChartSetSettingsController.chartset.charts).toEqual([secondChart, firstChart, thirdChart]);
+      });
     });
 
-    it('should set controller chart model after fetching chart', function() {
-      ChartSetSettingsController.loadChartSet('id');
-      expect(EagleEyeWebService.getChartSetById).toHaveBeenCalledWith('id');
-      EagleEyeWebService.resolveGetChartSetById({ id: 'id', friendlyUrl: '' });
-      $rootScope.$digest();
-      expect(ChartSetSettingsController.chartset).toEqual({ id: 'id', friendlyUrl: '' });
+    describe('makeChartsList', function() {
+      it('should return empty array if given empty charts array', function() {
+        expect(ChartSetSettingsController.makeChartsList([])).toEqual([]);
+      });
+
+      it('should return array with chart _id property', function() {
+        var charts = [{ _id: 'foo' }, { _id: 'bar' }];
+
+        expect(ChartSetSettingsController.makeChartsList(charts)).toEqual(['foo', 'bar']);
+      });
+    });
+
+    describe('makeChartSetPayload', function() {
+      beforeEach(function() {
+        spyOn(ChartSetSettingsController, 'makeChartsList').and.returnValue([]);
+      });
+
+      it('should return payload always contains title and description fields', function() {
+        var payload;
+
+        payload = ChartSetSettingsController.makeChartSetPayload({});
+        expect(payload.title).toBeDefined();
+        expect(payload.description).toBeDefined();
+        expect(payload.friendlyUrl).toBeDefined();
+        expect(payload.charts).toBeDefined();
+      });
+
+      it('should call makeChartsList()', function() {
+        ChartSetSettingsController.makeChartSetPayload({ charts: [] });
+        expect(ChartSetSettingsController.makeChartsList).toHaveBeenCalledWith([]);
+      });
+    });
+
+    describe('save()', function() {
+      var payload = { foo: 'foo' };
+
+      beforeEach(function() {
+        spyOn(ChartSetSettingsController, 'makeChartSetPayload').and.returnValue(payload);
+        spyOn($state, 'go');
+      });
+
+      it('should prepare request payload by calling makeChartSetPayload()', function() {
+        var chartset = { _id: 1 };
+
+        ChartSetSettingsController.save(chartset);
+        expect(ChartSetSettingsController.makeChartSetPayload).toHaveBeenCalledWith(chartset);
+        $httpBackend.flush();
+      });
+
+      it('should make a PUT request to update chart set with generated payload', function() {
+        var chartset = { _id: '1' };
+
+        ChartSetSettingsController.save(chartset);
+        $httpBackend.expect('PUT', '/api/v1/chart-sets/1', payload);
+        $httpBackend.flush();
+      });
+
+      it('should navigate to chartSet state when request success', function() {
+        var chartset = { _id: '1' };
+
+        ChartSetSettingsController.save(chartset);
+        $httpBackend.flush();
+        expect($state.go).toHaveBeenCalledWith('chartSets');
+      });
+    });
+
+    describe('loadChartList()', function() {
+
+      it('should make a GET request to fetch all charts', function() {
+        ChartSetSettingsController.loadChartList();
+
+        $httpBackend.expect('GET', '/api/v1/charts');
+        $httpBackend.flush();
+      });
+
+      it('should set `chartList` model when request success', function() {
+        var chartList = [
+          { _id: '1', foo: 'foo' },
+          { _id: '2', bar: 'bar' }
+        ];
+
+        ChartSetSettingsController.loadChartList();
+        getChartsRequestHandler.respond(chartList);
+        $httpBackend.flush();
+
+        expect(ChartSetSettingsController.chartList).toEqual(chartList);
+      });
+
+      it('should do nothing when request error', function() {
+        ChartSetSettingsController.chartList = [];
+
+        ChartSetSettingsController.loadChartList();
+        getChartsRequestHandler.respond(500);
+        $httpBackend.flush();
+
+        expect(ChartSetSettingsController.chartList).toEqual([]);
+      });
+    });
+
+    describe('loadChartSet()', function() {
+
+      it('should make a GET request to fetch chart set by id', function() {
+        var id = '1';
+
+        ChartSetSettingsController.loadChartSet(id);
+
+        $httpBackend.expect('GET', '/api/v1/chart-sets/1');
+        $httpBackend.flush();
+      });
+
+      it('should set `chartList` model with `friendlyUrl` prefix removed when request success', function() {
+        var id = '1';
+        var chartset = {
+          _id: '1',
+          friendlyUrl: 's-chart-set'
+        };
+        var expectedChartset = {
+          _id: '1',
+          friendlyUrl: 'chart-set'
+        };
+
+        ChartSetSettingsController.loadChartSet(id);
+        getChartSetByIdRequestHandler.respond(chartset);
+        $httpBackend.flush();
+
+        expect(ChartSetSettingsController.chartset).toEqual(expectedChartset);
+      });
+
+      it('should do nothing when request error', function() {
+        var id = '1';
+
+        ChartSetSettingsController.chartset = {};
+
+        ChartSetSettingsController.loadChartSet(id);
+        getChartSetByIdRequestHandler.respond(500);
+        $httpBackend.flush();
+
+        expect(ChartSetSettingsController.chartset).toEqual({});
+      });
     });
   });
 });

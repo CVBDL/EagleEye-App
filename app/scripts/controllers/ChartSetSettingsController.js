@@ -10,7 +10,8 @@ angular.module('eagleeye')
     '$stateParams',
     '$q',
     'EagleEyeWebService',
-    function($state, $stateParams, $q, EagleEyeWebService) {
+    'EagleEyeWebServiceUtil',
+    function($state, $stateParams, $q, EagleEyeWebService, EagleEyeWebServiceUtil) {
       var controller = this;
 
       this.id = $stateParams.id;
@@ -135,7 +136,7 @@ angular.module('eagleeye')
 
         payload.title = chartset.title || '';
         payload.description = chartset.description || '';
-        payload.friendlyUrl = EagleEyeWebService.makeFriendlyUrl('chartset', chartset.friendlyUrl);
+        payload.friendlyUrl = EagleEyeWebServiceUtil.makeFriendlyUrl('chartset', chartset.friendlyUrl);
         payload.charts = this.makeChartsList(chartset.charts);
 
         return payload;

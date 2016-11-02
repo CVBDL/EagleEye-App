@@ -1,103 +1,108 @@
 angular.module('EagleEyeWebServiceMock', [])
-  .factory('EagleEyeWebService', function($q) {
-    var qGetChartById,
-      qCreateChart,
-      qUpdateChartById,
-      qGetCharts,
-      deleteChartById,
-      qGetChartSetById,
+  .factory('EagleEyeWebService', function($http, $q, FRIENDLY_URL_PREFIX_CHART, FRIENDLY_URL_PREFIX_CHARTSET) {
+    var qGetChartSetById,
       qGetChartSets,
       qCreateChartSet,
       qDeleteChartSetById,
       qUpdateChartSetById;
 
-    var getChartById = jasmine.createSpy('getChartById').and.callFake(function() {
-      qGetChartById = $q.defer();
-
-      return qGetChartById.promise;
+    var getChartById = jasmine.createSpy('getChartById').and.callFake(function(id) {
+      return $http({
+        method: 'GET',
+        url: '/api/v1/charts/' + id
+      }).then(function(response) {
+        return response.data;
+      });
     });
-    var createChart = jasmine.createSpy('createChart').and.callFake(function() {
-      qCreateChart = $q.defer();
-
-      return qCreateChart.promise;
+    var createChart = jasmine.createSpy('createChart').and.callFake(function(payload) {
+      return $http({
+        method: 'POST',
+        url: '/api/v1/charts',
+        data: JSON.stringify(payload)
+      }).then(function(response) {
+        return response.data;
+      });
     });
-    var updateChartById = jasmine.createSpy('updateChartById').and.callFake(function() {
-      qUpdateChartById = $q.defer();
-
-      return qUpdateChartById.promise;
+    var updateChartById = jasmine.createSpy('updateChartById').and.callFake(function(id, payload) {
+      return $http({
+        method: 'PUT',
+        url: '/api/v1/charts/' + id,
+        data: JSON.stringify(payload)
+      }).then(function(response) {
+        return response.data;
+      });
     });
     var getCharts = jasmine.createSpy('getCharts').and.callFake(function() {
-      qGetCharts = $q.defer();
-
-      return qGetCharts.promise;
+      return $http({
+        method: 'GET',
+        url: '/api/v1/charts'
+      }).then(function(response) {
+        return response.data;
+      });
     });
-    var deleteChartById = jasmine.createSpy('deleteChartById').and.callFake(function() {
-      qDeleteChartById = $q.defer();
-
-      return qDeleteChartById.promise;
+    var deleteChartById = jasmine.createSpy('deleteChartById').and.callFake(function(id) {
+      return $http({
+        method: 'DELETE',
+        url: '/api/v1/charts/' + id
+      }).then(function(response) {
+        return response.data;
+      });
     });
-    var getChartSetById = jasmine.createSpy('getChartSetById').and.callFake(function() {
-      qGetChartSetById = $q.defer();
-
-      return qGetChartSetById.promise;
+    var getChartSetById = jasmine.createSpy('getChartSetById').and.callFake(function(id) {
+      return $http({
+        method: 'GET',
+        url: '/api/v1/chart-sets/' + id
+      }).then(function(response) {
+        return response.data;
+      });
     });
     var getChartSets = jasmine.createSpy('getChartSets').and.callFake(function() {
-      qGetChartSets = $q.defer();
-
-      return qGetChartSets.promise;
+      return $http({
+        method: 'GET',
+        url: '/api/v1/chart-sets'
+      }).then(function(response) {
+        return response.data;
+      });
     });
-    var createChartSet = jasmine.createSpy('createChartSet').and.callFake(function() {
-      qCreateChartSet = $q.defer();
-
-      return qCreateChartSet.promise;
+    var createChartSet = jasmine.createSpy('createChartSet').and.callFake(function(payload) {
+      return $http({
+        method: 'POST',
+        url: '/api/v1/chart-sets',
+        data: JSON.stringify(payload)
+      }).then(function(response) {
+        return response.data;
+      });
     });
-    var deleteChartSetById = jasmine.createSpy('deleteChartSetById').and.callFake(function() {
-      qDeleteChartSetById = $q.defer();
-
-      return qDeleteChartSetById.promise;
+    var deleteChartSetById = jasmine.createSpy('deleteChartSetById').and.callFake(function(id) {
+      return $http({
+        method: 'DELETE',
+        url: '/api/v1/chart-sets/' + id
+      }).then(function(response) {
+        return response.data;
+      });
     });
-    var updateChartSetById = jasmine.createSpy('updateChartSetById').and.callFake(function() {
-      qUpdateChartSetById = $q.defer();
-
-      return qUpdateChartSetById.promise;
-    });
-    var makeFriendlyUrl = jasmine.createSpy('makeFriendlyUrl').and.callFake(function() {
-      return 'x-friendly-url';
+    var updateChartSetById = jasmine.createSpy('updateChartSetById').and.callFake(function(id, payload) {
+      return $http({
+        method: 'PUT',
+        url: '/api/v1/chart-sets/' + id,
+        data: JSON.stringify(payload)
+      }).then(function(response) {
+        return response.data;
+      });
     });
     var uploadFile = jasmine.createSpy('uploadFile');
 
     return {
       getChartById: getChartById,
-      resolveGetChartById: function(value) { qGetChartById.resolve(value); },
-      rejectGetChartById: function(reason) { qGetChartById.reject(reason); },
       createChart: createChart,
-      resolveCreateChart: function(value) { qCreateChart.resolve(value); },
-      rejectCreateChart: function(reason) { qCreateChart.reject(reason); },
       updateChartById: updateChartById,
-      resolveUpdateChartById: function(value) { qUpdateChartById.resolve(value); },
-      rejectUpdateChartById: function(reason) { qUpdateChartById.reject(reason); },
       getCharts: getCharts,
-      resolveGetCharts: function(value) { qGetCharts.resolve(value); },
-      rejectGetCharts: function(reason) { qGetCharts.reject(reason); },
       deleteChartById: deleteChartById,
-      resolveDeleteChartById: function(value) { qDeleteChartById.resolve(value); },
-      rejectDeleteChartById: function(reason) { qDeleteChartById.reject(reason); },
       getChartSetById: getChartSetById,
-      resolveGetChartSetById: function(value) { qGetChartSetById.resolve(value); },
-      rejectGetChartSetById: function(reason) { qGetChartSetById.reject(reason); },
       getChartSets: getChartSets,
-      resolveGetChartSets: function(value) { qGetChartSets.resolve(value); },
-      rejectGetChartSets: function(reason) { qGetChartSets.reject(reason); },
       createChartSet: createChartSet,
-      resolveCreateCharSett: function(value) { qCreateChartSet.resolve(value); },
-      rejectCreateChartSet: function(reason) { qCreateChartSet.reject(reason); },
       deleteChartSetById: deleteChartSetById,
-      resolveDeleteChartSetById: function(value) { qDeleteChartSetById.resolve(value); },
-      rejectDeleteChartSetById: function(reason) { qDeleteChartSetById.reject(reason); },
       updateChartSetById: updateChartSetById,
-      resolveUpdateChartSetById: function(value) { qUpdateChartSetById.resolve(value); },
-      rejectUpdateChartSetById: function(reason) { qUpdateChartSetById.reject(reason); },
-      makeFriendlyUrl: makeFriendlyUrl,
       uploadFile: uploadFile
     };
   });

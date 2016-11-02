@@ -9,11 +9,12 @@ angular.module('eagleeye')
     '$state',
     '$stateParams',
     'EagleEyeWebService',
+    'EagleEyeWebServiceUtil',
     'EEDialogService',
     'GoogleChartsService',
     'IS_STACKED_OPTIONS',
     'AXIS_FORMAT_OPTIONS',
-    function($state, $stateParams, EagleEyeWebService, EEDialogService, GoogleChartsService, IS_STACKED_OPTIONS, AXIS_FORMAT_OPTIONS) {
+    function($state, $stateParams, EagleEyeWebService, EagleEyeWebServiceUtil, EEDialogService, GoogleChartsService, IS_STACKED_OPTIONS, AXIS_FORMAT_OPTIONS) {
       var controller = this;
 
       this.id = $stateParams.id;
@@ -60,7 +61,7 @@ angular.module('eagleeye')
         var payload = {};
 
         payload.description = chart.description || '';
-        payload.friendlyUrl = EagleEyeWebService.makeFriendlyUrl('chart', chart.friendlyUrl);
+        payload.friendlyUrl = EagleEyeWebServiceUtil.makeFriendlyUrl('chart', chart.friendlyUrl);
         payload.options = GoogleChartsService.makeConfigurationOptions(chart.chartType, chart.options);
 
         return payload;

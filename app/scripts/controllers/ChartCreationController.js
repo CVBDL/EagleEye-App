@@ -10,10 +10,11 @@ angular.module('eagleeye')
     'EEDialogService',
     'GoogleChartsService',
     'EagleEyeWebService',
+    'EagleEyeWebServiceUtil',
     'CHART_TYPE_OPTIONS',
     'IS_STACKED_OPTIONS',
     'AXIS_FORMAT_OPTIONS',
-    function($state, EEDialogService, GoogleChartsService, EagleEyeWebService, CHART_TYPE_OPTIONS, IS_STACKED_OPTIONS, AXIS_FORMAT_OPTIONS) {
+    function($state, EEDialogService, GoogleChartsService, EagleEyeWebService, EagleEyeWebServiceUtil, CHART_TYPE_OPTIONS, IS_STACKED_OPTIONS, AXIS_FORMAT_OPTIONS) {
       this.chartTypeOptions = CHART_TYPE_OPTIONS;
       this.isStackedOptions = IS_STACKED_OPTIONS;
       this.axisFormatOptions = AXIS_FORMAT_OPTIONS;
@@ -74,7 +75,7 @@ angular.module('eagleeye')
 
         payload.description = chart.description || '';
         payload.chartType = GoogleChartsService.makeChartType(chart.chartType);
-        payload.friendlyUrl = EagleEyeWebService.makeFriendlyUrl('chart', chart.friendlyUrl);
+        payload.friendlyUrl = EagleEyeWebServiceUtil.makeFriendlyUrl('chart', chart.friendlyUrl);
         payload.domainDataType = GoogleChartsService.makeDomainDataType(chart.domainDataType);
         payload.datatable = GoogleChartsService.getChartDataTableSamples(chart.chartType, chart.domainDataType);
         payload.options = GoogleChartsService.makeConfigurationOptions(chart.chartType, chart.options);

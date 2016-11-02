@@ -8,7 +8,8 @@ describe('Controller: ChartSettingsController', function() {
     $httpBackend,
     EagleEyeWebService;
 
-  var ChartSettingsController;
+  var ChartSettingsController,
+    getChartByIdRequestHandler;
 
   // load main module
   beforeEach(module('eagleeye'));
@@ -19,7 +20,7 @@ describe('Controller: ChartSettingsController', function() {
   // mock dependent services
   beforeEach(module(function($provide) {
     $provide.factory('$stateParams', function() {
-      return { id: 'id' };
+      return { id: '1' };
     });
   }));
 
@@ -38,6 +39,10 @@ describe('Controller: ChartSettingsController', function() {
   }));
 
   beforeEach(function() {
+    getChartByIdRequestHandler = $httpBackend.when('GET', '/api/v1/charts/1').respond([]);
+  });
+
+  beforeEach(function() {
     ChartSettingsController = $controller('ChartSettingsController', {
       $stateParams: $stateParams,
       EagleEyeWebService: EagleEyeWebService
@@ -51,47 +56,94 @@ describe('Controller: ChartSettingsController', function() {
 
   it('should be able to create controller', function() {
     expect(ChartSettingsController).toBeDefined();
+    $httpBackend.flush();
   });
 
-  it('should initialize data models', function() {
-    expect(ChartSettingsController.id).toBe('id');
-    expect(ChartSettingsController.chart).toBeDefined();
-  });
+  describe('on initialize', function() {
 
-  it('should call init() to initialize controller', function() {
-    expect(EagleEyeWebService.getChartById).toHaveBeenCalledWith('id');
-  });
+    afterEach(function() {
+      $httpBackend.flush();
+    });
 
-  describe('init()', function() {
-    it('should call loadChart() to get chart info', function() {
-      spyOn(ChartSettingsController, 'loadChart');
-      ChartSettingsController.id = 'id';
-      ChartSettingsController.init();
-      expect(ChartSettingsController.loadChart).toHaveBeenCalledWith('id');
+    it('should initialize `id` model', function() {
+      expect(ChartSettingsController.id).toBe('1');
+    });
+
+    it('should initialize `chart` model', function() {
+      expect(ChartSettingsController.chart).not.toBeNull();
+      expect(typeof ChartSettingsController.chart).toBe('object');
     });
   });
 
-  describe('loadChart()', function() {
-    it('should call EagleEyeWebService to fetch chart data', function() {
-      ChartSettingsController.loadChart('id');
-      expect(EagleEyeWebService.getChartById).toHaveBeenCalledWith('id');
+  describe('on bootstrap', function() {
+
+    it('should make a GET request to fetch chart using `$stateParams.id`', function() {
+      $httpBackend.expect('GET', '/api/v1/charts/1');
+      $httpBackend.flush();
     });
 
-    it('should set controller chart model after fetching chart', function() {
-      ChartSettingsController.loadChart('id');
-      expect(EagleEyeWebService.getChartById).toHaveBeenCalledWith('id');
-      EagleEyeWebService.resolveGetChartById({ id: 'id' });
-      $rootScope.$digest();
-      expect(ChartSettingsController.chart).toEqual({ id: 'id' });
+    it('should set `chart` model when request success', function() {
+      var chart = { _id: '1' };
+
+      getChartByIdRequestHandler.respond(chart);
+      $httpBackend.flush();
+
+      expect(ChartSettingsController.chart).toEqual(chart);
+    });
+
+    it('should do nothing when request error', function() {
+      ChartSettingsController.chart = {};
+
+      getChartByIdRequestHandler.respond(500);
+      $httpBackend.flush();
+
+      expect(ChartSettingsController.chart).toEqual({});
     });
   });
 
-  describe('upload()', function() {
-    it('should call EagleEyeWebService to upload file', function() {
-      ChartSettingsController.chart = { type: 'chart' };
-      ChartSettingsController.id = 'id';
-      ChartSettingsController.upload({});
-      expect(EagleEyeWebService.uploadFile).toHaveBeenCalledWith({}, 'chart', 'id');
+  describe('on runtime', function() {
+
+    beforeEach(function() {
+      $httpBackend.flush();
+    });
+
+    describe('loadChart()', function() {
+
+      it('should make a GET request to fetch chart using the padding `id` parameter', function() {
+        ChartSettingsController.loadChart('1');
+
+        $httpBackend.expect('GET', '/api/v1/charts/1');
+        $httpBackend.flush();
+      });
+
+      it('should set `chart` model when request success', function() {
+        ChartSettingsController.loadChart('1');
+        getChartByIdRequestHandler.respond({ _id: '1' });
+        $httpBackend.flush();
+
+        expect(ChartSettingsController.chart).toEqual({ _id: '1' });
+      });
+
+      it('should do nothing when request error', function() {
+        ChartSettingsController.chart = {};
+
+        ChartSettingsController.loadChart('1');
+        getChartByIdRequestHandler.respond(500);
+        $httpBackend.flush();
+
+        expect(ChartSettingsController.chart).toEqual({});
+      });
+    });
+
+    describe('upload()', function() {
+      it('should call EagleEyeWebService to upload file', function() {
+        ChartSettingsController.chart = { type: 'chart' };
+        ChartSettingsController.id = '1';
+
+        ChartSettingsController.upload({});
+
+        expect(EagleEyeWebService.uploadFile).toHaveBeenCalledWith({}, 'chart', '1');
+      });
     });
   });
 });

@@ -9,7 +9,9 @@ describe('Controller: ChartOptionsAdvanceController', function() {
     $window,
     EagleEyeWebService;
 
-  var ChartOptionsAdvanceController;
+  var ChartOptionsAdvanceController,
+    getChartByIdRequestHandler,
+    updateChartByIdRequestHandler;
 
   // load main module
   beforeEach(module('eagleeye'));
@@ -18,14 +20,12 @@ describe('Controller: ChartOptionsAdvanceController', function() {
   beforeEach(module('EagleEyeWebServiceMock'));
 
   // load GoogleChartsService mock module
-  beforeEach(module('GoogleChartsServiceMock'));
+  // beforeEach(module('GoogleChartsServiceMock'));
 
   // mock dependent services
   beforeEach(module(function($provide) {
     $provide.factory('$stateParams', function() {
-      return {
-        id: 'id'
-      };
+      return { id: '1' };
     });
 
     $provide.factory('$window', function() {
@@ -51,6 +51,16 @@ describe('Controller: ChartOptionsAdvanceController', function() {
     EagleEyeWebService = _EagleEyeWebService_;
   }));
 
+  beforeEach(function() {
+    getChartByIdRequestHandler = $httpBackend.when('GET', '/api/v1/charts/1').respond({
+      _id: '1',
+      options: {
+        title: 'foo'
+      }
+    });
+    updateChartByIdRequestHandler = $httpBackend.when('PUT', '/api/v1/charts/1').respond({});
+  });
+
   beforeEach(inject(function($controller, $rootScope) {
     ChartOptionsAdvanceController = $controller('ChartOptionsAdvanceController', {
       $state: $state,
@@ -67,66 +77,102 @@ describe('Controller: ChartOptionsAdvanceController', function() {
 
   it('should be able to create controller', function() {
     expect(ChartOptionsAdvanceController).toBeDefined();
+    $httpBackend.flush();
   });
 
-  it('should initialize data models', function() {
-    spyOn(JSON, 'stringify').and.callThrough();
+  describe('on initialize', function() {
 
-    expect(ChartOptionsAdvanceController.id).toBe('id');
-    expect(ChartOptionsAdvanceController.chartOptionsString).toBe('');
-    expect(ChartOptionsAdvanceController.title).toBe('');
-    expect(EagleEyeWebService.getChartById).toHaveBeenCalledWith('id');
-    EagleEyeWebService.resolveGetChartById({
-      _id: '_id',
-      options: {
-        title: 'title'
-      }
+    afterEach(function() {
+      $httpBackend.flush();
     });
-    $rootScope.$digest();
-    expect(JSON.stringify).toHaveBeenCalledWith({
-      options: {
-        title: 'title'
-      }
+
+    it('should initialize `id` model', function() {
+      expect(ChartOptionsAdvanceController.id).toBe('1');
     });
-    expect(ChartOptionsAdvanceController.id).toBe('_id');
-    expect(ChartOptionsAdvanceController.title).toBe('title');
-    expect(ChartOptionsAdvanceController.chartOptionsString).toBe('{"options":{"title":"title"}}');
+
+    it('should initialize `chartOptionsString` model', function() {
+      expect(ChartOptionsAdvanceController.chartOptionsString).toBe('');
+    });
+
+    it('should initialize `title` model', function() {
+      expect(ChartOptionsAdvanceController.title).toBe('');
+    });
   });
 
-  describe('save()', function() {
-    beforeEach(function() {
-      spyOn(JSON, 'parse');
+  describe('on bootstrap', function() {
+
+    it('should make a GET request to fetch chart using initial `ChartOptionsAdvanceController.id`', function() {
+      $httpBackend.expect('GET', '/api/v1/charts/1');
+      $httpBackend.flush();
     });
 
-    it('should alart error if input an invalid JSON', function() {
-      JSON.parse.and.callFake(function() {
-        throw new Error();
+    it('should set models when request success', function() {
+      getChartByIdRequestHandler.respond({
+        _id: '1',
+        options: {
+          title: 'foo'
+        }
+      });
+      $httpBackend.flush();
+
+      expect(ChartOptionsAdvanceController.id).toBe('1');
+      expect(ChartOptionsAdvanceController.title).toBe('foo');
+      expect(ChartOptionsAdvanceController.chartOptionsString).toBe(JSON.stringify({
+        options: { title: 'foo' }
+      }));
+    });
+
+    it('should do nothing when request error', function() {
+      ChartOptionsAdvanceController.id = '';
+      ChartOptionsAdvanceController.title = '';
+      ChartOptionsAdvanceController.chartOptionsString = ''
+
+      getChartByIdRequestHandler.respond(500);
+      $httpBackend.flush();
+
+      expect(ChartOptionsAdvanceController.id).toBe('');
+      expect(ChartOptionsAdvanceController.title).toBe('');
+      expect(ChartOptionsAdvanceController.chartOptionsString).toBe('');
+    });
+  });
+
+  describe('on runtime', function() {
+
+    describe('save()', function() {
+
+      beforeEach(function() {
+        spyOn(JSON, 'parse').and.callThrough();
       });
 
-      ChartOptionsAdvanceController.save();
-      expect($window.alert).toHaveBeenCalledWith('JSON syntax error!');
-      expect(EagleEyeWebService.updateChartById).not.toHaveBeenCalled();
-    });
+      it('should alart error if input an invalid JSON', function() {
+        ChartOptionsAdvanceController.save();
+        expect($window.alert).toHaveBeenCalledWith('JSON syntax error!');
+        expect(EagleEyeWebService.updateChartById).not.toHaveBeenCalled();
+        $httpBackend.flush();
+      });
 
-    it('should update chart to server with valid JSON', function() {
-      JSON.parse.and.returnValue({ id: 'id' });
-      ChartOptionsAdvanceController.id = 'id';
+      it('should update chart to server with valid JSON', function() {
+        spyOn($state, 'go');
 
-      ChartOptionsAdvanceController.save();
-      expect($window.alert).not.toHaveBeenCalled();
-      expect(EagleEyeWebService.updateChartById).toHaveBeenCalledWith('id', { id: 'id' });
-    });
+        ChartOptionsAdvanceController.id = '1';
 
-    it('should to go chart after update chart to server', function() {
-      spyOn($state, 'go');
+        ChartOptionsAdvanceController.save('"foo"');
 
-      ChartOptionsAdvanceController.id = 'id';
+        expect($window.alert).not.toHaveBeenCalled();
+        $httpBackend.expect('PUT', '/api/v1/charts/1', '"foo"');
+        $httpBackend.flush();
+      });
 
-      ChartOptionsAdvanceController.save();
-      expect($window.alert).not.toHaveBeenCalled();
-      EagleEyeWebService.resolveUpdateChartById();
-      $rootScope.$digest();
-      expect($state.go).toHaveBeenCalledWith('chart', { id: 'id' });
+      it('should navigate to chart when request success', function() {
+        spyOn($state, 'go');
+
+        ChartOptionsAdvanceController.id = '1';
+
+        ChartOptionsAdvanceController.save('"foo"');
+        $httpBackend.flush();
+
+        expect($state.go).toHaveBeenCalledWith('chart', { id: '1' });
+      });
     });
   });
 });

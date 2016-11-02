@@ -9,7 +9,8 @@ describe('Controller: ChartsController', function() {
     EagleEyeWebService,
     EEDialogService;
 
-  var ChartsController;
+  var ChartsController,
+    getChartsRequestHandler;
 
   // load main module
   beforeEach(module('eagleeye'));
@@ -36,6 +37,14 @@ describe('Controller: ChartsController', function() {
     EEDialogService = _EEDialogService_;
   }));
 
+  beforeEach(function() {
+    getChartsRequestHandler = $httpBackend.when('GET', '/api/v1/charts').respond([
+      { _id: 1 },
+      { _id: 2 }
+    ]);
+    $httpBackend.when('DELETE', '/api/v1/charts/1').respond('');
+  });
+
   beforeEach(inject(function() {
     ChartsController = $controller('ChartsController', {
       $state: $state,
@@ -51,101 +60,153 @@ describe('Controller: ChartsController', function() {
 
   it('should be able to create controller', function() {
     expect(ChartsController).toBeDefined();
+    $httpBackend.flush();
   });
 
-  it('should set default isLoading model', function() {
-    expect(ChartsController.isLoading).toBe(true);
-  });
+  describe('on initialize', function() {
 
-  it('should call init() to initialize controller', function() {
-    expect(EagleEyeWebService.getCharts).toHaveBeenCalled();
-    EagleEyeWebService.resolveGetCharts([]);
-    $rootScope.$digest();
-    expect(ChartsController.isLoading).toBe(false);
-    expect(ChartsController.chartList).toEqual([]);
-  });
+    afterEach(function() {
+      $httpBackend.flush();
+    });
 
-  describe('init()', function() {
-    it('should call loadChartList() to fetch charts', function() {
-      ChartsController.init();
-      expect(EagleEyeWebService.getCharts).toHaveBeenCalled();
+    it('should set default isLoading model', function() {
+      expect(ChartsController.isLoading).toBe(true);
     });
   });
 
-  describe('loadChartList()', function() {
-    it('should call EagleEyeWebService service to fetch charts from server', function() {
-      ChartsController.loadChartList();
-      expect(EagleEyeWebService.getCharts).toHaveBeenCalled();
+  describe('on bootstrap', function() {
+
+    it('should make a GET request to fetch all charts', function() {
+      $httpBackend.expect('GET', '/api/v1/charts');
+      $httpBackend.flush();
     });
 
-    it('should set isLoading to false and refresh chartList after fetching charts', function() {
-      ChartsController.loadChartList();
-      expect(EagleEyeWebService.getCharts).toHaveBeenCalled();
-      EagleEyeWebService.resolveGetCharts([]);
-      $rootScope.$digest();
+    it('should set `isLoading` and `chartList` models when request success', function() {
+      $httpBackend.flush();
+
       expect(ChartsController.isLoading).toBe(false);
+      expect(ChartsController.chartList).toEqual([
+        { _id: 1 },
+        { _id: 2 }
+      ]);
+    });
+
+    it('should do nothing when request error', function() {
+      ChartsController.isLoading = (true);
+      ChartsController.chartList = ([]);
+
+      getChartsRequestHandler.respond(500);
+      $httpBackend.flush();
+
+      expect(ChartsController.isLoading).toBe(true);
       expect(ChartsController.chartList).toEqual([]);
     });
   });
 
-  describe('onClickDeleteChart()', function() {
-    var $event,
-      chart;
+  describe('on runtime', function() {
 
     beforeEach(function() {
-      spyOn(ChartsController, 'loadChartList');
-
-      $event = {
-        stopPropagation: jasmine.createSpy('stopPropagation')
-      };
-
-      chart = {
-        _id: 'id',
-        options: { title: 'title' }
-      }
+      $httpBackend.flush();
     });
 
-    it('should stop default event propagation', function() {
-      ChartsController.onClickDeleteChart($event, chart);
-      expect($event.stopPropagation).toHaveBeenCalled();
+    describe('init()', function() {
+
+      it('should call loadChartList() to fetch charts', function() {
+        spyOn(ChartsController, 'loadChartList');
+
+        ChartsController.init();
+
+        expect(ChartsController.loadChartList).toHaveBeenCalled();
+      });
     });
 
-    it('should show confirm dialog before delete', function() {
-      ChartsController.onClickDeleteChart($event, chart);
-      expect(EEDialogService.showDeleteConfirmation).toHaveBeenCalledWith({ title: 'title' });
+    describe('loadChartList()', function() {
+
+      it('should make a GET request to fetch all charts', function() {
+        ChartsController.loadChartList();
+
+        $httpBackend.expect('GET', '/api/v1/charts');
+        $httpBackend.flush();
+      });
+
+      it('should set `isLoading` and `chartList` models when request success', function() {
+        ChartsController.isLoading = true;
+        ChartsController.chartList = [];
+
+        ChartsController.loadChartList();
+        getChartsRequestHandler.respond([
+          { _id: 1 },
+          { _id: 2 }
+        ]);
+        $httpBackend.flush();
+
+        expect(ChartsController.isLoading).toBe(false);
+        expect(ChartsController.chartList).toEqual([
+          { _id: 1 },
+          { _id: 2 }
+        ]);
+      });
     });
 
-    it('should cancel delete if user click cancel', function() {
-      ChartsController.onClickDeleteChart($event, chart);
-      EEDialogService.rejectShowDeleteConfirmation();
-      $rootScope.$digest();
-      expect(EagleEyeWebService.deleteChartById).not.toHaveBeenCalled();
-      expect(ChartsController.loadChartList).not.toHaveBeenCalled();
+    describe('onClickDeleteChart()', function() {
+      var $event,
+        chart;
+
+      beforeEach(function() {
+        spyOn(ChartsController, 'loadChartList');
+
+        $event = {
+          stopPropagation: jasmine.createSpy('stopPropagation')
+        };
+
+        chart = {
+          _id: '1',
+          options: { title: 'title' }
+        }
+      });
+
+      it('should stop default event propagation', function() {
+        ChartsController.onClickDeleteChart($event, chart);
+        expect($event.stopPropagation).toHaveBeenCalled();
+      });
+
+      it('should show confirm dialog before delete', function() {
+        ChartsController.onClickDeleteChart($event, chart);
+        expect(EEDialogService.showDeleteConfirmation).toHaveBeenCalledWith({ title: 'title' });
+      });
+
+      it('should cancel delete if user click cancel', function() {
+        ChartsController.onClickDeleteChart($event, chart);
+        EEDialogService.rejectShowDeleteConfirmation();
+        $rootScope.$digest();
+        expect(EagleEyeWebService.deleteChartById).not.toHaveBeenCalled();
+        expect(ChartsController.loadChartList).not.toHaveBeenCalled();
+      });
+
+      it('should delete the chart if user click ok', function() {
+        ChartsController.onClickDeleteChart($event, chart);
+        EEDialogService.resolveShowDeleteConfirmation();
+        $httpBackend.expect('DELETE', '/api/v1/charts/1');
+        $rootScope.$digest();
+        $httpBackend.flush();
+      });
+
+      it('should refresh chart list after delete a chart', function() {
+        ChartsController.onClickDeleteChart($event, chart);
+        EEDialogService.resolveShowDeleteConfirmation();
+        $rootScope.$digest();
+        $httpBackend.flush();
+        expect(ChartsController.loadChartList).toHaveBeenCalled();
+      });
     });
 
-    it('should delete the chart if user click ok', function() {
-      ChartsController.onClickDeleteChart($event, chart);
-      EEDialogService.resolveShowDeleteConfirmation();
-      $rootScope.$digest();
-      expect(EagleEyeWebService.deleteChartById).toHaveBeenCalledWith('id');
-    });
+    describe('createChart()', function() {
+      it('should go to chartCreation state', function() {
+        spyOn($state, 'go');
 
-    it('should refresh chart list after delete a chart', function() {
-      ChartsController.onClickDeleteChart($event, chart);
-      EEDialogService.resolveShowDeleteConfirmation();
-      $rootScope.$digest();
-      EagleEyeWebService.resolveDeleteChartById();
-      $rootScope.$digest();
-      expect(ChartsController.loadChartList).toHaveBeenCalled();
-    });
-  });
-
-  describe('createChart()', function() {
-    it('should go to chartCreation state', function() {
-      spyOn($state, 'go');
-
-      ChartsController.createChart();
-      expect($state.go).toHaveBeenCalledWith('chartCreation');
+        ChartsController.createChart();
+        expect($state.go).toHaveBeenCalledWith('chartCreation');
+      });
     });
   });
 });

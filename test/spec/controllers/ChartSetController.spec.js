@@ -13,7 +13,9 @@ describe('Controller: ChartSetController', function() {
     EEDialogService,
     SaveAsPDFService;
 
-  var ChartSetController;
+  var ChartSetController,
+    getChartSetsRequestHandler,
+    getChartSetByIdRequestHandler;
 
   // load main module
   beforeEach(module('eagleeye'));
@@ -33,7 +35,7 @@ describe('Controller: ChartSetController', function() {
     });
 
     $provide.factory('$stateParams', function() {
-      return { id: 'id' };
+      return { id: '1' };
     });
   }));
 
@@ -57,6 +59,11 @@ describe('Controller: ChartSetController', function() {
   }));
 
   beforeEach(function() {
+    getChartSetsRequestHandler = $httpBackend.when('GET', '/api/v1/chart-sets').respond([]);
+    getChartSetByIdRequestHandler = $httpBackend.when('GET', '/api/v1/chart-sets/1').respond([]);
+  });
+
+  beforeEach(function() {
     ChartSetController = $controller('ChartSetController', {
       $location: $location,
       $rootScope: $rootScope,
@@ -76,145 +83,239 @@ describe('Controller: ChartSetController', function() {
 
   it('should be able to create controller', function() {
     expect(ChartSetController).toBeDefined();
+    $httpBackend.flush();
   });
 
-  it('should set DELAY constant value', function() {
-    expect(ChartSetController.DELAY).toBe(60 * 1000);
-  });
+  describe('on initialize', function() {
 
-  it('should initialize data models', function() {
-    expect(ChartSetController.id).toBe('id');
-    expect(ChartSetController.autoReloadChartSetPromise).toBe(null);
-    expect(ChartSetController.isAutoReloadSwitchOn).toBe(false);
-    expect(ChartSetController.chartset).toBeDefined();
-    expect(ChartSetController.chartSetList).toBeDefined();
-  });
-
-  it('should call init() to initialize controller', function() {
-    expect(EagleEyeWebService.getChartSetById).toHaveBeenCalledWith('id');
-  });
-
-  describe('init()', function() {
-    it('should call loadChartSet() to get chart info', function() {
-      spyOn(ChartSetController, 'loadChartSet');
-      ChartSetController.id = 'id';
-      ChartSetController.init();
-      expect(ChartSetController.loadChartSet).toHaveBeenCalledWith('id');
-    });
-  });
-
-  describe('loadChartSet()', function() {
-    it('should call EagleEyeWebService to fetch chart set data', function() {
-      ChartSetController.loadChartSet('id');
-      expect(EagleEyeWebService.getChartSetById).toHaveBeenCalledWith('id');
+    afterEach(function() {
+      $httpBackend.flush();
     });
 
-    it('should set controller chart model after fetching chart', function() {
-      ChartSetController.loadChartSet('id');
-      expect(EagleEyeWebService.getChartSetById).toHaveBeenCalledWith('id');
-      EagleEyeWebService.resolveGetChartSetById({ id: 'id' });
-      $rootScope.$digest();
-      expect(ChartSetController.chartset).toEqual({ id: 'id' });
-    });
-  });
-
-  describe('loadChartSets()', function() {
-    it('should call EagleEyeWebService to fetch chart sets data', function() {
-      ChartSetController.loadChartSets();
-      expect(EagleEyeWebService.getChartSets).toHaveBeenCalled();
+    it('should initialize `id` model', function() {
+      expect(ChartSetController.id).toBe('1');
     });
 
-    it('should set controller chart model after fetching chart', function() {
-      ChartSetController.loadChartSets();
-      expect(EagleEyeWebService.getChartSets).toHaveBeenCalled();
-      EagleEyeWebService.resolveGetChartSets([]);
-      $rootScope.$digest();
+    it('should initialize `DELAY` model to one minute', function() {
+      expect(ChartSetController.DELAY).toBe(60 * 1000);
+    });
+
+    it('should initialize `viewMode` model to "list"', function() {
+      expect(ChartSetController.viewMode).toBe('list');
+    });
+
+    it('should initialize `isAutoReloadSwitchOn` model to false', function() {
+      expect(ChartSetController.isAutoReloadSwitchOn).toBe(false);
+    });
+
+    it('should initialize `autoReloadChartSetPromise` model to null', function() {
+      expect(ChartSetController.autoReloadChartSetPromise).toBeNull();
+    });
+
+    it('should initialize `saveChartSetAsPdf` to use SaveAsPDFService', function() {
+      expect(ChartSetController.saveChartSetAsPdf).toBe(SaveAsPDFService.saveChartSetAsPdf);
+    });
+
+    it('should initialize `chartset` model to {}', function() {
+      expect(ChartSetController.chartset).toEqual({});
+    });
+
+    it('should initialize `chartSetList` model to []', function() {
       expect(ChartSetController.chartSetList).toEqual([]);
     });
   });
 
-  describe('setViewMode()', function() {
+  describe('on bootstrap', function() {
+
+    it('should make a GET request to fetch chart set using initial `ChartSetController.id`', function() {
+      $httpBackend.expect('GET', '/api/v1/chart-sets/1');
+      $httpBackend.flush();
+    });
+
+    it('should set `chartset` model when request success', function() {
+      var chartset = { _id: '1' };
+
+      getChartSetByIdRequestHandler.respond(chartset);
+      $httpBackend.flush();
+
+      expect(ChartSetController.chartset).toEqual(chartset);
+    });
+
+    it('should do nothing when request error', function() {
+      ChartSetController.chartset = {};
+
+      getChartSetByIdRequestHandler.respond(500);
+      $httpBackend.flush();
+
+      expect(ChartSetController.chartset).toEqual({});
+    });
+  });
+
+  describe('on runtime', function() {
+
     beforeEach(function() {
-      spyOn($rootScope, '$emit');
+      $httpBackend.flush();
     });
 
-    it('should do nothing if passing invalid mode', function() {
-      ChartSetController.setViewMode();
-      expect(ChartSetController.viewMode).not.toBe(undefined);
-      expect($rootScope.$emit).not.toHaveBeenCalled();
+    describe('loadChartSet()', function() {
+
+      it('should make a GET request to fetch chart set by id', function() {
+        var id = 1;
+
+        ChartSetController.loadChartSet(id);
+
+        $httpBackend.expect('GET', '/api/v1/chart-sets/1');
+        $httpBackend.flush();
+      });
+
+      it('should set `chartset` model when request success', function() {
+        var id = 1,
+          chartset = { _id: 1, foo: 'foo' };
+
+        ChartSetController.loadChartSet(id);
+        getChartSetByIdRequestHandler.respond(chartset);
+        $httpBackend.flush();
+
+        expect(ChartSetController.chartset).toEqual(chartset);
+      });
+
+      it('should do nothing when request error', function() {
+        var id = 1;
+
+        ChartSetController.chartset = {};
+
+        ChartSetController.loadChartSet(id);
+        getChartSetByIdRequestHandler.respond(500);
+        $httpBackend.flush();
+
+        expect(ChartSetController.chartset).toEqual({});
+      });
     });
 
-    it('should set display mode to list', function() {
-      ChartSetController.setViewMode('list');
-      expect(ChartSetController.viewMode).toBe('list');
-      expect($rootScope.$emit).toHaveBeenCalledWith('ee.googlechart.redraw');
+    describe('loadChartSets()', function() {
+
+      it('should make a GET request to fetch all chart sets', function() {
+        ChartSetController.loadChartSets();
+
+        $httpBackend.expect('GET', '/api/v1/chart-sets');
+        $httpBackend.flush();
+      });
+
+      it('should set `chartSetList` model when request success', function() {
+        var chartSetList = [
+          { _id: 1, foo: 'foo' },
+          { _id: 2, foo: 'bar' }
+        ];
+
+        ChartSetController.loadChartSets();
+        getChartSetsRequestHandler.respond(chartSetList);
+        $httpBackend.flush();
+
+        expect(ChartSetController.chartSetList).toEqual(chartSetList);
+      });
+
+      it('should do nothing when request error', function() {
+        ChartSetController.chartSetList = [];
+
+        ChartSetController.loadChartSets();
+        getChartSetsRequestHandler.respond(500);
+        $httpBackend.flush();
+
+        expect(ChartSetController.chartSetList).toEqual([]);
+      });
     });
 
-    it('should set display mode to column', function() {
-      ChartSetController.setViewMode('column');
-      expect(ChartSetController.viewMode).toBe('column');
-      expect($rootScope.$emit).toHaveBeenCalledWith('ee.googlechart.redraw');
+    describe('setViewMode()', function() {
+
+      beforeEach(function() {
+        spyOn($rootScope, '$emit');
+      });
+
+      it('should do nothing if passing invalid mode', function() {
+        ChartSetController.setViewMode();
+        expect(ChartSetController.viewMode).not.toBe(undefined);
+        expect($rootScope.$emit).not.toHaveBeenCalled();
+      });
+
+      it('should set display mode to list', function() {
+        ChartSetController.setViewMode('list');
+        expect(ChartSetController.viewMode).toBe('list');
+        expect($rootScope.$emit).toHaveBeenCalledWith('ee.googlechart.redraw');
+      });
+
+      it('should set display mode to column', function() {
+        ChartSetController.setViewMode('column');
+        expect(ChartSetController.viewMode).toBe('column');
+        expect($rootScope.$emit).toHaveBeenCalledWith('ee.googlechart.redraw');
+      });
     });
-  });
 
-  describe('onAutoReloadSwitchChange()', function() {
-    beforeEach(function() {
-      spyOn(ChartSetController, 'startAutoReloadChartSet');
-      spyOn(ChartSetController, 'stopAutoReloadChartSet');
+    describe('onAutoReloadSwitchChange()', function() {
+
+      beforeEach(function() {
+        spyOn(ChartSetController, 'startAutoReloadChartSet');
+        spyOn(ChartSetController, 'stopAutoReloadChartSet');
+      });
+
+      it('should return if none parameter passed in', function() {
+        expect(ChartSetController.onAutoReloadSwitchChange()).not.toBeDefined();
+        expect(ChartSetController.startAutoReloadChartSet).not.toHaveBeenCalled();
+        expect(ChartSetController.stopAutoReloadChartSet).not.toHaveBeenCalled();
+      });
+
+      it('should start auto reload if passing isAutoReloadSwitchOn = true', function() {
+        ChartSetController.onAutoReloadSwitchChange(true);
+        expect(ChartSetController.startAutoReloadChartSet).toHaveBeenCalled();
+        expect(ChartSetController.stopAutoReloadChartSet).not.toHaveBeenCalled();
+      });
+
+      it('should stop auto reload if passing isAutoReloadSwitchOn = false', function() {
+        ChartSetController.onAutoReloadSwitchChange(false);
+        expect(ChartSetController.startAutoReloadChartSet).not.toHaveBeenCalled();
+        expect(ChartSetController.stopAutoReloadChartSet).toHaveBeenCalled();
+      });
     });
 
-    it('should return if none parameter passed in', function() {
-      expect(ChartSetController.onAutoReloadSwitchChange()).not.toBeDefined();
-      expect(ChartSetController.startAutoReloadChartSet).not.toHaveBeenCalled();
-      expect(ChartSetController.stopAutoReloadChartSet).not.toHaveBeenCalled();
+    describe('startAutoReloadChartSet()', function() {
+
+      it('should register an interval task with startAutoReloadChartSet()', function() {
+        spyOn(ChartSetController, 'loadChartSet');
+        ChartSetController.id = 'id';
+        ChartSetController.DELAY = 1000;
+        ChartSetController.startAutoReloadChartSet();
+        expect(ChartSetController.autoReloadChartSetPromise.then).toBeDefined();
+        $interval.flush(1000);
+        expect(ChartSetController.loadChartSet).toHaveBeenCalledWith('id');
+      });
     });
 
-    it('should start auto reload if passing isAutoReloadSwitchOn = true', function() {
-      ChartSetController.onAutoReloadSwitchChange(true);
-      expect(ChartSetController.startAutoReloadChartSet).toHaveBeenCalled();
-      expect(ChartSetController.stopAutoReloadChartSet).not.toHaveBeenCalled();
+    describe('stopAutoReloadChartSet()', function() {
+
+      it('should stop an interval task with stopAutoReloadChartSet()', function() {
+        spyOn(ChartSetController, 'loadChartSet');
+        spyOn($interval, 'cancel').and.callThrough();
+        ChartSetController.DELAY = 1000;
+        ChartSetController.startAutoReloadChartSet();
+        expect(ChartSetController.autoReloadChartSetPromise.then).toBeDefined();
+        $interval.flush(1000);
+        expect(ChartSetController.stopAutoReloadChartSet()).toBe(true);
+        expect($interval.cancel).toHaveBeenCalledWith(ChartSetController.autoReloadChartSetPromise);
+      });
     });
 
-    it('should stop auto reload if passing isAutoReloadSwitchOn = false', function() {
-      ChartSetController.onAutoReloadSwitchChange(false);
-      expect(ChartSetController.startAutoReloadChartSet).not.toHaveBeenCalled();
-      expect(ChartSetController.stopAutoReloadChartSet).toHaveBeenCalled();
+    it('should show share dialog when calls showShare()', function() {
+      spyOn($location, 'absUrl').and.returnValue('eagleeye');
+      ChartSetController.showShare('title');
+      expect(EEDialogService.showSharing).toHaveBeenCalledWith({
+        sharedTitle: 'title',
+        sharedLink: 'eagleeye'
+      });
     });
-  });
 
-  it('should register an interval task with startAutoReloadChartSet()', function() {
-    spyOn(ChartSetController, 'loadChartSet');
-    ChartSetController.id = 'id';
-    ChartSetController.DELAY = 1000;
-    ChartSetController.startAutoReloadChartSet();
-    expect(ChartSetController.autoReloadChartSetPromise.then).toBeDefined();
-    $interval.flush(1000);
-    expect(ChartSetController.loadChartSet).toHaveBeenCalledWith('id');
-  });
-
-  it('should stop an interval task with stopAutoReloadChartSet()', function() {
-    spyOn(ChartSetController, 'loadChartSet');
-    spyOn($interval, 'cancel').and.callThrough();
-    ChartSetController.DELAY = 1000;
-    ChartSetController.startAutoReloadChartSet();
-    expect(ChartSetController.autoReloadChartSetPromise.then).toBeDefined();
-    $interval.flush(1000);
-    expect(ChartSetController.stopAutoReloadChartSet()).toBe(true);
-    expect($interval.cancel).toHaveBeenCalledWith(ChartSetController.autoReloadChartSetPromise);
-  });
-
-  it('should show share dialog when calls showShare()', function() {
-    spyOn($location, 'absUrl').and.returnValue('eagleeye');
-    ChartSetController.showShare('title');
-    expect(EEDialogService.showSharing).toHaveBeenCalledWith({
-      sharedTitle: 'title',
-      sharedLink: 'eagleeye'
+    it('should go to chartSet state when called goToChartSet()', function() {
+      spyOn($state, 'go');
+      ChartSetController.goToChartSet('id');
+      expect($state.go).toHaveBeenCalledWith('chartSet', { id: 'id' });
     });
-  });
-
-  it('should go to chartSet state when called goToChartSet()', function() {
-    spyOn($state, 'go');
-    ChartSetController.goToChartSet('id');
-    expect($state.go).toHaveBeenCalledWith('chartSet', { id: 'id' });
   });
 });
