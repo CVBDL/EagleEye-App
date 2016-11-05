@@ -7,7 +7,6 @@ describe('Service: EEDialogService', function() {
     $q,
     $rootScope;
 
-
   var EEDialogService;
 
   beforeEach(module('eagleeye'));

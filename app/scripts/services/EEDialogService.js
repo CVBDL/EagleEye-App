@@ -20,7 +20,7 @@ angular.module('eagleeye')
        * @method
        * @private
        * @name eagleeye.EEDialogService#show
-       * @description Show dialog for sharing.
+       * @description Show a dialog by using $mdDialog service.
        * @param {Object} options Required options for $mdDialog.show().
        * @param {Object} options.locals An object containing key/value pairs. The keys will be used as names of values to inject into the controller.
        * @param {function|string} options.controller The controller to associate with the dialog.
@@ -42,7 +42,7 @@ angular.module('eagleeye')
 
       /**
        * @method
-       * @name eagleeye.EEDialogService#showShare
+       * @name eagleeye.EEDialogService#showSharing
        * @description Show dialog for sharing.
        * @param {Object} locals An object containing key/value pairs. The keys will be used as names of values to inject into the controller.
        * @returns {promise} A promise that can be resolved with `$mdDialog.hide()` or rejected with `$mdDialog.cancel()`.
@@ -79,14 +79,16 @@ angular.module('eagleeye')
        * @name eagleeye.EEDialogService#showDeleteConfirmation
        * @description Show dialog for confirming delete action.
        * @param {Object} locals An object containing key/value pairs. The keys will be used as names of values to inject into the controller.
-       * @returns {promise}
+       * @returns {promise} A promise that will be resolved when click 'DELETE', rejected when click 'CANCEL'.
        */
       self.showDeleteConfirmation = function(locals) {
         return self.show({
           locals: locals,
           controller: 'DeleteDialogController as ctrl',
           templateUrl: 'scripts/templates/delete.tmpl.html'
+
         }).then(function(response) {
+
           if (response === 'delete') {
             return $q.when(response);
 
