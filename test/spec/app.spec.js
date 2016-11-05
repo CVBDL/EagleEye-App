@@ -1,9 +1,6 @@
 'use strict';
 
-describe('app.js', function() {
-  var chartId = '57837029c66dc1a4570962b6';
-  var chartSetId = '578c8c493164a7304f72a9f3';
-
+describe('UI router:', function() {
   var $injector,
     $state,
     $rootScope,
@@ -12,6 +9,7 @@ describe('app.js', function() {
     $location,
     $stateParams;
 
+  // load main module
   beforeEach(module('eagleeye'));
 
   beforeEach(inject(function($httpBackend, $templateCache) {
@@ -42,138 +40,104 @@ describe('app.js', function() {
   });
 
   it('should default to home state', function() {
-    var notExistPath = '#/not-exist-url';
-    var stateName = 'home';
-    var url = '/home';
-
-    $location.path(notExistPath);
-
-    $rootScope.$digest();
-    expect($state.current.name).toBe(stateName);
-    expect($location.url()).toBe(url);
-  });
-
-  it('should go to home state', function() {
-    var stateName = 'home';
-    var url = '/home';
-
-    $state.go(stateName);
+    $location.path('/');
     $rootScope.$digest();
 
-    expect($state.current.name).toBe(stateName);
-    expect($location.url()).toBe(url);
+    expect($state.current.name).toBe('home');
+    expect($location.url()).toBe('/home');
   });
 
-  it('should go to charts state', function() {
-    var stateName = 'charts';
-    var url = '/charts';
-
-    $state.go(stateName);
+  it('should have a home state', function() {
+    $state.go('home');
     $rootScope.$digest();
 
-    expect($state.current.name).toBe(stateName);
-    expect($location.url()).toBe(url);
+    expect($state.current.name).toBe('home');
+    expect($location.url()).toBe('/home');
   });
 
-  it('should go to create chart state', function() {
-    var stateName = 'chartCreation';
-    var url = '/charts/new';
-
-    $state.go(stateName);
+  it('should have a charts state', function() {
+    $state.go('charts');
     $rootScope.$digest();
 
-    expect($state.current.name).toBe(stateName);
-    expect($location.url()).toBe(url);
+    expect($state.current.name).toBe('charts');
+    expect($location.url()).toBe('/charts');
   });
 
-  it('should go to chart state', function() {
-    var stateName = 'chart';
-    var url = '/charts/';
-    var stateOptions = {
-      id: chartId
-    };
-
-    $state.go(stateName, stateOptions);
+  it('should have a chartCreation state', function() {
+    $state.go('chartCreation');
     $rootScope.$digest();
 
-    expect($state.current.name).toBe(stateName);
-    expect($stateParams.id).toBe(stateOptions.id);
-    expect($location.url()).toBe(url + chartId);
+    expect($state.current.name).toBe('chartCreation');
+    expect($location.url()).toBe('/charts/new');
   });
 
-  it('should go to chartSettings state', function() {
+  it('should have a chart state with a id parameter', function() {
+    var chartId = 'foo';
+
+    $state.go('chart', { id: chartId });
+    $rootScope.$digest();
+
+    expect($state.current.name).toBe('chart');
+    expect($stateParams.id).toBe(chartId);
+    expect($location.url()).toBe('/charts/' + chartId);
+  });
+
+  it('should have a chartSettings state with id parameter', function() {
     var stateName = 'chartSettings';
-    var stateOptions = {
-      id: chartId
-    };
+    var chartId = 'foo';
 
-    $state.go(stateName, stateOptions);
+    $state.go('chartSettings', { id: chartId });
     $rootScope.$digest();
 
-    expect($state.current.name).toBe(stateName);
-    expect($stateParams.id).toBe(stateOptions.id);
+    expect($state.current.name).toBe('chartSettings');
+    expect($stateParams.id).toBe(chartId);
     expect($location.url()).toBe('/charts/' + chartId + '/settings');
   });
 
-  it('should go to chartSets state', function() {
-    var stateName = 'chartSets';
-    var url = '/chart-sets';
-
-    $state.go(stateName);
+  it('should have a chartSets state', function() {
+    $state.go('chartSets');
     $rootScope.$digest();
 
-    expect($state.current.name).toBe(stateName);
-    expect($location.url()).toBe(url);
+    expect($state.current.name).toBe('chartSets');
+    expect($location.url()).toBe('/chart-sets');
   });
 
-  it('should go to createChartSet state', function() {
-    var stateName = 'chartSetCreation';
-    var url = '/chart-sets/new';
-
-    $state.go(stateName);
+  it('should have a createChartSet state', function() {
+    $state.go('chartSetCreation');
     $rootScope.$digest();
 
-    expect($state.current.name).toBe(stateName);
-    expect($location.url()).toBe(url);
+    expect($state.current.name).toBe('chartSetCreation');
+    expect($location.url()).toBe('/chart-sets/new');
   });
 
-  it('should go to chartSet state', function() {
-    var stateName = 'chartSet';
-    var stateOptions = {
-      id: chartSetId
-    };
+  it('should have a chartSet state with id parameter', function() {
+    var chartSetId = 'foo';
 
-    $state.go(stateName, stateOptions);
+    $state.go('chartSet', { id: chartSetId });
     $rootScope.$digest();
 
-    expect($state.current.name).toBe(stateName);
-    expect($stateParams.id).toBe(stateOptions.id);
+    expect($state.current.name).toBe('chartSet');
+    expect($stateParams.id).toBe(chartSetId);
     expect($location.url()).toBe('/chart-sets/' + chartSetId);
   });
 
-  it('should go to chartSetSettings state', function() {
-    var stateName = 'chartSetSettings';
-    var stateOptions = {
-      id: chartSetId
-    };
+  it('should have a chartSetSettings state with id parameter', function() {
+    var chartSetId = 'foo';
 
-    $state.go(stateName, stateOptions);
+    $state.go('chartSetSettings', { id: chartSetId });
     $rootScope.$digest();
 
-    expect($state.current.name).toBe(stateName);
-    expect($stateParams.id).toBe(stateOptions.id);
+    expect($state.current.name).toBe('chartSetSettings');
+    expect($stateParams.id).toBe(chartSetId);
     expect($location.url()).toBe('/chart-sets/' + chartSetId + '/settings');
   });
 
-  it('should go to develop state', function() {
-    var stateName = 'develop';
-    var url = '/develop';
-
-    $state.go(stateName);
+  it('should have a develop state', function() {
+    $state.go('develop');
     $rootScope.$digest();
 
-    expect($state.current.name).toBe(stateName);
-    expect($location.url()).toBe(url);
+    expect($state.current.name).toBe('develop');
+    expect($location.url()).toBe('/develop');
   });
 });
 
@@ -181,6 +145,7 @@ describe('app.js', function() {
 describe('Constant service', function() {
   var FEEDBACK_EMAIL;
 
+  // load main module
   beforeEach(module('eagleeye'));
 
   beforeEach(inject(function (_FEEDBACK_EMAIL_) {
