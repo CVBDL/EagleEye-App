@@ -31,6 +31,7 @@ module.exports = function(config) {
       'bower_components/jspdf/dist/jspdf.debug.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
+      'bower_components/angular-material/angular-material-mocks.js',
       'app/scripts/**/*.js',
       'test/mock/**/*.js',
       'test/spec/**/*.js'
