@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc function
- * @name eagleeye.controller:DeletedialogcontrollerCtrl
+ * @name eagleeye.controller:DeleteDialogController
  */
 angular.module('eagleeye')
   .controller('DeleteDialogController', [
