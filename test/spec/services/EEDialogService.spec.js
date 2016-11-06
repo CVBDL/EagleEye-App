@@ -151,6 +151,38 @@ describe('Service: EEDialogService', function() {
 
       expect(typeof expectedPromise.then).toBe('function');
     });
+
+    describe('returned promise', function() {
+      var callbacks = {
+        resolve: jasmine.createSpy('resolve'),
+        reject: jasmine.createSpy('reject'),
+      };
+
+      beforeEach(function() {
+        EEDialogService.showSharing({}).then(
+          callbacks.resolve,
+          callbacks.reject
+        );
+      });
+
+      it('should be able to resove by $mdDialog.hide()', function() {
+        expect(callbacks.resolve).not.toHaveBeenCalled();
+
+        $mdDialog.hide('resolve');
+        $rootScope.$digest();
+
+        expect(callbacks.resolve).toHaveBeenCalledWith('resolve');
+      });
+
+      it('should be able to reject by $mdDialog.cancel()', function() {
+        expect(callbacks.reject).not.toHaveBeenCalled();
+
+        $mdDialog.cancel('reject');
+        $rootScope.$digest();
+
+        expect(callbacks.reject).toHaveBeenCalledWith('reject');
+      });
+    });
   });
 
   describe('showChartCreationHelping()', function() {
@@ -173,6 +205,38 @@ describe('Service: EEDialogService', function() {
 
       expect(typeof expectedPromise.then).toBe('function');
     });
+
+    describe('returned promise', function() {
+      var callbacks = {
+        resolve: jasmine.createSpy('resolve'),
+        reject: jasmine.createSpy('reject'),
+      };
+
+      beforeEach(function() {
+        EEDialogService.showChartCreationHelping({}).then(
+          callbacks.resolve,
+          callbacks.reject
+        );
+      });
+
+      it('should be able to resove by $mdDialog.hide()', function() {
+        expect(callbacks.resolve).not.toHaveBeenCalled();
+
+        $mdDialog.hide('resolve');
+        $rootScope.$digest();
+
+        expect(callbacks.resolve).toHaveBeenCalledWith('resolve');
+      });
+
+      it('should be able to reject by $mdDialog.cancel()', function() {
+        expect(callbacks.reject).not.toHaveBeenCalled();
+
+        $mdDialog.cancel('reject');
+        $rootScope.$digest();
+
+        expect(callbacks.reject).toHaveBeenCalledWith('reject');
+      });
+    });
   });
 
   describe('showDeleteConfirmation()', function() {
@@ -194,6 +258,38 @@ describe('Service: EEDialogService', function() {
       var expectedPromise = EEDialogService.showDeleteConfirmation({});
 
       expect(typeof expectedPromise.then).toBe('function');
+    });
+
+    describe('returned promise', function() {
+      var callbacks = {
+        resolve: jasmine.createSpy('resolve'),
+        reject: jasmine.createSpy('reject'),
+      };
+
+      beforeEach(function() {
+        EEDialogService.showDeleteConfirmation({}).then(
+          callbacks.resolve,
+          callbacks.reject
+        );
+      });
+
+      it('should be able to resove by $mdDialog.hide()', function() {
+        expect(callbacks.resolve).not.toHaveBeenCalled();
+
+        $mdDialog.hide('resolve');
+        $rootScope.$digest();
+
+        expect(callbacks.resolve).toHaveBeenCalledWith('resolve');
+      });
+
+      it('should be able to reject by $mdDialog.cancel()', function() {
+        expect(callbacks.reject).not.toHaveBeenCalled();
+
+        $mdDialog.cancel('reject');
+        $rootScope.$digest();
+
+        expect(callbacks.reject).toHaveBeenCalledWith('reject');
+      });
     });
   });
 });
