@@ -79,22 +79,13 @@ angular.module('eagleeye')
        * @name eagleeye.EEDialogService#showDeleteConfirmation
        * @description Show dialog for confirming delete action.
        * @param {Object} locals An object containing key/value pairs. The keys will be used as names of values to inject into the controller.
-       * @returns {promise} A promise that will be resolved when click 'DELETE', rejected when click 'CANCEL'.
+       * @returns {promise} A promise that will be resolved when click 'DELETE' button or rejected when click 'CANCEL' button.
        */
       self.showDeleteConfirmation = function(locals) {
         return self.show({
           locals: locals,
           controller: 'DeleteDialogController as ctrl',
           templateUrl: 'scripts/templates/delete.tmpl.html'
-
-        }).then(function(response) {
-
-          if (response === 'delete') {
-            return $q.when(response);
-
-          } else {
-            return $q.reject(response);
-          }
         });
       };
 

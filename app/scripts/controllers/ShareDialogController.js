@@ -18,7 +18,7 @@ angular.module('eagleeye')
       /**
        * @method
        * @name cancel
-       * @description Close dialog.
+       * @description Hide dialog and reject the promise returned from $mdDialog.show().
        */
       this.cancel = function() {
         $mdDialog.cancel();
