@@ -17,23 +17,46 @@ angular.module('eagleeye')
     function EagleEyeWebService($http, $q, Upload) {
       var self = {};
 
-      var isRootEndpointInitialized = false,
-        rootEndpoint = '';
+      /**
+       * @property
+       * @private
+       * @name eagleeye.EagleEyeWebService#_rootEndpoint
+       * @description
+       * EagleEye platform rest api root endpoint.
+       * @type {string}
+       */
+      self._rootEndpoint = '';
 
+      /**
+       * @method
+       * @private
+       * @name eagleeye.EagleEyeWebService#getRootEndpoint
+       * @description
+       * Read `config.json` file to config service root endpoint.
+       * @returns {promise} A promise that will be resolved with service `_rootEndpoint`.
+       */
       self.getRootEndpoint = function() {
-        if (isRootEndpointInitialized) {
-          return $q.when(rootEndpoint);
+        if (self._rootEndpoint) {
+          return $q.when(self._rootEndpoint);
 
         } else {
           return $http.get('../config.json').then(function(response) {
-            isRootEndpointInitialized = true;
-            rootEndpoint = response.data.root_endpoint;
+            self._rootEndpoint = response.data.root_endpoint;
 
-            return rootEndpoint;
+            return self._rootEndpoint;
           });
         }
       };
 
+      /**
+       * @method
+       * @private
+       * @name eagleeye.EagleEyeWebService#fetchServer
+       * @description
+       * Collect xhr options and send ajax request to server.
+       * @param {Object} options Ajax request options.
+       * @returns {promise} A promise that returned by $http service.
+       */
       self.fetchServer = function(options) {
         return self.getRootEndpoint().then(function(rootEndpoint) {
           options.url = rootEndpoint + 'api/v1/' + options.url;

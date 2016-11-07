@@ -57,11 +57,13 @@ describe('Controller: ShareDialogController', function() {
 
   it('should set mailTemplate model', function() {
     var link = 'mailto:?subject=Share: title&body=http://example.com%0d Shared from EagleEye';
+
     expect(ShareDialogController.mailTemplate).toBe(link);
   });
 
   it('should be able to cancel the delete action', function() {
     ShareDialogController.cancel();
+
     expect($mdDialog.cancel).toHaveBeenCalled();
   });
 });

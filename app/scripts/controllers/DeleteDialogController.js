@@ -18,19 +18,19 @@ angular.module('eagleeye')
       /**
        * @method
        * @name cancel
-       * @description Hide dialog and reject the promise returned from $mdDialog.show() with 'cancel'.
+       * @description Hide dialog and reject the promise returned from $mdDialog.show().
        */
       this.cancel = function() {
-        $mdDialog.cancel('cancel');
+        $mdDialog.cancel();
       };
 
       /**
        * @method
        * @name delete
-       * @description Hide dialog and resolve promise returned from $mdDialog.show() with 'delete'.
+       * @description Hide dialog and resolve promise returned from $mdDialog.show().
        */
       this.delete = function() {
-        $mdDialog.hide('delete');
+        $mdDialog.hide();
       };
     }
   ]);

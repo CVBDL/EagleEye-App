@@ -58,11 +58,13 @@ describe('Controller: DeleteDialogController', function() {
 
   it('should be able to cancel the delete action', function() {
     DeleteDialogController.cancel();
-    expect($mdDialog.cancel).toHaveBeenCalledWith('cancel');
+
+    expect($mdDialog.cancel).toHaveBeenCalled();
   });
 
   it('should be able to do the delete action', function() {
     DeleteDialogController.delete();
-    expect($mdDialog.hide).toHaveBeenCalledWith('delete');
+
+    expect($mdDialog.hide).toHaveBeenCalled();
   });
 });
