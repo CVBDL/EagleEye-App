@@ -3,6 +3,7 @@
 describe('Controller: ChartsController', function() {
   var $controller,
     $httpBackend,
+    $mdDialog,
     $q,
     $rootScope,
     $state,
@@ -15,11 +16,11 @@ describe('Controller: ChartsController', function() {
   // load main module
   beforeEach(module('eagleeye'));
 
+  // load ngMaterial mock module
+  beforeEach(module('ngMaterialMock'));
+
   // load EagleEyeWebService mock module
   beforeEach(module('EagleEyeWebServiceMock'));
-
-  // load EEDialogService mock module
-  beforeEach(module('EEDialogServiceMock'));
 
   // reset router
   beforeEach(module(function($urlRouterProvider) {
@@ -27,12 +28,13 @@ describe('Controller: ChartsController', function() {
   }));
 
   // inject services
-  beforeEach(inject(function(_$controller_, _$q_, _$rootScope_, _$state_, _$httpBackend_, _EagleEyeWebService_, _EEDialogService_) {
+  beforeEach(inject(function(_$controller_, _$q_, _$rootScope_, _$state_, _$httpBackend_, _$mdDialog_, _EagleEyeWebService_, _EEDialogService_) {
     $controller = _$controller_;
     $q = _$q_;
     $rootScope = _$rootScope_;
     $state = _$state_;
     $httpBackend = _$httpBackend_;
+    $mdDialog = _$mdDialog_;
     EagleEyeWebService = _EagleEyeWebService_;
     EEDialogService = _EEDialogService_;
   }));
@@ -167,25 +169,35 @@ describe('Controller: ChartsController', function() {
 
       it('should stop default event propagation', function() {
         ChartsController.onClickDeleteChart($event, chart);
+
         expect($event.stopPropagation).toHaveBeenCalled();
       });
 
       it('should show confirm dialog before delete', function() {
         ChartsController.onClickDeleteChart($event, chart);
-        expect(EEDialogService.showDeleteConfirmation).toHaveBeenCalledWith({ title: 'title' });
+
+        expect($mdDialog.show).toHaveBeenCalledWith({
+          locals: { title: 'title' },
+          controller: 'DeleteDialogController as ctrl',
+          templateUrl: 'scripts/templates/delete.tmpl.html',
+          parent: angular.element(document.body),
+          clickOutsideToClose: true,
+          fullscreen: true
+        });
       });
 
       it('should cancel delete if user click cancel', function() {
         ChartsController.onClickDeleteChart($event, chart);
-        EEDialogService.rejectShowDeleteConfirmation();
+        $mdDialog.cancel();
         $rootScope.$digest();
+
         expect(EagleEyeWebService.deleteChartById).not.toHaveBeenCalled();
         expect(ChartsController.loadChartList).not.toHaveBeenCalled();
       });
 
       it('should delete the chart if user click ok', function() {
         ChartsController.onClickDeleteChart($event, chart);
-        EEDialogService.resolveShowDeleteConfirmation();
+        $mdDialog.hide();
         $httpBackend.expect('DELETE', '/api/v1/charts/1');
         $rootScope.$digest();
         $httpBackend.flush();
@@ -193,9 +205,10 @@ describe('Controller: ChartsController', function() {
 
       it('should refresh chart list after delete a chart', function() {
         ChartsController.onClickDeleteChart($event, chart);
-        EEDialogService.resolveShowDeleteConfirmation();
+        $mdDialog.hide();
         $rootScope.$digest();
         $httpBackend.flush();
+
         expect(ChartsController.loadChartList).toHaveBeenCalled();
       });
     });

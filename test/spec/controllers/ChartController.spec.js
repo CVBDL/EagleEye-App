@@ -2,12 +2,13 @@
 
 describe('Controller: ChartController', function() {
   var $controller,
+    $httpBackend,
+    $interval,
+    $location,
+    $mdDialog,
     $q,
     $rootScope,
     $stateParams,
-    $httpBackend,
-    $location,
-    $interval,
     EagleEyeWebService,
     EEDialogService,
     SaveAsPDFService;
@@ -18,11 +19,11 @@ describe('Controller: ChartController', function() {
   // load main module
   beforeEach(module('eagleeye'));
 
-  // load EagleEyeWebService mock module
-  beforeEach(module('EagleEyeWebServiceMock'));
+  // load ngMaterial mock module
+  beforeEach(module('ngMaterialMock'));
 
   // load EagleEyeWebService mock module
-  beforeEach(module('EEDialogServiceMock'));
+  beforeEach(module('EagleEyeWebServiceMock'));
 
   // mock dependent services
   beforeEach(module(function($provide) {
@@ -42,8 +43,9 @@ describe('Controller: ChartController', function() {
     $urlRouterProvider.otherwise(function() { return false; });
   }));
 
-  beforeEach(inject(function (_$controller_, _$q_, _$rootScope_, _$stateParams_, _$httpBackend_, _$location_, _$interval_, _EagleEyeWebService_, _EEDialogService_, _SaveAsPDFService_) {
+  beforeEach(inject(function (_$controller_, _$mdDialog_, _$q_, _$rootScope_, _$stateParams_, _$httpBackend_, _$location_, _$interval_, _EagleEyeWebService_, _EEDialogService_, _SaveAsPDFService_) {
     $controller = _$controller_;
+    $mdDialog = _$mdDialog_;
     $q = _$q_;
     $rootScope = _$rootScope_;
     $stateParams = _$stateParams_;
@@ -307,9 +309,16 @@ describe('Controller: ChartController', function() {
 
         ChartController.showShare('title');
 
-        expect(EEDialogService.showSharing).toHaveBeenCalledWith({
-          sharedTitle: 'title',
-          sharedLink: 'eagleeye'
+        expect($mdDialog.show).toHaveBeenCalledWith({
+          locals: {
+            sharedTitle: 'title',
+            sharedLink: 'eagleeye'
+          },
+          controller: 'ShareDialogController as ctrl',
+          templateUrl: 'scripts/templates/share.tmpl.html',
+          parent: angular.element(document.body),
+          clickOutsideToClose: true,
+          fullscreen: true
         });
       });
     });

@@ -12,37 +12,8 @@ describe('Service: EEDialogService', function() {
   // load main module
   beforeEach(module('eagleeye'));
 
-  // mock dependent services
-  beforeEach(module(function($provide) {
-
-    // mock $mdMedia
-    $provide.factory('$mdMedia', function() {
-      return jasmine.createSpy('$mdMedia').and.returnValue(true);
-    });
-
-    // mock $mdDialog
-    $provide.factory('$mdDialog', function($q) {
-      var qShow;
-
-      var show = jasmine.createSpy('show').and.callFake(function() {
-       qShow = $q.defer();
-
-       return qShow.promise;
-      });
-      var hide = jasmine.createSpy('hide').and.callFake(function(value) {
-        qShow.resolve(value);
-      });
-      var cancel = jasmine.createSpy('cancel').and.callFake(function(reason) {
-        qShow.reject(reason);
-      });
-
-      return {
-        show: show,
-        hide: hide,
-        cancel: cancel
-      };
-    });
-  }));
+  // load ngMaterial mock module
+  beforeEach(module('ngMaterialMock'));
 
   // reset router
   beforeEach(module(function($urlRouterProvider) {
@@ -69,21 +40,15 @@ describe('Service: EEDialogService', function() {
 
   describe('show()', function() {
 
-    it('should calculate `useFullScreen` value', function() {
-      EEDialogService.show({});
-
-      expect($mdMedia).toHaveBeenCalled();
-    });
-
-    it('should call $mdDialog.show() to show a dialog', function() {
+    it('should call $mdDialog.show() with proper parameters', function() {
       EEDialogService.show({
-        locals: {},
+        locals: { foo: 'foo' },
         controller: 'controller',
         templateUrl: 'templateUrl'
       });
 
       expect($mdDialog.show).toHaveBeenCalledWith({
-        locals: {},
+        locals: { foo: 'foo' },
         controller: 'controller',
         templateUrl: 'templateUrl',
         parent: angular.element(document.body),
@@ -111,7 +76,7 @@ describe('Service: EEDialogService', function() {
         );
       });
 
-      it('should be able to resove by $mdDialog.hide()', function() {
+      it('should be able to resolve by $mdDialog.hide()', function() {
         expect(callbacks.resolve).not.toHaveBeenCalled();
 
         $mdDialog.hide('resolve');
@@ -219,7 +184,7 @@ describe('Service: EEDialogService', function() {
         );
       });
 
-      it('should be able to resove by $mdDialog.hide()', function() {
+      it('should be able to resolve by $mdDialog.hide()', function() {
         expect(callbacks.resolve).not.toHaveBeenCalled();
 
         $mdDialog.hide('resolve');
@@ -273,7 +238,7 @@ describe('Service: EEDialogService', function() {
         );
       });
 
-      it('should be able to resove by $mdDialog.hide()', function() {
+      it('should be able to resolve by $mdDialog.hide()', function() {
         expect(callbacks.resolve).not.toHaveBeenCalled();
 
         $mdDialog.hide('resolve');

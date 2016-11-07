@@ -3,6 +3,7 @@
 describe('Controller: ChartOptionsController', function() {
   var $controller,
     $httpBackend,
+    $mdDialog,
     $rootScope,
     $state,
     $stateParams,
@@ -20,11 +21,11 @@ describe('Controller: ChartOptionsController', function() {
   // load main module
   beforeEach(module('eagleeye'));
 
+  // load ngMaterial mock module
+  beforeEach(module('ngMaterialMock'));
+
   // load EagleEyeWebService mock module
   beforeEach(module('EagleEyeWebServiceMock'));
-
-  // load EEDialogService mock module
-  beforeEach(module('EEDialogServiceMock'));
 
   // mock dependent services
   beforeEach(module(function($provide) {
@@ -39,9 +40,10 @@ describe('Controller: ChartOptionsController', function() {
   }));
 
   // inject services
-  beforeEach(inject(function(_$controller_, _$httpBackend_, _$rootScope_, _$state_, _$stateParams_, _EagleEyeWebService_, _EagleEyeWebServiceUtil_, _GoogleChartsService_, _EEDialogService_, _IS_STACKED_OPTIONS_, _AXIS_FORMAT_OPTIONS_) {
+  beforeEach(inject(function(_$controller_, _$httpBackend_, _$mdDialog_, _$rootScope_, _$state_, _$stateParams_, _EagleEyeWebService_, _EagleEyeWebServiceUtil_, _GoogleChartsService_, _EEDialogService_, _IS_STACKED_OPTIONS_, _AXIS_FORMAT_OPTIONS_) {
     $controller = _$controller_;
     $httpBackend = _$httpBackend_;
+    $mdDialog = _$mdDialog_;
     $rootScope = _$rootScope_;
     $state = _$state_;
     $stateParams = _$stateParams_;
@@ -187,7 +189,15 @@ describe('Controller: ChartOptionsController', function() {
 
     it('should be able to show help dialog', function() {
       ChartOptionsController.showHelp();
-      expect(EEDialogService.showChartCreationHelping).toHaveBeenCalled();
+
+      expect($mdDialog.show).toHaveBeenCalledWith({
+        locals: undefined,
+        controller: jasmine.anything(),
+        templateUrl: 'scripts/templates/chart-creation-help.tmpl.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose: true,
+        fullscreen: true
+      });
     });
 
     describe('makeChartPayload()', function() {

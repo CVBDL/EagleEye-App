@@ -4,6 +4,7 @@ describe('Controller: ChartCreationController', function() {
   var $controller,
     $http,
     $httpBackend,
+    $mdDialog,
     $q,
     $rootScope,
     $state,
@@ -21,11 +22,11 @@ describe('Controller: ChartCreationController', function() {
   // load main module
   beforeEach(module('eagleeye'));
 
+  // load ngMaterial mock module
+  beforeEach(module('ngMaterialMock'));
+
   // load EagleEyeWebService mock module
   beforeEach(module('EagleEyeWebServiceMock'));
-
-  // load EEDialogService mock module
-  beforeEach(module('EEDialogServiceMock'));
 
   // reset router
   beforeEach(module(function($urlRouterProvider) {
@@ -33,12 +34,13 @@ describe('Controller: ChartCreationController', function() {
   }));
 
   // inject services
-  beforeEach(inject(function(_$controller_, _$http_, _$httpBackend_, _$q_, _$rootScope_, _$state_, _EagleEyeWebService_, _EagleEyeWebServiceUtil_, _GoogleChartsService_, _EEDialogService_, _CHART_TYPE_OPTIONS_, _IS_STACKED_OPTIONS_, _AXIS_FORMAT_OPTIONS_, _DATA_TABLE_SAMPLES_) {
+  beforeEach(inject(function(_$controller_, _$http_, _$httpBackend_, _$mdDialog_, _$q_, _$rootScope_, _$state_, _EagleEyeWebService_, _EagleEyeWebServiceUtil_, _GoogleChartsService_, _EEDialogService_, _CHART_TYPE_OPTIONS_, _IS_STACKED_OPTIONS_, _AXIS_FORMAT_OPTIONS_, _DATA_TABLE_SAMPLES_) {
     $controller = _$controller_;
     $http = _$http_;
     $rootScope = _$rootScope_;
     $state = _$state_;
     $httpBackend = _$httpBackend_;
+    $mdDialog = _$mdDialog_;
     $q = _$q_;
     EagleEyeWebService = _EagleEyeWebService_;
     EagleEyeWebServiceUtil = _EagleEyeWebServiceUtil_;
@@ -126,7 +128,14 @@ describe('Controller: ChartCreationController', function() {
       it('should use EEDialogService to show help dialog', function() {
         ChartCreationController.showHelp();
 
-        expect(EEDialogService.showChartCreationHelping).toHaveBeenCalled();
+        expect($mdDialog.show).toHaveBeenCalledWith({
+          locals: undefined,
+          controller: jasmine.anything(),
+          templateUrl: 'scripts/templates/chart-creation-help.tmpl.html',
+          parent: angular.element(document.body),
+          clickOutsideToClose: true,
+          fullscreen: true
+        });
       });
     });
 
