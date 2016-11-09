@@ -29,7 +29,7 @@ angular.module('eagleeye')
         ngModel.$parsers.push(validator);
 
         function validator(friendlyUrl) {
-          if (!friendlyUrl || friendlyUrl.length == 0) return;
+          if (!friendlyUrl || friendlyUrl.length === 0)  return;
 
           ngModel.$setValidity('friendlyUrlChecking', false);
           ngModel.$setValidity('friendlyUrlAvailable', true);

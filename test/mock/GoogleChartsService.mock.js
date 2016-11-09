@@ -8,8 +8,8 @@ angular.module('GoogleChartsServiceMock', [])
     });
     var getChartDataTableSamples = jasmine.createSpy('getChartDataTableSamples').and.callFake(function() {
       return {
-        "cols": [{}],
-        "rows": [{}]
+        'cols': [{}],
+        'rows': [{}]
       };
     });
     var makeConfigurationOptions = jasmine.createSpy('makeConfigurationOptions').and.callFake(function() {
@@ -20,6 +20,6 @@ angular.module('GoogleChartsServiceMock', [])
       makeChartType: makeChartType,
       makeDomainDataType: makeDomainDataType,
       getChartDataTableSamples: getChartDataTableSamples,
-      makeConfigurationOptions: makeConfigurationOptions,
+      makeConfigurationOptions: makeConfigurationOptions
     };
   });

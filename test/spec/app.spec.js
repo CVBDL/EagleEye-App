@@ -1,11 +1,9 @@
 'use strict';
 
 describe('UI router:', function() {
-  var $injector,
-    $state,
+  var $state,
     $rootScope,
     $httpBackend,
-    $templateCache,
     $location,
     $stateParams;
 
@@ -25,8 +23,7 @@ describe('UI router:', function() {
     $templateCache.put('views/develop.html', '');
   }));
 
-  beforeEach(inject(function(_$injector_, _$httpBackend_, _$location_, _$rootScope_, _$state_, _$stateParams_) {
-    $injector = _$injector_;
+  beforeEach(inject(function(_$httpBackend_, _$location_, _$rootScope_, _$state_, _$stateParams_) {
     $httpBackend = _$httpBackend_;
     $location = _$location_;
     $rootScope = _$rootScope_;
@@ -83,7 +80,6 @@ describe('UI router:', function() {
   });
 
   it('should have a chartSettings state with id parameter', function() {
-    var stateName = 'chartSettings';
     var chartId = 'foo';
 
     $state.go('chartSettings', { id: chartId });
@@ -148,7 +144,7 @@ describe('Constant service', function() {
   // load main module
   beforeEach(module('eagleeye'));
 
-  beforeEach(inject(function (_FEEDBACK_EMAIL_) {
+  beforeEach(inject(function(_FEEDBACK_EMAIL_) {
     FEEDBACK_EMAIL = _FEEDBACK_EMAIL_;
   }));
 

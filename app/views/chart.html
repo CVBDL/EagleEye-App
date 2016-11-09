@@ -15,7 +15,7 @@
           </md-button>
           <md-button class="md-icon-button" aria-label="Save as pdf" ng-hide="ctrl.chart.chartType ==='ImageChart'">
             <md-tooltip md-direction="botton">Save as PDF</md-tooltip>
-            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.SaveImageOrPDF(1, ctrl.chart)"> picture_as_pdf </md-icon>
+            <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.saveImageOrPDF(1, ctrl.chart)"> picture_as_pdf </md-icon>
           </md-button>
           <md-button class="md-icon-button" aria-label="Download data" ng-href="{{ctrl.chart.browserDownloadUrl.excel}}" ng-if="ctrl.chart.chartType !== 'ImageChart'">
             <md-tooltip md-direction="botton">Download data</md-tooltip>

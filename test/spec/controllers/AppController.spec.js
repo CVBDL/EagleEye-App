@@ -20,7 +20,7 @@ describe('Controller: AppController', function() {
     $urlRouterProvider.otherwise(function() { return false; });
   }));
 
-  beforeEach(inject(function (_$controller_, _$httpBackend_, _FEEDBACK_EMAIL_) {
+  beforeEach(inject(function(_$controller_, _$httpBackend_, _FEEDBACK_EMAIL_) {
     $controller = _$controller_;
     $httpBackend = _$httpBackend_;
     FEEDBACK_EMAIL = _FEEDBACK_EMAIL_;

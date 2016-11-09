@@ -2,8 +2,6 @@
 
 describe('Controller: ChartSetCreationController', function() {
   var $controller,
-    $q,
-    $rootScope,
     $state,
     $httpBackend,
     EagleEyeWebService,
@@ -25,9 +23,8 @@ describe('Controller: ChartSetCreationController', function() {
   }));
 
   // inject services
-  beforeEach(inject(function(_$controller_, _$httpBackend_, _$rootScope_, _$state_, _EagleEyeWebService_, _EagleEyeWebServiceUtil_) {
+  beforeEach(inject(function(_$controller_, _$httpBackend_, _$state_, _EagleEyeWebService_, _EagleEyeWebServiceUtil_) {
     $controller = _$controller_;
-    $rootScope = _$rootScope_;
     $state = _$state_;
     $httpBackend = _$httpBackend_;
     EagleEyeWebService = _EagleEyeWebService_;
@@ -90,7 +87,7 @@ describe('Controller: ChartSetCreationController', function() {
         { _id: 2, bar: 'bar' }
       ];
 
-      getChartsRequestHandler.respond(chartList)
+      getChartsRequestHandler.respond(chartList);
       $httpBackend.flush();
 
       expect(ChartSetCreationController.chartList).toEqual(chartList);

@@ -4,7 +4,16 @@
   },
   "globals": {
     "angular": true,
-    "google": true
+    "google": true,
+    "describe": true,
+    "expect": true,
+    "it": true,
+    "beforeEach": true,
+    "afterEach": true,
+    "module": true,
+    "inject": true,
+    "jasmine": true,
+    "spyOn": true
   },
   "rules": {
     // Rules are divided into sections from http://eslint.org/docs/rules/

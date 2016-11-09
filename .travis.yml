@@ -7,9 +7,15 @@ before_install:
 node_js:
   - "4.4.5"
 
+matrix:
+  include:
+    - env: JOB=unittest
+  allow_failures:
+    - env: JOB=eslint
+
 before_script:
   - npm install -g bower grunt
   - bower install
 
 script:
-  - grunt test
+  - ./scripts/build.sh

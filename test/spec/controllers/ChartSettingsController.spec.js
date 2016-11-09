@@ -2,8 +2,6 @@
 
 describe('Controller: ChartSettingsController', function() {
   var $controller,
-    $q,
-    $rootScope,
     $stateParams,
     $httpBackend,
     EagleEyeWebService;
@@ -26,13 +24,11 @@ describe('Controller: ChartSettingsController', function() {
 
   // reset router
   beforeEach(module(function($urlRouterProvider) {
-    $urlRouterProvider.otherwise( function(){ return false; });
+    $urlRouterProvider.otherwise(function() { return false; });
   }));
 
-  beforeEach(inject(function (_$controller_, _$q_, _$rootScope_, _$stateParams_, _$httpBackend_,_EagleEyeWebService_) {
+  beforeEach(inject(function(_$controller_, _$stateParams_, _$httpBackend_,_EagleEyeWebService_) {
     $controller = _$controller_;
-    $q = _$q_;
-    $rootScope = _$rootScope_;
     $stateParams = _$stateParams_;
     $httpBackend = _$httpBackend_;
     EagleEyeWebService = _EagleEyeWebService_;

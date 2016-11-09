@@ -13,7 +13,7 @@ angular.module('eagleeye')
     '$q',
     '$mdDialog',
     '$mdMedia',
-    function ($q, $mdDialog, $mdMedia) {
+    function($q, $mdDialog, $mdMedia) {
       var self = {};
 
       /**

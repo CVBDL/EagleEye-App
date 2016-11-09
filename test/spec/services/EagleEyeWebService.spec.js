@@ -18,7 +18,7 @@ describe('Service: EagleEyeWebService', function() {
     $urlRouterProvider.otherwise(function() { return false; });
   }));
 
-  beforeEach(inject(function (_$httpBackend_, _$rootScope_, _EagleEyeWebService_) {
+  beforeEach(inject(function(_$httpBackend_, _$rootScope_, _EagleEyeWebService_) {
     $httpBackend = _$httpBackend_;
     $rootScope = _$rootScope_;
     EagleEyeWebService = _EagleEyeWebService_;
@@ -26,7 +26,7 @@ describe('Service: EagleEyeWebService', function() {
 
   beforeEach(function() {
     config = {
-      "root_endpoint": "http://127.0.0.1:3000/"
+      'root_endpoint': 'http://127.0.0.1:3000/'
     };
 
     charts = [{

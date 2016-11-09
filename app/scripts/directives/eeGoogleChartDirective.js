@@ -34,7 +34,7 @@ angular.module('eagleeye')
 
         function drawChart() {
           google.charts.setOnLoadCallback(function drawOnLoad() {
-            if (!scope.chartType || !scope.chartDataTable || "ImageChart" == scope.chartType) {
+            if (!scope.chartType || !scope.chartDataTable || 'ImageChart' === scope.chartType) {
               return;
             }
 
@@ -42,9 +42,9 @@ angular.module('eagleeye')
             var chartDataTable = new google.visualization.DataTable(angular.copy(scope.chartDataTable, {}));
             var chartOptions = angular.merge({}, DEFAULT_CHART_OPTIONS[scope.chartType.toLowerCase()], angular.copy(scope.chartOptions, {}));
 
-            if (scope.chartType.toLowerCase() == "combochart") {
+            if (scope.chartType.toLowerCase() === 'combochart') {
 
-              if (isNaN(chartOptions.combolines) || chartOptions.combolines.length == 0) {
+              if (isNaN(chartOptions.combolines) || chartOptions.combolines.length === 0) {
                 chartOptions.combolines = 1;
               }
 
@@ -66,8 +66,8 @@ angular.module('eagleeye')
               formatter = new google.visualization.NumberFormat({ pattern: pattern });
               numberOfColumns = chartDataTable.getNumberOfColumns();
 
-              for (var i = 1; i < numberOfColumns; i++) {
-                formatter.format(chartDataTable, i);
+              for (var j = 1; j < numberOfColumns; j++) {
+                formatter.format(chartDataTable, j);
               }
             }
 

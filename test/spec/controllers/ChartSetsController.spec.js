@@ -4,15 +4,13 @@ describe('Controller: ChartSetsController', function() {
   var $controller,
     $httpBackend,
     $mdDialog,
-    $q,
     $rootScope,
     $state,
     EagleEyeWebService,
     EEDialogService;
 
   var ChartSetsController,
-    getChartSetsRequestHandler,
-    deleteChartSetByIdRequestHandler;
+    getChartSetsRequestHandler;
 
   // load main module
   beforeEach(module('eagleeye'));
@@ -29,9 +27,8 @@ describe('Controller: ChartSetsController', function() {
   }));
 
   // inject services
-  beforeEach(inject(function(_$controller_, _$q_, _$rootScope_, _$state_, _$httpBackend_, _$mdDialog_, _EagleEyeWebService_, _EEDialogService_) {
+  beforeEach(inject(function(_$controller_, _$rootScope_, _$state_, _$httpBackend_, _$mdDialog_, _EagleEyeWebService_, _EEDialogService_) {
     $controller = _$controller_;
-    $q = _$q_;
     $rootScope = _$rootScope_;
     $state = _$state_;
     $httpBackend = _$httpBackend_;
@@ -42,7 +39,7 @@ describe('Controller: ChartSetsController', function() {
 
   beforeEach(function() {
     getChartSetsRequestHandler = $httpBackend.when('GET', '/api/v1/chart-sets').respond([]);
-    deleteChartSetByIdRequestHandler = $httpBackend.when('DELETE', '/api/v1/chart-sets/1').respond(204);
+    $httpBackend.when('DELETE', '/api/v1/chart-sets/1').respond(204);
   });
 
   beforeEach(inject(function() {
@@ -162,7 +159,7 @@ describe('Controller: ChartSetsController', function() {
         chartset = {
           _id: '1',
           title: 'title'
-        }
+        };
       });
 
       it('should stop default event propagation', function() {

@@ -4,15 +4,13 @@ describe('Controller: ChartSetSettingsController', function() {
   var $controller,
     $httpBackend,
     $q,
-    $rootScope,
     $state,
     $stateParams,
     EagleEyeWebService;
 
   var ChartSetSettingsController,
     getChartsRequestHandler,
-    getChartSetByIdRequestHandler,
-    updateChartSetByIdRequestHandler;
+    getChartSetByIdRequestHandler;
 
   // load main module
   beforeEach(module('eagleeye'));
@@ -33,11 +31,10 @@ describe('Controller: ChartSetSettingsController', function() {
   }));
 
   // inject services
-  beforeEach(inject(function(_$controller_, _$httpBackend_, _$q_, _$rootScope_, _$state_, _$stateParams_, _EagleEyeWebService_) {
+  beforeEach(inject(function(_$controller_, _$httpBackend_, _$q_, _$state_, _$stateParams_, _EagleEyeWebService_) {
     $controller = _$controller_;
     $httpBackend = _$httpBackend_;
     $q = _$q_;
-    $rootScope = _$rootScope_;
     $state = _$state_;
     $stateParams = _$stateParams_;
     EagleEyeWebService = _EagleEyeWebService_;
@@ -46,10 +43,10 @@ describe('Controller: ChartSetSettingsController', function() {
   beforeEach(function() {
     getChartsRequestHandler = $httpBackend.when('GET', '/api/v1/charts').respond([]);
     getChartSetByIdRequestHandler = $httpBackend.when('GET', '/api/v1/chart-sets/1').respond({});
-    updateChartSetByIdRequestHandler = $httpBackend.when('PUT', '/api/v1/chart-sets/1').respond({});
+    $httpBackend.when('PUT', '/api/v1/chart-sets/1').respond({});
   });
 
-  beforeEach(inject(function($controller, $rootScope) {
+  beforeEach(inject(function() {
     ChartSetSettingsController = $controller('ChartSetSettingsController', {
       $state: $state,
       $stateParams: $stateParams,

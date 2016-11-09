@@ -7,7 +7,7 @@
 angular.module('eagleeye')
   .controller('AppController', [
     'FEEDBACK_EMAIL',
-    function (FEEDBACK_EMAIL) {
-      this.feedbackLink = "mailto:"+ FEEDBACK_EMAIL + "?subject=EagleEye+Feedback";
+    function(FEEDBACK_EMAIL) {
+      this.feedbackLink = 'mailto:' + FEEDBACK_EMAIL + '?subject=EagleEye+Feedback';
     }
   ]);

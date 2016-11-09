@@ -3,8 +3,7 @@
 describe('Directive: eeFriendlyUrlValidator', function() {
   var $compile,
     $rootScope,
-    $httpBackend,
-    ngModel;
+    $httpBackend;
 
   var $scope,
     getChartRequestHandler,
@@ -26,7 +25,7 @@ describe('Directive: eeFriendlyUrlValidator', function() {
 
   beforeEach(function() {
     var config = {
-      "root_endpoint": "http://127.0.0.1:3000/"
+      'root_endpoint': 'http://127.0.0.1:3000/'
     };
 
     $httpBackend.when('GET', '../config.json').respond(config);
@@ -57,24 +56,24 @@ describe('Directive: eeFriendlyUrlValidator', function() {
   }
 
   function isFriendlyUrlCheckingValid() {
-    return !!!$scope.form.friendlyUrl.$error.friendlyUrlChecking;
+    return !$scope.form.friendlyUrl.$error.friendlyUrlChecking;
   }
 
   function isFriendlyUrlAvailableValid() {
-    return !!!$scope.form.friendlyUrl.$error.friendlyUrlAvailable;
+    return !$scope.form.friendlyUrl.$error.friendlyUrlAvailable;
   }
 
   describe('chart', function() {
 
     it('should initialize friendlyUrl validity state', function() {
-      var element = directiveElementFactory('chart');
+      directiveElementFactory('chart');
 
       expect(isFriendlyUrlCheckingValid()).toBe(true);
       expect(isFriendlyUrlAvailableValid()).toBe(true);
     });
 
     it('should set `friendlyUrlChecking` to false and `friendlyUrlAvailable` to true before checking on server', function() {
-      var element = directiveElementFactory('chart');
+      directiveElementFactory('chart');
 
       $scope.form.friendlyUrl.$setViewValue('bar-chart');
       $rootScope.$digest();
@@ -90,7 +89,7 @@ describe('Directive: eeFriendlyUrlValidator', function() {
     });
 
     it('should set `friendlyUrlChecking` to true and `friendlyUrlAvailable` to false if friendlyUrl already exist', function() {
-      var element = directiveElementFactory('chart');
+      directiveElementFactory('chart');
 
       $httpBackend.expect('GET', 'http://127.0.0.1:3000/api/v1/charts/c-bar-chart');
 
@@ -105,7 +104,7 @@ describe('Directive: eeFriendlyUrlValidator', function() {
     });
 
     it('should set `friendlyUrlChecking` to true and `friendlyUrlAvailable` to true if friendlyUrl not exist', function() {
-      var element = directiveElementFactory('chart');
+      directiveElementFactory('chart');
 
       $httpBackend.expect('GET', 'http://127.0.0.1:3000/api/v1/charts/c-bar-chart');
 
@@ -123,14 +122,14 @@ describe('Directive: eeFriendlyUrlValidator', function() {
   describe('chart set', function() {
 
     it('should initialize friendlyUrl validity state', function() {
-      var element = directiveElementFactory('chartset');
+      directiveElementFactory('chartset');
 
       expect(isFriendlyUrlCheckingValid()).toBe(true);
       expect(isFriendlyUrlAvailableValid()).toBe(true);
     });
 
     it('should set `friendlyUrlChecking` to false and `friendlyUrlAvailable` to true before checking on server', function() {
-      var element = directiveElementFactory('chartset');
+      directiveElementFactory('chartset');
 
       $scope.form.friendlyUrl.$setViewValue('chart-set-one');
       $rootScope.$digest();
@@ -146,7 +145,7 @@ describe('Directive: eeFriendlyUrlValidator', function() {
     });
 
     it('should set `friendlyUrlChecking` to true and `friendlyUrlAvailable` to false if friendlyUrl already exist', function() {
-      var element = directiveElementFactory('chartset');
+      directiveElementFactory('chartset');
 
       $httpBackend.expect('GET', 'http://127.0.0.1:3000/api/v1/chart-sets/s-chart-set-one');
 
@@ -161,7 +160,7 @@ describe('Directive: eeFriendlyUrlValidator', function() {
     });
 
     it('should set `friendlyUrlChecking` to true and `friendlyUrlAvailable` to true if friendlyUrl not exist', function() {
-      var element = directiveElementFactory('chartset');
+      directiveElementFactory('chartset');
 
       $httpBackend.expect('GET', 'http://127.0.0.1:3000/api/v1/chart-sets/s-chart-set-one');
 

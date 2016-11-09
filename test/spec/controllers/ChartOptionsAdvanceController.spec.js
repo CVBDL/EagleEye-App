@@ -3,24 +3,19 @@
 describe('Controller: ChartOptionsAdvanceController', function() {
   var $controller,
     $httpBackend,
-    $rootScope,
     $state,
     $stateParams,
     $window,
     EagleEyeWebService;
 
   var ChartOptionsAdvanceController,
-    getChartByIdRequestHandler,
-    updateChartByIdRequestHandler;
+    getChartByIdRequestHandler;
 
   // load main module
   beforeEach(module('eagleeye'));
 
   // load EagleEyeWebService mock module
   beforeEach(module('EagleEyeWebServiceMock'));
-
-  // load GoogleChartsService mock module
-  // beforeEach(module('GoogleChartsServiceMock'));
 
   // mock dependent services
   beforeEach(module(function($provide) {
@@ -41,10 +36,9 @@ describe('Controller: ChartOptionsAdvanceController', function() {
   }));
 
   // inject services
-  beforeEach(inject(function(_$controller_, _$httpBackend_, _$rootScope_, _$state_, _$stateParams_, _$window_, _EagleEyeWebService_) {
+  beforeEach(inject(function(_$controller_, _$httpBackend_, _$state_, _$stateParams_, _$window_, _EagleEyeWebService_) {
     $controller = _$controller_;
     $httpBackend = _$httpBackend_;
-    $rootScope = _$rootScope_;
     $state = _$state_;
     $stateParams = _$stateParams_;
     $window = _$window_;
@@ -58,10 +52,10 @@ describe('Controller: ChartOptionsAdvanceController', function() {
         title: 'foo'
       }
     });
-    updateChartByIdRequestHandler = $httpBackend.when('PUT', '/api/v1/charts/1').respond({});
+    $httpBackend.when('PUT', '/api/v1/charts/1').respond({});
   });
 
-  beforeEach(inject(function($controller, $rootScope) {
+  beforeEach(inject(function() {
     ChartOptionsAdvanceController = $controller('ChartOptionsAdvanceController', {
       $state: $state,
       $stateParams: $stateParams,
@@ -125,7 +119,7 @@ describe('Controller: ChartOptionsAdvanceController', function() {
     it('should do nothing when request error', function() {
       ChartOptionsAdvanceController.id = '';
       ChartOptionsAdvanceController.title = '';
-      ChartOptionsAdvanceController.chartOptionsString = ''
+      ChartOptionsAdvanceController.chartOptionsString = '';
 
       getChartByIdRequestHandler.respond(500);
       $httpBackend.flush();

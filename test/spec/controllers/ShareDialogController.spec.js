@@ -38,7 +38,7 @@ describe('Controller: ShareDialogController', function() {
     sharedLink = _sharedLink_;
   }));
 
-  beforeEach(inject(function ($controller) {
+  beforeEach(inject(function() {
     ShareDialogController = $controller('ShareDialogController', {
       $mdDialog: $mdDialog,
       sharedTitle: sharedTitle,

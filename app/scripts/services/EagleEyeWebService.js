@@ -193,11 +193,11 @@ angular.module('eagleeye')
 
           file.upload.then(undefined, function(response) {
             if (response.status > 0)
-              alert(response.status + ': ' + response.data);
+              console.log(response.status + ': ' + response.data);
 
           }, function(evt) {
             // Math.min is to fix IE which reports 200% sometimes
-            file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+            file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total, 100));
           });
         });
       };

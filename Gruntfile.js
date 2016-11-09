@@ -121,16 +121,16 @@ module.exports = function (grunt) {
     // ESLint
     eslint: {
       js: {
-        src: ['app/**/*.js']
+        src: ['app/**/*.js'],
+        options: {
+          configFile: '.eslintrc-dev.json'
+        }
       },
       test: {
-        src: ['test/spec/**/*.js']
-      },
-      all: {
-        src: ['app/**/*.js', 'test/spec/**/*.js']
-      },
-      one: {
-        src: ['app/**/eeFriendlyUrlValidator.js']
+        src: ['test/spec/**/*.js'],
+        options: {
+          configFile: '.eslintrc-test.json'
+        }
       }
     },
 
@@ -483,7 +483,7 @@ module.exports = function (grunt) {
     'htmlmin'
   ]);
 
-  grunt.registerTask('lint', ['eslint:all']);
+  grunt.registerTask('lint', ['eslint:js', 'eslint:test']);
 
   grunt.registerTask('default', [
     'eslint',

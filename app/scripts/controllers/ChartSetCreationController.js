@@ -12,7 +12,7 @@ angular.module('eagleeye')
     '$state',
     'EagleEyeWebService',
     'EagleEyeWebServiceUtil',
-    function ($state, EagleEyeWebService, EagleEyeWebServiceUtil) {
+    function($state, EagleEyeWebService, EagleEyeWebServiceUtil) {
       var controller = this;
 
       this.searchKeyword = '';

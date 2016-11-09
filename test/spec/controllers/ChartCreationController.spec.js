@@ -2,15 +2,12 @@
 
 describe('Controller: ChartCreationController', function() {
   var $controller,
-    $http,
     $httpBackend,
     $mdDialog,
-    $q,
     $rootScope,
     $state,
     GoogleChartsService,
     EagleEyeWebService,
-    EagleEyeWebServiceUtil,
     EEDialogService,
     CHART_TYPE_OPTIONS,
     IS_STACKED_OPTIONS,
@@ -34,16 +31,15 @@ describe('Controller: ChartCreationController', function() {
   }));
 
   // inject services
-  beforeEach(inject(function(_$controller_, _$http_, _$httpBackend_, _$mdDialog_, _$q_, _$rootScope_, _$state_, _EagleEyeWebService_, _EagleEyeWebServiceUtil_, _GoogleChartsService_, _EEDialogService_, _CHART_TYPE_OPTIONS_, _IS_STACKED_OPTIONS_, _AXIS_FORMAT_OPTIONS_, _DATA_TABLE_SAMPLES_) {
+  beforeEach(inject(function(_$controller_, _$httpBackend_, _$mdDialog_, _$rootScope_, _$state_,
+      _EagleEyeWebService_, _GoogleChartsService_, _EEDialogService_, _CHART_TYPE_OPTIONS_,
+      _IS_STACKED_OPTIONS_, _AXIS_FORMAT_OPTIONS_, _DATA_TABLE_SAMPLES_) {
     $controller = _$controller_;
-    $http = _$http_;
     $rootScope = _$rootScope_;
     $state = _$state_;
     $httpBackend = _$httpBackend_;
     $mdDialog = _$mdDialog_;
-    $q = _$q_;
     EagleEyeWebService = _EagleEyeWebService_;
-    EagleEyeWebServiceUtil = _EagleEyeWebServiceUtil_;
     GoogleChartsService = _GoogleChartsService_;
     EEDialogService = _EEDialogService_;
     CHART_TYPE_OPTIONS = _CHART_TYPE_OPTIONS_;

@@ -8,7 +8,7 @@ angular.module('eagleeye')
   .controller('ChartSettingsController', [
     '$stateParams',
     'EagleEyeWebService',
-    function ($stateParams, EagleEyeWebService) {
+    function($stateParams, EagleEyeWebService) {
       var controller = this;
 
       this.id = $stateParams.id;
@@ -21,7 +21,7 @@ angular.module('eagleeye')
        * @param {Object} file File object.
        * @this ChartController
        */
-      this.upload = function (file) {
+      this.upload = function(file) {
         EagleEyeWebService.uploadFile(file, this.chart.type, this.id);
       };
 

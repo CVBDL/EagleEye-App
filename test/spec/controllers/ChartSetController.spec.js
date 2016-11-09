@@ -6,7 +6,6 @@ describe('Controller: ChartSetController', function() {
     $interval,
     $location,
     $mdDialog,
-    $q,
     $rootScope,
     $state,
     $stateParams,
@@ -45,10 +44,11 @@ describe('Controller: ChartSetController', function() {
     $urlRouterProvider.otherwise(function() { return false; });
   }));
 
-  beforeEach(inject(function (_$controller_, _$mdDialog_, _$q_, _$rootScope_, _$state_, _$stateParams_, _$httpBackend_, _$location_, _$interval_, _EagleEyeWebService_, _EEDialogService_, _SaveAsPDFService_) {
+  beforeEach(inject(function(_$controller_, _$mdDialog_, _$rootScope_, _$state_, _$stateParams_,
+      _$httpBackend_, _$location_, _$interval_, _EagleEyeWebService_, _EEDialogService_,
+      _SaveAsPDFService_) {
     $controller = _$controller_;
     $mdDialog = _$mdDialog_;
-    $q = _$q_;
     $rootScope = _$rootScope_;
     $state = _$state_;
     $stateParams = _$stateParams_;

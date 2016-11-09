@@ -4,7 +4,6 @@ describe('Controller: ChartOptionsController', function() {
   var $controller,
     $httpBackend,
     $mdDialog,
-    $rootScope,
     $state,
     $stateParams,
     GoogleChartsService,
@@ -15,8 +14,7 @@ describe('Controller: ChartOptionsController', function() {
     AXIS_FORMAT_OPTIONS;
 
   var ChartOptionsController,
-    getChartByIdRequestHandler,
-    updateChartByIdRequestHandler;
+    getChartByIdRequestHandler;
 
   // load main module
   beforeEach(module('eagleeye'));
@@ -40,11 +38,12 @@ describe('Controller: ChartOptionsController', function() {
   }));
 
   // inject services
-  beforeEach(inject(function(_$controller_, _$httpBackend_, _$mdDialog_, _$rootScope_, _$state_, _$stateParams_, _EagleEyeWebService_, _EagleEyeWebServiceUtil_, _GoogleChartsService_, _EEDialogService_, _IS_STACKED_OPTIONS_, _AXIS_FORMAT_OPTIONS_) {
+  beforeEach(inject(function(_$controller_, _$httpBackend_, _$mdDialog_, _$state_, _$stateParams_,
+      _EagleEyeWebService_, _EagleEyeWebServiceUtil_, _GoogleChartsService_, _EEDialogService_,
+      _IS_STACKED_OPTIONS_, _AXIS_FORMAT_OPTIONS_) {
     $controller = _$controller_;
     $httpBackend = _$httpBackend_;
     $mdDialog = _$mdDialog_;
-    $rootScope = _$rootScope_;
     $state = _$state_;
     $stateParams = _$stateParams_;
     EagleEyeWebService = _EagleEyeWebService_;
@@ -57,10 +56,10 @@ describe('Controller: ChartOptionsController', function() {
 
   beforeEach(function() {
     getChartByIdRequestHandler = $httpBackend.when('GET', '/api/v1/charts/1').respond({});
-    updateChartByIdRequestHandler = $httpBackend.when('PUT', '/api/v1/charts/1').respond({});
+    $httpBackend.when('PUT', '/api/v1/charts/1').respond({});
   });
 
-  beforeEach(inject(function($controller, $rootScope) {
+  beforeEach(inject(function() {
     ChartOptionsController = $controller('ChartOptionsController', {
       $state: $state,
       $stateParams: $stateParams,
@@ -201,8 +200,6 @@ describe('Controller: ChartOptionsController', function() {
     });
 
     describe('makeChartPayload()', function() {
-      var chart,
-        payload;
 
       it('should return a payload object', function() {
         var chart = { chartType: 'LineChart', options: {} },

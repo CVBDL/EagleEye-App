@@ -36,7 +36,7 @@ describe('Controller: DeleteDialogController', function() {
     title = _title_;
   }));
 
-  beforeEach(inject(function ($controller) {
+  beforeEach(inject(function() {
     DeleteDialogController = $controller('DeleteDialogController', {
       $mdDialog: $mdDialog,
       title: title

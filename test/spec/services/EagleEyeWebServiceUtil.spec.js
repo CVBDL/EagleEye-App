@@ -1,10 +1,12 @@
+'use strict';
+
 describe('Constant:', function() {
   var FRIENDLY_URL_PREFIX_CHART,
     FRIENDLY_URL_PREFIX_CHARTSET;
 
   beforeEach(module('eagleeye'));
 
-  beforeEach(inject(function (_FRIENDLY_URL_PREFIX_CHART_, _FRIENDLY_URL_PREFIX_CHARTSET_) {
+  beforeEach(inject(function(_FRIENDLY_URL_PREFIX_CHART_, _FRIENDLY_URL_PREFIX_CHARTSET_) {
     FRIENDLY_URL_PREFIX_CHART = _FRIENDLY_URL_PREFIX_CHART_;
     FRIENDLY_URL_PREFIX_CHARTSET = _FRIENDLY_URL_PREFIX_CHARTSET_;
   }));
@@ -36,7 +38,7 @@ describe('Service: EagleEyeWebServiceUtil', function() {
     $urlRouterProvider.otherwise(function() { return false; });
   }));
 
-  beforeEach(inject(function (_$httpBackend_, _EagleEyeWebServiceUtil_) {
+  beforeEach(inject(function(_$httpBackend_, _EagleEyeWebServiceUtil_) {
     $httpBackend = _$httpBackend_;
     EagleEyeWebServiceUtil = _EagleEyeWebServiceUtil_;
   }));

@@ -3,8 +3,6 @@
 describe('Service: EEDialogService', function() {
   var $httpBackend,
     $mdDialog,
-    $mdMedia,
-    $q,
     $rootScope;
 
   var EEDialogService;
@@ -20,11 +18,9 @@ describe('Service: EEDialogService', function() {
     $urlRouterProvider.otherwise(function() { return false; });
   }));
 
-  beforeEach(inject(function (_$httpBackend_, _$mdDialog_, _$mdMedia_, _$q_, _$rootScope_, _EEDialogService_) {
+  beforeEach(inject(function(_$httpBackend_, _$mdDialog_, _$rootScope_, _EEDialogService_) {
     $httpBackend = _$httpBackend_;
     $mdDialog = _$mdDialog_;
-    $mdMedia = _$mdMedia_;
-    $q = _$q_;
     $rootScope = _$rootScope_;
     EEDialogService = _EEDialogService_;
   }));
@@ -66,7 +62,7 @@ describe('Service: EEDialogService', function() {
     describe('returned promise', function() {
       var callbacks = {
         resolve: jasmine.createSpy('resolve'),
-        reject: jasmine.createSpy('reject'),
+        reject: jasmine.createSpy('reject')
       };
 
       beforeEach(function() {
@@ -120,7 +116,7 @@ describe('Service: EEDialogService', function() {
     describe('returned promise', function() {
       var callbacks = {
         resolve: jasmine.createSpy('resolve'),
-        reject: jasmine.createSpy('reject'),
+        reject: jasmine.createSpy('reject')
       };
 
       beforeEach(function() {
@@ -174,7 +170,7 @@ describe('Service: EEDialogService', function() {
     describe('returned promise', function() {
       var callbacks = {
         resolve: jasmine.createSpy('resolve'),
-        reject: jasmine.createSpy('reject'),
+        reject: jasmine.createSpy('reject')
       };
 
       beforeEach(function() {
@@ -228,7 +224,7 @@ describe('Service: EEDialogService', function() {
     describe('returned promise', function() {
       var callbacks = {
         resolve: jasmine.createSpy('resolve'),
-        reject: jasmine.createSpy('reject'),
+        reject: jasmine.createSpy('reject')
       };
 
       beforeEach(function() {

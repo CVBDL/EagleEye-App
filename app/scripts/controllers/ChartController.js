@@ -105,8 +105,8 @@ angular.module('eagleeye')
        * @param {number} fileType 0 for image, 1 for PDF.
        * @param {Object} chart The chart data.
        */
-      this.SaveImageOrPDF = function(fileType, chart) {
-        SaveAsPDFService.SaveImageOrPDF(fileType, chart);
+      this.saveImageOrPDF = function(fileType, chart) {
+        SaveAsPDFService.saveImageOrPDF(fileType, chart);
       };
 
       /**

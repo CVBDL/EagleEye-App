@@ -4,7 +4,6 @@ describe('Controller: ChartsController', function() {
   var $controller,
     $httpBackend,
     $mdDialog,
-    $q,
     $rootScope,
     $state,
     EagleEyeWebService,
@@ -28,9 +27,8 @@ describe('Controller: ChartsController', function() {
   }));
 
   // inject services
-  beforeEach(inject(function(_$controller_, _$q_, _$rootScope_, _$state_, _$httpBackend_, _$mdDialog_, _EagleEyeWebService_, _EEDialogService_) {
+  beforeEach(inject(function(_$controller_, _$rootScope_, _$state_, _$httpBackend_, _$mdDialog_, _EagleEyeWebService_, _EEDialogService_) {
     $controller = _$controller_;
-    $q = _$q_;
     $rootScope = _$rootScope_;
     $state = _$state_;
     $httpBackend = _$httpBackend_;
@@ -164,7 +162,7 @@ describe('Controller: ChartsController', function() {
         chart = {
           _id: '1',
           options: { title: 'title' }
-        }
+        };
       });
 
       it('should stop default event propagation', function() {
