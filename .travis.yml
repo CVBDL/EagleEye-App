@@ -1,4 +1,5 @@
 language: node_js
+sudo: true
 
 before_install:
   - gem install sass
@@ -10,6 +11,7 @@ node_js:
 matrix:
   include:
     - env: JOB=unittest
+    - env: JOB=eslint
   allow_failures:
     - env: JOB=eslint
 
