@@ -7,5 +7,5 @@ if [ "$JOB" == "unittest" ]; then
 elif [ "$JOB" == "eslint" ]; then
   grunt lint
 else
-  echo "Unknown job type. Please set JOB=ci-checks, JOB=unit or JOB=e2e-*."
+  echo "Unknown job type. Please set JOB=unittest or JOB=eslint."
 fi
