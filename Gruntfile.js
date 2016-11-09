@@ -39,14 +39,14 @@ module.exports = function (grunt) {
       },
       js: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
-        tasks: ['newer:jshint:all', 'newer:jscs:all'],
+        tasks: ['eslint:js'],
         options: {
           livereload: '<%= connect.options.livereload %>'
         }
       },
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
-        tasks: ['newer:jshint:test', 'newer:jscs:test', 'karma']
+        tasks: ['eslint:test']
       },
       compass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
@@ -118,40 +118,19 @@ module.exports = function (grunt) {
       }
     },
 
-    // Make sure there are no obvious mistakes
-    jshint: {
-      options: {
-        jshintrc: '.jshintrc',
-        reporter: require('jshint-stylish')
-      },
-      all: {
-        src: [
-          'Gruntfile.js',
-          '<%= yeoman.app %>/scripts/{,*/}*.js'
-        ]
+    // ESLint
+    eslint: {
+      js: {
+        src: ['app/**/*.js']
       },
       test: {
-        options: {
-          jshintrc: 'test/.jshintrc'
-        },
-        src: ['test/spec/{,*/}*.js']
-      }
-    },
-
-    // Make sure code styles are up to par
-    jscs: {
-      options: {
-        config: '.jscsrc',
-        verbose: true
+        src: ['test/spec/**/*.js']
       },
       all: {
-        src: [
-          'Gruntfile.js',
-          '<%= yeoman.app %>/scripts/{,*/}*.js'
-        ]
+        src: ['app/**/*.js', 'test/spec/**/*.js']
       },
-      test: {
-        src: ['test/spec/{,*/}*.js']
+      one: {
+        src: ['app/**/eeFriendlyUrlValidator.js']
       }
     },
 
@@ -504,9 +483,10 @@ module.exports = function (grunt) {
     'htmlmin'
   ]);
 
+  grunt.registerTask('lint', ['eslint:all']);
+
   grunt.registerTask('default', [
-    // 'newer:jshint',
-    // 'newer:jscs',
+    'eslint',
     'test',
     'build'
   ]);
