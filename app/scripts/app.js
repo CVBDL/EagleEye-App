@@ -66,13 +66,6 @@ angular
           controllerAs: 'ctrl',
           parent: 'root'
         })
-        .state('chartJobCreation', {
-          url: '/charts/:id/jobs/new',
-          templateUrl: 'views/chart-job-creation.html',
-          controller: 'ChartJobCreationController',
-          controllerAs: 'ctrl',
-          parent: 'root'
-        })
         .state('chartOptionsAdvance', {
           url: '/charts/:id/options-advance',
           templateUrl: 'views/chart-options-advance.html',
