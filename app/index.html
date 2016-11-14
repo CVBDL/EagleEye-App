@@ -51,6 +51,9 @@
             <a ui-sref="chartSet" hide></a>
             <a ui-sref="chartSetSettings" hide></a>
           </li>
+          <li>
+            <a class="ee-header__nav__item" ui-sref-active="ee-header__nav__item--active" href="#/jobs" ui-sref="jobs">Jobs</a>
+          </li>
         </ul>
         <div class="ee-header__feedback">
           <md-button class="md-icon-button" aria-label="Feedback" href="{{ctrl.feedbackLink}}">
@@ -108,11 +111,6 @@
     <script src="scripts/controllers/ChartController.js"></script>
     <script src="scripts/controllers/ChartOptionsController.js"></script>
     <script src="scripts/controllers/ChartOptionsAdvanceController.js"></script>
-    <script src="scripts/services/GoogleChartsService.js"></script>
-    <script src="scripts/services/EagleEyeWebService.js"></script>
-    <script src="scripts/services/EagleEyeWebServiceUtil.js"></script>
-    <script src="scripts/services/SaveAsPDFService.js"></script>
-    <script src="scripts/services/EEDialogService.js"></script>
     <script src="scripts/controllers/AppController.js"></script>
     <script src="scripts/controllers/ChartSettingsController.js"></script>
     <script src="scripts/controllers/ChartSetsController.js"></script>
@@ -121,7 +119,12 @@
     <script src="scripts/controllers/ChartSetSettingsController.js"></script>
     <script src="scripts/controllers/ShareDialogController.js"></script>
     <script src="scripts/controllers/DeleteDialogController.js"></script>
-    <script src="scripts/controllers/ChartJobCreationController.js"></script>
+    <script src="scripts/controllers/JobsController.js"></script>
+    <script src="scripts/services/GoogleChartsService.js"></script>
+    <script src="scripts/services/EagleEyeWebService.js"></script>
+    <script src="scripts/services/EagleEyeWebServiceUtil.js"></script>
+    <script src="scripts/services/SaveAsPDFService.js"></script>
+    <script src="scripts/services/EEDialogService.js"></script>
     <script src="scripts/directives/eeGoogleChartDirective.js"></script>
     <script src="scripts/directives/eeGoogleChartSampleDirective.js"></script>
     <script src="scripts/directives/eeFriendlyUrlValidator.js"></script>
