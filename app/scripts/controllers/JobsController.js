@@ -6,7 +6,8 @@
  */
 angular.module('eagleeye')
   .controller('JobsController', [
-    function() {
+    '$state',
+    function($state) {
       this.jobs = [{
         _id: '1',
         name: 'Code Reviews By Month',
@@ -26,5 +27,9 @@ angular.module('eagleeye')
       }];
 
       this.lastUpdatedAt = new Date();
+
+      this.createJob = function() {
+        $state.go('jobCreation');
+      };
     }
   ]);

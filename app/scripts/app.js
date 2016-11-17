@@ -108,6 +108,13 @@ angular
           controllerAs: 'ctrl',
           parent: 'root'
         })
+        .state('jobCreation', {
+          url: '/jobs/new',
+          templateUrl: 'views/job-details.html',
+          controller: 'JobDetailsController',
+          controllerAs: 'ctrl',
+          parent: 'root'
+        })
         .state('develop', {
           url: '/develop',
           templateUrl: 'views/develop.html',

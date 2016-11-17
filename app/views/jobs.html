@@ -21,11 +21,11 @@
             <div class="md-toolbar-tools">
               <h2 class="ee-text-black-primary">Current Jobs</h2>
               <span flex></span>
-              <!-- <md-button class="md-icon-button" aria-label="Refresh">
-                <md-tooltip md-direction="botton">Refresh</md-tooltip>
-                <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click=""> refresh </md-icon>
-              </md-button> -->
               <i class="ee-text-black-secondary ee-job-view__timestamp">Last updated at: {{ctrl.lastUpdatedAt | date: 'medium'}}</i>
+              <md-button class="md-icon-button" aria-label="Create a new job" ng-click="ctrl.createJob()">
+                <md-tooltip md-direction="botton">Create a new job</md-tooltip>
+                <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> create </md-icon>
+              </md-button>
             </div>
           </md-toolbar>
           <md-divider></md-divider>
