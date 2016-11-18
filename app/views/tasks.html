@@ -1,0 +1,56 @@
+<div class="ee-view">
+  <md-content class="ee-view__content-container ee-content--transparent">
+    <div md-whiteframe="1" class="ee-content">
+      <!-- <div layout="row" layout-padding layout-align="center center" ng-if="ctrl.isLoading">
+        <md-progress-circular class="ee-progress-circular" md-diameter="40"></md-progress-circular>
+      </div> -->
+      <div class="ee-list">
+        <div class="ee-list__item" ng-repeat="task in ctrl.tasks track by task._id">
+          <div class="ee-list__item__content" layout="row" layout-align="start center">
+            <div class="ee-list__item__content__col-1 ee-list__item__index ee-text-black-primary" flex="none">
+              <!-- {{$index + 1}} -->
+              <md-tooltip md-direction="botton">{{task.state}}</md-tooltip>
+              <md-icon md-font-set="material-icons" class="ee-icon ee-icon--success" ng-if="task.state === 'success'"> done </md-icon>
+              <md-icon md-font-set="material-icons" class="ee-icon ee-icon--failure" ng-if="task.state === 'failure'"> clear </md-icon>
+              <md-icon md-font-set="material-icons" class="ee-icon ee-icon--running" ng-if="task.state === 'running'"> more_horiz </md-icon>
+            </div>
+            <div class="ee-list__item__content__col-2" flex layout="column" layout-align="space-between start">
+              <p>
+                <span>{{ctrl.job.name}}</span>
+              </p>
+            </div>
+            <div class="ee-list__item__content__col-2" flex="none" layout="column" layout-align="space-between start">
+              <p>
+                <span ng-class="{
+                  'ee-icon--success': task.state === 'success',
+                  'ee-icon--failure': task.state === 'failure',
+                  'ee-icon--running': task.state === 'running'
+                }">{{task.state}}</span>
+              </p>
+            </div>
+            <div class="ee-list__item__content__col-2" flex="none" layout="column" layout-align="space-between start">
+              <p>
+                <span>{{ctrl.job.command}}</span>
+              </p>
+            </div>
+            <div class="ee-list__item__content__col-2" flex="none" layout="column" layout-align="space-between start">
+              <p>
+                <md-tooltip md-direction="botton">Start time</md-tooltip>
+                <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> play_arrow </md-icon>
+                <span>{{task.startedAt | date:'medium'}}</span>
+              </p>
+            </div>
+            <div class="ee-list__item__content__col-2" flex="none" layout="column" layout-align="space-between start">
+              <p>
+                <md-tooltip md-direction="botton">End time</md-tooltip>
+                <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> stop </md-icon>
+                <span>{{task.finishedAt | date:'medium'}}</span>
+              </p>
+            </div>
+          </div>
+          <md-divider ng-hide="$last"></md-divider>
+        </div>
+      </div>
+    </div>
+  </md-content>
+</div>

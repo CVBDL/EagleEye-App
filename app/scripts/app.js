@@ -115,6 +115,13 @@ angular
           controllerAs: 'ctrl',
           parent: 'root'
         })
+        .state('tasks', {
+          url: '/jobs/:id/tasks',
+          templateUrl: 'views/tasks.html',
+          controller: 'TasksController',
+          controllerAs: 'ctrl',
+          parent: 'root'
+        })
         .state('develop', {
           url: '/develop',
           templateUrl: 'views/develop.html',
