@@ -35,15 +35,6 @@
               </md-select>
             </md-input-container>
             <md-input-container flex>
-              <label>Major axis data types</label>
-              <md-select ng-model="ctrl.chart.domainDataType">
-                <md-option value="string">String</md-option>
-                <md-option value="number">Number</md-option>
-                <md-option value="date">Date</md-option>
-                <md-option value="datetime">Datetime</md-option>
-              </md-select>
-            </md-input-container>
-            <md-input-container flex>
               <label>Stacked or not</label>
               <md-select ng-model="ctrl.chart.options.isStacked">
                 <md-option ng-value="option.value" ng-repeat="option in ctrl.isStackedOptions">{{option.label}}</md-option>
@@ -99,7 +90,7 @@
       <md-divider></md-divider>
       <div layout-padding>
         <p>Live demo:</p>
-        <ee-google-chart-sample class="ee-google-chart" chart-type="{{ctrl.chart.chartType}}" chart-major-axis-data-type="{{ctrl.chart.domainDataType}}" chart-options="ctrl.chart.options">
+        <ee-google-chart-sample class="ee-google-chart" chart-type="{{ctrl.chart.chartType}}" chart-options="ctrl.chart.options">
         </ee-google-chart-sample>
       </div>
     </div>

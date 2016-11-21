@@ -14,7 +14,6 @@ angular.module('eagleeye')
         template: '<ee-google-chart class="ee-google-chart" chart-type="chartType" chart-options="chartOptions" chart-data-table="chartDataTable"></ee-google-chart>',
         scope: {
           chartType: '@',
-          chartMajorAxisDataType: '@',
           chartOptions: '='
         },
         restrict: 'E',
@@ -23,12 +22,8 @@ angular.module('eagleeye')
             updateChartDataTable();
           });
 
-          $attr.$observe('chartMajorAxisDataType', function setChartDataTable() {
-            updateChartDataTable();
-          });
-
           function updateChartDataTable() {
-            $scope.chartDataTable = GoogleChartsService.getChartDataTableSamples($scope.chartType.toLowerCase(), $scope.chartMajorAxisDataType);
+            $scope.chartDataTable = GoogleChartsService.getChartDataTableSamples($scope.chartType.toLowerCase());
           }
         }
       };

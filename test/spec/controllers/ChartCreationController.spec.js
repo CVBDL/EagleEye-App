@@ -86,7 +86,6 @@ describe('Controller: ChartCreationController', function() {
     it('should initialize `chart` model', function() {
       expect(angular.isObject(ChartCreationController.chart)).toBe(true);
       expect(ChartCreationController.chart.chartType).toBeDefined();
-      expect(ChartCreationController.chart.domainDataType).toBeDefined();
       expect(ChartCreationController.chart.description).toBeDefined();
       expect(ChartCreationController.chart.friendlyUrl).toBeDefined();
       expect(angular.isObject(ChartCreationController.chart.options)).toBe(true);
@@ -106,10 +105,6 @@ describe('Controller: ChartCreationController', function() {
 
     it('should set default chart type to "ColumnChart"', function() {
       expect(ChartCreationController.chart.chartType).toBe('ColumnChart');
-    });
-
-    it('should set default domain data type to "string"', function() {
-      expect(ChartCreationController.chart.domainDataType).toBe('string');
     });
 
     it('should set default axis format to ""', function() {
@@ -145,7 +140,6 @@ describe('Controller: ChartCreationController', function() {
         chartA = {
           chartType: 'LineChart',
           description: 'foo',
-          domainDataType: 'string',
           friendlyUrl: 'friendly-url',
           options: {
             title: 'title',
@@ -169,7 +163,6 @@ describe('Controller: ChartCreationController', function() {
         chartB = {
           chartType: 'BarChart',
           description: '',
-          domainDataType: 'date',
           friendlyUrl: '',
           options: {
             isStacked: false
@@ -201,14 +194,9 @@ describe('Controller: ChartCreationController', function() {
         expect(payloadB.friendlyUrl).toBe('');
       });
 
-      it('should contain generated `domainDataType` in returned payload', function() {
-        expect(payloadA.domainDataType).toBe('string');
-        expect(payloadB.domainDataType).toBe('date');
-      });
-
       it('should make datatable payload', function() {
-        expect(payloadA.datatable).toBe(DATA_TABLE_SAMPLES.linechart.string);
-        expect(payloadB.datatable).toBe(DATA_TABLE_SAMPLES.barchart.date);
+        expect(payloadA.datatable).toBe(DATA_TABLE_SAMPLES.linechart);
+        expect(payloadB.datatable).toBe(DATA_TABLE_SAMPLES.barchart);
       });
 
       it('should make options payload', function() {
