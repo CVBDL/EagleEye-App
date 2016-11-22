@@ -242,6 +242,112 @@ describe('Service: EagleEyeWebService', function() {
 
       expect(response).toBeUndefined();
     });
+
+    it('should be able to fetch jobs with getJobs()', function() {
+      var response = '';
+
+      $httpBackend.when('GET', 'http://127.0.0.1:3000/api/v1/jobs').respond([{
+        foo: 'foo'
+      }]);
+
+      $httpBackend.expect('GET', 'http://127.0.0.1:3000/api/v1/jobs');
+
+      EagleEyeWebService.getJobs().then(function(res) {
+        response = res;
+      });
+      $httpBackend.flush();
+
+      expect(response).toEqual([{
+        foo: 'foo'
+      }]);
+    });
+
+    it('should be able to fetch single job with getJob(jobId)', function() {
+      var response = '';
+
+      $httpBackend.when('GET', 'http://127.0.0.1:3000/api/v1/jobs/1').respond({
+        foo: 'foo'
+      });
+
+      $httpBackend.expect('GET', 'http://127.0.0.1:3000/api/v1/jobs/1');
+
+      EagleEyeWebService.getJob('1').then(function(res) {
+        response = res;
+      });
+      $httpBackend.flush();
+
+      expect(response).toEqual({
+        foo: 'foo'
+      });
+    });
+
+    it('should be able to create a job with createJob()', function() {
+      var response = '';
+
+      $httpBackend.when('POST', 'http://127.0.0.1:3000/api/v1/jobs').respond({
+        foo: 'foo'
+      });
+
+      $httpBackend.expect('POST', 'http://127.0.0.1:3000/api/v1/jobs');
+
+      EagleEyeWebService.createJob({}).then(function(res) {
+        response = res;
+      });
+      $httpBackend.flush();
+
+      expect(response).toEqual({
+        foo: 'foo'
+      });
+    });
+
+    it('should be able to delete a job with deleteJob()', function() {
+      var response = '';
+
+      $httpBackend.when('DELETE', 'http://127.0.0.1:3000/api/v1/jobs/1').respond(204);
+
+      $httpBackend.expect('DELETE', 'http://127.0.0.1:3000/api/v1/jobs/1');
+
+      EagleEyeWebService.deleteJob('1').then(function(res) {
+        response = res;
+      });
+      $httpBackend.flush();
+
+      expect(response).toBeUndefined();
+    });
+
+    it('should be able to restart a job with restartJob()', function() {
+      var response = '';
+
+      $httpBackend.when('PUT', 'http://127.0.0.1:3000/api/v1/jobs/1/restart').respond(204);
+
+      $httpBackend.expect('PUT', 'http://127.0.0.1:3000/api/v1/jobs/1/restart');
+
+      EagleEyeWebService.restartJob('1').then(function(res) {
+        response = res;
+      });
+      $httpBackend.flush();
+
+      expect(response).toBeUndefined();
+    });
+
+    it('should be able to fetch tasks with getTasks()', function() {
+      var response = '';
+
+      $httpBackend.when('GET', 'http://127.0.0.1:3000/api/v1/jobs/1/tasks').respond([{
+        foo: 'foo'
+      }]);
+
+      $httpBackend.expect('GET', 'http://127.0.0.1:3000/api/v1/jobs/1/tasks');
+
+      EagleEyeWebService.getTasks('1').then(function(res) {
+        response = res;
+      });
+      $httpBackend.flush();
+
+      expect(response).toEqual([{
+        foo: 'foo'
+      }]);
+    });
   });
 
   describe('private apis', function() {

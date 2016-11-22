@@ -91,6 +91,55 @@ angular.module('EagleEyeWebServiceMock', [])
       });
     });
     var uploadFile = jasmine.createSpy('uploadFile');
+    var getJobs = jasmine.createSpy('getJobs').and.callFake(function() {
+      return $http({
+        method: 'GET',
+        url: '/api/v1/jobs'
+      }).then(function(response) {
+        return response.data;
+      });
+    });
+    var getJob = jasmine.createSpy('getJob').and.callFake(function(id) {
+      return $http({
+        method: 'DELETE',
+        url: '/api/v1/jobs/' + id
+      }).then(function(response) {
+        return response.data;
+      });
+    });
+    var createJob = jasmine.createSpy('createJob').and.callFake(function(payload) {
+      return $http({
+        method: 'POST',
+        url: '/api/v1/jobs',
+        data: JSON.stringify(payload)
+      }).then(function(response) {
+        return response.data;
+      });
+    });
+    var deleteJob = jasmine.createSpy('deleteJob').and.callFake(function(id) {
+      return $http({
+        method: 'DELETE',
+        url: '/api/v1/jobs/' + id
+      }).then(function(response) {
+        return response.data;
+      });
+    });
+    var restartJob = jasmine.createSpy('restartJob').and.callFake(function(id) {
+      return $http({
+        method: 'PUT',
+        url: '/api/v1/jobs/' + id + '/restart'
+      }).then(function(response) {
+        return response.data;
+      });
+    });
+    var getTasks = jasmine.createSpy('getTasks').and.callFake(function(id) {
+      return $http({
+        method: 'GET',
+        url: '/api/v1/jobs/' + id + '/tasks'
+      }).then(function(response) {
+        return response.data;
+      });
+    });
 
     return {
       getChartById: getChartById,
@@ -103,6 +152,12 @@ angular.module('EagleEyeWebServiceMock', [])
       createChartSet: createChartSet,
       deleteChartSetById: deleteChartSetById,
       updateChartSetById: updateChartSetById,
-      uploadFile: uploadFile
+      uploadFile: uploadFile,
+      getJobs: getJobs,
+      getJob: getJob,
+      createJob: createJob,
+      deleteJob: deleteJob,
+      restartJob: restartJob,
+      getTasks: getTasks
     };
   });

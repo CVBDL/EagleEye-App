@@ -14,11 +14,6 @@
               <md-icon md-font-set="material-icons" class="ee-icon ee-icon--failure" ng-if="task.state === 'failure'"> clear </md-icon>
               <md-icon md-font-set="material-icons" class="ee-icon ee-icon--running" ng-if="task.state === 'running'"> more_horiz </md-icon>
             </div>
-            <div class="ee-list__item__content__col-2" flex layout="column" layout-align="space-between start">
-              <p>
-                <span>{{ctrl.job.name}}</span>
-              </p>
-            </div>
             <div class="ee-list__item__content__col-2" flex="none" layout="column" layout-align="space-between start">
               <p>
                 <span ng-class="{
@@ -26,6 +21,11 @@
                   'ee-icon--failure': task.state === 'failure',
                   'ee-icon--running': task.state === 'running'
                 }">{{task.state}}</span>
+              </p>
+            </div>
+            <div class="ee-list__item__content__col-2" flex layout="column" layout-align="space-between start">
+              <p>
+                <span>{{ctrl.job.name}}</span>
               </p>
             </div>
             <div class="ee-list__item__content__col-2" flex="none" layout="column" layout-align="space-between start">
@@ -36,14 +36,12 @@
             <div class="ee-list__item__content__col-2" flex="none" layout="column" layout-align="space-between start">
               <p>
                 <md-tooltip md-direction="botton">Start time</md-tooltip>
-                <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> play_arrow </md-icon>
                 <span>{{task.startedAt | date:'medium'}}</span>
               </p>
             </div>
             <div class="ee-list__item__content__col-2" flex="none" layout="column" layout-align="space-between start">
               <p>
                 <md-tooltip md-direction="botton">End time</md-tooltip>
-                <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> stop </md-icon>
                 <span>{{task.finishedAt | date:'medium'}}</span>
               </p>
             </div>

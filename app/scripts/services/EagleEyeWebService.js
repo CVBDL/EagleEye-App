@@ -202,6 +202,73 @@ angular.module('eagleeye')
         });
       };
 
+      self.getJobs = function() {
+        // https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#list-jobs
+        // GET /api/v1/jobs
+        var url = 'jobs';
+
+        return self.fetchServer({
+          method: 'GET',
+          url: url
+        });
+      };
+
+      self.getJob = function(jobId) {
+        // https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#get-a-single-job
+        // GET /api/v1/jobs/:id
+        var url = 'jobs/' + jobId;
+
+        return self.fetchServer({
+          method: 'GET',
+          url: url
+        });
+      };
+
+      self.createJob = function(data) {
+        // https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#create-a-job
+        // POST /api/v1/jobs
+        var url = 'jobs';
+
+        return self.fetchServer({
+          method: 'POST',
+          url: url,
+          data: JSON.stringify(data)
+        });
+      };
+
+      self.deleteJob = function(jobId) {
+        // https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#create-a-job
+        // POST /api/v1/jobs
+        var url = 'jobs/' + jobId;
+
+        return self.fetchServer({
+          method: 'DELETE',
+          url: url
+        });
+      };
+
+      self.restartJob = function(jobId) {
+        // https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#restart-a-job
+        // PUT /api/v1/jobs/:_id/restart
+        var url = 'jobs/' + jobId + '/restart';
+
+        return self.fetchServer({
+          method: 'PUT',
+          url: url
+        });
+      };
+
+      self.getTasks = function(jobId) {
+        // https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#list-tasks
+        // GET /api/v1/tasks?jobId=1
+        var url = 'jobs/' + jobId + '/tasks';
+
+        return self.fetchServer({
+          method: 'GET',
+          url: url
+        });
+      };
+
       return self;
     }
   ]);

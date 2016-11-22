@@ -6,17 +6,19 @@
  */
 angular.module('eagleeye')
   .controller('JobDetailsController', [
-    function() {
+    '$state',
+    'EagleEyeWebService',
+    function($state, EagleEyeWebService) {
       this.job = {
         enabled: true
       };
 
       this.customExpression = {};
 
-      this.expressionOptions = [{
+      this.expressionOptions = [/*{
         label: 'Use Custom Expression',
         value: 'custom'
-      }, {
+      }, */{
         label: 'Hourly',
         value: '0 * * * *'
       }, {
@@ -34,7 +36,9 @@ angular.module('eagleeye')
       }];
 
       this.save = function(job) {
-        console.log(job);
+        return EagleEyeWebService.createJob(job).then(function() {
+          $state.go('jobs');
+        });
       };
     }
   ]);
