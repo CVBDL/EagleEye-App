@@ -29,7 +29,7 @@ angular.module('eagleeye')
 
       this.init = function() {
         this.loadJob($stateParams.id);
-        this.loadTasks($stateParams.id)
+        this.loadTasks($stateParams.id);
       };
 
       this.init();
