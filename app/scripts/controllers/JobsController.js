@@ -15,7 +15,7 @@ angular.module('eagleeye')
       this.jobs = [];
       this.isLoading = true;
       this.totalJobs = 0;
-      this.failedJobs = 0;
+      this.failureJobs = 0;
       this.lastUpdatedAt = null;
 
       this.loadJobs = function() {
@@ -50,7 +50,7 @@ angular.module('eagleeye')
       };
 
       this.calculateFailureJobs = function(jobs) {
-        this.failedJobs = $filter('filter')(jobs, { lastState: 'failure' }).length;
+        this.failureJobs = $filter('filter')(jobs, { lastState: 'failure' }).length;
       };
 
       this.init = function() {

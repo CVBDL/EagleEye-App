@@ -4,7 +4,9 @@ describe('Controller: JobsController', function() {
   var $controller,
     $filter,
     $httpBackend,
+    $rootScope,
     $state,
+    $templateCache,
     EagleEyeWebService;
 
   var JobsController,
@@ -25,11 +27,13 @@ describe('Controller: JobsController', function() {
   }));
 
   // inject services
-  beforeEach(inject(function(_$controller_, _$filter_, _$httpBackend_, _$state_, _EagleEyeWebService_) {
+  beforeEach(inject(function(_$controller_, _$filter_, _$httpBackend_, _$rootScope_, _$state_, _$templateCache_, _EagleEyeWebService_) {
     $controller = _$controller_;
     $filter = _$filter_;
     $httpBackend = _$httpBackend_;
+    $rootScope = _$rootScope_,
     $state = _$state_;
+    $templateCache = _$templateCache_;
     EagleEyeWebService = _EagleEyeWebService_;
   }));
 
@@ -39,6 +43,11 @@ describe('Controller: JobsController', function() {
       { _id: 2 }
     ]);
     $httpBackend.when('DELETE', '/api/v1/jobs/1').respond(204);
+    $httpBackend.when('PUT', '/api/v1/jobs/1/restart').respond(204);
+  });
+
+  beforeEach(function() {
+    $templateCache.put('views/job-details.html', '');
   });
 
   beforeEach(inject(function() {
@@ -77,8 +86,8 @@ describe('Controller: JobsController', function() {
       expect(JobsController.totalJobs).toBe(0);
     });
 
-    it('should set default failedJobs model', function() {
-      expect(JobsController.failedJobs).toBe(0);
+    it('should set default failureJobs model', function() {
+      expect(JobsController.failureJobs).toBe(0);
     });
 
     it('should set default lastUpdatedAt model', function() {
@@ -131,7 +140,7 @@ describe('Controller: JobsController', function() {
       expect(JobsController.totalJobs).toBe(2);
     });
 
-    it('should calculate `failedJobs` when request success', function() {
+    it('should calculate `failureJobs` when request success', function() {
       var jobs = [
         { _id: 1, lastState: 'success' },
         { _id: 2, lastState: 'failure' }
@@ -140,7 +149,147 @@ describe('Controller: JobsController', function() {
       getJobsRequestHandler.respond(jobs);
       $httpBackend.flush();
 
-      expect(JobsController.failedJobs).toBe(1);
+      expect(JobsController.failureJobs).toBe(1);
+    });
+  });
+
+  describe('on runtime', function() {
+
+    beforeEach(function() {
+      $httpBackend.flush();
+    });
+
+    describe('loadJobs()', function() {
+
+      it('should make a GET request to fetch all jobs', function() {
+        $httpBackend.expect('GET', '/api/v1/jobs');
+
+        JobsController.loadJobs();
+
+        expect(JobsController.isLoading).toBe(true);
+        $httpBackend.flush();
+      });
+
+      it('should set `jobs`, `isLoading` and `lastUpdatedAt` models when request success', function() {
+        var jobs = [
+          { _id: 1, lastState: 'success' },
+          { _id: 2, lastState: 'failure' }
+        ];
+
+        JobsController.jobs = [];
+        JobsController.isLoading = false;
+        JobsController.lastUpdatedAt = null;
+
+        JobsController.loadJobs();
+
+        expect(JobsController.isLoading).toBe(true);
+
+        getJobsRequestHandler.respond(jobs);
+        $httpBackend.flush();
+
+        expect(JobsController.jobs).toEqual(jobs);
+        expect(JobsController.isLoading).toBe(false);
+        expect(JobsController.lastUpdatedAt instanceof Date).toBe(true);
+      });
+
+      it('should calculate total jobs when request success', function() {
+        var jobs = [
+          { _id: 1, lastState: 'success' },
+          { _id: 2, lastState: 'failure' },
+          { _id: 3, lastState: 'success' }
+        ];
+
+        JobsController.jobs = [];
+        JobsController.totalJobs = 0;
+
+        JobsController.loadJobs();
+
+        getJobsRequestHandler.respond(jobs);
+        $httpBackend.flush();
+
+        expect(JobsController.totalJobs).toEqual(3);
+      });
+
+      it('should calculate failure jobs when request success', function() {
+        var jobs = [
+          { _id: 1, lastState: 'success' },
+          { _id: 2, lastState: 'failure' },
+          { _id: 3, lastState: 'success' }
+        ];
+
+        JobsController.jobs = [];
+        JobsController.failureJobs = 0;
+
+        JobsController.loadJobs();
+
+        getJobsRequestHandler.respond(jobs);
+        $httpBackend.flush();
+
+        expect(JobsController.failureJobs).toEqual(1);
+      });
+    });
+
+    describe('deleteJob()', function() {
+
+      it('should make a DELETE request to delete a job by its _id', function() {
+        var jobId = '1';
+
+        spyOn(JobsController, 'loadJobs');
+
+        $httpBackend.expect('DELETE', '/api/v1/jobs/1');
+
+        JobsController.deleteJob(jobId);
+        $httpBackend.flush();
+
+        expect(JobsController.loadJobs).toHaveBeenCalled();
+      });
+    });
+
+    describe('restartJob()', function() {
+
+      it('should make a PUT request to restart a job by its _id', function() {
+        var jobId = '1';
+
+        $httpBackend.expect('PUT', '/api/v1/jobs/1/restart');
+
+        JobsController.restartJob(jobId);
+        $httpBackend.flush();
+      });
+    });
+
+    it('should go to jobCreation state when calls createJob()', function() {
+      JobsController.createJob();
+      $rootScope.$digest();
+
+      expect($state.current.name).toBe('jobCreation');
+    });
+
+    it('should calculate total jobs count', function() {
+      var jobs = [
+        { _id: 1, lastState: 'success' },
+        { _id: 2, lastState: 'failure' },
+        { _id: 3, lastState: 'success' }
+      ];
+
+      JobsController.totalJobs = 0;
+
+      JobsController.calculateTotalJobs(jobs);
+
+      expect(JobsController.totalJobs).toBe(3);
+    });
+
+    it('should calculate failure jobs count', function() {
+      var jobs = [
+        { _id: 1, lastState: 'success' },
+        { _id: 2, lastState: 'failure' },
+        { _id: 3, lastState: 'failure' }
+      ];
+
+      JobsController.failureJobs = 0;
+
+      JobsController.calculateFailureJobs(jobs);
+
+      expect(JobsController.totalJobs).toBe(2);
     });
   });
 
