@@ -101,7 +101,7 @@ angular.module('EagleEyeWebServiceMock', [])
     });
     var getJob = jasmine.createSpy('getJob').and.callFake(function(id) {
       return $http({
-        method: 'DELETE',
+        method: 'GET',
         url: '/api/v1/jobs/' + id
       }).then(function(response) {
         return response.data;
