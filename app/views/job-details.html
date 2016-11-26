@@ -46,27 +46,27 @@
           <div layout="row" ng-show="ctrl.job.expression === 'custom'">
             <md-input-container flex="20">
               <label>Minute</label>
-              <input ng-model="ctrl.customExpression.minute">
+              <input ng-model="ctrl.job.customExpression.minute">
               <div class="ee-input-hint-left">(0 - 59)</div>
             </md-input-container>
             <md-input-container flex="20">
               <label>Hour</label>
-              <input ng-model="ctrl.customExpression.hour">
+              <input ng-model="ctrl.job.customExpression.hour">
               <div class="ee-input-hint-left">(0 - 23)</div>
             </md-input-container>
             <md-input-container flex="20">
               <label>Day of Month</label>
-              <input ng-model="ctrl.customExpression.dayOfMonth">
+              <input ng-model="ctrl.job.customExpression.dayOfMonth">
               <div class="ee-input-hint-left">(1 - 31)</div>
             </md-input-container>
             <md-input-container flex="20">
               <label>Month</label>
-              <input ng-model="ctrl.customExpression.month">
+              <input ng-model="ctrl.job.customExpression.month">
               <div class="ee-input-hint-left">(1 - 12)</div>
             </md-input-container>
             <md-input-container flex="20">
               <label>Day of Week</label>
-              <input ng-model="ctrl.customExpression.dayOfWeek">
+              <input ng-model="ctrl.job.customExpression.dayOfWeek">
               <div class="ee-input-hint-left">(0 or 7 is Sun)</div>
             </md-input-container>
           </div>
