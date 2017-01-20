@@ -294,8 +294,6 @@ describe('Service: GoogleChartsService', function() {
   beforeEach(module('eagleeye'));
 
   beforeEach(module(function($provide) {
-    $provide.constant('FRIENDLY_URL_PREFIX_CHART', 'c-');
-    $provide.constant('FRIENDLY_URL_PREFIX_CHARTSET', 's-');
     $provide.constant('CHART_TYPE_OPTIONS', [{
       label: 'Line Chart',
       value: 'LineChart'

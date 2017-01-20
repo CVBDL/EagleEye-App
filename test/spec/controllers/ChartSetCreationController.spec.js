@@ -69,7 +69,6 @@ describe('Controller: ChartSetCreationController', function() {
       expect(typeof ChartSetCreationController.chartset).toBe('object');
       expect(ChartSetCreationController.chartset.title).toBe('');
       expect(ChartSetCreationController.chartset.description).toBe('');
-      expect(ChartSetCreationController.chartset.friendlyUrl).toBe('');
       expect(ChartSetCreationController.chartset.charts).toEqual([]);
     });
   });
@@ -264,7 +263,6 @@ describe('Controller: ChartSetCreationController', function() {
         payload = ChartSetCreationController.makeChartSetPayload({});
         expect(payload.title).toBeDefined();
         expect(payload.description).toBeDefined();
-        expect(payload.friendlyUrl).toBeDefined();
         expect(payload.charts).toBeDefined();
       });
 

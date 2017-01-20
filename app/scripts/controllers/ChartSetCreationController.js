@@ -21,7 +21,6 @@ angular.module('eagleeye')
 
       this.chartset.title = '';
       this.chartset.description = '';
-      this.chartset.friendlyUrl = '';
       this.chartset.charts = [];
 
       /**
@@ -120,7 +119,6 @@ angular.module('eagleeye')
 
         payload.title = chartset.title || '';
         payload.description = chartset.description || '';
-        payload.friendlyUrl = EagleEyeWebServiceUtil.makeFriendlyUrl('chartset', chartset.friendlyUrl);
         payload.charts = this.makeChartsList(chartset.charts);
 
         return payload;

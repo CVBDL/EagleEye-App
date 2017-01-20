@@ -24,15 +24,6 @@
                 </div>
               </md-input-container>
               <md-input-container class="md-block">
-                <label>Friendly URL</label>
-                <input name="friendlyUrl" ee-friendly-url-validator="chartset" ng-model="ctrl.chartset.friendlyUrl">
-                <div class="ee-input-hint">A custom chart set domain name. Should be unique or empty.</div>
-                <div ng-messages="chartSetSettingsForm.friendlyUrl.$error" role="alert" md-auto-hide="false">
-                  <div ng-message="friendlyUrlChecking">Checking database...</div>
-                  <div ng-message="friendlyUrlAvailable">The url is already in use</div>
-                </div>
-              </md-input-container>
-              <md-input-container class="md-block">
                 <label>Description</label>
                 <textarea name="description" ng-model="ctrl.chartset.description" md-maxlength="200" rows="3" md-select-on-focus></textarea>
                 <div ng-messages="chartSetSettingsForm.description.$error" role="alert" md-auto-hide="false">

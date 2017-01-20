@@ -87,7 +87,6 @@ describe('Controller: ChartCreationController', function() {
       expect(angular.isObject(ChartCreationController.chart)).toBe(true);
       expect(ChartCreationController.chart.chartType).toBeDefined();
       expect(ChartCreationController.chart.description).toBeDefined();
-      expect(ChartCreationController.chart.friendlyUrl).toBeDefined();
       expect(angular.isObject(ChartCreationController.chart.options)).toBe(true);
       expect(ChartCreationController.chart.options.title).toBeDefined();
       expect(ChartCreationController.chart.options.combolines).toBeDefined();
@@ -140,7 +139,6 @@ describe('Controller: ChartCreationController', function() {
         chartA = {
           chartType: 'LineChart',
           description: 'foo',
-          friendlyUrl: 'friendly-url',
           options: {
             title: 'title',
             hAxis: {
@@ -163,7 +161,6 @@ describe('Controller: ChartCreationController', function() {
         chartB = {
           chartType: 'BarChart',
           description: '',
-          friendlyUrl: '',
           options: {
             isStacked: false
           }
@@ -187,11 +184,6 @@ describe('Controller: ChartCreationController', function() {
       it('should contain generated `chartType` in returned payload', function() {
         expect(payloadA.chartType).toBe('LineChart');
         expect(payloadB.chartType).toBe('BarChart');
-      });
-
-      it('should contain generated `friendlyUrl` in returned payload', function() {
-        expect(payloadA.friendlyUrl).toBe('c-friendly-url');
-        expect(payloadB.friendlyUrl).toBe('');
       });
 
       it('should make datatable payload', function() {

@@ -53,7 +53,7 @@
           <md-toolbar class="ee-toolbar">
             <div class="md-toolbar-tools">
               <h2 class="ee-text-black-primary">
-                <a class="ee-icon--accent" ui-sref="chart({ id: chart.friendlyUrl || chart._id })" target="_blank">{{chart.options.title}}</a>
+                <a class="ee-icon--accent" ui-sref="chart({ id: chart._id })" target="_blank">{{chart.options.title}}</a>
               </h2>
               <span flex></span>
               <md-menu ng-hide="chart.chartType === 'ImageChart'">

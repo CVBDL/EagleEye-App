@@ -26,7 +26,7 @@
       </div>
       <div class="ee-list">
         <div class="ee-list__item" ng-repeat="chart in ctrl.chartList track by chart._id">
-          <a ui-sref="chart({ id: chart.friendlyUrl || chart._id })">
+          <a ui-sref="chart({ id: chart._id })">
             <div class="ee-list__item__content" layout="row" layout-align="start center">
               <div class="ee-list__item__content__col-1 ee-list__item__index ee-text-black-primary" flex="none">
                 {{$index + 1}}
@@ -48,11 +48,11 @@
                       </md-button>
                       <md-menu-content width="3">
                         <md-menu-item ng-hide="chart.chartType === 'ImageChart'">
-                          <md-button ui-sref="chartOptions({ id: chart.friendlyUrl || chart._id })">
+                          <md-button ui-sref="chartOptions({ id: chart._id })">
                             <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> settings </md-icon> <span md-menu-align-target>Options</span></md-button>
                         </md-menu-item>
                         <md-menu-item>
-                          <md-button ui-sref="chartSettings({ id: chart.friendlyUrl || chart._id })">
+                          <md-button ui-sref="chartSettings({ id: chart._id })">
                             <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> settings </md-icon> <span md-menu-align-target>Settings</span></md-button>
                         </md-menu-item>
                         <md-menu-item>

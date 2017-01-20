@@ -25,7 +25,6 @@ angular.module('eagleeye')
       this.chart.chartType = 'ColumnChart';
 
       this.chart.description = '';
-      this.chart.friendlyUrl = '';
 
       this.chart.options = {};
       this.chart.options.title = '';
@@ -72,7 +71,6 @@ angular.module('eagleeye')
 
         payload.description = chart.description || '';
         payload.chartType = GoogleChartsService.makeChartType(chart.chartType);
-        payload.friendlyUrl = EagleEyeWebServiceUtil.makeFriendlyUrl('chart', chart.friendlyUrl);
         payload.datatable = GoogleChartsService.getChartDataTableSamples(chart.chartType);
         payload.options = GoogleChartsService.makeConfigurationOptions(chart.chartType, chart.options);
 

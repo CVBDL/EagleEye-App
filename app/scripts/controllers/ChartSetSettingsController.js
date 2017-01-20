@@ -22,19 +22,7 @@ angular.module('eagleeye')
 
       this.chartset.title = '';
       this.chartset.description = '';
-      this.chartset.friendlyUrl = '';
       this.chartset.charts = [];
-
-      /**
-       * @method
-       * @name makeDisplayFriendlyUrl
-       * @description We need to remove friendly url prefix 's-' when display on the page.
-       * @param {string} friendlyUrl
-       * @returns {string} Generated friendly url.
-       */
-      this.makeDisplayFriendlyUrl = function(friendlyUrl) {
-        return (angular.isString(friendlyUrl) && friendlyUrl) ? friendlyUrl.substring(2) : '';
-      };
 
       /**
        * @method
@@ -136,7 +124,6 @@ angular.module('eagleeye')
 
         payload.title = chartset.title || '';
         payload.description = chartset.description || '';
-        payload.friendlyUrl = EagleEyeWebServiceUtil.makeFriendlyUrl('chartset', chartset.friendlyUrl);
         payload.charts = this.makeChartsList(chartset.charts);
 
         return payload;
@@ -170,7 +157,6 @@ angular.module('eagleeye')
       this.loadChartSet = function(id) {
         return EagleEyeWebService.getChartSetById(id).then(function(chartset) {
           controller.chartset = chartset;
-          controller.chartset.friendlyUrl = controller.makeDisplayFriendlyUrl(chartset.friendlyUrl);
         });
       };
 

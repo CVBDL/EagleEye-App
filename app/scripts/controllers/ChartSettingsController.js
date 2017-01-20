@@ -29,7 +29,7 @@ angular.module('eagleeye')
        * @method
        * @name loadChart
        * @description Call EagleEyeWebService service to load the chart data.
-       * @param {string} id The chart's id or friendlyUrl.
+       * @param {string} id  Chart id.
        */
       this.loadChart = function(id) {
         EagleEyeWebService.getChartById(id).then(function(data) {

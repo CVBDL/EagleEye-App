@@ -26,17 +26,6 @@ angular.module('eagleeye')
 
       /**
        * @method
-       * @name makeDisplayFriendlyUrl
-       * @description We need to remove friendly url prefix 'c-' when display on the page.
-       * @param {string} friendlyUrl
-       * @returns {string} Generated friendly url.
-       */
-      this.makeDisplayFriendlyUrl = function(friendlyUrl) {
-        return (angular.isString(friendlyUrl) && friendlyUrl) ? friendlyUrl.substring(2) : '';
-      };
-
-      /**
-       * @method
        * @name showHelp
        * @description Show an help dialog.
        */
@@ -61,7 +50,6 @@ angular.module('eagleeye')
         var payload = {};
 
         payload.description = chart.description || '';
-        payload.friendlyUrl = EagleEyeWebServiceUtil.makeFriendlyUrl('chart', chart.friendlyUrl);
         payload.options = GoogleChartsService.makeConfigurationOptions(chart.chartType, chart.options);
 
         return payload;
@@ -91,7 +79,6 @@ angular.module('eagleeye')
       this.init = function() {
         EagleEyeWebService.getChartById(controller.id).then(function(response) {
           controller.chart = response;
-          controller.chart.friendlyUrl = controller.makeDisplayFriendlyUrl(response.friendlyUrl);
         });
       };
 

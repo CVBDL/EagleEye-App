@@ -84,7 +84,6 @@ describe('Controller: ChartSetSettingsController', function() {
       expect(typeof ChartSetSettingsController.chartset).toBe('object');
       expect(ChartSetSettingsController.chartset.title).toBe('');
       expect(ChartSetSettingsController.chartset.description).toBe('');
-      expect(ChartSetSettingsController.chartset.friendlyUrl).toBe('');
       expect(ChartSetSettingsController.chartset.charts).toEqual([]);
     });
   });
@@ -134,21 +133,6 @@ describe('Controller: ChartSetSettingsController', function() {
 
     beforeEach(function() {
       $httpBackend.flush();
-    });
-
-    describe('makeDisplayFriendlyUrl()', function() {
-      it('should return empty string if input friendlyUrl is not a string', function() {
-        expect(ChartSetSettingsController.makeDisplayFriendlyUrl()).toBe('');
-        expect(ChartSetSettingsController.makeDisplayFriendlyUrl({})).toBe('');
-      });
-
-      it('should return empty string if input friendlyUrl is an empty string', function() {
-        expect(ChartSetSettingsController.makeDisplayFriendlyUrl('')).toBe('');
-      });
-
-      it('should remove prefix for displaying friendly url', function() {
-        expect(ChartSetSettingsController.makeDisplayFriendlyUrl('s-url')).toBe('url');
-      });
     });
 
     describe('filterFunction()', function() {
@@ -302,7 +286,6 @@ describe('Controller: ChartSetSettingsController', function() {
         payload = ChartSetSettingsController.makeChartSetPayload({});
         expect(payload.title).toBeDefined();
         expect(payload.description).toBeDefined();
-        expect(payload.friendlyUrl).toBeDefined();
         expect(payload.charts).toBeDefined();
       });
 
@@ -387,24 +370,6 @@ describe('Controller: ChartSetSettingsController', function() {
 
         $httpBackend.expect('GET', '/api/v1/chart-sets/1');
         $httpBackend.flush();
-      });
-
-      it('should set `chartList` model with `friendlyUrl` prefix removed when request success', function() {
-        var id = '1';
-        var chartset = {
-          _id: '1',
-          friendlyUrl: 's-chart-set'
-        };
-        var expectedChartset = {
-          _id: '1',
-          friendlyUrl: 'chart-set'
-        };
-
-        ChartSetSettingsController.loadChartSet(id);
-        getChartSetByIdRequestHandler.respond(chartset);
-        $httpBackend.flush();
-
-        expect(ChartSetSettingsController.chartset).toEqual(expectedChartset);
       });
 
       it('should do nothing when request error', function() {

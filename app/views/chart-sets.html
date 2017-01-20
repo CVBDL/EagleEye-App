@@ -26,7 +26,7 @@
       </div>
       <div class="ee-list">
         <div class="ee-list__item" ng-repeat="chartset in ctrl.chartSetList track by chartset._id">
-          <a ui-sref="chartSet({ id: chartset.friendlyUrl || chartset._id })">
+          <a ui-sref="chartSet({ id: chartset._id })">
             <div class="ee-list__item__content" layout="row" layout-align="start center">
               <div class="ee-list__item__content__col-1 ee-list__item__index ee-text-black-primary" flex="none">
                 {{$index + 1}}
@@ -48,7 +48,7 @@
                       </md-button>
                       <md-menu-content width="3">
                         <md-menu-item>
-                          <md-button ui-sref="chartSetSettings({ id: chartset.friendlyUrl || chartset._id })">
+                          <md-button ui-sref="chartSetSettings({ id: chartset._id })">
                             <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> settings </md-icon> <span md-menu-align-target>Settings</span></md-button>
                         </md-menu-item>
                         <md-menu-item>

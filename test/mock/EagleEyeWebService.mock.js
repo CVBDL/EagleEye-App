@@ -1,5 +1,5 @@
 angular.module('EagleEyeWebServiceMock', [])
-  .factory('EagleEyeWebService', function($http, $q, FRIENDLY_URL_PREFIX_CHART, FRIENDLY_URL_PREFIX_CHARTSET) {
+  .factory('EagleEyeWebService', function($http, $q) {
     var qGetChartSetById,
       qGetChartSets,
       qCreateChartSet,

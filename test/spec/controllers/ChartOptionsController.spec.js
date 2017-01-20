@@ -113,13 +113,6 @@ describe('Controller: ChartOptionsController', function() {
       $httpBackend.flush();
     });
 
-    it('should set `chart` model with friendlyUrl prefix removed when request success', function() {
-      getChartByIdRequestHandler.respond({ _id: '1', friendlyUrl: 'c-chart' });
-      $httpBackend.flush();
-
-      expect(ChartOptionsController.chart).toEqual({ _id: '1' , friendlyUrl: 'chart' });
-    });
-
     it('should do nothing when request error', function() {
       ChartOptionsController.chart = {};
 
@@ -147,17 +140,6 @@ describe('Controller: ChartOptionsController', function() {
         $httpBackend.flush();
       });
 
-      it('should set `chart` model with friendlyUrl prefix removed when request success', function() {
-        ChartOptionsController.id = '1';
-        ChartOptionsController.chart = {};
-
-        ChartOptionsController.init();
-        getChartByIdRequestHandler.respond({ _id: '1' , friendlyUrl: 'c-chart' });
-        $httpBackend.flush();
-
-        expect(ChartOptionsController.chart).toEqual({ _id: '1' , friendlyUrl: 'chart' });
-      });
-
       it('should do nothing when request error', function() {
         ChartOptionsController.id = '1';
         ChartOptionsController.chart = {};
@@ -167,22 +149,6 @@ describe('Controller: ChartOptionsController', function() {
         $httpBackend.flush();
 
         expect(ChartOptionsController.chart).toEqual({});
-      });
-    });
-
-    describe('makeDisplayFriendlyUrl()', function() {
-
-      it('should return empty string if input friendlyUrl is not a string', function() {
-        expect(ChartOptionsController.makeDisplayFriendlyUrl()).toBe('');
-        expect(ChartOptionsController.makeDisplayFriendlyUrl({})).toBe('');
-      });
-
-      it('should return empty string if input friendlyUrl is an empty string', function() {
-        expect(ChartOptionsController.makeDisplayFriendlyUrl('')).toBe('');
-      });
-
-      it('should remove prefix for displaying friendly url', function() {
-        expect(ChartOptionsController.makeDisplayFriendlyUrl('c-url')).toBe('url');
       });
     });
 
@@ -227,24 +193,6 @@ describe('Controller: ChartOptionsController', function() {
         payload = ChartOptionsController.makeChartPayload(chart);
 
         expect(payload.description).toBe('');
-      });
-
-      it('should provide a prefixed `friendlyUrl`', function() {
-        var chart = { friendlyUrl: 'chart', chartType: 'LineChart', options: {} },
-          payload;
-
-        payload = ChartOptionsController.makeChartPayload(chart);
-
-        expect(payload.friendlyUrl).toBe('c-chart');
-      });
-
-      it('should provide a default empty `friendlyUrl`', function() {
-        var chart = { chartType: 'LineChart', options: {} },
-          payload;
-
-        payload = ChartOptionsController.makeChartPayload(chart);
-
-        expect(payload.friendlyUrl).toBe('');
       });
 
       it('should provide `options` object', function() {

@@ -41,7 +41,7 @@ angular.module('eagleeye')
        * @method
        * @name loadChartSet
        * @description Call EagleEyeWebService service to load the chart set data.
-       * @param {string} id The chart set's id or friendlyUrl.
+       * @param {string} id  Chart set id.
        */
       this.loadChartSet = function(id) {
         EagleEyeWebService.getChartSetById(id).then(function(chartset) {
