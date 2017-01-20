@@ -103,11 +103,11 @@ angular.module('eagleeye')
 
       self.updateChartById = function(id, data) {
         // https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#edit-a-chart
-        // PUT /api/v1/charts
+        // POST /api/v1/charts/:_id
         var url = 'charts/' + id;
 
         return self.fetchServer({
-          method: 'PUT',
+          method: 'POST',
           url: url,
           data: JSON.stringify(data)
         });
@@ -115,7 +115,7 @@ angular.module('eagleeye')
 
       self.deleteChartById = function(id) {
         // https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#delete-one-chart
-        // DELETE /api/v1/charts
+        // DELETE /api/v1/charts/:_id
         var url = 'charts/' + id;
 
         return self.fetchServer({
@@ -125,6 +125,7 @@ angular.module('eagleeye')
       };
 
       self.getChartSets = function() {
+        // https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#list-all-chart-sets
         // GET /api/v1/chart-sets
         var url = 'chart-sets';
 
@@ -135,6 +136,7 @@ angular.module('eagleeye')
       };
 
       self.getChartSetById = function(id) {
+        // https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#get-a-single-chart-set-via-chart-set-id
         // GET /api/v1/chart-sets/:_id
         var url = 'chart-sets/' + id;
 
@@ -145,6 +147,7 @@ angular.module('eagleeye')
       };
 
       self.createChartSet = function(data) {
+        // https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#create-a-chart-set
         // POST /api/v1/chart-sets
         var url = 'chart-sets';
 
@@ -156,6 +159,7 @@ angular.module('eagleeye')
       };
 
       self.deleteChartSetById = function(id) {
+        // https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#delete-a-chart-set
         // DELETE /api/v1/chart-sets/:_id
         var url = 'chart-sets/' + id;
 
@@ -166,11 +170,12 @@ angular.module('eagleeye')
       };
 
       self.updateChartSetById = function(id, data) {
-        // DELETE /api/v1/chart-sets/:_id
+        // https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#edit-a-chart-set
+        // POST /api/v1/chart-sets/:_id
         var url = 'chart-sets/' + id;
 
         return self.fetchServer({
-          method: 'PUT',
+          method: 'POST',
           url: url,
           data: JSON.stringify(data)
         });

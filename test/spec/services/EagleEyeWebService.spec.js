@@ -115,12 +115,12 @@ describe('Service: EagleEyeWebService', function() {
     it('should be able to edit a chart by id with updateChartById()', function() {
       var response;
 
-      $httpBackend.when('PUT', 'http://127.0.0.1:3000/api/v1/charts/1').respond({
+      $httpBackend.when('POST', 'http://127.0.0.1:3000/api/v1/charts/1').respond({
         _id: 1,
         description: 'foobar'
       });
 
-      $httpBackend.expect('PUT', 'http://127.0.0.1:3000/api/v1/charts/1', {
+      $httpBackend.expect('POST', 'http://127.0.0.1:3000/api/v1/charts/1', {
         description: 'foobar'
       });
 
@@ -206,12 +206,12 @@ describe('Service: EagleEyeWebService', function() {
     it('should be able to edit a chart set by id with updateChartSetById()', function() {
       var response;
 
-      $httpBackend.when('PUT', 'http://127.0.0.1:3000/api/v1/chart-sets/1').respond({
+      $httpBackend.when('POST', 'http://127.0.0.1:3000/api/v1/chart-sets/1').respond({
         _id: 1,
         charts: ['foo']
       });
 
-      $httpBackend.expect('PUT', 'http://127.0.0.1:3000/api/v1/chart-sets/1', {
+      $httpBackend.expect('POST', 'http://127.0.0.1:3000/api/v1/chart-sets/1', {
         charts: ['foo']
       });
 
@@ -393,18 +393,18 @@ describe('Service: EagleEyeWebService', function() {
 
       beforeEach(function() {
         $httpBackend.when('GET', '../config.json').respond(config);
-        $httpBackend.when('PUT', 'http://127.0.0.1:3000/api/v1/charts/1').respond('');
+        $httpBackend.when('POST', 'http://127.0.0.1:3000/api/v1/charts/1').respond('');
       });
 
       it('should make request with provided options', function() {
         var response;
 
-        $httpBackend.expect('PUT', 'http://127.0.0.1:3000/api/v1/charts/1', {
+        $httpBackend.expect('POST', 'http://127.0.0.1:3000/api/v1/charts/1', {
           description: 'foo'
         });
 
         EagleEyeWebService.fetchServer({
-          method: 'PUT',
+          method: 'POST',
           url: 'charts/1',
           data: { description: 'foo' }
         }).then(function(res) {
