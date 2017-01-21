@@ -62,7 +62,7 @@ angular.module('eagleeye')
             var numberOfColumns = 0;
             var pattern = '#,###.###%';
 
-            if (chartOptions.vAxis.format === 'percent' || chartOptions.hAxis.format === 'percent') {
+            if (chartOptions.vAxis && chartOptions.vAxis.format === 'percent' || chartOptions.hAxis && chartOptions.hAxis.format === 'percent') {
               formatter = new google.visualization.NumberFormat({ pattern: pattern });
               numberOfColumns = chartDataTable.getNumberOfColumns();
 

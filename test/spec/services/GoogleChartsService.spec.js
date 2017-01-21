@@ -35,6 +35,9 @@ describe('Constant:', function() {
         label: 'Area Chart',
         value: 'AreaChart'
       }, {
+        label: 'Pie Chart',
+        value: 'PieChart'
+      }, {
         label: 'Image Chart',
         value: 'ImageChart'
       }]);
@@ -272,13 +275,12 @@ describe('Constant:', function() {
 
   describe('DATA_TABLE_SAMPLES', function() {
     it('should be initialized', function() {
-      expect(DATA_TABLE_SAMPLES).toEqual({
-        linechart: { 'cols': [{ 'label': 'City', 'type': 'string' }, { 'label': '2010 Population', 'type': 'number' }, { 'label': '2000 Population', 'type': 'number' }], 'rows': [{ 'c': [{ 'v': 'New York City, NY' }, { 'v': 8175000 }, { 'v': 8008000 }] }, { 'c': [{ 'v': 'Los Angeles, CA' }, { 'v': 3792000 }, { 'v': 3694000 }] }, { 'c': [{ 'v': 'Chicago, IL' }, { 'v': 2695000 }, { 'v': 2896000 }] }, { 'c': [{ 'v': 'Houston, TX' }, { 'v': 2099000 }, { 'v': 1953000 }] }, { 'c': [{ 'v': 'Philadelphia, PA' }, { 'v': 1526000 }, { 'v': 1517000 }] }] },
-        columnchart: { 'cols': [{ 'label': 'City', 'type': 'string' }, { 'label': '2010 Population', 'type': 'number' }, { 'label': '2000 Population', 'type': 'number' }], 'rows': [{ 'c': [{ 'v': 'New York City, NY' }, { 'v': 8175000 }, { 'v': 8008000 }] }, { 'c': [{ 'v': 'Los Angeles, CA' }, { 'v': 3792000 }, { 'v': 3694000 }] }, { 'c': [{ 'v': 'Chicago, IL' }, { 'v': 2695000 }, { 'v': 2896000 }] }, { 'c': [{ 'v': 'Houston, TX' }, { 'v': 2099000 }, { 'v': 1953000 }] }, { 'c': [{ 'v': 'Philadelphia, PA' }, { 'v': 1526000 }, { 'v': 1517000 }] }] },
-        barchart: { 'cols': [{ 'label': 'City', 'type': 'string' }, { 'label': '2010 Population', 'type': 'number' }, { 'label': '2000 Population', 'type': 'number' }], 'rows': [{ 'c': [{ 'v': 'New York City, NY' }, { 'v': 8175000 }, { 'v': 8008000 }] }, { 'c': [{ 'v': 'Los Angeles, CA' }, { 'v': 3792000 }, { 'v': 3694000 }] }, { 'c': [{ 'v': 'Chicago, IL' }, { 'v': 2695000 }, { 'v': 2896000 }] }, { 'c': [{ 'v': 'Houston, TX' }, { 'v': 2099000 }, { 'v': 1953000 }] }, { 'c': [{ 'v': 'Philadelphia, PA' }, { 'v': 1526000 }, { 'v': 1517000 }] }] },
-        combochart: { 'cols': [{ 'label': 'Month', 'type': 'string' }, { 'label': 'Average', 'type': 'number' }, { 'label': 'Bolivia', 'type': 'number' }, { 'label': 'Ecuador', 'type': 'number' }, { 'label': 'Madagascar', 'type': 'number' }, { 'label': 'Papua New Guinea', 'type': 'number' }, { 'label': 'Rwanda', 'type': 'number' }], 'rows': [{ 'c': [{ 'v': '2004/05' }, { 'v': 614.6 }, { 'v': 165 }, { 'v': 938 }, { 'v': 522 }, { 'v': 998 }, { 'v': 450 }] }, { 'c': [{ 'v': '2005/06' }, { 'v': 682 }, { 'v': 135 }, { 'v': 1120 }, { 'v': 599 }, { 'v': 1268 }, { 'v': 288 }] }, { 'c': [{ 'v': '2006/07' }, { 'v': 623 }, { 'v': 157 }, { 'v': 1167 }, { 'v': 587 }, { 'v': 807 }, { 'v': 397 }] }, { 'c': [{ 'v': '2007/08' }, { 'v': 609.4 }, { 'v': 139 }, { 'v': 1110 }, { 'v': 615 }, { 'v': 968 }, { 'v': 215 }] }, { 'c': [{ 'v': '2008/09' }, { 'v': 569.6 }, { 'v': 136 }, { 'v': 691 }, { 'v': 629 }, { 'v': 1026 }, { 'v': 366 }] }] },
-        areachart: { 'cols': [{ 'label': 'Month', 'type': 'string' }, { 'label': 'Done', 'type': 'number' }, { 'label': 'Work', 'type': 'number' }, { 'label': 'Risks', 'type': 'number' }], 'rows': [{ 'c': [{ 'v': '2004/05' }, { 'v': 0 }, { 'v': 998 }, { 'v': 200 }] }, { 'c': [{ 'v': '2005/06' }, { 'v': 322 }, { 'v': 700 }, { 'v': 120 }] }, { 'c': [{ 'v': '2006/07' }, { 'v': 687 }, { 'v': 440 }, { 'v': 120 }] }, { 'c': [{ 'v': '2007/08' }, { 'v': 943 }, { 'v': 200 }, { 'v': 60 }] }, { 'c': [{ 'v': '2008/09' }, { 'v': 1154 }, { 'v': 0 }, { 'v': 0 }] }] }
-      });
+      expect(typeof DATA_TABLE_SAMPLES.linechart).toBe('object');
+      expect(typeof DATA_TABLE_SAMPLES.columnchart).toBe('object');
+      expect(typeof DATA_TABLE_SAMPLES.barchart).toBe('object');
+      expect(typeof DATA_TABLE_SAMPLES.combochart).toBe('object');
+      expect(typeof DATA_TABLE_SAMPLES.areachart).toBe('object');
+      expect(typeof DATA_TABLE_SAMPLES.piechart).toBe('object');
     });
   });
 
