@@ -31,7 +31,7 @@ describe('Controller: JobsController', function() {
     $controller = _$controller_;
     $filter = _$filter_;
     $httpBackend = _$httpBackend_;
-    $rootScope = _$rootScope_,
+    $rootScope = _$rootScope_;
     $state = _$state_;
     $templateCache = _$templateCache_;
     EagleEyeWebService = _EagleEyeWebService_;

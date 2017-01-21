@@ -3,9 +3,7 @@
 describe('Controller: TasksController', function() {
   var $controller,
     $httpBackend,
-    $rootScope,
     $stateParams,
-    $templateCache,
     EagleEyeWebService;
 
   var TasksController;
@@ -38,12 +36,10 @@ describe('Controller: TasksController', function() {
   }));
 
   // inject services
-  beforeEach(inject(function(_$controller_, _$httpBackend_, _$rootScope_, _$stateParams_, _$templateCache_, _EagleEyeWebService_) {
+  beforeEach(inject(function(_$controller_, _$httpBackend_, _$stateParams_, _EagleEyeWebService_) {
     $controller = _$controller_;
     $httpBackend = _$httpBackend_;
-    $rootScope = _$rootScope_,
     $stateParams = _$stateParams_;
-    $templateCache = _$templateCache_;
     EagleEyeWebService = _EagleEyeWebService_;
   }));
 

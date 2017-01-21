@@ -3,7 +3,6 @@
 describe('Controller: JobDetailsController', function() {
   var $controller,
     $httpBackend,
-    $rootScope,
     $state,
     $templateCache,
     EagleEyeWebService;
@@ -25,10 +24,9 @@ describe('Controller: JobDetailsController', function() {
   }));
 
   // inject services
-  beforeEach(inject(function(_$controller_, _$httpBackend_, _$rootScope_, _$state_, _$templateCache_, _EagleEyeWebService_) {
+  beforeEach(inject(function(_$controller_, _$httpBackend_, _$state_, _$templateCache_, _EagleEyeWebService_) {
     $controller = _$controller_;
     $httpBackend = _$httpBackend_;
-    $rootScope = _$rootScope_,
     $state = _$state_;
     $templateCache = _$templateCache_;
     EagleEyeWebService = _EagleEyeWebService_;
