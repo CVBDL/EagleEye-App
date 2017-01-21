@@ -270,6 +270,42 @@ angular.module('eagleeye')
           italic: false
         }
       }
+    },
+    piechart: {
+      animation: {
+        startup: true,
+        duration: 350,
+        easing: 'out'
+      },
+      backgroundColor: {
+        stroke: 'white',
+        strokeWidth: 0,
+        fill: 'white'
+      },
+      chartArea: {
+        width: '85%'
+      },
+      fontSize: 14,
+      legend: {
+        position: 'top',
+        alignment: 'end',
+        maxLines: 2,
+        textStyle: {
+          color: '#555555'
+        }
+      },
+      titlePosition: 'none',
+      tooltip: {
+        ignoreBounds: false,
+        isHtml: false,
+        showColorCode: true,
+        textStyle: {
+          color: '#555555',
+          fontSize: 14,
+          bold: false,
+          italic: false
+        }
+      }
     }
   })
 
