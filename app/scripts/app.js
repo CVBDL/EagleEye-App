@@ -17,7 +17,8 @@ angular
   .config([
     '$stateProvider',
     '$urlRouterProvider',
-    function($stateProvider, $urlRouterProvider) {
+    '$qProvider',
+    function($stateProvider, $urlRouterProvider, $qProvider) {
       $stateProvider
         .state('root', {
           url: '',
@@ -131,6 +132,7 @@ angular
       // default router
       $urlRouterProvider.otherwise('/home');
 
+      $qProvider.errorOnUnhandledRejections(false);
     }
   ])
 
