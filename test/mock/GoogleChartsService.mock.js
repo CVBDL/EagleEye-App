@@ -3,9 +3,6 @@ angular.module('GoogleChartsServiceMock', [])
     var makeChartType = jasmine.createSpy('makeChartType').and.callFake(function() {
       return 'LineChart';
     });
-    var makeDomainDataType = jasmine.createSpy('makeDomainDataType').and.callFake(function() {
-      return 'string';
-    });
     var getChartDataTableSamples = jasmine.createSpy('getChartDataTableSamples').and.callFake(function() {
       return {
         'cols': [{}],
@@ -18,7 +15,6 @@ angular.module('GoogleChartsServiceMock', [])
 
     return {
       makeChartType: makeChartType,
-      makeDomainDataType: makeDomainDataType,
       getChartDataTableSamples: getChartDataTableSamples,
       makeConfigurationOptions: makeConfigurationOptions
     };
