@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/CVBDL/EagleEye-App.svg?branch=master)](https://travis-ci.org/CVBDL/EagleEye-App)
+[![Build Status](https://travis-ci.org/CVBDL/EagleEye-App.svg?branch=master)](https://travis-ci.org/CVBDL/EagleEye-App) [![Coverage Status](https://coveralls.io/repos/github/CVBDL/EagleEye-App/badge.svg)](https://coveralls.io/github/CVBDL/EagleEye-App)
 
 # EagleEye Application
 
