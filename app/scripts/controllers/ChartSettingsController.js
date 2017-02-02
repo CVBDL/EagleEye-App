@@ -22,7 +22,7 @@ angular.module('eagleeye')
        * @this ChartController
        */
       this.upload = function(file) {
-        EagleEyeWebService.uploadFile(file, this.chart.type, this.id);
+        EagleEyeWebService.uploadFile(file, this.chart.chartType, this.id);
       };
 
       /**
