@@ -181,20 +181,13 @@ angular.module('eagleeye')
         });
       };
 
-      self.uploadFile = function(file, chartType, id) {
-        var url = '';
-
+      self.uploadFile = function(file, id) {
         return self.getRootEndpoint().then(function(rootEndpoint) {
-          if (chartType === 'ImageChart') {
-            url = rootEndpoint + 'api/v1/upload/images';
-
-          } else {
-            url = rootEndpoint + 'api/v1/upload/excels';
-          }
+          var url = rootEndpoint + 'api/v1/charts/' + id + '/assets';
 
           file.upload = Upload.upload({
             url: url,
-            data: { id: id, file: file }
+            data: { file: file }
           });
 
           file.upload.then(undefined, function(response) {

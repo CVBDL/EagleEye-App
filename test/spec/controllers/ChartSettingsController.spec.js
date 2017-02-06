@@ -133,12 +133,11 @@ describe('Controller: ChartSettingsController', function() {
 
     describe('upload()', function() {
       it('should call EagleEyeWebService to upload file', function() {
-        ChartSettingsController.chart = { chartType: 'LineChart' };
         ChartSettingsController.id = '1';
 
         ChartSettingsController.upload({});
 
-        expect(EagleEyeWebService.uploadFile).toHaveBeenCalledWith({}, 'LineChart', '1');
+        expect(EagleEyeWebService.uploadFile).toHaveBeenCalledWith({}, '1');
       });
     });
   });
