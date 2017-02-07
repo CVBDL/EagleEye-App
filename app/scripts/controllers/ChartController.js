@@ -111,11 +111,32 @@ angular.module('eagleeye')
 
       /**
        * @method
+       * @name generateDownloadLink
+       * @description Generate download data table file link for a chart.
+       * @param {string} id The chart's id.
+       * @param {string} format Download file format, `xlsx` or `json`.
+       * @returns {Promise} A promise will be resolved with generated download link.
+       */
+      this.generateDownloadLink = function(id, format) {
+        return EagleEyeWebService.getRootEndpoint()
+          .then(function(rootEndpoint) {
+            return rootEndpoint
+                   + 'api/v1/charts/' + id + '/datatable?format=' + format;
+          });
+      };
+
+      /**
+       * @method
        * @name init
        * @this ChartController
        */
       this.init = function() {
         this.loadChart(this.id);
+
+        // only support downloading an .xlsx file now
+        this.generateDownloadLink(this.id, 'xlsx').then(function(link) {
+          controller.downloadLink = link;
+        });
       };
 
       this.init();

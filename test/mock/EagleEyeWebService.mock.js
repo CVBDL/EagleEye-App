@@ -6,6 +6,9 @@ angular.module('EagleEyeWebServiceMock', [])
       qDeleteChartSetById,
       qUpdateChartSetById;
 
+    var getRootEndpoint = jasmine.createSpy('getRootEndpoint').and.callFake(function(rootEndpoint) {
+      return $q.when('http://localhost/');
+    });
     var getChartById = jasmine.createSpy('getChartById').and.callFake(function(id) {
       return $http({
         method: 'GET',
@@ -142,6 +145,7 @@ angular.module('EagleEyeWebServiceMock', [])
     });
 
     return {
+      getRootEndpoint: getRootEndpoint,
       getChartById: getChartById,
       createChart: createChart,
       updateChartById: updateChartById,

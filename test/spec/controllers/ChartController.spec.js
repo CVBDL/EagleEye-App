@@ -6,6 +6,7 @@ describe('Controller: ChartController', function() {
     $interval,
     $location,
     $mdDialog,
+    $rootScope,
     $stateParams,
     EagleEyeWebService,
     EEDialogService,
@@ -41,9 +42,10 @@ describe('Controller: ChartController', function() {
     $urlRouterProvider.otherwise(function() { return false; });
   }));
 
-  beforeEach(inject(function(_$controller_, _$mdDialog_, _$stateParams_, _$httpBackend_, _$location_, _$interval_, _EagleEyeWebService_, _EEDialogService_, _SaveAsPDFService_) {
+  beforeEach(inject(function(_$controller_, _$mdDialog_, _$rootScope_, _$stateParams_, _$httpBackend_, _$location_, _$interval_, _EagleEyeWebService_, _EEDialogService_, _SaveAsPDFService_) {
     $controller = _$controller_;
     $mdDialog = _$mdDialog_;
+    $rootScope = _$rootScope_;
     $stateParams = _$stateParams_;
     $httpBackend = _$httpBackend_;
     $location = _$location_;
@@ -127,6 +129,14 @@ describe('Controller: ChartController', function() {
       $httpBackend.flush();
 
       expect(ChartController.chart).toEqual({});
+    });
+
+    it('should generate data table download link', function() {
+      getChartByIdRequestHandler.respond({ _id: '1' });
+      $httpBackend.flush();
+
+      expect(ChartController.downloadLink)
+        .toBe('http://localhost/api/v1/charts/1/datatable?format=xlsx');
     });
   });
 
@@ -325,6 +335,26 @@ describe('Controller: ChartController', function() {
         ChartController.saveImageOrPDF(0, {});
 
         expect(SaveAsPDFService.saveImageOrPDF).toHaveBeenCalledWith(0, {});
+      });
+    });
+
+    describe('generateDownloadLink()', function() {
+
+      it('should generate a download link', function() {
+        var id = '123';
+        var format = 'xlsx';
+        ChartController.downloadLink = '';
+
+        ChartController.generateDownloadLink(id, format)
+          .then(function(link) {
+            expect(link).toBe('http://localhost/api/v1/charts/'
+                              + id + '/datatable?format=' + format);
+          })
+          .catch(function(error) {
+            fail(error);
+          });
+
+        $rootScope.$digest();
       });
     });
   });
