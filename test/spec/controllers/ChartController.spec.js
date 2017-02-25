@@ -9,8 +9,7 @@ describe('Controller: ChartController', function() {
     $rootScope,
     $stateParams,
     EagleEyeWebService,
-    EEDialogService,
-    SaveAsPDFService;
+    EEDialogService;
 
   var ChartController,
     getChartByIdRequestHandler;
@@ -26,12 +25,6 @@ describe('Controller: ChartController', function() {
 
   // mock dependent services
   beforeEach(module(function($provide) {
-    $provide.factory('SaveAsPDFService', function() {
-      return {
-        saveImageOrPDF: jasmine.createSpy('saveImageOrPDF')
-      };
-    });
-
     $provide.factory('$stateParams', function() {
       return { id: '1' };
     });
@@ -42,7 +35,7 @@ describe('Controller: ChartController', function() {
     $urlRouterProvider.otherwise(function() { return false; });
   }));
 
-  beforeEach(inject(function(_$controller_, _$mdDialog_, _$rootScope_, _$stateParams_, _$httpBackend_, _$location_, _$interval_, _EagleEyeWebService_, _EEDialogService_, _SaveAsPDFService_) {
+  beforeEach(inject(function(_$controller_, _$mdDialog_, _$rootScope_, _$stateParams_, _$httpBackend_, _$location_, _$interval_, _EagleEyeWebService_, _EEDialogService_) {
     $controller = _$controller_;
     $mdDialog = _$mdDialog_;
     $rootScope = _$rootScope_;
@@ -52,7 +45,6 @@ describe('Controller: ChartController', function() {
     $interval = _$interval_;
     EagleEyeWebService = _EagleEyeWebService_;
     EEDialogService = _EEDialogService_;
-    SaveAsPDFService = _SaveAsPDFService_;
   }));
 
   beforeEach(function() {
@@ -65,8 +57,7 @@ describe('Controller: ChartController', function() {
       $location: $location,
       $interval: $interval,
       EagleEyeWebService: EagleEyeWebService,
-      EEDialogService: EEDialogService,
-      SaveAsPDFService: SaveAsPDFService
+      EEDialogService: EEDialogService
     });
   });
 
@@ -326,15 +317,6 @@ describe('Controller: ChartController', function() {
           clickOutsideToClose: true,
           fullscreen: true
         });
-      });
-    });
-
-    describe('saveImageOrPDF()', function() {
-
-      it('should use SaveAsPDFService to save chart as PDF', function() {
-        ChartController.saveImageOrPDF(0, {});
-
-        expect(SaveAsPDFService.saveImageOrPDF).toHaveBeenCalledWith(0, {});
       });
     });
 

@@ -16,43 +16,45 @@ angular.module('eagleeye')
     function($rootScope, $timeout, $window, GoogleChartsService, DEFAULT_CHART_OPTIONS) {
 
       return {
+        restrict: 'E',
         template: '<div layout="row" layout-sm="column" layout-align="center center"><md-progress-circular class="ee-progress-circular" md-diameter="40"></md-progress-circular></div>',
         scope: {
-          chartDataTable: '=',
-          chartOptions: '=',
-          chartType: '=',
-          chartFile: '='
+          chartId: '@',
+          type: '@',
+          datatable: '=',
+          options: '='
         },
-        restrict: 'E',
         link: postLinkFn
       };
 
-      function postLinkFn(scope, element) {
+      function postLinkFn(scope, element, attrs) {
         var chartNode = element[0],
           redrawDelayOnResizeInMs = 200,
-          timeoutID = -1;
+          timeoutID = -1,
+          chart,
+          imageURI;
 
         function drawChart() {
           google.charts.setOnLoadCallback(function drawOnLoad() {
-            if (!scope.chartType || !scope.chartDataTable || 'ImageChart' === scope.chartType) {
+            if (!scope.type || !scope.datatable || 'ImageChart' === scope.type) {
               return;
             }
 
-            var chart = new google.visualization[scope.chartType](chartNode);
-            var chartDataTable = new google.visualization.DataTable(angular.copy(scope.chartDataTable, {}));
-            var chartOptions = angular.merge({}, DEFAULT_CHART_OPTIONS[scope.chartType.toLowerCase()], angular.copy(scope.chartOptions, {}));
+            chart = new google.visualization[scope.type](chartNode);
+            var datatable = new google.visualization.DataTable(angular.copy(scope.datatable, {}));
+            var options = angular.merge({}, DEFAULT_CHART_OPTIONS[scope.type.toLowerCase()], angular.copy(scope.options, {}));
 
-            if (scope.chartType.toLowerCase() === 'combochart') {
+            if (scope.type.toLowerCase() === 'combochart') {
 
-              if (isNaN(chartOptions.combolines) || chartOptions.combolines.length === 0) {
-                chartOptions.combolines = 1;
+              if (isNaN(options.combolines) || options.combolines.length === 0) {
+                options.combolines = 1;
               }
 
-              chartOptions.seriesType = 'bars';
-              chartOptions.series = {};
+              options.seriesType = 'bars';
+              options.series = {};
 
-              for (var i = 0; i < chartOptions.combolines; i++) {
-                chartOptions.series[i] = { type: 'line' };
+              for (var i = 0; i < options.combolines; i++) {
+                options.series[i] = { type: 'line' };
               }
             }
 
@@ -62,17 +64,30 @@ angular.module('eagleeye')
             var numberOfColumns = 0;
             var pattern = '#,###.###%';
 
-            if (chartOptions.vAxis && chartOptions.vAxis.format === 'percent' || chartOptions.hAxis && chartOptions.hAxis.format === 'percent') {
+            if (options.vAxis && options.vAxis.format === 'percent' || options.hAxis && options.hAxis.format === 'percent') {
               formatter = new google.visualization.NumberFormat({ pattern: pattern });
-              numberOfColumns = chartDataTable.getNumberOfColumns();
+              numberOfColumns = datatable.getNumberOfColumns();
 
               for (var j = 1; j < numberOfColumns; j++) {
-                formatter.format(chartDataTable, j);
+                formatter.format(datatable, j);
               }
             }
 
-            $timeout(chart.draw(chartDataTable, chartOptions), 0);
+            google.visualization.events.addListener(chart, 'ready', function() {
+              imageURI = chart.getImageURI();
+            });
+
+            $timeout(chart.draw(datatable, options), 0);
           });
+        }
+
+        function getImageURIHandler(evt, id) {
+          if (scope.chartId === id) {
+            $rootScope.$emit('ee.googlechart.imageURI', {
+              id: id,
+              imageURI: imageURI
+            });
+          }
         }
 
         function windowResizeHandler() {
@@ -82,18 +97,20 @@ angular.module('eagleeye')
           }, redrawDelayOnResizeInMs);
         }
 
-        var unwatchChartType = scope.$watch('chartType', drawChart);
-        var unwatchChartOptions = scope.$watch('chartOptions', drawChart, true);
-        var unwatchChartDataTable = scope.$watchCollection('chartDataTable', drawChart);
+        // var unwatchtype = scope.$watch('type', drawChart);
+        var unwatchType = attrs.$observe('type', drawChart);
+        var unwatchOptions = scope.$watch('options', drawChart, true);
+        var unwatchDatatable = scope.$watchCollection('datatable', drawChart);
 
+        $rootScope.$on('ee.googlechart.getImageURI', getImageURIHandler);
         $rootScope.$on('ee.googlechart.redraw', windowResizeHandler);
 
         angular.element($window).on('resize', windowResizeHandler);
 
         scope.$on('$destroy', function() {
-          unwatchChartType();
-          unwatchChartOptions();
-          unwatchChartDataTable();
+          unwatchType();
+          unwatchOptions();
+          unwatchDatatable();
         });
       }
     }

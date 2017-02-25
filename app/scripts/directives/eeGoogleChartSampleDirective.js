@@ -11,19 +11,19 @@ angular.module('eagleeye')
     'GoogleChartsService',
     function(GoogleChartsService) {
       return {
-        template: '<ee-google-chart class="ee-google-chart" chart-type="chartType" chart-options="chartOptions" chart-data-table="chartDataTable"></ee-google-chart>',
+        template: '<ee-google-chart class="ee-google-chart" type="{{type}}" options="options" datatable="datatable"></ee-google-chart>',
         scope: {
-          chartType: '@',
-          chartOptions: '='
+          type: '@',
+          options: '='
         },
         restrict: 'E',
         link: function postLink($scope, $element, $attr) {
-          $attr.$observe('chartType', function setChartDataTable() {
-            updateChartDataTable();
+          $attr.$observe('type', function setDatatable() {
+            updateDatatable();
           });
 
-          function updateChartDataTable() {
-            $scope.chartDataTable = GoogleChartsService.getChartDataTableSamples($scope.chartType.toLowerCase());
+          function updateDatatable() {
+            $scope.datatable = GoogleChartsService.getChartDataTableSamples($scope.type.toLowerCase());
           }
         }
       };

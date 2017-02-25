@@ -9,10 +9,12 @@ angular.module('eagleeye')
     '$stateParams',
     '$location',
     '$interval',
+    'EagleEyeChartTools',
     'EagleEyeWebService',
     'EEDialogService',
-    'SaveAsPDFService',
-    function($stateParams, $location, $interval, EagleEyeWebService, EEDialogService, SaveAsPDFService) {
+    function($stateParams, $location, $interval, EagleEyeChartTools,
+             EagleEyeWebService, EEDialogService) {
+
       var controller = this;
 
       this.id = $stateParams.id;
@@ -100,17 +102,6 @@ angular.module('eagleeye')
 
       /**
        * @method
-       * @name SaveImageOrPDF
-       * @description Save chart as PDF file.
-       * @param {number} fileType 0 for image, 1 for PDF.
-       * @param {Object} chart The chart data.
-       */
-      this.saveImageOrPDF = function(fileType, chart) {
-        SaveAsPDFService.saveImageOrPDF(fileType, chart);
-      };
-
-      /**
-       * @method
        * @name generateDownloadLink
        * @description Generate download data table file link for a chart.
        * @param {string} id The chart's id.
@@ -123,6 +114,16 @@ angular.module('eagleeye')
             return rootEndpoint
                    + 'api/v1/charts/' + id + '/datatable?format=' + format;
           });
+      };
+
+
+      /**
+       * @method
+       * @description Save chart as an image.
+       * @param {string} id The chart's id.
+       */
+      this.saveAsImage = function(id) {
+        EagleEyeChartTools.saveAsImage(id);
       };
 
       /**

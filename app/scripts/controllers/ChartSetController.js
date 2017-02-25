@@ -11,10 +11,12 @@ angular.module('eagleeye')
     '$state',
     '$stateParams',
     '$interval',
+    'EagleEyeChartTools',
     'EagleEyeWebService',
     'EEDialogService',
-    'SaveAsPDFService',
-    function($location, $rootScope, $state, $stateParams, $interval, EagleEyeWebService, EEDialogService, SaveAsPDFService) {
+    function($location, $rootScope, $state, $stateParams, $interval,
+             EagleEyeChartTools, EagleEyeWebService, EEDialogService) {
+
       var controller = this;
 
       this.id = $stateParams.id;
@@ -30,9 +32,6 @@ angular.module('eagleeye')
 
       /** @default null */
       this.autoReloadChartSetPromise = null;
-
-      this.saveChartSetAsPdf = SaveAsPDFService.saveChartSetAsPdf;
-      this.saveChartSetAsImageOrPdf = SaveAsPDFService.saveChartSetAsImageOrPdf;
 
       this.chartset = {};
       this.chartSetList = [];
@@ -129,6 +128,15 @@ angular.module('eagleeye')
           sharedTitle: title,
           sharedLink: $location.absUrl()
         });
+      };
+
+      /**
+       * @method
+       * @description Save chart as an image.
+       * @param {string} id The chart's id.
+       */
+      this.saveAsImage = function(id) {
+        EagleEyeChartTools.saveAsImage(id);
       };
 
       /**
