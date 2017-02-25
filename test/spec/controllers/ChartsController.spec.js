@@ -27,7 +27,10 @@ describe('Controller: ChartsController', function() {
   }));
 
   // inject services
-  beforeEach(inject(function(_$controller_, _$rootScope_, _$state_, _$httpBackend_, _$mdDialog_, _EagleEyeWebService_, _EEDialogService_) {
+  beforeEach(inject(function(
+      _$controller_, _$rootScope_, _$state_, _$httpBackend_, _$mdDialog_,
+      _EagleEyeWebService_, _EEDialogService_) {
+
     $controller = _$controller_;
     $rootScope = _$rootScope_;
     $state = _$state_;

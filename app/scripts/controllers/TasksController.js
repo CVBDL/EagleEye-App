@@ -5,51 +5,53 @@
  * @name eagleeye.controller:TasksController
  */
 angular.module('eagleeye')
-  .controller('TasksController', [
-    '$stateParams',
-    'EagleEyeWebService',
-    function($stateParams, EagleEyeWebService) {
-      var controller = this;
 
-      this.job = {};
+.controller('TasksController', [
+  '$stateParams',
+  'EagleEyeWebService',
+  function($stateParams, EagleEyeWebService) {
+    var controller = this;
 
-      this.tasks = [];
+    this.job = {};
 
-      /**
-       * @method
-       * @name loadJob
-       * @description Fetch job details from server.
-       * @params {string} jobId
-       * @returns {promise}
-       */
-      this.loadJob = function(jobId) {
-        return EagleEyeWebService.getJob(jobId).then(function(job) {
+    this.tasks = [];
+
+    /**
+     * Fetch job details from server.
+     *
+     * @method
+     * @params {string} jobId
+     * @returns {promise}
+     */
+    this.loadJob = function(jobId) {
+      return EagleEyeWebService.getJob(jobId)
+        .then(function(job) {
           controller.job = job;
         });
-      };
+    };
 
-      /**
-       * @method
-       * @name loadTasks
-       * @description Fetch all tasks from server.
-       * @params {string} jobId
-       * @returns {promise}
-       */
-      this.loadTasks = function(jobId) {
-        return EagleEyeWebService.getTasks($stateParams.id).then(function(tasks) {
+    /**
+     * Fetch all tasks from server.
+     *
+     * @method
+     * @params {string} jobId
+     * @returns {promise}
+     */
+    this.loadTasks = function(jobId) {
+      return EagleEyeWebService.getTasks($stateParams.id)
+        .then(function(tasks) {
           controller.tasks = tasks;
         });
-      };
+    };
 
-      /**
-       * @method
-       * @name init
-       */
-      this.init = function() {
-        this.loadJob($stateParams.id);
-        this.loadTasks($stateParams.id);
-      };
+    /**
+     * @method
+     */
+    this.init = function() {
+      this.loadJob($stateParams.id);
+      this.loadTasks($stateParams.id);
+    };
 
-      this.init();
-    }
-  ]);
+    this.init();
+  }
+]);

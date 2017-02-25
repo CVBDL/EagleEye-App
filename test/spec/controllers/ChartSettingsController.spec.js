@@ -27,7 +27,9 @@ describe('Controller: ChartSettingsController', function() {
     $urlRouterProvider.otherwise(function() { return false; });
   }));
 
-  beforeEach(inject(function(_$controller_, _$stateParams_, _$httpBackend_,_EagleEyeWebService_) {
+  beforeEach(inject(function(
+      _$controller_, _$stateParams_, _$httpBackend_,_EagleEyeWebService_) {
+
     $controller = _$controller_;
     $stateParams = _$stateParams_;
     $httpBackend = _$httpBackend_;

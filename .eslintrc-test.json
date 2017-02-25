@@ -15,7 +15,8 @@
     "module": true,
     "inject": true,
     "jasmine": true,
-    "spyOn": true
+    "spyOn": true,
+    "fail": true
   },
   "rules": {
     // Rules are divided into sections from http://eslint.org/docs/rules/

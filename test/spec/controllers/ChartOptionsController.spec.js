@@ -8,7 +8,6 @@ describe('Controller: ChartOptionsController', function() {
     $stateParams,
     GoogleChartsService,
     EagleEyeWebService,
-    EagleEyeWebServiceUtil,
     EEDialogService,
     IS_STACKED_OPTIONS,
     AXIS_FORMAT_OPTIONS;
@@ -38,16 +37,17 @@ describe('Controller: ChartOptionsController', function() {
   }));
 
   // inject services
-  beforeEach(inject(function(_$controller_, _$httpBackend_, _$mdDialog_, _$state_, _$stateParams_,
-      _EagleEyeWebService_, _EagleEyeWebServiceUtil_, _GoogleChartsService_, _EEDialogService_,
+  beforeEach(inject(function(
+      _$controller_, _$httpBackend_, _$mdDialog_, _$state_, _$stateParams_,
+      _EagleEyeWebService_, _GoogleChartsService_, _EEDialogService_,
       _IS_STACKED_OPTIONS_, _AXIS_FORMAT_OPTIONS_) {
+
     $controller = _$controller_;
     $httpBackend = _$httpBackend_;
     $mdDialog = _$mdDialog_;
     $state = _$state_;
     $stateParams = _$stateParams_;
     EagleEyeWebService = _EagleEyeWebService_;
-    EagleEyeWebServiceUtil = _EagleEyeWebServiceUtil_;
     GoogleChartsService = _GoogleChartsService_;
     EEDialogService = _EEDialogService_;
     IS_STACKED_OPTIONS = _IS_STACKED_OPTIONS_;
@@ -65,7 +65,6 @@ describe('Controller: ChartOptionsController', function() {
       $stateParams: $stateParams,
       GoogleChartsService: GoogleChartsService,
       EagleEyeWebService: EagleEyeWebService,
-      EagleEyeWebServiceUtil: EagleEyeWebServiceUtil,
       EEDialogService: EEDialogService,
       IS_STACKED_OPTIONS: IS_STACKED_OPTIONS,
       AXIS_FORMAT_OPTIONS: AXIS_FORMAT_OPTIONS

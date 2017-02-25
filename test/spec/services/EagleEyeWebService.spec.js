@@ -18,7 +18,9 @@ describe('Service: EagleEyeWebService', function() {
     $urlRouterProvider.otherwise(function() { return false; });
   }));
 
-  beforeEach(inject(function(_$httpBackend_, _$rootScope_, _EagleEyeWebService_) {
+  beforeEach(inject(function(
+      _$httpBackend_, _$rootScope_, _EagleEyeWebService_) {
+
     $httpBackend = _$httpBackend_;
     $rootScope = _$rootScope_;
     EagleEyeWebService = _EagleEyeWebService_;

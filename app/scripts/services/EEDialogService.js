@@ -22,10 +22,18 @@ angular.module('eagleeye')
        * @name eagleeye.EEDialogService#show
        * @description Show a dialog by using $mdDialog service.
        * @param {Object} options Required options for $mdDialog.show().
-       * @param {Object} options.locals An object containing key/value pairs. The keys will be used as names of values to inject into the controller.
-       * @param {function|string} options.controller The controller to associate with the dialog.
-       * @param {string} options.templateUrl The url of a template that will be used as the content of the dialog.
-       * @returns {promise} A promise that can be resolved with `$mdDialog.hide()` or rejected with `$mdDialog.cancel()`.
+       * @param {Object} options.locals An object containing key/value pairs.
+       *                                The keys will be used as names of
+       *                                values to inject into the controller.
+       * @param {function|string} options.controller The controller to
+       *                                             associate with the
+       *                                             dialog.
+       * @param {string} options.templateUrl The url of a template that
+       *                                     will be used as the content
+       *                                     of the dialog.
+       * @returns {promise} A promise that can be resolved with
+       *                    `$mdDialog.hide()` or rejected with
+       *                    `$mdDialog.cancel()`.
        */
       self.show = function(options) {
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
@@ -44,8 +52,12 @@ angular.module('eagleeye')
        * @method
        * @name eagleeye.EEDialogService#showSharing
        * @description Show dialog for sharing.
-       * @param {Object} locals An object containing key/value pairs. The keys will be used as names of values to inject into the controller.
-       * @returns {promise} A promise that can be resolved with `$mdDialog.hide()` or rejected with `$mdDialog.cancel()`.
+       * @param {Object} locals An object containing key/value pairs.
+       *                        The keys will be used as names of values
+       *                        to inject into the controller.
+       * @returns {promise} A promise that can be resolved with
+       *                    `$mdDialog.hide()` or rejected with
+       *                    `$mdDialog.cancel()`.
        */
       self.showSharing = function(locals) {
         return self.show({
@@ -59,8 +71,12 @@ angular.module('eagleeye')
        * @method
        * @name eagleeye.EEDialogService#showChartCreationHelping
        * @description Show dialog for helping chart creation.
-       * @param {Object} locals An object containing key/value pairs. The keys will be used as names of values to inject into the controller.
-       * @returns {promise} A promise that can be resolved with `$mdDialog.hide()` or rejected with `$mdDialog.cancel()`.
+       * @param {Object} locals An object containing key/value pairs.
+       *                        The keys will be used as names of values
+       *                        to inject into the controller.
+       * @returns {promise} A promise that can be resolved with
+       *                    `$mdDialog.hide()` or rejected with
+       *                    `$mdDialog.cancel()`.
        */
       self.showChartCreationHelping = function(locals) {
         return self.show({
@@ -78,8 +94,12 @@ angular.module('eagleeye')
        * @method
        * @name eagleeye.EEDialogService#showDeleteConfirmation
        * @description Show dialog for confirming delete action.
-       * @param {Object} locals An object containing key/value pairs. The keys will be used as names of values to inject into the controller.
-       * @returns {promise} A promise that will be resolved when click 'DELETE' button or rejected when click 'CANCEL' button.
+       * @param {Object} locals An object containing key/value pairs.
+       *                        The keys will be used as names of values
+       *                        to inject into the controller.
+       * @returns {promise} A promise that will be resolved when click
+       *                    'DELETE' button or rejected when click
+       *                    'CANCEL' button.
        */
       self.showDeleteConfirmation = function(locals) {
         return self.show({

@@ -5,178 +5,182 @@
  * @name eagleeye.controller:ChartSetSettingsController
  */
 angular.module('eagleeye')
-  .controller('ChartSetSettingsController', [
-    '$state',
-    '$stateParams',
-    '$q',
-    'EagleEyeWebService',
-    'EagleEyeWebServiceUtil',
-    function($state, $stateParams, $q, EagleEyeWebService, EagleEyeWebServiceUtil) {
-      var controller = this;
 
-      this.id = $stateParams.id;
+.controller('ChartSetSettingsController', [
+  '$state',
+  '$stateParams',
+  '$q',
+  'EagleEyeWebService',
+  function($state, $stateParams, $q, EagleEyeWebService) {
 
-      this.searchKeyword = '';
+    var controller = this;
 
-      this.chartset = {};
+    this.id = $stateParams.id;
 
-      this.chartset.title = '';
-      this.chartset.description = '';
-      this.chartset.charts = [];
+    this.searchKeyword = '';
 
-      /**
-       * @method
-       * @name filterFunction
-       * @description Check if a chart matches the current search condition.
-       * @param {Object} chart The chart data object.
-       * @returns {boolean} `true` for match this filter.
-       */
-      this.filterFunction = function(chart) {
-        return chart.options.title.indexOf(controller.searchKeyword) >= 0 ||
-          chart.description.indexOf(controller.searchKeyword) >= 0;
-      };
+    this.chartset = {};
 
-      /**
-       * @method
-       * @name onChartCheckedStatusChange
-       * @description Event handler of check or uncheck a chart in the list.
-       * @param {Object} chart The chart data object.
-       */
-      this.onChartCheckedStatusChange = function(chart) {
-        var index = -1;
+    this.chartset.title = '';
+    this.chartset.description = '';
+    this.chartset.charts = [];
 
-        if (chart.checked) {
-          this.chartset.charts.push(chart);
+    /**
+     * Check if a chart matches the current search condition.
+     *
+     * @method
+     * @param {Object} chart The chart data object.
+     * @returns {boolean} `true` for match this filter.
+     */
+    this.filterFunction = function(chart) {
+      return (chart.options.title.indexOf(controller.searchKeyword) >= 0
+             || chart.description.indexOf(controller.searchKeyword) >= 0);
+    };
 
-        } else {
-          this.chartset.charts.forEach(function(_chart, idx) {
-            if (chart._id === _chart._id) {
-              index = idx;
-            }
-          });
+    /**
+     * Event handler of check or uncheck a chart in the list.
+     *
+     * @method
+     * @param {Object} chart The chart data object.
+     */
+    this.onChartCheckedStatusChange = function(chart) {
+      var index = -1;
 
-          if (index > -1) {
-            this.chartset.charts.splice(index, 1);
+      if (chart.checked) {
+        this.chartset.charts.push(chart);
+
+      } else {
+        this.chartset.charts.forEach(function(_chart, idx) {
+          if (chart._id === _chart._id) {
+            index = idx;
           }
-        }
-      };
-
-      /**
-       * @method
-       * @name moveUp
-       * @description Change chart order one level up.
-       * @param {Object} chart The chart data object.
-       */
-      this.moveUp = function(chart) {
-        var index = this.chartset.charts.indexOf(chart);
-
-        if (index > 0) {
-          this.chartset.charts.splice(index, 1);
-          this.chartset.charts.splice(index - 1, 0, chart);
-        }
-      };
-
-      /**
-       * @method
-       * @name moveDown
-       * @description Change chart order one level down.
-       * @param {Object} chart The chart data object.
-       */
-      this.moveDown = function(chart) {
-        var index = this.chartset.charts.indexOf(chart);
-
-        if (index < this.chartset.charts.length - 1) {
-          this.chartset.charts.splice(index, 1);
-          this.chartset.charts.splice(index + 1, 0, chart);
-        }
-      };
-
-      /**
-       * @method
-       * @name makeChartsList
-       * @description Generate the current selected charts' `_id` property.
-       * @param {Array} charts A charts list.
-       * @returns {Array} List of given charts' `_id`.
-       */
-      this.makeChartsList = function(charts) {
-        var chartIdList = [];
-
-        charts.forEach(function(chart) {
-          chartIdList.push(chart._id);
         });
 
-        return chartIdList;
-      };
+        if (index > -1) {
+          this.chartset.charts.splice(index, 1);
+        }
+      }
+    };
 
-      /**
-       * @method
-       * @name makeChartSetPayload
-       *
-       * @description
-       * Prepare the payload POST to server later, so that we could create a new chart set.
-       * {@link https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#create-a-chart-set}.
-       *
-       * @param {Object} chartset The chart data model.
-       * @returns {Object} The payload object.
-       */
-      this.makeChartSetPayload = function(chartset) {
-        var payload = {};
+    /**
+     * Change chart order one level up.
+     *
+     * @method
+     * @param {Object} chart The chart data object.
+     */
+    this.moveUp = function(chart) {
+      var index = this.chartset.charts.indexOf(chart);
 
-        payload.title = chartset.title || '';
-        payload.description = chartset.description || '';
-        payload.charts = this.makeChartsList(chartset.charts);
+      if (index > 0) {
+        this.chartset.charts.splice(index, 1);
+        this.chartset.charts.splice(index - 1, 0, chart);
+      }
+    };
 
-        return payload;
-      };
+    /**
+     * Change chart order one level down.
+     *
+     * @method
+     * @param {Object} chart The chart data object.
+     */
+    this.moveDown = function(chart) {
+      var index = this.chartset.charts.indexOf(chart);
 
-      /**
-       * @method
-       * @name save
-       *
-       * @description
-       * Prepare the payload POST to server later, so that we could update chart set.
-       * {@link https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#edit-a-chart-set}.
-       *
-       * @param {Object} chartset The chart data model.
-       */
-      this.save = function(chartset) {
-        var id = chartset._id,
-          payload = this.makeChartSetPayload(chartset);
+      if (index < this.chartset.charts.length - 1) {
+        this.chartset.charts.splice(index, 1);
+        this.chartset.charts.splice(index + 1, 0, chart);
+      }
+    };
 
-        EagleEyeWebService.updateChartSetById(id, payload).then(function() {
+    /**
+     * Generate the current selected charts' `_id` property.
+     *
+     * @method
+     * @param {Array} charts A charts list.
+     * @returns {Array} List of given charts' `_id`.
+     */
+    this.makeChartsList = function(charts) {
+      var chartIdList = [];
+
+      charts.forEach(function(chart) {
+        chartIdList.push(chart._id);
+      });
+
+      return chartIdList;
+    };
+
+    /**
+     * Prepare the payload POST to server later, so that we could
+     * create a new chart set.
+     *
+     * {@link https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#create-a-chart-set}.
+     *
+     *
+     * @method
+     * @param {Object} chartset The chart data model.
+     * @returns {Object} The payload object.
+     */
+    this.makeChartSetPayload = function(chartset) {
+      var payload = {};
+
+      payload.title = chartset.title || '';
+      payload.description = chartset.description || '';
+      payload.charts = this.makeChartsList(chartset.charts);
+
+      return payload;
+    };
+
+    /**
+     * Prepare the payload POST to server later, so that we could
+     * update chart set.
+     *
+     * {@link https://github.com/CVBDL/EagleEye-Docs/blob/master/rest-api/rest-api.md#edit-a-chart-set}.
+     *
+     *
+     * @method
+     * @param {Object} chartset The chart data model.
+     */
+    this.save = function(chartset) {
+      var id = chartset._id,
+        payload = this.makeChartSetPayload(chartset);
+
+      EagleEyeWebService.updateChartSetById(id, payload)
+        .then(function() {
           $state.go('chartSets');
         });
-      };
+    };
 
-      /**
-       * @method
-       * @name loadChartSet
-       * @description Fetch chart set by id.
-       * @param {string} id Chart set id.
-       */
-      this.loadChartSet = function(id) {
-        return EagleEyeWebService.getChartSetById(id).then(function(chartset) {
+    /**
+     * Fetch chart set by id.
+     *
+     * @method
+     * @param {string} id Chart set id.
+     */
+    this.loadChartSet = function(id) {
+      return EagleEyeWebService.getChartSetById(id)
+        .then(function(chartset) {
           controller.chartset = chartset;
         });
-      };
+    };
 
-      /**
-       * @method
-       * @name loadChartList
-       * @description Fetch the chart list.
-       */
-      this.loadChartList = function() {
-        return EagleEyeWebService.getCharts().then(function(chartList) {
+    /**
+     * Fetch the chart list.
+     *
+     * @method
+     */
+    this.loadChartList = function() {
+      return EagleEyeWebService.getCharts()
+        .then(function(chartList) {
           controller.chartList = chartList;
         });
-      };
+    };
 
-      /**
-       * @method
-       * @name init
-       */
-      this.init = function() {
-        $q.all([this.loadChartSet(this.id), this.loadChartList()]).then(function() {
+    /**
+     * @method
+     */
+    this.init = function() {
+      $q.all([this.loadChartSet(this.id), this.loadChartList()])
+        .then(function() {
           controller.chartList.forEach(function(chart) {
             controller.chartset.charts.forEach(function(_chart) {
               if (chart._id === _chart._id) {
@@ -185,8 +189,8 @@ angular.module('eagleeye')
             });
           });
         });
-      };
+    };
 
-      this.init();
-    }
-  ]);
+    this.init();
+  }
+]);

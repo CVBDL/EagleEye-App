@@ -30,7 +30,10 @@ describe('Controller: ShareDialogController', function() {
   }));
 
   // inject services
-  beforeEach(inject(function(_$controller_, _$httpBackend_, _$mdDialog_, _sharedTitle_, _sharedLink_) {
+  beforeEach(inject(function(
+      _$controller_, _$httpBackend_, _$mdDialog_, _sharedTitle_,
+      _sharedLink_) {
+
     $controller = _$controller_;
     $httpBackend = _$httpBackend_;
     $mdDialog = _$mdDialog_;

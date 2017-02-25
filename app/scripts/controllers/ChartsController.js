@@ -5,68 +5,66 @@
  * @name eagleeye.controller:ChartsController
  */
 angular.module('eagleeye')
-  .controller('ChartsController', [
-    '$state',
-    'EagleEyeWebService',
-    'EEDialogService',
-    function($state, EagleEyeWebService, EEDialogService) {
-      var controller = this;
 
-      /** @default true */
-      this.isLoading = true;
+.controller('ChartsController', [
+  '$state',
+  'EagleEyeWebService',
+  'EEDialogService',
+  function($state, EagleEyeWebService, EEDialogService) {
+    var controller = this;
 
-      /**
-       * @method
-       * @name loadChartList
-       * @description Load chart list then set loading status and update model
-       */
-      this.loadChartList = function() {
-        EagleEyeWebService.getCharts().then(function(chartList) {
-          controller.isLoading = false;
-          controller.chartList = chartList;
+    /** @default true */
+    this.isLoading = true;
+
+    /**
+     * Load chart list then set loading status and update model
+     *
+     * @method
+     */
+    this.loadChartList = function() {
+      EagleEyeWebService.getCharts().then(function(chartList) {
+        controller.isLoading = false;
+        controller.chartList = chartList;
+      });
+    };
+
+    /**
+     * Delete chart button on click handler.
+     * It'll show a delete comfirmation dialog. User need confirm
+     * delete or not.
+     * If cancel delete, then do nothing.
+     * If ok to delete, delete the chart and reload chart list.
+     *
+     * @method
+     */
+    this.onClickDeleteChart = function($event, chart) {
+      $event.stopPropagation();
+
+      EEDialogService
+        .showDeleteConfirmation({ title: chart.options.title })
+        .then(function() {
+          return EagleEyeWebService.deleteChartById(chart._id);
+        })
+        .then(function() {
+          controller.loadChartList();
         });
-      };
+    };
 
-      /**
-       * @method
-       * @name onClickDeleteChart
-       *
-       * @description
-       * Delete chart button on click handler.
-       * It'll show a delete comfirmation dialog. User need confirm delete or not.
-       * If cancel delete, then do nothing.
-       * If ok to delete, delete the chart and reload chart list.
-       */
-      this.onClickDeleteChart = function($event, chart) {
-        $event.stopPropagation();
+    /**
+     * @method
+     */
+    this.createChart = function() {
+      $state.go('chartCreation');
+    };
 
-        EEDialogService
-          .showDeleteConfirmation({ title: chart.options.title })
-          .then(function() {
-            return EagleEyeWebService.deleteChartById(chart._id);
-          })
-          .then(function() {
-            controller.loadChartList();
-          });
-      };
+    /**
+     * @method
+     * @this ChartsController
+     */
+    this.init = function() {
+      this.loadChartList();
+    };
 
-      /**
-       * @method
-       * @name createChart
-       */
-      this.createChart = function() {
-        $state.go('chartCreation');
-      };
-
-      /**
-       * @method
-       * @name init
-       * @this ChartsController
-       */
-      this.init = function() {
-        this.loadChartList();
-      };
-
-      this.init();
-    }
-  ]);
+    this.init();
+  }
+]);

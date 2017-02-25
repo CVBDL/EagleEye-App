@@ -31,7 +31,10 @@ describe('Controller: ChartSetSettingsController', function() {
   }));
 
   // inject services
-  beforeEach(inject(function(_$controller_, _$httpBackend_, _$q_, _$state_, _$stateParams_, _EagleEyeWebService_) {
+  beforeEach(inject(function(
+      _$controller_, _$httpBackend_, _$q_, _$state_, _$stateParams_,
+      _EagleEyeWebService_) {
+
     $controller = _$controller_;
     $httpBackend = _$httpBackend_;
     $q = _$q_;

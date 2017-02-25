@@ -26,7 +26,9 @@ describe('UI router:', function() {
     $templateCache.put('views/develop.html', '');
   }));
 
-  beforeEach(inject(function(_$httpBackend_, _$location_, _$rootScope_, _$state_, _$stateParams_) {
+  beforeEach(inject(function(
+      _$httpBackend_, _$location_, _$rootScope_, _$state_, _$stateParams_) {
+
     $httpBackend = _$httpBackend_;
     $location = _$location_;
     $rootScope = _$rootScope_;

@@ -18,7 +18,9 @@ describe('Service: EEDialogService', function() {
     $urlRouterProvider.otherwise(function() { return false; });
   }));
 
-  beforeEach(inject(function(_$httpBackend_, _$mdDialog_, _$rootScope_, _EEDialogService_) {
+  beforeEach(inject(function(
+      _$httpBackend_, _$mdDialog_, _$rootScope_, _EEDialogService_) {
+
     $httpBackend = _$httpBackend_;
     $mdDialog = _$mdDialog_;
     $rootScope = _$rootScope_;

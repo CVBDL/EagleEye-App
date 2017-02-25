@@ -35,7 +35,10 @@ describe('Controller: ChartController', function() {
     $urlRouterProvider.otherwise(function() { return false; });
   }));
 
-  beforeEach(inject(function(_$controller_, _$mdDialog_, _$rootScope_, _$stateParams_, _$httpBackend_, _$location_, _$interval_, _EagleEyeWebService_, _EEDialogService_) {
+  beforeEach(inject(function(
+      _$controller_, _$mdDialog_, _$rootScope_, _$stateParams_, _$httpBackend_,
+      _$location_, _$interval_, _EagleEyeWebService_, _EEDialogService_) {
+
     $controller = _$controller_;
     $mdDialog = _$mdDialog_;
     $rootScope = _$rootScope_;
@@ -48,7 +51,8 @@ describe('Controller: ChartController', function() {
   }));
 
   beforeEach(function() {
-    getChartByIdRequestHandler = $httpBackend.when('GET', '/api/v1/charts/1').respond({});
+    getChartByIdRequestHandler =
+      $httpBackend.when('GET', '/api/v1/charts/1').respond({});
   });
 
   beforeEach(function() {
@@ -101,7 +105,7 @@ describe('Controller: ChartController', function() {
 
   describe('on bootstrap', function() {
 
-    it('should make a GET request to fetch chart using initial `ChartController.id`', function() {
+    it('should fetch chart with id', function() {
       $httpBackend.expect('GET', '/api/v1/charts/1');
       $httpBackend.flush();
     });
@@ -151,7 +155,7 @@ describe('Controller: ChartController', function() {
 
     describe('loadChart()', function() {
 
-      it('should make a GET request to fetch chart using the padding `id` parameter', function() {
+      it('should fetch chart with given id', function() {
         ChartController.loadChart('1');
 
         $httpBackend.expect('GET', '/api/v1/charts/1');
@@ -184,7 +188,7 @@ describe('Controller: ChartController', function() {
         spyOn(ChartController, 'stopAutoReloadChart');
       });
 
-      it('should return directly if not passing `isAutoReloadSwitchOn` param', function() {
+      it('should do nothing without `isAutoReloadSwitchOn` param', function() {
         ChartController.onAutoReloadSwitchChange();
 
         expect(ChartController.startAutoReloadChart).not.toHaveBeenCalled();

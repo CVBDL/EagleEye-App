@@ -5,48 +5,50 @@
  * @name eagleeye.controller:ChartSettingsController
  */
 angular.module('eagleeye')
-  .controller('ChartSettingsController', [
-    '$stateParams',
-    'EagleEyeWebService',
-    function($stateParams, EagleEyeWebService) {
-      var controller = this;
 
-      this.id = $stateParams.id;
-      this.chart = {};
+.controller('ChartSettingsController', [
+  '$stateParams',
+  'EagleEyeWebService',
+  function($stateParams, EagleEyeWebService) {
+    var controller = this;
 
-      /**
-       * @method
-       * @name upload
-       * @description Call EagleEyeWebService service to update chart data file.
-       * @param {Object} file File object.
-       * @this ChartController
-       */
-      this.upload = function(file) {
-        EagleEyeWebService.uploadFile(file, this.id);
-      };
+    this.id = $stateParams.id;
+    this.chart = {};
 
-      /**
-       * @method
-       * @name loadChart
-       * @description Call EagleEyeWebService service to load the chart data.
-       * @param {string} id  Chart id.
-       */
-      this.loadChart = function(id) {
-        EagleEyeWebService.getChartById(id).then(function(data) {
+    /**
+     * Call EagleEyeWebService service to update chart data file.
+     *
+     * @method
+     * @param {Object} file File object.
+     * @this ChartController
+     */
+    this.upload = function(file) {
+      EagleEyeWebService.uploadFile(file, this.id);
+    };
+
+    /**
+     * Call EagleEyeWebService service to load the chart data.
+     *
+     * @method
+     * @param {string} id  Chart id.
+     */
+    this.loadChart = function(id) {
+      EagleEyeWebService.getChartById(id)
+        .then(function(data) {
           controller.chart = data;
         });
-      };
+    };
 
-      /**
-       * @method
-       * @name init
-       * @description Initialize this controller
-       * @this ChartController
-       */
-      this.init = function() {
-        this.loadChart(this.id);
-      };
+    /**
+     * Initialize this controller
+     *
+     * @method
+     * @this ChartController
+     */
+    this.init = function() {
+      this.loadChart(this.id);
+    };
 
-      this.init();
-    }
-  ]);
+    this.init();
+  }
+]);

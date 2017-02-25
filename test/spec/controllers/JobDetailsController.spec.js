@@ -24,7 +24,10 @@ describe('Controller: JobDetailsController', function() {
   }));
 
   // inject services
-  beforeEach(inject(function(_$controller_, _$httpBackend_, _$state_, _$templateCache_, _EagleEyeWebService_) {
+  beforeEach(inject(function(
+      _$controller_, _$httpBackend_, _$state_, _$templateCache_,
+      _EagleEyeWebService_) {
+
     $controller = _$controller_;
     $httpBackend = _$httpBackend_;
     $state = _$state_;

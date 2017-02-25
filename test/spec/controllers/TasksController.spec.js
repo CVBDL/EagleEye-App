@@ -36,7 +36,9 @@ describe('Controller: TasksController', function() {
   }));
 
   // inject services
-  beforeEach(inject(function(_$controller_, _$httpBackend_, _$stateParams_, _EagleEyeWebService_) {
+  beforeEach(inject(function(
+      _$controller_, _$httpBackend_, _$stateParams_, _EagleEyeWebService_) {
+
     $controller = _$controller_;
     $httpBackend = _$httpBackend_;
     $stateParams = _$stateParams_;

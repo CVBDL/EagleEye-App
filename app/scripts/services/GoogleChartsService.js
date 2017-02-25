@@ -36,7 +36,8 @@ angular.module('eagleeye')
    *
    * @description
    * Google charts' `isStacked` option.
-   * Only some of the chart types have this options, like Bar Chart, Column Chart or Area Chart, etc.
+   * Only some of the chart types have this options, like Bar Chart,
+   * Column Chart or Area Chart, etc.
    */
   .constant('IS_STACKED_OPTIONS', [{
     value: true,
@@ -53,8 +54,10 @@ angular.module('eagleeye')
    * @description
    * Google charts' `hAxis.format` or `vAxis.format` options.
    * It's a format string for numeric or date axis labels.
+   *
    * {@link https://developers.google.com/chart/interactive/docs/gallery/columnchart#configuration-options Configuration Options}
-   * There're a few values in google charts' document, but we now only support 'percent'.
+
+   ** There're a few values in google charts' document, but we now only support 'percent'.
    *
    * @todo Value '' means default to auto but 'none'.
    */
@@ -346,7 +349,9 @@ angular.module('eagleeye')
       /**
        * @method
        * @name eagleeye.GoogleChartsService#validateChartType
-       * @description Validate the given chart type. The chart type must exist in `CHART_TYPE_OPTIONS`
+       * @description
+       * Validate the given chart type. The chart type must exist
+       * in `CHART_TYPE_OPTIONS`
        * @param {string} type The chart type.
        * @returns {boolean} Indicate if it's an valid chart type or not.
        */
@@ -390,9 +395,11 @@ angular.module('eagleeye')
        * {@link https://developers.google.com/chart/interactive/docs/gallery/linechart#configuration-options Configuration Options}.
        *
        * Note:
-       * Google supports four properties in the `chartArea` option object. They're `left`, `top`, `width` and `height`.
+       * Google supports four properties in the `chartArea` option object.
+       * They're `left`, `top`, `width` and `height`.
        * But now in this app, we only support two: `left` and `width`!
-       * And the values format must be a string, containing a number followed by %. For example, '30%'.
+       * And the values format must be a string, containing a number
+       * followed by %. For example, '30%'.
        *
        * @param {Object} options Input chart area option.
        *
@@ -422,7 +429,8 @@ angular.module('eagleeye')
       /**
        * @method
        * @name eagleeye.GoogleChartsService#makeAxisOptions
-       * @description Generate google charts `hAxis` or `vAxis` configuration option.
+       * @description Generate google charts `hAxis` or `vAxis`
+       * configuration option.
        * @param {Object} options Input axis options.
        * @returns {Object} `hAxis` or `vAxis` configuration option objects.
        */
@@ -458,7 +466,9 @@ angular.module('eagleeye')
       /**
        * @method
        * @name eagleeye.GoogleChartsService#hasComboLinesOption
-       * @description Check support `combolines` option or not. Only ComboChart support it.
+       * @description
+       * Check support `combolines` option or not.
+       * Only ComboChart support it.
        * @param {Object} chartType Google chart type.
        * @returns {boolean}
        * @todo The standard option is `series`'s `type`.

@@ -29,7 +29,9 @@ describe('Controller: DeleteDialogController', function() {
   }));
 
   // inject services
-  beforeEach(inject(function(_$controller_, _$httpBackend_, _$mdDialog_, _title_) {
+  beforeEach(inject(function(
+      _$controller_, _$httpBackend_, _$mdDialog_, _title_) {
+
     $controller = _$controller_;
     $httpBackend = _$httpBackend_;
     $mdDialog = _$mdDialog_;
