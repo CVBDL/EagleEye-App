@@ -43,9 +43,10 @@ angular.module('eagleeye')
      * @param {string} id  Chart set id.
      */
     this.loadChartSet = function(id) {
-      EagleEyeWebService.getChartSetById(id).then(function(chartset) {
-        controller.chartset = chartset;
-      });
+      EagleEyeWebService.getChartSetById(id)
+        .then(function(chartset) {
+          controller.chartset = chartset;
+        });
     };
 
     /**
@@ -54,9 +55,10 @@ angular.module('eagleeye')
      * @method
      */
     this.loadChartSets = function() {
-      EagleEyeWebService.getChartSets().then(function(chartSetList) {
-        controller.chartSetList = chartSetList;
-      });
+      EagleEyeWebService.getChartSets()
+        .then(function(chartSetList) {
+          controller.chartSetList = chartSetList;
+        });
     };
 
     /**

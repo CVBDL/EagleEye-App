@@ -22,10 +22,11 @@ angular.module('eagleeye')
      * @method
      */
     this.loadChartList = function() {
-      EagleEyeWebService.getCharts().then(function(chartList) {
-        controller.isLoading = false;
-        controller.chartList = chartList;
-      });
+      EagleEyeWebService.getCharts()
+        .then(function(chartList) {
+          controller.isLoading = false;
+          controller.chartList = chartList;
+        });
     };
 
     /**

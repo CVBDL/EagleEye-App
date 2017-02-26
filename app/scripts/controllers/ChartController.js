@@ -38,9 +38,10 @@ angular.module('eagleeye')
      * @param {string} id  Chart id.
      */
     this.loadChart = function(id) {
-      EagleEyeWebService.getChartById(id).then(function(data) {
-        controller.chart = data;
-      });
+      EagleEyeWebService.getChartById(id)
+        .then(function(data) {
+          controller.chart = data;
+        });
     };
 
     /**
@@ -113,13 +114,12 @@ angular.module('eagleeye')
     this.generateDownloadLink = function(id, format) {
       return EagleEyeWebService.getRootEndpoint()
         .then(function(rootEndpoint) {
-          var link = rootEndpoint + 'api/v1/charts/'+ id + '/datatable?format='
-                     + format;
+          var link = rootEndpoint + 'api/v1/charts/' + id
+                     + '/datatable?format=' + format;
 
           return link;
         });
     };
-
 
     /**
      * Save chart as an image.
@@ -139,9 +139,10 @@ angular.module('eagleeye')
       this.loadChart(this.id);
 
       // only support downloading an .xlsx file now
-      this.generateDownloadLink(this.id, 'xlsx').then(function(link) {
-        controller.downloadLink = link;
-      });
+      this.generateDownloadLink(this.id, 'xlsx')
+        .then(function(link) {
+          controller.downloadLink = link;
+        });
     };
 
     this.init();

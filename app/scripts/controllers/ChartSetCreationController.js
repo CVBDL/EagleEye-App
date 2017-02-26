@@ -28,8 +28,8 @@ angular.module('eagleeye')
      * @returns {boolean} `true` for match this filter.
      */
     this.filterFunction = function(chart) {
-      return chart.options.title.indexOf(controller.searchKeyword) >= 0 ||
-        chart.description.indexOf(controller.searchKeyword) >= 0;
+      return (chart.options.title.indexOf(controller.searchKeyword) >= 0
+             || chart.description.indexOf(controller.searchKeyword) >= 0);
     };
 
     /**
@@ -133,11 +133,12 @@ angular.module('eagleeye')
     this.save = function(chartset) {
       var payload = this.makeChartSetPayload(chartset);
 
-      EagleEyeWebService.createChartSet(payload).then(function(newChartSet) {
-        $state.go('chartSet', {
-          id: newChartSet._id
+      EagleEyeWebService.createChartSet(payload)
+        .then(function(newChartSet) {
+          $state.go('chartSet', {
+            id: newChartSet._id
+          });
         });
-      });
     };
 
     /**
@@ -146,9 +147,10 @@ angular.module('eagleeye')
      * @method
      */
     this.loadChartList = function() {
-      EagleEyeWebService.getCharts().then(function(chartList) {
-        controller.chartList = chartList;
-      });
+      EagleEyeWebService.getCharts()
+        .then(function(chartList) {
+          controller.chartList = chartList;
+        });
     };
 
     /**

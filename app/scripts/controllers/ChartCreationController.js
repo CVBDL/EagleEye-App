@@ -74,7 +74,7 @@ angular.module('eagleeye')
       payload.datatable = GoogleChartsService.getChartDataTableSamples(
         chart.chartType);
 
-      payload.options =GoogleChartsService.makeConfigurationOptions(
+      payload.options = GoogleChartsService.makeConfigurationOptions(
         chart.chartType, chart.options);
 
       return payload;
@@ -89,11 +89,12 @@ angular.module('eagleeye')
     this.save = function(chart) {
       var payload = this.makeChartPayload(chart);
 
-      EagleEyeWebService.createChart(payload).then(function(newChart) {
-        $state.go('chartSettings', {
-          id: newChart._id
+      EagleEyeWebService.createChart(payload)
+        .then(function(newChart) {
+          $state.go('chartSettings', {
+            id: newChart._id
+          });
         });
-      });
     };
   }
 ]);
