@@ -184,7 +184,7 @@ angular.module('eagleeye')
 
     self.uploadFile = function(file, id) {
       return self.getRootEndpoint().then(function(rootEndpoint) {
-        var url = rootEndpoint + 'api/v1/charts/' + id + '/assets';
+        var url = rootEndpoint + 'api/v1/charts/' + id + '/files';
 
         file.upload = Upload.upload({
           url: url,
