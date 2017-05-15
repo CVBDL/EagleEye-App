@@ -61,10 +61,6 @@
                     <md-button aria-label="Save as image" ng-click="ctrl.saveAsImage(chart._id)">
                       <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> image </md-icon> <span md-menu-align-target>Save as image</span></md-button>
                   </md-menu-item>
-                  <md-menu-item>
-                    <md-button aria-label="Download data" ng-href="{{chart.browserDownloadUrl.excel}}">
-                      <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent"> file_download </md-icon> <span md-menu-align-target>Download data</span></md-button>
-                  </md-menu-item>
                 </md-menu-content>
               </md-menu>
             </div>
@@ -79,7 +75,7 @@
                 datatable="chart.datatable"
                 options="chart.options"></ee-google-chart>
             <div ng-if="chart.chartType=='ImageChart'" class="ee-image-chart-container">
-              <img crossOrigin="anonymous" id="{{chart.options.title}}" ng-src="{{chart.browserDownloadUrl.image}}" />
+              <img crossOrigin="anonymous" id="{{chart.options.title}}" ng-src="{{chart.imageUrl}}" />
             </div>
           </md-card-content>
           <md-divider ng-hide="ctrl.viewMode === 'column'"></md-divider>

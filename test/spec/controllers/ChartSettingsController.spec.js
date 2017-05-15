@@ -2,6 +2,7 @@
 
 describe('Controller: ChartSettingsController', function() {
   var $controller,
+    $rootScope,
     $stateParams,
     $httpBackend,
     EagleEyeWebService;
@@ -27,10 +28,11 @@ describe('Controller: ChartSettingsController', function() {
     $urlRouterProvider.otherwise(function() { return false; });
   }));
 
-  beforeEach(inject(function(
-      _$controller_, _$stateParams_, _$httpBackend_,_EagleEyeWebService_) {
+  beforeEach(inject(function(_$controller_, _$rootScope_, _$stateParams_,
+      _$httpBackend_,_EagleEyeWebService_) {
 
     $controller = _$controller_;
+    $rootScope = _$rootScope_;
     $stateParams = _$stateParams_;
     $httpBackend = _$httpBackend_;
     EagleEyeWebService = _EagleEyeWebService_;
@@ -97,6 +99,14 @@ describe('Controller: ChartSettingsController', function() {
 
       expect(ChartSettingsController.chart).toEqual({});
     });
+
+    it('should generate data table download link', function() {
+      getChartByIdRequestHandler.respond({ _id: '1' });
+      $httpBackend.flush();
+
+      expect(ChartSettingsController.downloadLink)
+        .toBe('http://localhost/api/v1/charts/1/datatable?format=xlsx');
+    });
   });
 
   describe('on runtime', function() {
@@ -140,6 +150,26 @@ describe('Controller: ChartSettingsController', function() {
         ChartSettingsController.upload({});
 
         expect(EagleEyeWebService.uploadFile).toHaveBeenCalledWith({}, '1');
+      });
+    });
+
+    describe('generateDownloadLink()', function() {
+
+      it('should generate a download link', function() {
+        var id = '123';
+        var format = 'xlsx';
+        ChartSettingsController.downloadLink = '';
+
+        ChartSettingsController.generateDownloadLink(id, format)
+          .then(function(link) {
+            expect(link).toBe('http://localhost/api/v1/charts/'
+                              + id + '/datatable?format=' + format);
+          })
+          .catch(function(error) {
+            fail(error);
+          });
+
+        $rootScope.$digest();
       });
     });
   });

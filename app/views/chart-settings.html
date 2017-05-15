@@ -24,9 +24,7 @@
               </md-card-title-text>
             </md-card-title>
             <md-card-actions layout="row" layout-align="end center">
-              <md-button class="ee-button--accent" aria-label="file download">
-                <a class="ee-button--accent" ng-href="{{ctrl.chart.browserDownloadUrl.excel}}">Go to Download</a>
-              </md-button>
+              <md-button class="ee-button--accent" aria-label="file download" ng-href="{{ctrl.downloadLink}}">Go to Download</md-button>
               <span>&gt;</span>
               <md-button class="ee-button--accent" ngf-select ng-model="ctrl.excelFile" name="file">Choose File</md-button>
               <span>&gt;</span>
