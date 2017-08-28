@@ -256,7 +256,7 @@ module.exports = function (grunt) {
         flow: {
           html: {
             steps: {
-              js: ['concat'],
+              js: ['concat', 'uglify'],
               css: ['cssmin']
             },
             post: {}
@@ -392,6 +392,11 @@ module.exports = function (grunt) {
           cwd: '.tmp/images',
           dest: '<%= yeoman.dist %>/images',
           src: ['generated/*']
+        }, {
+          expand: true,
+          cwd: '.tmp/concat/scripts',
+          dest: '<%= yeoman.dist %>/scripts',
+          src: '*.js'
         }]
       },
       styles: {
