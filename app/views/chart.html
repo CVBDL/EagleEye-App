@@ -34,10 +34,33 @@
             ng-if="ctrl.chart.chartType!='ImageChart'"
             chart-id="{{ctrl.chart._id}}"
             type="{{ctrl.chart.chartType}}"
-            datatable="ctrl.chart.datatable"
+            datatable="ctrl.filteredDatatable"
             options="ctrl.chart.options"></ee-google-chart>
         <div class="ee-image-chart-container" ng-if="ctrl.chart.chartType=='ImageChart'">
           <img ng-src="{{ctrl.chart.imageUrl}}" />
+        </div>
+      </md-card-content>
+      <md-divider></md-divider>
+      <md-card-content ng-if="ctrl.chart.chartType !== 'ImageChart'">
+        <a class="md-primary" href ng-click="ctrl.showFilter = !ctrl.showFilter">
+          <div layout="row" layout-align="space-around center">
+            <h2 class="md-subhead ee-icon--accent" flex="none">Filters</h2>
+            <span flex></span>
+            <md-button flex="none" class="md-icon-button" aria-label="More">
+              <md-icon class="ee-icon--accent" ng-bind="ctrl.showFilter ? 'expand_less' : 'expand_more'"></md-icon>
+            </md-button>
+          </div>
+        </a>
+        <div ng-show="ctrl.showFilter">
+          <h2>Series</h2>
+          <div layout="row" layout-wrap layout-margin layout-align="start">
+            <md-checkbox ng-if="$index > 0" flex="nogrow" ng-repeat="col in ctrl.chart.datatable.cols" ng-checked="!col.isHide" ng-click="col.isHide = !col.isHide">{{col.label}}</md-checkbox>
+          </div>
+          <h2>Category</h2>
+          <div layout="row" layout-wrap layout-margin layout-align="start">
+            <md-checkbox flex="nogrow" ng-repeat="row in ctrl.chart.datatable.rows" ng-checked="!row.isHide" ng-click="row.isHide = !row.isHide">{{row.c[0].v}}</md-checkbox>
+          </div>
+          <md-button class="md-raised ee-button--raised" ng-click="ctrl.applyFilter(ctrl.chart.datatable)">Apply</md-button>
         </div>
       </md-card-content>
       <md-divider></md-divider>

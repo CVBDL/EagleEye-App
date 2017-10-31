@@ -31,6 +31,8 @@ angular.module('eagleeye')
 
     this.chart = {};
 
+    this.showFilter = false;
+
     /**
      * Call EagleEyeWebService service to load the chart data.
      *
@@ -41,6 +43,7 @@ angular.module('eagleeye')
       EagleEyeWebService.getChartById(id)
         .then(function(data) {
           controller.chart = data;
+          controller.applyFilter(data.datatable);
         });
     };
 
@@ -130,6 +133,47 @@ angular.module('eagleeye')
     this.saveAsImage = function(id) {
       EagleEyeChartTools.saveAsImage(id);
     };
+
+    this.filterCategory = function(dt) {
+      var datatable = {};
+      datatable.cols = angular.copy(dt.cols);
+      datatable.rows = angular.copy(dt.rows).filter(function(row) {
+        return !row.isHide;
+      });
+
+      return datatable;
+    };
+
+    this.filterColumn = function(dt) {
+      var datatable = {};
+      var hideIndexes = dt.cols.map(function(col, index) {
+        if (col.isHide) {
+          return index;
+
+        } else {
+          return -1;
+        }
+      });
+      datatable.cols = angular.copy(dt.cols).filter(function(col) {
+        return !col.isHide;
+      });
+      datatable.rows = angular.copy(dt.rows).map(function(row, index) {
+        var cells = [];
+        var c = row.c.filter(function(cell, index) {
+          return hideIndexes.indexOf(index) < 0;
+        });
+        return { c: c };
+      });
+
+      return datatable;
+    };
+
+    this.applyFilter = function(dt) {
+      // order matters
+      var datatable = this.filterCategory(dt);
+      datatable = this.filterColumn(datatable);
+      this.filteredDatatable = datatable;
+    }
 
     /**
      * @method
