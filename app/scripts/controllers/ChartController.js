@@ -158,7 +158,6 @@ angular.module('eagleeye')
         return !col.isHide;
       });
       datatable.rows = angular.copy(dt.rows).map(function(row, index) {
-        var cells = [];
         var c = row.c.filter(function(cell, index) {
           return hideIndexes.indexOf(index) < 0;
         });
@@ -173,7 +172,7 @@ angular.module('eagleeye')
       var datatable = this.filterCategory(dt);
       datatable = this.filterColumn(datatable);
       this.filteredDatatable = datatable;
-    }
+    };
 
     /**
      * @method
