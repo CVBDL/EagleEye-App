@@ -20,9 +20,6 @@ describe('UI router:', function() {
     $templateCache.put('views/chart-set-creation.html', '');
     $templateCache.put('views/chart-set.html', '');
     $templateCache.put('views/chart-set-settings.html', '');
-    $templateCache.put('views/jobs.html', '');
-    $templateCache.put('views/job-details.html', '');
-    $templateCache.put('views/tasks.html', '');
     $templateCache.put('views/develop.html', '');
   }));
 
@@ -131,33 +128,6 @@ describe('UI router:', function() {
     expect($state.current.name).toBe('chartSetSettings');
     expect($stateParams.id).toBe(chartSetId);
     expect($location.url()).toBe('/chart-sets/' + chartSetId + '/settings');
-  });
-
-  it('should have a jobs state', function() {
-    $state.go('jobs');
-    $rootScope.$digest();
-
-    expect($state.current.name).toBe('jobs');
-    expect($location.url()).toBe('/jobs');
-  });
-
-  it('should have a jobCreation state', function() {
-    $state.go('jobCreation');
-    $rootScope.$digest();
-
-    expect($state.current.name).toBe('jobCreation');
-    expect($location.url()).toBe('/jobs/new');
-  });
-
-  it('should have a tasks state with id parameter', function() {
-    var jobId = 'foo';
-
-    $state.go('tasks', { id: jobId });
-    $rootScope.$digest();
-
-    expect($state.current.name).toBe('tasks');
-    expect($stateParams.id).toBe(jobId);
-    expect($location.url()).toBe('/jobs/' + jobId + '/tasks');
   });
 
   it('should have a develop state', function() {
