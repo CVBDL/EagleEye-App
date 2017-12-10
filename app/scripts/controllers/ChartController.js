@@ -23,12 +23,6 @@ angular.module('eagleeye')
     /** @constant {number} */
     this.DELAY = 60 * 1000;
 
-    /** @default false */
-    this.isAutoReloadSwitchOn = false;
-
-    /** @default null */
-    this.autoReloadChartPromise = null;
-
     this.chart = {};
 
     this.showFilter = false;
@@ -45,51 +39,6 @@ angular.module('eagleeye')
           controller.chart = data;
           controller.applyFilter(data.datatable);
         });
-    };
-
-    /**
-     * When the auto reload switch on page is changed by user,
-     * we should start or stop auto reload.
-     *
-     * @method
-     * @param {boolean} isAutoReloadSwitchOn Indicate the switch is on or off.
-     * @this ChartController
-     */
-    this.onAutoReloadSwitchChange = function(isAutoReloadSwitchOn) {
-      if (!angular.isDefined(isAutoReloadSwitchOn)) return;
-
-      if (isAutoReloadSwitchOn) {
-        this.startAutoReloadChart();
-
-      } else {
-        this.stopAutoReloadChart();
-      }
-    };
-
-    /**
-     * Start to reload chart data automatically and periodically.
-     * It'll make use of `DELAY` property on this controller and
-     * assign the returned promise to controller's `autoReloadChartPromise`
-     * property.
-     *
-     * @method
-     * @this ChartController
-     */
-    this.startAutoReloadChart = function() {
-      this.autoReloadChartPromise = $interval(function() {
-        controller.loadChart(controller.id);
-      }, this.DELAY);
-    };
-
-    /**
-     * Stop to reload chart data automatically and periodically.
-     *
-     * @method
-     * @returns {boolean} Returns `true` if it was successfully stopped.
-     * @this ChartController
-     */
-    this.stopAutoReloadChart = function() {
-      return $interval.cancel(this.autoReloadChartPromise);
     };
 
     /**

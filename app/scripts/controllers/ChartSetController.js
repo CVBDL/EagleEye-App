@@ -27,12 +27,6 @@ angular.module('eagleeye')
     /** @default 'list' */
     this.viewMode = 'list';
 
-    /** @default false */
-    this.isAutoReloadSwitchOn = false;
-
-    /** @default null */
-    this.autoReloadChartSetPromise = null;
-
     this.chartset = {};
     this.chartSetList = [];
 
@@ -73,52 +67,6 @@ angular.module('eagleeye')
 
       this.viewMode = mode;
       $rootScope.$emit('ee.googlechart.redraw');
-    };
-
-    /**
-     * When the auto reload switch on page is changed by user,
-     * we should start or stop auto reload.
-     *
-     * @method
-     * @param {boolean} isAutoReloadSwitchOn Indicate the switch is
-     *                                       on or off.
-     * @this ChartSetController
-     */
-    this.onAutoReloadSwitchChange = function(isAutoReloadSwitchOn) {
-      if (!angular.isDefined(isAutoReloadSwitchOn)) return;
-
-      if (isAutoReloadSwitchOn) {
-        this.startAutoReloadChartSet();
-
-      } else {
-        this.stopAutoReloadChartSet();
-      }
-    };
-
-    /**
-     * Start to reload chart set data automatically and periodically.
-     * It'll make use of `DELAY` property on this controller and
-     * assign the returned promise to
-     * controller's `autoReloadChartSetPromise` property.
-     *
-     * @method
-     * @this ChartSetController
-     */
-    this.startAutoReloadChartSet = function() {
-      this.autoReloadChartSetPromise = $interval(function() {
-        controller.loadChartSet(controller.id);
-      }, this.DELAY);
-    };
-
-    /**
-     * Stop to reload chart set data automatically and periodically.
-     *
-     * @method
-     * @returns {boolean} Returns `true` if it was successfully stopped.
-     * @this ChartSetController
-     */
-    this.stopAutoReloadChartSet = function() {
-      return $interval.cancel(this.autoReloadChartSetPromise);
     };
 
     /**

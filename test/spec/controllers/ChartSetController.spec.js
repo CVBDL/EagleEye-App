@@ -108,14 +108,6 @@ describe('Controller: ChartSetController', function() {
       expect(ChartSetController.viewMode).toBe('list');
     });
 
-    it('should initialize `isAutoReloadSwitchOn` model to false', function() {
-      expect(ChartSetController.isAutoReloadSwitchOn).toBe(false);
-    });
-
-    it('should initialize `autoReloadChartSetPromise` model to null', function() {
-      expect(ChartSetController.autoReloadChartSetPromise).toBeNull();
-    });
-
     it('should initialize `saveChartSetAsPdf` to use SaveAsPDFService', function() {
       expect(ChartSetController.saveChartSetAsPdf).toBe(SaveAsPDFService.saveChartSetAsPdf);
     });
@@ -251,59 +243,6 @@ describe('Controller: ChartSetController', function() {
         ChartSetController.setViewMode('column');
         expect(ChartSetController.viewMode).toBe('column');
         expect($rootScope.$emit).toHaveBeenCalledWith('ee.googlechart.redraw');
-      });
-    });
-
-    describe('onAutoReloadSwitchChange()', function() {
-
-      beforeEach(function() {
-        spyOn(ChartSetController, 'startAutoReloadChartSet');
-        spyOn(ChartSetController, 'stopAutoReloadChartSet');
-      });
-
-      it('should return if none parameter passed in', function() {
-        expect(ChartSetController.onAutoReloadSwitchChange()).not.toBeDefined();
-        expect(ChartSetController.startAutoReloadChartSet).not.toHaveBeenCalled();
-        expect(ChartSetController.stopAutoReloadChartSet).not.toHaveBeenCalled();
-      });
-
-      it('should start auto reload if passing isAutoReloadSwitchOn = true', function() {
-        ChartSetController.onAutoReloadSwitchChange(true);
-        expect(ChartSetController.startAutoReloadChartSet).toHaveBeenCalled();
-        expect(ChartSetController.stopAutoReloadChartSet).not.toHaveBeenCalled();
-      });
-
-      it('should stop auto reload if passing isAutoReloadSwitchOn = false', function() {
-        ChartSetController.onAutoReloadSwitchChange(false);
-        expect(ChartSetController.startAutoReloadChartSet).not.toHaveBeenCalled();
-        expect(ChartSetController.stopAutoReloadChartSet).toHaveBeenCalled();
-      });
-    });
-
-    describe('startAutoReloadChartSet()', function() {
-
-      it('should register an interval task with startAutoReloadChartSet()', function() {
-        spyOn(ChartSetController, 'loadChartSet');
-        ChartSetController.id = 'id';
-        ChartSetController.DELAY = 1000;
-        ChartSetController.startAutoReloadChartSet();
-        expect(ChartSetController.autoReloadChartSetPromise.then).toBeDefined();
-        $interval.flush(1000);
-        expect(ChartSetController.loadChartSet).toHaveBeenCalledWith('id');
-      });
-    });
-
-    describe('stopAutoReloadChartSet()', function() {
-
-      it('should stop an interval task with stopAutoReloadChartSet()', function() {
-        spyOn(ChartSetController, 'loadChartSet');
-        spyOn($interval, 'cancel').and.callThrough();
-        ChartSetController.DELAY = 1000;
-        ChartSetController.startAutoReloadChartSet();
-        expect(ChartSetController.autoReloadChartSetPromise.then).toBeDefined();
-        $interval.flush(1000);
-        expect(ChartSetController.stopAutoReloadChartSet()).toBe(true);
-        expect($interval.cancel).toHaveBeenCalledWith(ChartSetController.autoReloadChartSetPromise);
       });
     });
 

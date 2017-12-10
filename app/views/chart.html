@@ -5,10 +5,6 @@
         <div class="md-toolbar-tools">
           <h2 class="ee-text-black-primary">{{ctrl.chart.options.title}}</h2>
           <span flex></span>
-          <span ng-hide="ctrl.chart.chartType ==='ImageChart'">
-            <md-tooltip md-direction="botton">Auto Reload</md-tooltip>
-            <md-switch class="ee-auto-refresh-label ee-switch" ng-class="{ 'ee-auto-refresh-disabled': !ctrl.isAutoReloadSwitchOn }" aria-label="Auto Reload" ng-model="ctrl.isAutoReloadSwitchOn" ng-change="ctrl.onAutoReloadSwitchChange(ctrl.isAutoReloadSwitchOn)">auto</md-switch>
-          </span>
           <md-button class="md-icon-button" aria-label="Reload" ng-hide="ctrl.chart.chartType ==='ImageChart'">
             <md-tooltip md-direction="botton">Reload</md-tooltip>
             <md-icon md-font-set="material-icons" class="ee-icon ee-icon--accent" ng-click="ctrl.loadChart(ctrl.id)"> refresh </md-icon>
@@ -44,7 +40,9 @@
       <md-card-content ng-if="ctrl.chart.chartType !== 'ImageChart'">
         <a class="md-primary" href ng-click="ctrl.showFilter = !ctrl.showFilter">
           <div layout="row" layout-align="space-around center">
-            <h2 class="md-subhead ee-icon--accent" flex="none">Filters</h2>
+            <h2 class="md-subhead ee-icon--accent" flex="none">
+                <md-icon class="ee-icon--accent">filter_list</md-icon>
+              Filters</h2>
             <span flex></span>
             <md-button flex="none" class="md-icon-button" aria-label="More">
               <md-icon class="ee-icon--accent" ng-bind="ctrl.showFilter ? 'expand_less' : 'expand_more'"></md-icon>

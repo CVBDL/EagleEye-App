@@ -88,7 +88,7 @@ angular
         })
         .state('develop', {
           url: '/develop',
-          templateUrl: 'views/develop.html',
+          templateUrl: 'views/develop.html'
         });
 
       // default router
