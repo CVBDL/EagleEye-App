@@ -51,9 +51,6 @@
             <a ui-sref="chartSet" hide></a>
             <a ui-sref="chartSetSettings" hide></a>
           </li>
-          <li>
-            <a class="ee-header__nav__item" ui-sref-active="ee-header__nav__item--active" href="#/jobs" ui-sref="jobs">Jobs</a>
-          </li>
         </ul>
         <div class="ee-header__feedback">
           <md-button class="md-icon-button" aria-label="Feedback" href="{{ctrl.feedbackLink}}">
@@ -71,7 +68,7 @@
     <footer class="ee-footer">
       <div class="ee-footer__content">
         <md-divider></md-divider>
-        <p>&#169; 2016 EagleEye Team.</p>
+        <p>&#169; 2016 - 2018 EagleEye Team.</p>
       </div>
     </footer>
 
@@ -79,15 +76,6 @@
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
     </script>
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-    <!-- <script>
-       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
-       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
-       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
-       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
-    </script> -->
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
@@ -104,13 +92,13 @@
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/AppController.js"></script>
     <script src="scripts/controllers/HomeController.js"></script>
     <script src="scripts/controllers/ChartsController.js"></script>
     <script src="scripts/controllers/ChartCreationController.js"></script>
     <script src="scripts/controllers/ChartController.js"></script>
     <script src="scripts/controllers/ChartOptionsController.js"></script>
     <script src="scripts/controllers/ChartOptionsAdvanceController.js"></script>
-    <script src="scripts/controllers/AppController.js"></script>
     <script src="scripts/controllers/ChartSettingsController.js"></script>
     <script src="scripts/controllers/ChartSetsController.js"></script>
     <script src="scripts/controllers/ChartSetController.js"></script>
@@ -118,9 +106,6 @@
     <script src="scripts/controllers/ChartSetSettingsController.js"></script>
     <script src="scripts/controllers/ShareDialogController.js"></script>
     <script src="scripts/controllers/DeleteDialogController.js"></script>
-    <script src="scripts/controllers/JobsController.js"></script>
-    <script src="scripts/controllers/JobDetailsController.js"></script>
-    <script src="scripts/controllers/TasksController.js"></script>
     <script src="scripts/services/GoogleChartsService.js"></script>
     <script src="scripts/services/EagleEyeChartTools.js"></script>
     <script src="scripts/services/EagleEyeWebService.js"></script>
