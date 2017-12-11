@@ -1,0 +1,63 @@
+<md-dialog class="ee-dialog" aria-label="Filter dialog">
+    <form>
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <h2>Filter columns and/or rows {{ctrl.selectTabIndex}}</h2>
+          <span flex></span>
+          <md-button class="md-icon-button" ng-click="ctrl.cancel()">
+            <md-icon md-font-set="material-icons"> close </md-icon>
+          </md-button>
+        </div>
+      </md-toolbar>
+      <md-dialog-content style="max-width:800px;max-height:810px; ">
+        <md-tabs md-dynamic-height md-border-bottom>
+          <md-tab label="chart columns">
+            <md-content class="md-padding">
+              <!-- <h1 class="md-headline">Filter columns</h1> -->
+              <div>
+                <md-checkbox aria-label="Select All"
+                              ng-checked="ctrl.isChecked(ctrl.dt.cols)"
+                              md-indeterminate="ctrl.isIndeterminate(ctrl.dt.cols)"
+                              ng-click="ctrl.toggleAll(ctrl.dt.cols)">
+                  <span ng-if="ctrl.isChecked(ctrl.dt.cols)">Un-</span>Select All
+                </md-checkbox>
+              </div>
+              <div ng-repeat="col in ctrl.dt.cols" style="padding-left: 30px;">
+                <md-checkbox ng-if="$index > 0" ng-checked="!col.isHide" ng-click="col.isHide = !col.isHide">
+                  {{ col.label }}
+                </md-checkbox>
+              </div>
+            </md-content>
+          </md-tab>
+          <md-tab label="chart rows">
+            <md-content class="md-padding">
+              <!-- <h1 class="md-headline">Filter rows</h1> -->
+              <div>
+                <md-checkbox aria-label="Select All"
+                              ng-checked="ctrl.isChecked(ctrl.dt.rows)"
+                              md-indeterminate="ctrl.isIndeterminate(ctrl.dt.rows)"
+                              ng-click="ctrl.toggleAll(ctrl.dt.rows)">
+                  <span ng-if="ctrl.isChecked(ctrl.dt.rows)">Un-</span>Select All
+                </md-checkbox>
+              </div>
+              <div ng-repeat="row in ctrl.dt.rows" style="padding-left: 30px;">
+                <md-checkbox ng-checked="!row.isHide" ng-click="row.isHide = !row.isHide">
+                  {{ row.c[0].v }}
+                </md-checkbox>
+              </div>
+            </md-content>
+          </md-tab>
+        </md-tabs>
+      </md-dialog-content>
+  
+      <md-dialog-actions layout="row">
+        <span flex></span>
+        <md-button ng-click="ctrl.cancel()">
+          Cancel
+        </md-button>
+        <md-button ng-click="ctrl.apply(ctrl.dt)" style="margin-right:20px;" md-autofocus>
+          Apply
+        </md-button>
+      </md-dialog-actions>
+    </form>
+  </md-dialog>

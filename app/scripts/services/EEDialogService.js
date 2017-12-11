@@ -109,6 +109,14 @@ angular.module('eagleeye')
         });
       };
 
+      self.showFilter = function(locals) {
+        return self.show({
+          locals: locals,
+          controller: 'FilterDialogController as ctrl',
+          templateUrl: 'scripts/templates/filter.tmpl.html'
+        });
+      };
+
       return self;
     }
   ]);
