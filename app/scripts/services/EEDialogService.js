@@ -109,6 +109,25 @@ angular.module('eagleeye')
         });
       };
 
+      /**
+       * @method
+       * @name eagleeye.EEDialogService#showFilter
+       * @description Show filter data table dialog.
+       * @param {Object} locals An object containing key/value pairs.
+       *                        The keys will be used as names of values
+       *                        to inject into the controller.
+       * @returns {promise} A promise that will be resolved when click
+       *                    'DELETE' button or rejected when click
+       *                    'CANCEL' button.
+       */
+      self.showFilter = function(locals) {
+        return self.show({
+          locals: locals,
+          controller: 'FilterDialogController as ctrl',
+          templateUrl: 'scripts/templates/filter.tmpl.html'
+        });
+      };
+
       return self;
     }
   ]);
