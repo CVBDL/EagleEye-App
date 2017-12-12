@@ -54,11 +54,17 @@ angular.module('eagleeye')
       });
     };
 
+    /**
+     * Show filter data table dialog.
+     *
+     * @method
+     */
     this.showFilter = function() {
       if (!controller.chart || !controller.chart.datatable) return;
 
       EEDialogService.showFilter({
-        datatable: controller.chart.datatable
+        datatable: angular.copy(controller.chart.datatable, {})
+
       }).then(function(data) {
         controller.filteredDatatable = data;
       });

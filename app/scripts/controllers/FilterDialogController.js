@@ -13,15 +13,6 @@ angular.module('eagleeye')
 
     this.dt = angular.copy(datatable, {});
 
-    /**
-     * Hide dialog and reject the promise returned from $mdDialog.show().
-     *
-     * @method
-     */
-    this.cancel = function() {
-      $mdDialog.cancel();
-    };
-
     this.selectAll = function(colsrows) {
       colsrows.forEach(function(colrow) {
         colrow.isHide = false;
@@ -59,7 +50,7 @@ angular.module('eagleeye')
       return (result.length > 0 && result.length < colsrows.length);
     };
 
-    this.filterCategory = function(dt) {
+    this.filterRows = function(dt) {
       var datatable = {};
       datatable.cols = angular.copy(dt.cols);
       datatable.rows = angular.copy(dt.rows).filter(function(row) {
@@ -69,7 +60,7 @@ angular.module('eagleeye')
       return datatable;
     };
 
-    this.filterColumn = function(dt) {
+    this.filterColumns = function(dt) {
       var datatable = {};
       var hideIndexes = dt.cols.map(function(col, index) {
         if (col.isHide) {
@@ -92,9 +83,17 @@ angular.module('eagleeye')
       return datatable;
     };
 
+    /**
+     * Hide dialog and reject the promise returned from $mdDialog.show().
+     *
+     * @method
+     */
+    this.cancel = function() {
+      $mdDialog.cancel();
+    };
+
     this.apply = function(dt) {
-      var datatable = this.filterCategory(dt);
-      datatable = this.filterColumn(datatable);
+      var datatable = this.filterColumns(this.filterRows(dt));
       $mdDialog.hide(datatable);
     };
   }
