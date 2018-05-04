@@ -25,7 +25,7 @@
         </md-button>
       </div>
       <div class="ee-list">
-        <div class="ee-list__item" ng-repeat="chart in ctrl.chartList track by chart._id">
+        <div class="ee-list__item" ng-repeat="chart in ctrl.chartList | limitTo: ctrl.displayLimit track by chart._id ">
           <a ui-sref="chart({ id: chart._id })">
             <div class="ee-list__item__content" layout="row" layout-align="start center">
               <div class="ee-list__item__content__col-1 ee-list__item__index ee-text-black-primary" flex="none">
@@ -66,7 +66,12 @@
               </div>
             </div>
           </a>
-          <md-divider ng-hide="$last"></md-divider>
+          <md-divider></md-divider>
+        </div>
+        <div layout="row" layout-align="center center">
+          <md-button class="md-raised md-accent"
+            ng-disabled="ctrl.chartList.length <= ctrl.displayLimit"
+            ng-click="ctrl.loadMore()">Load more charts</md-button>
         </div>
       </div>
     </div>

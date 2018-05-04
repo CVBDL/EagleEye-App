@@ -16,6 +16,9 @@ angular.module('eagleeye')
     /** @default true */
     this.isLoading = true;
 
+    this.displayLimit = 10;
+    this.limitIncrement = 10;
+
     /**
      * Load chart list then set loading status and update model
      *
@@ -56,6 +59,18 @@ angular.module('eagleeye')
      */
     this.createChart = function() {
       $state.go('chartCreation');
+    };
+
+    /**
+     * @method
+     */
+    this.loadMore = function() {
+      if (controller.chartList && controller.chartList.length) {
+        var length = controller.chartList.length;
+        if (controller.displayLimit < length) {
+          controller.displayLimit += controller.limitIncrement;
+        }
+      }
     };
 
     /**
